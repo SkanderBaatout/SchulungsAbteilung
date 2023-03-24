@@ -50,12 +50,12 @@ namespace Essai
             {
 
                 int stdId = Convert.ToInt32(textBox_studentId.Text);
-                //string cName = comboBox_selectCourse.Text;
+                string cName = comboBox_selectCourse.Text;
                 int scor = Convert.ToInt32(textBox_score.Text);
                 string desc = textBox_description.Text;
 
 
-                if (score.updateScore(stdId, scor, desc))
+                if (score.updateScore(stdId, cName, scor, desc))
                 {
                     showScore();
                     button_clear.PerformClick();
@@ -84,6 +84,7 @@ namespace Essai
             {
                 int id = Convert.ToInt32(textBox_studentId.Text);
                 // display a confirmation msg before deleting 
+
                 if (MessageBox.Show("Are you sure you want to delete this score?", "Delete Score", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     if (score.deleteScore(id))
@@ -111,6 +112,14 @@ namespace Essai
             comboBox_selectCourse.Text = DataGridViewScores.CurrentRow.Cells[3].Value.ToString();
             textBox_score.Text = DataGridViewScores.CurrentRow.Cells[4].Value.ToString();
             textBox_description.Text = DataGridViewScores.CurrentRow.Cells[5].Value.ToString();
+        }
+
+        private void button_search_Click(object sender, EventArgs e)
+        {
+
+            DataGridViewScores.DataSource = score.getList(new MySqlCommand("SELECT Score.EmployeeId,employee.EmployeeFirstName,employee.EmployeeLastName,Score.CourseName,Score.Score,score.Description FROM employee INNER JOIN score ON Score.EmployeeId=employee.EmployeeId WHERE CONCAT(employee.EmployeeFirstName,employee.EmployeeLastName,Score.CourseName) LIKE '%"+ textBox_search.Text +"%'"));
+            //SELECT Score.EmployeeId,employee.EmployeeFirstName,employee.EmployeeLastName,Score.CourseName,Score.Score,score.Description FROM employee INNER JOIN score ON Score.EmployeeId=employee.EmployeeId WHERE CONCAT(employee.EmployeeFirstName,employee.EmployeeLastName,Score.CourseName) LIKE "%IA"
+
         }
     }
 }

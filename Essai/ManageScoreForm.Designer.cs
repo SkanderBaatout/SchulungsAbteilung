@@ -71,6 +71,7 @@
             button_search.TabIndex = 83;
             button_search.Text = "Search";
             button_search.UseVisualStyleBackColor = false;
+            button_search.Click += button_search_Click;
             // 
             // button_clear
             // 

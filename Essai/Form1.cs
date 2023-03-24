@@ -137,6 +137,7 @@ namespace Essai
 
         private void button_print_score_Click_1(object sender, EventArgs e)
         {
+            openChildForm(new PrintScoreForm());
             hideSubMenu();
         }
         #endregion ScoreSubMenu
@@ -159,17 +160,19 @@ namespace Essai
 
         private void button_exit_Click(object sender, EventArgs e)
         {
+            LoginForm login = new LoginForm();
+            this.Hide();
+            login.Show();
+        }
+
+        private void button_dashboard_Click(object sender, EventArgs e)
+        {
             if (activeForm != null)
             {
                 activeForm.Close();
             }
             panel_main.Controls.Add(panel_cover);
             employeeCount();
-        }
-
-        private void button_dashboard_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
