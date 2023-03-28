@@ -26,7 +26,7 @@ namespace Essai
         {
             startPoint += 1;
             ProgressIndicator.Start();
-            if(startPoint > 40)
+            if (startPoint > 40)
             {
                 LoginForm login = new LoginForm();
                 ProgressIndicator.Stop();
