@@ -174,5 +174,28 @@ namespace Essai
             panel_main.Controls.Add(panel_cover);
             employeeCount();
         }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            hideSubMenu();
+        }
+
+        private void button_addQuestion_Click(object sender, EventArgs e)
+        {
+            AddQuestionForm form = new AddQuestionForm();
+            form.Show();
+            this.Hide();
+            hideSubMenu();
+        }
+
+        private void button_updateQuestion_Click(object sender, EventArgs e)
+        {
+            hideSubMenu();
+        }
+
+        private void button_consultQuestions_Click(object sender, EventArgs e)
+        {
+            hideSubMenu();
+        }
     }
 }

@@ -48,13 +48,13 @@
             label7 = new Label();
             comboBox_selectUser = new ComboBox();
             panel_admin = new Panel();
-            checkBox_showPass = new CheckBox();
             panel_Employee = new Panel();
             button_employee_login = new Button();
             textBox_matricule = new TextBox();
             button_employee_register = new Button();
             label8 = new Label();
             label9 = new Label();
+            checkBox_showPass = new CheckBox();
             guna2Elipse4 = new Guna.UI2.WinForms.Guna2Elipse(components);
             guna2Elipse5 = new Guna.UI2.WinForms.Guna2Elipse(components);
             guna2Elipse6 = new Guna.UI2.WinForms.Guna2Elipse(components);
@@ -238,7 +238,6 @@
             // 
             // panel_admin
             // 
-            panel_admin.Controls.Add(panel_Employee);
             panel_admin.Controls.Add(checkBox_showPass);
             panel_admin.Controls.Add(textBox_username);
             panel_admin.Controls.Add(textBox_password);
@@ -251,19 +250,6 @@
             panel_admin.Size = new Size(593, 280);
             panel_admin.TabIndex = 11;
             // 
-            // checkBox_showPass
-            // 
-            checkBox_showPass.AutoSize = true;
-            checkBox_showPass.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBox_showPass.ForeColor = Color.Teal;
-            checkBox_showPass.Location = new Point(43, 184);
-            checkBox_showPass.Name = "checkBox_showPass";
-            checkBox_showPass.Size = new Size(127, 21);
-            checkBox_showPass.TabIndex = 8;
-            checkBox_showPass.Text = "Show Password";
-            checkBox_showPass.UseVisualStyleBackColor = true;
-            checkBox_showPass.CheckedChanged += checkBox_showPass_CheckedChanged;
-            // 
             // panel_Employee
             // 
             panel_Employee.Controls.Add(button_employee_login);
@@ -271,7 +257,7 @@
             panel_Employee.Controls.Add(button_employee_register);
             panel_Employee.Controls.Add(label8);
             panel_Employee.Controls.Add(label9);
-            panel_Employee.Location = new Point(3, 0);
+            panel_Employee.Location = new Point(283, 304);
             panel_Employee.Name = "panel_Employee";
             panel_Employee.Size = new Size(593, 280);
             panel_Employee.TabIndex = 12;
@@ -331,6 +317,19 @@
             label9.TabIndex = 2;
             label9.Text = "Employee Login";
             // 
+            // checkBox_showPass
+            // 
+            checkBox_showPass.AutoSize = true;
+            checkBox_showPass.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBox_showPass.ForeColor = Color.Teal;
+            checkBox_showPass.Location = new Point(43, 184);
+            checkBox_showPass.Name = "checkBox_showPass";
+            checkBox_showPass.Size = new Size(127, 21);
+            checkBox_showPass.TabIndex = 8;
+            checkBox_showPass.Text = "Show Password";
+            checkBox_showPass.UseVisualStyleBackColor = true;
+            checkBox_showPass.CheckedChanged += checkBox_showPass_CheckedChanged;
+            // 
             // guna2Elipse5
             // 
             guna2Elipse5.BorderRadius = 15;
@@ -347,6 +346,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(panel_Employee);
             Controls.Add(panel_admin);
             Controls.Add(comboBox_selectUser);
             Controls.Add(label7);

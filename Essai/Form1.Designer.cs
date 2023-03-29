@@ -38,6 +38,10 @@
             button_new_score = new Button();
             button_score = new Button();
             panel_course_subMenu = new Panel();
+            button_consultQuestions = new Button();
+            button_updateQuestion = new Button();
+            button_addQuestion = new Button();
+            button_questions = new Button();
             button_courseprint = new Button();
             button_manage_course = new Button();
             button_newcourse = new Button();
@@ -98,7 +102,7 @@
             panel_slide.Dock = DockStyle.Left;
             panel_slide.Location = new Point(0, 0);
             panel_slide.Name = "panel_slide";
-            panel_slide.Size = new Size(200, 611);
+            panel_slide.Size = new Size(200, 686);
             panel_slide.TabIndex = 0;
             // 
             // button_exit
@@ -109,7 +113,7 @@
             button_exit.FlatStyle = FlatStyle.Flat;
             button_exit.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button_exit.ForeColor = Color.White;
-            button_exit.Location = new Point(0, 673);
+            button_exit.Location = new Point(0, 817);
             button_exit.Name = "button_exit";
             button_exit.Padding = new Padding(10, 0, 0, 0);
             button_exit.Size = new Size(183, 37);
@@ -127,7 +131,7 @@
             button_dashboard.FlatStyle = FlatStyle.Flat;
             button_dashboard.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button_dashboard.ForeColor = Color.White;
-            button_dashboard.Location = new Point(0, 636);
+            button_dashboard.Location = new Point(0, 780);
             button_dashboard.Name = "button_dashboard";
             button_dashboard.Padding = new Padding(10, 0, 0, 0);
             button_dashboard.Size = new Size(183, 37);
@@ -144,7 +148,7 @@
             panel_score_subMenu.Controls.Add(button2);
             panel_score_subMenu.Controls.Add(button_new_score);
             panel_score_subMenu.Dock = DockStyle.Top;
-            panel_score_subMenu.Location = new Point(0, 497);
+            panel_score_subMenu.Location = new Point(0, 641);
             panel_score_subMenu.Name = "panel_score_subMenu";
             panel_score_subMenu.Size = new Size(183, 139);
             panel_score_subMenu.TabIndex = 6;
@@ -208,7 +212,7 @@
             button_score.FlatStyle = FlatStyle.Flat;
             button_score.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button_score.ForeColor = Color.White;
-            button_score.Location = new Point(0, 460);
+            button_score.Location = new Point(0, 604);
             button_score.Name = "button_score";
             button_score.Padding = new Padding(10, 0, 0, 0);
             button_score.Size = new Size(183, 37);
@@ -221,14 +225,87 @@
             // panel_course_subMenu
             // 
             panel_course_subMenu.BackColor = Color.DarkCyan;
+            panel_course_subMenu.Controls.Add(button_consultQuestions);
+            panel_course_subMenu.Controls.Add(button_updateQuestion);
+            panel_course_subMenu.Controls.Add(button_addQuestion);
+            panel_course_subMenu.Controls.Add(button_questions);
             panel_course_subMenu.Controls.Add(button_courseprint);
             panel_course_subMenu.Controls.Add(button_manage_course);
             panel_course_subMenu.Controls.Add(button_newcourse);
             panel_course_subMenu.Dock = DockStyle.Top;
-            panel_course_subMenu.Location = new Point(0, 321);
+            panel_course_subMenu.Location = new Point(0, 309);
             panel_course_subMenu.Name = "panel_course_subMenu";
-            panel_course_subMenu.Size = new Size(183, 139);
+            panel_course_subMenu.Size = new Size(183, 295);
             panel_course_subMenu.TabIndex = 4;
+            // 
+            // button_consultQuestions
+            // 
+            button_consultQuestions.Dock = DockStyle.Top;
+            button_consultQuestions.FlatAppearance.BorderSize = 0;
+            button_consultQuestions.FlatStyle = FlatStyle.Flat;
+            button_consultQuestions.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            button_consultQuestions.ForeColor = Color.White;
+            button_consultQuestions.Location = new Point(0, 251);
+            button_consultQuestions.Name = "button_consultQuestions";
+            button_consultQuestions.Padding = new Padding(35, 0, 0, 0);
+            button_consultQuestions.Size = new Size(183, 44);
+            button_consultQuestions.TabIndex = 11;
+            button_consultQuestions.Text = "View and Delete Questions";
+            button_consultQuestions.TextAlign = ContentAlignment.MiddleLeft;
+            button_consultQuestions.UseVisualStyleBackColor = true;
+            button_consultQuestions.Click += button_consultQuestions_Click;
+            // 
+            // button_updateQuestion
+            // 
+            button_updateQuestion.Dock = DockStyle.Top;
+            button_updateQuestion.FlatAppearance.BorderSize = 0;
+            button_updateQuestion.FlatStyle = FlatStyle.Flat;
+            button_updateQuestion.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            button_updateQuestion.ForeColor = Color.White;
+            button_updateQuestion.Location = new Point(0, 207);
+            button_updateQuestion.Name = "button_updateQuestion";
+            button_updateQuestion.Padding = new Padding(35, 0, 0, 0);
+            button_updateQuestion.Size = new Size(183, 44);
+            button_updateQuestion.TabIndex = 9;
+            button_updateQuestion.Text = "Update Question";
+            button_updateQuestion.TextAlign = ContentAlignment.MiddleLeft;
+            button_updateQuestion.UseVisualStyleBackColor = true;
+            button_updateQuestion.Click += button_updateQuestion_Click;
+            // 
+            // button_addQuestion
+            // 
+            button_addQuestion.Dock = DockStyle.Top;
+            button_addQuestion.FlatAppearance.BorderSize = 0;
+            button_addQuestion.FlatStyle = FlatStyle.Flat;
+            button_addQuestion.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            button_addQuestion.ForeColor = Color.White;
+            button_addQuestion.Location = new Point(0, 163);
+            button_addQuestion.Name = "button_addQuestion";
+            button_addQuestion.Padding = new Padding(35, 0, 0, 0);
+            button_addQuestion.Size = new Size(183, 44);
+            button_addQuestion.TabIndex = 8;
+            button_addQuestion.Text = "Add New Question";
+            button_addQuestion.TextAlign = ContentAlignment.MiddleLeft;
+            button_addQuestion.UseVisualStyleBackColor = true;
+            button_addQuestion.Click += button_addQuestion_Click;
+            // 
+            // button_questions
+            // 
+            button_questions.BackColor = Color.Teal;
+            button_questions.Dock = DockStyle.Top;
+            button_questions.FlatAppearance.BorderSize = 0;
+            button_questions.FlatStyle = FlatStyle.Flat;
+            button_questions.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button_questions.ForeColor = Color.White;
+            button_questions.Location = new Point(0, 126);
+            button_questions.Name = "button_questions";
+            button_questions.Padding = new Padding(10, 0, 0, 0);
+            button_questions.Size = new Size(183, 37);
+            button_questions.TabIndex = 10;
+            button_questions.Text = "Questions";
+            button_questions.TextAlign = ContentAlignment.MiddleLeft;
+            button_questions.UseVisualStyleBackColor = false;
+            button_questions.Click += button4_Click_1;
             // 
             // button_courseprint
             // 
@@ -289,7 +366,7 @@
             button_course.FlatStyle = FlatStyle.Flat;
             button_course.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button_course.ForeColor = Color.White;
-            button_course.Location = new Point(0, 284);
+            button_course.Location = new Point(0, 272);
             button_course.Name = "button_course";
             button_course.Padding = new Padding(10, 0, 0, 0);
             button_course.Size = new Size(183, 37);
@@ -306,9 +383,9 @@
             panel_std_menu.Controls.Add(button_manage_std);
             panel_std_menu.Controls.Add(button_registrtion);
             panel_std_menu.Dock = DockStyle.Top;
-            panel_std_menu.Location = new Point(0, 157);
+            panel_std_menu.Location = new Point(0, 139);
             panel_std_menu.Name = "panel_std_menu";
-            panel_std_menu.Size = new Size(183, 127);
+            panel_std_menu.Size = new Size(183, 133);
             panel_std_menu.TabIndex = 2;
             // 
             // button_stdprint
@@ -370,7 +447,7 @@
             button_std.FlatStyle = FlatStyle.Flat;
             button_std.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button_std.ForeColor = Color.White;
-            button_std.Location = new Point(0, 120);
+            button_std.Location = new Point(0, 102);
             button_std.Name = "button_std";
             button_std.Padding = new Padding(10, 0, 0, 0);
             button_std.Size = new Size(183, 37);
@@ -387,7 +464,7 @@
             panel_logo.Dock = DockStyle.Top;
             panel_logo.Location = new Point(0, 0);
             panel_logo.Name = "panel_logo";
-            panel_logo.Size = new Size(183, 120);
+            panel_logo.Size = new Size(183, 102);
             panel_logo.TabIndex = 0;
             // 
             // label2
@@ -407,7 +484,7 @@
             panel_main.Dock = DockStyle.Fill;
             panel_main.Location = new Point(200, 0);
             panel_main.Name = "panel_main";
-            panel_main.Size = new Size(934, 611);
+            panel_main.Size = new Size(934, 686);
             panel_main.TabIndex = 1;
             // 
             // panel_cover
@@ -419,7 +496,7 @@
             panel_cover.Dock = DockStyle.Fill;
             panel_cover.Location = new Point(0, 0);
             panel_cover.Name = "panel_cover";
-            panel_cover.Size = new Size(934, 611);
+            panel_cover.Size = new Size(934, 686);
             panel_cover.TabIndex = 0;
             // 
             // pictureBox2
@@ -443,7 +520,7 @@
             panel3.Controls.Add(label_maleEmp);
             panel3.Controls.Add(label_totalEmp);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 508);
+            panel3.Location = new Point(0, 583);
             panel3.Name = "panel3";
             panel3.Size = new Size(934, 103);
             panel3.TabIndex = 2;
@@ -617,7 +694,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1134, 611);
+            ClientSize = new Size(1134, 686);
             Controls.Add(panel_main);
             Controls.Add(panel_slide);
             MinimumSize = new Size(1150, 650);
@@ -685,5 +762,9 @@
         private PictureBox pictureBox1;
         private Label label12;
         private Button button_exit;
+        private Button button_consultQuestions;
+        private Button button_updateQuestion;
+        private Button button_addQuestion;
+        private Button button_questions;
     }
 }
