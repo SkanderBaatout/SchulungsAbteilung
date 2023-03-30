@@ -190,11 +190,17 @@ namespace Essai
 
         private void button_updateQuestion_Click(object sender, EventArgs e)
         {
+           UpdateQuestionForm form = new UpdateQuestionForm();
+            form.Show();
+            this.Hide();
             hideSubMenu();
         }
 
         private void button_consultQuestions_Click(object sender, EventArgs e)
         {
+            ViewDeleteQuestionsForm form = new ViewDeleteQuestionsForm();
+            form.Show();
+            this.Hide();
             hideSubMenu();
         }
     }

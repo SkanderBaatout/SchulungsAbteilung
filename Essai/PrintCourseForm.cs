@@ -58,7 +58,7 @@ namespace Essai
         {
             DataGridViewCourses.ReadOnly = true;
             DataGridViewCourses.DataSource = course.getCourse(command);
-            
+
 
 
         }

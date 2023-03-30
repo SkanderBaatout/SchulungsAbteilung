@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             panel1 = new Panel();
             label7 = new Label();
             DataGridViewEmployees = new Guna.UI2.WinForms.Guna2DataGridView();
@@ -84,34 +84,34 @@
             // 
             DataGridViewEmployees.AllowUserToAddRows = false;
             DataGridViewEmployees.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.BackColor = Color.White;
-            DataGridViewEmployees.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = Color.White;
+            DataGridViewEmployees.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             DataGridViewEmployees.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             DataGridViewEmployees.BackgroundColor = Color.Gainsboro;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle5.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            DataGridViewEmployees.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            DataGridViewEmployees.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             DataGridViewEmployees.ColumnHeadersHeight = 24;
             DataGridViewEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = Color.White;
-            dataGridViewCellStyle6.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            DataGridViewEmployees.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            DataGridViewEmployees.DefaultCellStyle = dataGridViewCellStyle3;
             DataGridViewEmployees.GridColor = Color.FromArgb(231, 229, 255);
             DataGridViewEmployees.Location = new Point(12, 114);
             DataGridViewEmployees.Name = "DataGridViewEmployees";
             DataGridViewEmployees.RowHeadersVisible = false;
             DataGridViewEmployees.RowTemplate.Height = 80;
-            DataGridViewEmployees.Size = new Size(910, 389);
+            DataGridViewEmployees.Size = new Size(910, 388);
             DataGridViewEmployees.TabIndex = 63;
             DataGridViewEmployees.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             DataGridViewEmployees.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -139,7 +139,7 @@
             // textBox_id
             // 
             textBox_id.Anchor = AnchorStyles.None;
-            textBox_id.Location = new Point(1023, 125);
+            textBox_id.Location = new Point(1017, 120);
             textBox_id.Name = "textBox_id";
             textBox_id.Size = new Size(121, 23);
             textBox_id.TabIndex = 62;
@@ -151,7 +151,7 @@
             label_id.AutoSize = true;
             label_id.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label_id.ForeColor = Color.Teal;
-            label_id.Location = new Point(959, 125);
+            label_id.Location = new Point(953, 120);
             label_id.Name = "label_id";
             label_id.Size = new Size(58, 19);
             label_id.TabIndex = 61;
@@ -160,6 +160,7 @@
             // 
             // panel2
             // 
+            panel2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel2.Controls.Add(radioButton_female);
             panel2.Controls.Add(button_print);
             panel2.Controls.Add(radioButton_male);
@@ -172,9 +173,9 @@
             panel2.Controls.Add(button_delete);
             panel2.Controls.Add(button_upload);
             panel2.Controls.Add(pictureBox_employee);
-            panel2.Location = new Point(0, 523);
+            panel2.Location = new Point(12, 522);
             panel2.Name = "panel2";
-            panel2.Size = new Size(922, 76);
+            panel2.Size = new Size(910, 67);
             panel2.TabIndex = 65;
             panel2.Paint += panel2_Paint;
             // 
@@ -184,7 +185,7 @@
             radioButton_female.AutoSize = true;
             radioButton_female.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             radioButton_female.ForeColor = Color.Teal;
-            radioButton_female.Location = new Point(240, 17);
+            radioButton_female.Location = new Point(240, 8);
             radioButton_female.Name = "radioButton_female";
             radioButton_female.Size = new Size(84, 23);
             radioButton_female.TabIndex = 68;
@@ -199,7 +200,7 @@
             button_print.BackColor = Color.Teal;
             button_print.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             button_print.ForeColor = Color.White;
-            button_print.Location = new Point(805, 28);
+            button_print.Location = new Point(793, 19);
             button_print.Name = "button_print";
             button_print.Size = new Size(105, 33);
             button_print.TabIndex = 67;
@@ -213,7 +214,7 @@
             radioButton_male.AutoSize = true;
             radioButton_male.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             radioButton_male.ForeColor = Color.Teal;
-            radioButton_male.Location = new Point(168, 17);
+            radioButton_male.Location = new Point(168, 8);
             radioButton_male.Name = "radioButton_male";
             radioButton_male.Size = new Size(66, 23);
             radioButton_male.TabIndex = 65;
@@ -229,7 +230,7 @@
             radioButton_all.Checked = true;
             radioButton_all.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             radioButton_all.ForeColor = Color.Teal;
-            radioButton_all.Location = new Point(106, 17);
+            radioButton_all.Location = new Point(106, 8);
             radioButton_all.Name = "radioButton_all";
             radioButton_all.Size = new Size(47, 23);
             radioButton_all.TabIndex = 64;
@@ -244,7 +245,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.Teal;
-            label4.Location = new Point(12, 19);
+            label4.Location = new Point(12, 10);
             label4.Name = "label4";
             label4.Size = new Size(76, 19);
             label4.TabIndex = 63;
@@ -256,7 +257,7 @@
             button_clear.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             button_clear.BackColor = Color.Orange;
             button_clear.ForeColor = Color.White;
-            button_clear.Location = new Point(1339, 158);
+            button_clear.Location = new Point(1327, 149);
             button_clear.Name = "button_clear";
             button_clear.Size = new Size(96, 33);
             button_clear.TabIndex = 60;
@@ -269,7 +270,7 @@
             button_update.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             button_update.BackColor = Color.OrangeRed;
             button_update.ForeColor = Color.White;
-            button_update.Location = new Point(1441, 158);
+            button_update.Location = new Point(1429, 149);
             button_update.Name = "button_update";
             button_update.Size = new Size(96, 33);
             button_update.TabIndex = 58;
@@ -282,7 +283,7 @@
             button_delete.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             button_delete.BackColor = Color.Red;
             button_delete.ForeColor = Color.White;
-            button_delete.Location = new Point(1543, 158);
+            button_delete.Location = new Point(1531, 149);
             button_delete.Name = "button_delete";
             button_delete.Size = new Size(96, 33);
             button_delete.TabIndex = 57;
@@ -295,7 +296,7 @@
             button_upload.Anchor = AnchorStyles.None;
             button_upload.BackColor = Color.DarkGreen;
             button_upload.ForeColor = Color.White;
-            button_upload.Location = new Point(1173, 121);
+            button_upload.Location = new Point(1167, 116);
             button_upload.Name = "button_upload";
             button_upload.Size = new Size(105, 33);
             button_upload.TabIndex = 54;
@@ -307,7 +308,7 @@
             // 
             pictureBox_employee.Anchor = AnchorStyles.None;
             pictureBox_employee.BackColor = SystemColors.ActiveBorder;
-            pictureBox_employee.Location = new Point(1173, -7);
+            pictureBox_employee.Location = new Point(1167, -12);
             pictureBox_employee.Name = "pictureBox_employee";
             pictureBox_employee.Size = new Size(105, 122);
             pictureBox_employee.SizeMode = PictureBoxSizeMode.Zoom;
@@ -319,7 +320,7 @@
             // 
             panel3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel3.BackColor = Color.Teal;
-            panel3.Location = new Point(12, 509);
+            panel3.Location = new Point(12, 508);
             panel3.Name = "panel3";
             panel3.Size = new Size(910, 8);
             panel3.TabIndex = 66;
