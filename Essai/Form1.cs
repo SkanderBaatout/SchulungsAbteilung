@@ -190,7 +190,7 @@ namespace Essai
 
         private void button_updateQuestion_Click(object sender, EventArgs e)
         {
-           UpdateQuestionForm form = new UpdateQuestionForm();
+            UpdateQuestionForm form = new UpdateQuestionForm();
             form.Show();
             this.Hide();
             hideSubMenu();
@@ -202,6 +202,15 @@ namespace Essai
             form.Show();
             this.Hide();
             hideSubMenu();
+        }
+
+        private void button_plan_Click(object sender, EventArgs e)
+        {
+            showSubMenu(panel_course_subMenu);
+            PlanFormation form = new PlanFormation();
+            form.Show();
+            this.Hide();
+
         }
     }
 }
