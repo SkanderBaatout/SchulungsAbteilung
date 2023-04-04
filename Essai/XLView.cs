@@ -20,7 +20,7 @@ namespace Essai
         }
 
 
-        private void showFile(string fileName)
+        public void showFile(string fileName)
         {
             if (fileName != "")
             {
