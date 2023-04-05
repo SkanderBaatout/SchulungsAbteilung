@@ -48,13 +48,17 @@
             label7 = new Label();
             comboBox_selectUser = new ComboBox();
             panel_admin = new Panel();
-            panel_Employee = new Panel();
-            button_employee_login = new Button();
-            textBox_matricule = new TextBox();
-            button_employee_register = new Button();
-            label8 = new Label();
-            label9 = new Label();
             checkBox_showPass = new CheckBox();
+            panel_Employee = new Panel();
+            checkBox_showpassEmp = new CheckBox();
+            textBox_emp_username = new TextBox();
+            textBox_emp_pass = new TextBox();
+            label8 = new Label();
+            label10 = new Label();
+            dateTimePicker1 = new DateTimePicker();
+            button_employee_login = new Button();
+            button_employee_register = new Button();
+            label9 = new Label();
             guna2Elipse4 = new Guna.UI2.WinForms.Guna2Elipse(components);
             guna2Elipse5 = new Guna.UI2.WinForms.Guna2Elipse(components);
             guna2Elipse6 = new Guna.UI2.WinForms.Guna2Elipse(components);
@@ -247,75 +251,8 @@
             panel_admin.Controls.Add(label4);
             panel_admin.Location = new Point(286, 319);
             panel_admin.Name = "panel_admin";
-            panel_admin.Size = new Size(593, 280);
+            panel_admin.Size = new Size(593, 298);
             panel_admin.TabIndex = 11;
-            // 
-            // panel_Employee
-            // 
-            panel_Employee.Controls.Add(button_employee_login);
-            panel_Employee.Controls.Add(textBox_matricule);
-            panel_Employee.Controls.Add(button_employee_register);
-            panel_Employee.Controls.Add(label8);
-            panel_Employee.Controls.Add(label9);
-            panel_Employee.Location = new Point(283, 304);
-            panel_Employee.Name = "panel_Employee";
-            panel_Employee.Size = new Size(593, 280);
-            panel_Employee.TabIndex = 12;
-            // 
-            // button_employee_login
-            // 
-            button_employee_login.BackColor = Color.Teal;
-            button_employee_login.FlatStyle = FlatStyle.Flat;
-            button_employee_login.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button_employee_login.Location = new Point(82, 148);
-            button_employee_login.Name = "button_employee_login";
-            button_employee_login.Size = new Size(289, 41);
-            button_employee_login.TabIndex = 7;
-            button_employee_login.Text = "LOGIN";
-            button_employee_login.UseVisualStyleBackColor = false;
-            // 
-            // textBox_matricule
-            // 
-            textBox_matricule.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox_matricule.Location = new Point(43, 90);
-            textBox_matricule.Name = "textBox_matricule";
-            textBox_matricule.Size = new Size(363, 27);
-            textBox_matricule.TabIndex = 3;
-            textBox_matricule.TextAlign = HorizontalAlignment.Center;
-            // 
-            // button_employee_register
-            // 
-            button_employee_register.BackColor = Color.Teal;
-            button_employee_register.FlatStyle = FlatStyle.Flat;
-            button_employee_register.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button_employee_register.Location = new Point(82, 221);
-            button_employee_register.Name = "button_employee_register";
-            button_employee_register.Size = new Size(289, 41);
-            button_employee_register.TabIndex = 5;
-            button_employee_register.Text = "REGISTER";
-            button_employee_register.UseVisualStyleBackColor = false;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.ForeColor = Color.Teal;
-            label8.Location = new Point(43, 66);
-            label8.Name = "label8";
-            label8.Size = new Size(92, 21);
-            label8.TabIndex = 6;
-            label8.Text = "Matricule :";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Century Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label9.ForeColor = Color.Teal;
-            label9.Location = new Point(85, 15);
-            label9.Name = "label9";
-            label9.Size = new Size(173, 25);
-            label9.TabIndex = 2;
-            label9.Text = "Employee Login";
             // 
             // checkBox_showPass
             // 
@@ -329,6 +266,122 @@
             checkBox_showPass.Text = "Show Password";
             checkBox_showPass.UseVisualStyleBackColor = true;
             checkBox_showPass.CheckedChanged += checkBox_showPass_CheckedChanged;
+            // 
+            // panel_Employee
+            // 
+            panel_Employee.Controls.Add(checkBox_showpassEmp);
+            panel_Employee.Controls.Add(textBox_emp_username);
+            panel_Employee.Controls.Add(textBox_emp_pass);
+            panel_Employee.Controls.Add(label8);
+            panel_Employee.Controls.Add(label10);
+            panel_Employee.Controls.Add(dateTimePicker1);
+            panel_Employee.Controls.Add(button_employee_login);
+            panel_Employee.Controls.Add(button_employee_register);
+            panel_Employee.Controls.Add(label9);
+            panel_Employee.Location = new Point(261, 319);
+            panel_Employee.Name = "panel_Employee";
+            panel_Employee.Size = new Size(638, 295);
+            panel_Employee.TabIndex = 12;
+            // 
+            // checkBox_showpassEmp
+            // 
+            checkBox_showpassEmp.AutoSize = true;
+            checkBox_showpassEmp.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBox_showpassEmp.ForeColor = Color.Teal;
+            checkBox_showpassEmp.Location = new Point(82, 159);
+            checkBox_showpassEmp.Name = "checkBox_showpassEmp";
+            checkBox_showpassEmp.Size = new Size(127, 21);
+            checkBox_showpassEmp.TabIndex = 13;
+            checkBox_showpassEmp.Text = "Show Password";
+            checkBox_showpassEmp.UseVisualStyleBackColor = true;
+            checkBox_showpassEmp.CheckedChanged += checkBox_showpassEmp_CheckedChanged;
+            // 
+            // textBox_emp_username
+            // 
+            textBox_emp_username.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox_emp_username.Location = new Point(82, 65);
+            textBox_emp_username.Name = "textBox_emp_username";
+            textBox_emp_username.Size = new Size(289, 27);
+            textBox_emp_username.TabIndex = 9;
+            textBox_emp_username.TextAlign = HorizontalAlignment.Center;
+            // 
+            // textBox_emp_pass
+            // 
+            textBox_emp_pass.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox_emp_pass.Location = new Point(82, 126);
+            textBox_emp_pass.Name = "textBox_emp_pass";
+            textBox_emp_pass.PasswordChar = '*';
+            textBox_emp_pass.Size = new Size(289, 27);
+            textBox_emp_pass.TabIndex = 10;
+            textBox_emp_pass.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.ForeColor = Color.Teal;
+            label8.Location = new Point(82, 41);
+            label8.Name = "label8";
+            label8.Size = new Size(102, 21);
+            label8.TabIndex = 11;
+            label8.Text = "User Name :";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label10.ForeColor = Color.Teal;
+            label10.Location = new Point(82, 102);
+            label10.Name = "label10";
+            label10.Size = new Size(90, 21);
+            label10.TabIndex = 12;
+            label10.Text = "Password :";
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Enabled = false;
+            dateTimePicker1.Location = new Point(374, 25);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(200, 23);
+            dateTimePicker1.TabIndex = 8;
+            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
+            // 
+            // button_employee_login
+            // 
+            button_employee_login.BackColor = Color.Teal;
+            button_employee_login.FlatStyle = FlatStyle.Flat;
+            button_employee_login.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            button_employee_login.Location = new Point(82, 199);
+            button_employee_login.Name = "button_employee_login";
+            button_employee_login.Size = new Size(289, 41);
+            button_employee_login.TabIndex = 7;
+            button_employee_login.Text = "LOGIN";
+            button_employee_login.UseVisualStyleBackColor = false;
+            button_employee_login.Click += button_employee_login_Click;
+            // 
+            // button_employee_register
+            // 
+            button_employee_register.BackColor = Color.Teal;
+            button_employee_register.FlatStyle = FlatStyle.Flat;
+            button_employee_register.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            button_employee_register.Location = new Point(82, 254);
+            button_employee_register.Name = "button_employee_register";
+            button_employee_register.Size = new Size(289, 41);
+            button_employee_register.TabIndex = 5;
+            button_employee_register.Text = "REGISTER";
+            button_employee_register.UseVisualStyleBackColor = false;
+            button_employee_register.Click += button_employee_register_Click;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Century Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label9.ForeColor = Color.Teal;
+            label9.Location = new Point(129, 15);
+            label9.Name = "label9";
+            label9.Size = new Size(173, 25);
+            label9.TabIndex = 2;
+            label9.Text = "Employee Login";
             // 
             // guna2Elipse5
             // 
@@ -393,12 +446,16 @@
         private CheckBox checkBox_showPass;
         private Panel panel_Employee;
         private Button button_employee_login;
-        private TextBox textBox_matricule;
         private Button button_employee_register;
-        private Label label8;
         private Label label9;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse4;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse5;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse6;
+        private DateTimePicker dateTimePicker1;
+        private CheckBox checkBox_showpassEmp;
+        private TextBox textBox_emp_username;
+        private TextBox textBox_emp_pass;
+        private Label label8;
+        private Label label10;
     }
 }

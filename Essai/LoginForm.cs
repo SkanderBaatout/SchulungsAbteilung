@@ -14,6 +14,9 @@ namespace Essai
     public partial class LoginForm : Form
     {
         EmployeeClass employee = new EmployeeClass();
+        Function fn = new Function();
+        string query;
+        DataSet ds;
         public LoginForm()
         {
             InitializeComponent();
@@ -100,6 +103,57 @@ namespace Essai
             {
                 textBox_password.PasswordChar = '*';
                 checkBox_showPass.Text = "Show Password";
+            }
+        }
+
+        private void button_employee_login_Click(object sender, EventArgs e)
+        {
+            query ="select * from employees where username ='"+textBox_emp_username.Text+"' AND  password ='"+textBox_emp_pass.Text+"' ";
+            ds = fn.getData(query);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                this.Hide();
+                Form1 form = new Form1();
+                form.Show();
+            }
+            else
+            {
+                MessageBox.Show("Invalid username or password !!", "Error");
+            }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_matricule_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void button_employee_register_Click(object sender, EventArgs e)
+        {
+            CreateAccount form = new CreateAccount();
+            form.Show();
+            this.Hide();
+        }
+
+        private void checkBox_showpassEmp_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_showPass.Checked == true)
+            {
+                textBox_emp_pass.PasswordChar = '\0';
+                checkBox_showpassEmp.Text = "Hide Password";
+            }
+            else
+            {
+                textBox_emp_pass.PasswordChar = '*';
+                checkBox_showpassEmp.Text = "Show Password";
             }
         }
     }
