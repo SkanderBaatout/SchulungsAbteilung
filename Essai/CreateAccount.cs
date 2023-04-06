@@ -27,51 +27,12 @@ namespace Essai
             Application.Exit();
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void CreateAccount_Load(object sender, EventArgs e)
         {
             label_error.Visible = false;
         }
 
-        private void panel_admin_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void button_login_Click(object sender, EventArgs e)
         {
@@ -98,13 +59,6 @@ namespace Essai
             this.Hide();
         }
 
-        private void textBox_confirmPass_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void label12_Click(object sender, EventArgs e)
-        {
-        }
     }
 }

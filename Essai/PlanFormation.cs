@@ -20,7 +20,7 @@ namespace Essai
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog opf = new OpenFileDialog();
-            opf.Filter = "Excel File|*.xlsm||*.xlsx|Excel 2007|*.xls";
+            opf.Filter = "Excel File|*.xlsm||*.xlsx|Excel 2007|*.xls ";
             if (opf.ShowDialog() == DialogResult.OK)
             {
                 xlView2.showFile(opf.FileName);

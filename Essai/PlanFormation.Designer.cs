@@ -48,6 +48,7 @@
             // button1
             // 
             button1.BackColor = Color.Teal;
+            button1.ForeColor = Color.White;
             button1.Location = new Point(401, 29);
             button1.Name = "button1";
             button1.Size = new Size(121, 42);
@@ -69,7 +70,7 @@
             // 
             xlView2.Dock = DockStyle.Fill;
             xlView2.Location = new Point(0, 0);
-            xlView2.Margin = new Padding(4, 4, 4, 4);
+            xlView2.Margin = new Padding(4);
             xlView2.Name = "xlView2";
             xlView2.Size = new Size(950, 550);
             xlView2.TabIndex = 0;

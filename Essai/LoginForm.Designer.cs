@@ -55,7 +55,6 @@
             textBox_emp_pass = new TextBox();
             label8 = new Label();
             label10 = new Label();
-            dateTimePicker1 = new DateTimePicker();
             button_employee_login = new Button();
             button_employee_register = new Button();
             label9 = new Label();
@@ -121,7 +120,7 @@
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
             pictureBox2.Location = new Point(355, 62);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(207, 153);
+            pictureBox2.Size = new Size(207, 138);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
@@ -161,6 +160,7 @@
             button_login.BackColor = Color.Teal;
             button_login.FlatStyle = FlatStyle.Flat;
             button_login.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            button_login.ForeColor = Color.White;
             button_login.Location = new Point(43, 224);
             button_login.Name = "button_login";
             button_login.Size = new Size(289, 41);
@@ -222,7 +222,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Century Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             label7.ForeColor = Color.Teal;
-            label7.Location = new Point(371, 232);
+            label7.Location = new Point(371, 215);
             label7.Name = "label7";
             label7.Size = new Size(191, 24);
             label7.TabIndex = 9;
@@ -234,7 +234,7 @@
             comboBox_selectUser.ForeColor = Color.Teal;
             comboBox_selectUser.FormattingEnabled = true;
             comboBox_selectUser.Items.AddRange(new object[] { "Admin", "Employee" });
-            comboBox_selectUser.Location = new Point(329, 264);
+            comboBox_selectUser.Location = new Point(329, 247);
             comboBox_selectUser.Name = "comboBox_selectUser";
             comboBox_selectUser.Size = new Size(289, 27);
             comboBox_selectUser.TabIndex = 10;
@@ -274,13 +274,12 @@
             panel_Employee.Controls.Add(textBox_emp_pass);
             panel_Employee.Controls.Add(label8);
             panel_Employee.Controls.Add(label10);
-            panel_Employee.Controls.Add(dateTimePicker1);
             panel_Employee.Controls.Add(button_employee_login);
             panel_Employee.Controls.Add(button_employee_register);
             panel_Employee.Controls.Add(label9);
-            panel_Employee.Location = new Point(261, 319);
+            panel_Employee.Location = new Point(253, 292);
             panel_Employee.Name = "panel_Employee";
-            panel_Employee.Size = new Size(638, 295);
+            panel_Employee.Size = new Size(453, 325);
             panel_Employee.TabIndex = 12;
             // 
             // checkBox_showpassEmp
@@ -288,7 +287,7 @@
             checkBox_showpassEmp.AutoSize = true;
             checkBox_showpassEmp.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             checkBox_showpassEmp.ForeColor = Color.Teal;
-            checkBox_showpassEmp.Location = new Point(82, 159);
+            checkBox_showpassEmp.Location = new Point(82, 181);
             checkBox_showpassEmp.Name = "checkBox_showpassEmp";
             checkBox_showpassEmp.Size = new Size(127, 21);
             checkBox_showpassEmp.TabIndex = 13;
@@ -299,7 +298,7 @@
             // textBox_emp_username
             // 
             textBox_emp_username.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox_emp_username.Location = new Point(82, 65);
+            textBox_emp_username.Location = new Point(82, 87);
             textBox_emp_username.Name = "textBox_emp_username";
             textBox_emp_username.Size = new Size(289, 27);
             textBox_emp_username.TabIndex = 9;
@@ -308,7 +307,7 @@
             // textBox_emp_pass
             // 
             textBox_emp_pass.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox_emp_pass.Location = new Point(82, 126);
+            textBox_emp_pass.Location = new Point(82, 148);
             textBox_emp_pass.Name = "textBox_emp_pass";
             textBox_emp_pass.PasswordChar = '*';
             textBox_emp_pass.Size = new Size(289, 27);
@@ -320,7 +319,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label8.ForeColor = Color.Teal;
-            label8.Location = new Point(82, 41);
+            label8.Location = new Point(82, 63);
             label8.Name = "label8";
             label8.Size = new Size(102, 21);
             label8.TabIndex = 11;
@@ -331,27 +330,19 @@
             label10.AutoSize = true;
             label10.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label10.ForeColor = Color.Teal;
-            label10.Location = new Point(82, 102);
+            label10.Location = new Point(82, 124);
             label10.Name = "label10";
             label10.Size = new Size(90, 21);
             label10.TabIndex = 12;
             label10.Text = "Password :";
-            // 
-            // dateTimePicker1
-            // 
-            dateTimePicker1.Enabled = false;
-            dateTimePicker1.Location = new Point(374, 25);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(200, 23);
-            dateTimePicker1.TabIndex = 8;
-            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
             // button_employee_login
             // 
             button_employee_login.BackColor = Color.Teal;
             button_employee_login.FlatStyle = FlatStyle.Flat;
             button_employee_login.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button_employee_login.Location = new Point(82, 199);
+            button_employee_login.ForeColor = Color.White;
+            button_employee_login.Location = new Point(82, 221);
             button_employee_login.Name = "button_employee_login";
             button_employee_login.Size = new Size(289, 41);
             button_employee_login.TabIndex = 7;
@@ -364,7 +355,8 @@
             button_employee_register.BackColor = Color.Teal;
             button_employee_register.FlatStyle = FlatStyle.Flat;
             button_employee_register.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button_employee_register.Location = new Point(82, 254);
+            button_employee_register.ForeColor = Color.White;
+            button_employee_register.Location = new Point(82, 276);
             button_employee_register.Name = "button_employee_register";
             button_employee_register.Size = new Size(289, 41);
             button_employee_register.TabIndex = 5;
@@ -451,7 +443,6 @@
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse4;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse5;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse6;
-        private DateTimePicker dateTimePicker1;
         private CheckBox checkBox_showpassEmp;
         private TextBox textBox_emp_username;
         private TextBox textBox_emp_pass;

@@ -76,6 +76,7 @@
             button_goBack.BackColor = Color.Teal;
             button_goBack.FlatStyle = FlatStyle.Flat;
             button_goBack.Font = new Font("Century Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point);
+            button_goBack.ForeColor = Color.White;
             button_goBack.Location = new Point(195, 412);
             button_goBack.Name = "button_goBack";
             button_goBack.Size = new Size(289, 44);
@@ -108,7 +109,6 @@
             panel_admin.Name = "panel_admin";
             panel_admin.Size = new Size(649, 477);
             panel_admin.TabIndex = 18;
-            panel_admin.Paint += panel_admin_Paint;
             // 
             // label_error
             // 
@@ -140,13 +140,12 @@
             // textBox_password
             // 
             textBox_password.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox_password.Location = new Point(195, 95);
+            textBox_password.Location = new Point(192, 88);
             textBox_password.Name = "textBox_password";
             textBox_password.PasswordChar = '*';
-            textBox_password.Size = new Size(289, 27);
+            textBox_password.Size = new Size(288, 27);
             textBox_password.TabIndex = 2;
             textBox_password.TextAlign = HorizontalAlignment.Center;
-            textBox_password.TextChanged += textBox5_TextChanged;
             // 
             // textBox_confirmPass
             // 
@@ -157,7 +156,6 @@
             textBox_confirmPass.Size = new Size(289, 27);
             textBox_confirmPass.TabIndex = 17;
             textBox_confirmPass.TextAlign = HorizontalAlignment.Center;
-            textBox_confirmPass.TextChanged += textBox_confirmPass_TextChanged;
             // 
             // label11
             // 
@@ -169,7 +167,6 @@
             label11.Size = new Size(90, 21);
             label11.TabIndex = 18;
             label11.Text = "Password :";
-            label11.Click += label11_Click;
             // 
             // label12
             // 
@@ -181,7 +178,6 @@
             label12.Size = new Size(155, 21);
             label12.TabIndex = 19;
             label12.Text = "Confirm Password :";
-            label12.Click += label12_Click;
             // 
             // textBox_email
             // 
@@ -191,7 +187,6 @@
             textBox_email.Size = new Size(289, 27);
             textBox_email.TabIndex = 12;
             textBox_email.TextAlign = HorizontalAlignment.Center;
-            textBox_email.TextChanged += textBox3_TextChanged;
             // 
             // textBox_username
             // 
@@ -201,7 +196,6 @@
             textBox_username.Size = new Size(289, 27);
             textBox_username.TabIndex = 1;
             textBox_username.TextAlign = HorizontalAlignment.Center;
-            textBox_username.TextChanged += textBox4_TextChanged;
             // 
             // label9
             // 
@@ -213,7 +207,6 @@
             label9.Size = new Size(63, 21);
             label9.TabIndex = 14;
             label9.Text = "Email  :";
-            label9.Click += label9_Click;
             // 
             // label10
             // 
@@ -225,7 +218,6 @@
             label10.Size = new Size(102, 21);
             label10.TabIndex = 15;
             label10.Text = "User Name :";
-            label10.Click += label10_Click;
             // 
             // label7
             // 
@@ -237,7 +229,6 @@
             label7.Size = new Size(82, 21);
             label7.TabIndex = 10;
             label7.Text = "Gender  :";
-            label7.Click += label7_Click;
             // 
             // label8
             // 
@@ -264,6 +255,7 @@
             button_register.BackColor = Color.Teal;
             button_register.FlatStyle = FlatStyle.Flat;
             button_register.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            button_register.ForeColor = Color.White;
             button_register.Location = new Point(195, 365);
             button_register.Name = "button_register";
             button_register.Size = new Size(289, 41);

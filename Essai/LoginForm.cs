@@ -105,10 +105,22 @@ namespace Essai
                 checkBox_showPass.Text = "Show Password";
             }
         }
-
+        private void checkBox_showpassEmp_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_showpassEmp.Checked == true)
+            {
+                textBox_emp_pass.PasswordChar = '\0';
+                checkBox_showpassEmp.Text = "Hide Password";
+            }
+            else
+            {
+                textBox_emp_pass.PasswordChar = '*';
+                checkBox_showpassEmp.Text = "Show Password";
+            }
+        }
         private void button_employee_login_Click(object sender, EventArgs e)
         {
-            query ="select * from employees where username ='"+textBox_emp_username.Text+"' AND  password ='"+textBox_emp_pass.Text+"' ";
+            query = "select * from employees where username ='" + textBox_emp_username.Text + "' AND  password ='" + textBox_emp_pass.Text + "' ";
             ds = fn.getData(query);
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -122,19 +134,6 @@ namespace Essai
             }
         }
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox_matricule_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-        }
 
         private void button_employee_register_Click(object sender, EventArgs e)
         {
@@ -143,18 +142,6 @@ namespace Essai
             this.Hide();
         }
 
-        private void checkBox_showpassEmp_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox_showPass.Checked == true)
-            {
-                textBox_emp_pass.PasswordChar = '\0';
-                checkBox_showpassEmp.Text = "Hide Password";
-            }
-            else
-            {
-                textBox_emp_pass.PasswordChar = '*';
-                checkBox_showpassEmp.Text = "Show Password";
-            }
-        }
+
     }
 }
