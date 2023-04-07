@@ -1,0 +1,95 @@
+﻿using MySqlX.XDevAPI.Relational;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Essai
+{
+    public partial class Quiz : Form
+    {
+        Function fn = new Function();
+        string query;
+        DataSet ds;
+        static int i = 0;
+        Int64 questionNo = 1;
+        public Quiz()
+        {
+            InitializeComponent();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Form1 form = new Form1();
+            form.Show();
+            this.Hide();
+        }
+
+        private void Quiz_Load(object sender, EventArgs e)
+        {
+            getSet();
+            nextQuestions();
+            i = 0;
+           
+   
+
+        }
+
+        private void nextQuestions()
+        {
+            query = "select question,optionA,optionB,optionC,optionD,ans from questions  where qset = '" + label_totalQuestions.Text + "'";
+            ds = fn.getData(query);
+
+
+            //query= "select COUNT (question) from questions where qset = '" + label_totalQuestions.Text + "'";
+            int QuestNum = ds.Tables[0].Rows.Count;
+            if (i < QuestNum)
+            {
+                if(radioButton1.Checked | radioButton2.Checked | radioButton3.Checked | radioButton4.Checked)
+                {
+                    label_question.Text = ds.Tables[0].Rows[i][0].ToString();
+                    radioButton1.Text = ds.Tables[0].Rows[i][1].ToString();
+                    radioButton2.Text = ds.Tables[0].Rows[i][2].ToString();
+                    radioButton3.Text = ds.Tables[0].Rows[i][3].ToString();
+                    radioButton4.Text = ds.Tables[0].Rows[i][4].ToString();
+                    i++;
+                }
+                else
+                {
+                    MessageBox.Show("No Question Selected !!, Select One At Least", "Error");
+                }
+
+             
+            } else
+            {
+                QuestNum = 0;
+                MessageBox.Show("No More Questions", "Error");
+            }
+
+
+
+        }
+       
+
+        private void btn_next_Click(object sender, EventArgs e)
+        {
+            nextQuestions();
+        }
+        private void getSet()
+        {
+            query = "SELECT   TOP 1 qset FROM questions ORDER BY NewID();";
+            DataSet ds = fn.getData(query);
+
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                label_totalQuestions.Text = ds.Tables[0].Rows[i][0].ToString();
+            }
+        }
+    }
+}

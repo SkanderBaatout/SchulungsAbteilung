@@ -125,7 +125,7 @@ namespace Essai
             if (ds.Tables[0].Rows.Count > 0)
             {
                 this.Hide();
-                Form1 form = new Form1();
+                Quiz form = new Quiz();
                 form.Show();
             }
             else
