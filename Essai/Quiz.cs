@@ -33,9 +33,11 @@ namespace Essai
 
         private void Quiz_Load(object sender, EventArgs e)
         {
+           // score = 0;
             getSet();
             nextQuestions();
             i = 0;
+            
            
    
 
@@ -58,7 +60,18 @@ namespace Essai
                     radioButton2.Text = ds.Tables[0].Rows[i][2].ToString();
                     radioButton3.Text = ds.Tables[0].Rows[i][3].ToString();
                     radioButton4.Text = ds.Tables[0].Rows[i][4].ToString();
-                    i++;
+                    correct();
+                    if (c == Convert.ToInt32(ds.Tables[0].Rows[i][5].ToString()))
+                    {
+                        score = score + 1;
+                        i++;
+                       
+                    } else
+                    {
+                      
+                        i++;
+                    }
+                   
                 }
                 else
                 {
@@ -69,11 +82,31 @@ namespace Essai
             } else
             {
                 QuestNum = 0;
-                MessageBox.Show("No More Questions", "Error");
+                MessageBox.Show(score + "");
             }
 
 
 
+        }
+        int c;
+        int score;
+        private void correct()
+        {
+            if (radioButton1.Checked)
+            {
+                c = 1;
+            } else if (radioButton2.Checked)
+            {
+                c = 2;
+            }
+            else if (radioButton3.Checked)
+            {
+                c = 3;
+            }
+            else if (radioButton4.Checked)
+            {
+                c = 4;
+            }
         }
        
 
