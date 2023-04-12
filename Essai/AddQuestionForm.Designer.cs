@@ -57,7 +57,9 @@
             btn_reset = new Guna.UI2.WinForms.Guna2Button();
             btn_finish = new Guna.UI2.WinForms.Guna2Button();
             pictureBox1 = new PictureBox();
+            pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -293,12 +295,24 @@
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = Color.Gainsboro;
+            pictureBox2.Location = new Point(575, 187);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(341, 232);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 22;
+            pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
+            // 
             // AddQuestionForm
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Controls.Add(btn_finish);
             Controls.Add(btn_reset);
@@ -329,6 +343,7 @@
             Text = "AddQuestionForm";
             Load += AddQuestionForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -357,5 +372,6 @@
         private Guna.UI2.WinForms.Guna2Button btn_reset;
         private Guna.UI2.WinForms.Guna2Button btn_finish;
         private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
     }
 }

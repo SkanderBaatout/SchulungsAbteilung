@@ -53,7 +53,10 @@
             label1 = new Label();
             comboQuestion = new ComboBox();
             comboSet = new ComboBox();
+            pictureBox2 = new PictureBox();
+            label9 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -78,7 +81,7 @@
             btn_reset.FillColor = Color.DarkTurquoise;
             btn_reset.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btn_reset.ForeColor = Color.White;
-            btn_reset.Location = new Point(459, 549);
+            btn_reset.Location = new Point(459, 593);
             btn_reset.Name = "btn_reset";
             btn_reset.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btn_reset.Size = new Size(167, 45);
@@ -97,7 +100,7 @@
             btn_update.FillColor = Color.Teal;
             btn_update.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btn_update.ForeColor = Color.White;
-            btn_update.Location = new Point(285, 549);
+            btn_update.Location = new Point(285, 593);
             btn_update.Name = "btn_update";
             btn_update.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btn_update.Size = new Size(168, 45);
@@ -107,9 +110,9 @@
             // 
             // textBox_answer
             // 
-            textBox_answer.Location = new Point(92, 467);
+            textBox_answer.Location = new Point(92, 441);
             textBox_answer.Name = "textBox_answer";
-            textBox_answer.Size = new Size(713, 27);
+            textBox_answer.Size = new Size(311, 27);
             textBox_answer.TabIndex = 37;
             textBox_answer.TextChanged += textBox_answer_TextChanged;
             // 
@@ -117,15 +120,15 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label8.Location = new Point(409, 435);
+            label8.Location = new Point(92, 419);
             label8.Name = "label8";
-            label8.Size = new Size(65, 19);
+            label8.Size = new Size(73, 19);
             label8.TabIndex = 36;
-            label8.Text = "Answer";
+            label8.Text = "Answer :";
             // 
             // textBox_option4
             // 
-            textBox_option4.Location = new Point(494, 389);
+            textBox_option4.Location = new Point(494, 363);
             textBox_option4.Name = "textBox_option4";
             textBox_option4.Size = new Size(311, 27);
             textBox_option4.TabIndex = 35;
@@ -134,7 +137,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(506, 367);
+            label7.Location = new Point(494, 341);
             label7.Name = "label7";
             label7.Size = new Size(78, 19);
             label7.TabIndex = 34;
@@ -152,7 +155,7 @@
             // 
             // textBox_option3
             // 
-            textBox_option3.Location = new Point(494, 326);
+            textBox_option3.Location = new Point(494, 300);
             textBox_option3.Name = "textBox_option3";
             textBox_option3.Size = new Size(311, 27);
             textBox_option3.TabIndex = 32;
@@ -161,7 +164,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(506, 302);
+            label5.Location = new Point(494, 276);
             label5.Name = "label5";
             label5.Size = new Size(78, 19);
             label5.TabIndex = 31;
@@ -169,7 +172,7 @@
             // 
             // textBox_option2
             // 
-            textBox_option2.Location = new Point(92, 389);
+            textBox_option2.Location = new Point(92, 363);
             textBox_option2.Name = "textBox_option2";
             textBox_option2.Size = new Size(311, 27);
             textBox_option2.TabIndex = 30;
@@ -178,7 +181,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(104, 367);
+            label4.Location = new Point(92, 341);
             label4.Name = "label4";
             label4.Size = new Size(78, 19);
             label4.TabIndex = 29;
@@ -186,7 +189,7 @@
             // 
             // textBox_option1
             // 
-            textBox_option1.Location = new Point(92, 326);
+            textBox_option1.Location = new Point(92, 300);
             textBox_option1.Name = "textBox_option1";
             textBox_option1.Size = new Size(311, 27);
             textBox_option1.TabIndex = 28;
@@ -195,7 +198,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(104, 302);
+            label3.Location = new Point(92, 276);
             label3.Name = "label3";
             label3.Size = new Size(78, 19);
             label3.TabIndex = 27;
@@ -203,7 +206,7 @@
             // 
             // textBox_question
             // 
-            textBox_question.Location = new Point(92, 243);
+            textBox_question.Location = new Point(92, 217);
             textBox_question.Name = "textBox_question";
             textBox_question.Size = new Size(713, 27);
             textBox_question.TabIndex = 26;
@@ -212,7 +215,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(409, 212);
+            label2.Location = new Point(409, 186);
             label2.Name = "label2";
             label2.Size = new Size(76, 19);
             label2.TabIndex = 25;
@@ -259,11 +262,33 @@
             comboSet.TabIndex = 45;
             comboSet.SelectedIndexChanged += comboSet_SelectedIndexChanged;
             // 
+            // pictureBox2
+            // 
+            pictureBox2.Location = new Point(494, 441);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(311, 141);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 46;
+            pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label9.Location = new Point(499, 405);
+            label9.Name = "label9";
+            label9.Size = new Size(69, 19);
+            label9.TabIndex = 47;
+            label9.Text = "Picture :";
+            // 
             // UpdateQuestionForm
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(950, 650);
+            Controls.Add(label9);
+            Controls.Add(pictureBox2);
             Controls.Add(comboSet);
             Controls.Add(comboQuestion);
             Controls.Add(pictureBox1);
@@ -292,6 +317,7 @@
             Text = "UpdateQuestionForm";
             Load += UpdateQuestionForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -318,5 +344,7 @@
         private Label label1;
         private ComboBox comboQuestion;
         private ComboBox comboSet;
+        private PictureBox pictureBox2;
+        private Label label9;
     }
 }

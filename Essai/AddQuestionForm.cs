@@ -52,14 +52,14 @@ namespace Essai
 
         private void textBox_set_TextChanged(object sender, EventArgs e)
         {
-            if(textBox_set.Text != "")
+            if (textBox_set.Text != "")
             {
                 clearAll();
-                query = "select qNo from questions where qset = '"+textBox_set.Text+"' ";
+                query = "select qNo from questions where qset = '" + textBox_set.Text + "' ";
                 ds = fn.getData(query);
                 if (ds.Tables[0].Rows.Count != 0 && ds.Tables[0].Rows[0][0].ToString() != "")
                 {
-                    questionLabel.Text = (ds.Tables[0].Rows.Count +1 ).ToString();
+                    questionLabel.Text = (ds.Tables[0].Rows.Count + 1).ToString();
                     questionNo = Int64.Parse(questionLabel.Text.ToString());
 
                 }
@@ -86,9 +86,27 @@ namespace Essai
             string option3 = textBox_option3.Text;
             string option4 = textBox_option4.Text;
             string ans = textBox_answer.Text;
+            Image image = pictureBox2.Image;
 
-            query = "insert into questions (qset,qNo,question,optionA,optionB,optionC,optionD,ans) values ('" + qSet + "','" + qNo + "','" + question + "','" + option1 + "','" + option2 + "','" + option3 + "','" + option4 + "','" + ans + "')";
-            fn.setData(query, "Question Added");
+
+            
+            if (pictureBox2.Image != null)
+            {
+                // Convertir l'image en tableau d'octets
+                MemoryStream ms = new MemoryStream();
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                byte[] imageBytes = ms.ToArray();
+
+                query = "insert into questions (qset,qNo,question,optionA,optionB,optionC,optionD,ans,photo) values ('" + qSet + "','" + qNo + "','" + question + "','" + option1 + "','" + option2 + "','" + option3 + "','" + option4 + "','" + ans + "','" + imageBytes + "' )";
+                fn.setData(query, "Question Added");
+            }
+            else
+            {
+
+                query = "insert into questions (qset,qNo,question,optionA,optionB,optionC,optionD,ans,photo) values ('" + qSet + "','" + qNo + "','" + question + "','" + option1 + "','" + option2 + "','" + option3 + "','" + option4 + "','" + ans + "',(NULL) )";
+                fn.setData(query, "Question Added");
+            }
+           
             clearAll();
 
             questionNo++;
@@ -102,6 +120,8 @@ namespace Essai
             textBox_option3.Clear();
             textBox_option4.Clear();
             textBox_answer.Clear();
+            pictureBox2.Image = null;
+
         }
 
         private void btn_reset_Click(object sender, EventArgs e)
@@ -116,8 +136,19 @@ namespace Essai
         {
             if (MessageBox.Show("Set Will be Changed.", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                textBox_set.Text = (Int64.Parse(textBox_set.Text.ToString()) +1 ).ToString();
+                textBox_set.Text = (Int64.Parse(textBox_set.Text.ToString()) + 1).ToString();
                 questionLabel.Text = "1";
+            }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            //browse photo from your computer
+            OpenFileDialog opf = new OpenFileDialog();
+            opf.Filter = "Select Photo(*.jpg;*.png;*.gif)|*.jpg;*.png;*.gif";
+            if (opf.ShowDialog() == DialogResult.OK)
+            {
+                pictureBox2.Image = Image.FromFile(opf.FileName);
             }
         }
     }
