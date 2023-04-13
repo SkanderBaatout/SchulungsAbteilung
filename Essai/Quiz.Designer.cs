@@ -52,7 +52,9 @@
             label_totalQuestions = new Label();
             label_questionNo = new Label();
             label_idEmp = new Label();
+            pictureBox = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -261,11 +263,20 @@
             label_idEmp.TabIndex = 62;
             label_idEmp.Text = "label20";
             // 
+            // pictureBox
+            // 
+            pictureBox.Location = new Point(434, 245);
+            pictureBox.Name = "pictureBox";
+            pictureBox.Size = new Size(441, 234);
+            pictureBox.TabIndex = 63;
+            pictureBox.TabStop = false;
+            // 
             // Quiz
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(950, 650);
+            Controls.Add(pictureBox);
             Controls.Add(label_idEmp);
             Controls.Add(label_questionNo);
             Controls.Add(label_totalQuestions);
@@ -293,6 +304,7 @@
             Text = "Quiz";
             Load += Quiz_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -341,5 +353,6 @@
         private Label label_totalQuestions;
         private Label label_questionNo;
         private Label label_idEmp;
+        private PictureBox pictureBox;
     }
 }

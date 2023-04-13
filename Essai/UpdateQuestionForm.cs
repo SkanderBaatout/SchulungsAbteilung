@@ -92,19 +92,9 @@ namespace Essai
                             {
                                 Image image = Image.FromStream(ms);
 
-                                // Vérifier si l'image est d'un type valide pour l'affichage dans une pictureBox (par exemple, les types bmp, jpg, png, etc.)
-                                if (image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Bmp) ||
-                                    image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Jpeg) ||
-                                    image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Png))
-                                {
-                                    // Afficher l'image dans la pictureBox
-                                    pictureBox.Image = image;
-                                }
-                                else
-                                {
-                                    // Afficher un message d'erreur si l'image n'est pas d'un type valide
-                                    MessageBox.Show("L'image n'est pas d'un type valide pour l'affichage dans la pictureBox", "Erreur");
-                                }
+                                // Afficher l'image dans la pictureBox
+                                pictureBox.Image = image;
+                                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage; // Pour ajuster la taille de l'image à la PictureBox
                             }
                         }
                         catch (Exception ex)
@@ -118,6 +108,7 @@ namespace Essai
                         // Afficher un message d'erreur si l'image est vide ou nulle
                         MessageBox.Show("L'image est vide ou nulle", "Erreur");
                     }
+
 
                 }
                 else
@@ -135,7 +126,6 @@ namespace Essai
             {
                 MessageBox.Show("Dataset Empty", "Error");
             }
-
         }
 
 
