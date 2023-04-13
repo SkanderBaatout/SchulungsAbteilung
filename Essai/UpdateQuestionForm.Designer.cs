@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateQuestionForm));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pictureBox1 = new PictureBox();
             btn_reset = new Guna.UI2.WinForms.Guna2Button();
             btn_update = new Guna.UI2.WinForms.Guna2Button();
@@ -53,10 +53,10 @@
             label1 = new Label();
             comboQuestion = new ComboBox();
             comboSet = new ComboBox();
-            pictureBox2 = new PictureBox();
+            pictureBox = new PictureBox();
             label9 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -73,7 +73,7 @@
             // btn_reset
             // 
             btn_reset.BorderRadius = 15;
-            btn_reset.CustomizableEdges = customizableEdges1;
+            btn_reset.CustomizableEdges = customizableEdges5;
             btn_reset.DisabledState.BorderColor = Color.DarkGray;
             btn_reset.DisabledState.CustomBorderColor = Color.DarkGray;
             btn_reset.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -83,7 +83,7 @@
             btn_reset.ForeColor = Color.White;
             btn_reset.Location = new Point(459, 593);
             btn_reset.Name = "btn_reset";
-            btn_reset.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btn_reset.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btn_reset.Size = new Size(167, 45);
             btn_reset.TabIndex = 41;
             btn_reset.Text = "Reset";
@@ -92,7 +92,7 @@
             // btn_update
             // 
             btn_update.BorderRadius = 15;
-            btn_update.CustomizableEdges = customizableEdges3;
+            btn_update.CustomizableEdges = customizableEdges7;
             btn_update.DisabledState.BorderColor = Color.DarkGray;
             btn_update.DisabledState.CustomBorderColor = Color.DarkGray;
             btn_update.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -102,7 +102,7 @@
             btn_update.ForeColor = Color.White;
             btn_update.Location = new Point(285, 593);
             btn_update.Name = "btn_update";
-            btn_update.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btn_update.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btn_update.Size = new Size(168, 45);
             btn_update.TabIndex = 40;
             btn_update.Text = "Update";
@@ -262,15 +262,15 @@
             comboSet.TabIndex = 45;
             comboSet.SelectedIndexChanged += comboSet_SelectedIndexChanged;
             // 
-            // pictureBox2
+            // pictureBox
             // 
-            pictureBox2.Location = new Point(494, 441);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(311, 141);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 46;
-            pictureBox2.TabStop = false;
-            pictureBox2.Click += pictureBox2_Click;
+            pictureBox.Location = new Point(494, 441);
+            pictureBox.Name = "pictureBox";
+            pictureBox.Size = new Size(311, 141);
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox.TabIndex = 46;
+            pictureBox.TabStop = false;
+            pictureBox.Click += pictureBox2_Click;
             // 
             // label9
             // 
@@ -288,7 +288,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(950, 650);
             Controls.Add(label9);
-            Controls.Add(pictureBox2);
+            Controls.Add(pictureBox);
             Controls.Add(comboSet);
             Controls.Add(comboQuestion);
             Controls.Add(pictureBox1);
@@ -317,7 +317,7 @@
             Text = "UpdateQuestionForm";
             Load += UpdateQuestionForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -344,7 +344,7 @@
         private Label label1;
         private ComboBox comboQuestion;
         private ComboBox comboSet;
-        private PictureBox pictureBox2;
+        private PictureBox pictureBox;
         private Label label9;
     }
 }

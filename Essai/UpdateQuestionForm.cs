@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Essai
 {
@@ -61,40 +62,82 @@ namespace Essai
 
         private void comboQuestion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            query = " select question,optionA,optionB,optionC,optionD,ans,photo from questions where qset = '" + comboSet.Text + "' and qNo = '" + comboQuestion.Text + "' ";
+            query = "select question,optionA,optionB,optionC,optionD,ans,photo from questions where qset = '" + comboSet.Text + "' and qNo = '" + comboQuestion.Text + "'";
             DataSet ds = fn.getData(query);
 
-
-
-                if (ds.Tables[0].Rows[0][6] != DBNull.Value)
+            // Vérifier si le DataSet a au moins une table et si la première table a au moins une ligne
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                textBox_question.Text = ds.Tables[0].Rows[0][0].ToString();
-                textBox_option1.Text = ds.Tables[0].Rows[0][1].ToString();
-                textBox_option2.Text = ds.Tables[0].Rows[0][2].ToString();
-                textBox_option3.Text = ds.Tables[0].Rows[0][3].ToString();
-                textBox_option4.Text = ds.Tables[0].Rows[0][4].ToString();
-                textBox_answer.Text = ds.Tables[0].Rows[0][5].ToString();
+                // Vérifier si la colonne 6 de la première ligne n'est pas DBNull
+                if (ds.Tables[0].Rows[0][6] != DBNull.Value)
+                {
+                    // Récupérer les valeurs des colonnes de la première ligne du DataSet et les assigner aux textBox appropriées
+                    textBox_question.Text = ds.Tables[0].Rows[0][0].ToString();
+                    textBox_option1.Text = ds.Tables[0].Rows[0][1].ToString();
+                    textBox_option2.Text = ds.Tables[0].Rows[0][2].ToString();
+                    textBox_option3.Text = ds.Tables[0].Rows[0][3].ToString();
+                    textBox_option4.Text = ds.Tables[0].Rows[0][4].ToString();
+                    textBox_answer.Text = ds.Tables[0].Rows[0][5].ToString();
 
-                 byte[] img = (byte[])ds.Tables[0].Rows[0][6];
-                 MemoryStream ms = new MemoryStream(img);
-                 pictureBox2.Image = Image.FromStream(ms);
-                //pictureBox2.Image=ConvertByteArrayToImage((byte[])ds.Tables[0].Rows[0][6]);
-               // ConvertImageToBytes(pictureBox2.Image);
+                    // Convertir la colonne 6 en tableau d'octets (byte[]) et l'afficher dans un pictureBox
+                    byte[] img = (byte[])ds.Tables[0].Rows[0][6];
 
+                    // Vérifier si l'image est d'un type valide
+                    if (img != null && img.Length > 0)
+                    {
+                        try
+                        {
+                            // Convertir les octets en une image
+                            using (MemoryStream ms = new MemoryStream(img))
+                            {
+                                Image image = Image.FromStream(ms);
+
+                                // Vérifier si l'image est d'un type valide pour l'affichage dans une pictureBox (par exemple, les types bmp, jpg, png, etc.)
+                                if (image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Bmp) ||
+                                    image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Jpeg) ||
+                                    image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Png))
+                                {
+                                    // Afficher l'image dans la pictureBox
+                                    pictureBox.Image = image;
+                                }
+                                else
+                                {
+                                    // Afficher un message d'erreur si l'image n'est pas d'un type valide
+                                    MessageBox.Show("L'image n'est pas d'un type valide pour l'affichage dans la pictureBox", "Erreur");
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // Afficher un message d'erreur si une exception se produit lors de la manipulation de l'image
+                            MessageBox.Show("Une erreur s'est produite lors de la manipulation de l'image : " + ex.Message, "Erreur");
+                        }
+                    }
+                    else
+                    {
+                        // Afficher un message d'erreur si l'image est vide ou nulle
+                        MessageBox.Show("L'image est vide ou nulle", "Erreur");
+                    }
+
+                }
+                else
+                {
+                    // Récupérer les valeurs des colonnes de la première ligne du DataSet et les assigner aux textBox appropriées
+                    textBox_question.Text = ds.Tables[0].Rows[0][0].ToString();
+                    textBox_option1.Text = ds.Tables[0].Rows[0][1].ToString();
+                    textBox_option2.Text = ds.Tables[0].Rows[0][2].ToString();
+                    textBox_option3.Text = ds.Tables[0].Rows[0][3].ToString();
+                    textBox_option4.Text = ds.Tables[0].Rows[0][4].ToString();
+                    textBox_answer.Text = ds.Tables[0].Rows[0][5].ToString();
+                }
             }
             else
             {
-                textBox_question.Text = ds.Tables[0].Rows[0][0].ToString();
-                textBox_option1.Text = ds.Tables[0].Rows[0][1].ToString();
-                textBox_option2.Text = ds.Tables[0].Rows[0][2].ToString();
-                textBox_option3.Text = ds.Tables[0].Rows[0][3].ToString();
-                textBox_option4.Text = ds.Tables[0].Rows[0][4].ToString();
-                textBox_answer.Text = ds.Tables[0].Rows[0][5].ToString();
-
-                label9.Visible = false;
+                MessageBox.Show("Dataset Empty", "Error");
             }
 
         }
+
 
         private void btn_reset_Click(object sender, EventArgs e)
         {
@@ -108,7 +151,7 @@ namespace Essai
             textBox_option3.Clear();
             textBox_option4.Clear();
             textBox_answer.Clear();
-            pictureBox2.Image = null;
+            pictureBox.Image = null;
             comboSet.SelectedIndex = -1;
             comboQuestion.SelectedIndex = -1;
         }
@@ -126,15 +169,28 @@ namespace Essai
                 string option4 = textBox_option4.Text;
                 string ans = textBox_answer.Text;
 
-                // to get photo from picture box
-                MemoryStream ms = new MemoryStream();
-                pictureBox2.Image.Save(ms, pictureBox2.Image.RawFormat);
-                byte[] img = ms.ToArray();
 
-                query = "update questions set question = '" + question + "',optionA = '" + option1 + "',optionB = '" + option2 + "',optionC = '" + option3 + "',optionD = '" + option4 + "',ans = '" + ans + "' ,photo = '" + img + "' where qset = '" + qSet + "' and qNo = '" + qNo + "' ";
+                if (pictureBox.Image != null)
+                {
+                    // to get photo from picture box
+                    MemoryStream ms = new MemoryStream();
+                    pictureBox.Image.Save(ms, pictureBox.Image.RawFormat);
+                    byte[] img = ms.ToArray();
+                    query = "update questions set question = '" + question + "',optionA = '" + option1 + "',optionB = '" + option2 + "',optionC = '" + option3 + "',optionD = '" + option4 + "',ans = '" + ans + "' ,photo = '" + img + "' where qset = '" + qSet + "' and qNo = '" + qNo + "' ";
 
-                fn.setData(query, "Question No : " + qNo + "\n Question Set :" + qSet + "\n  is Updated.");
-                clearAll();
+                    fn.setData(query, "Question No : " + qNo + "\n Question Set :" + qSet + "\n  is Updated.");
+                    clearAll();
+                }
+                else
+                {
+                    query = "update questions set question = '" + question + "',optionA = '" + option1 + "',optionB = '" + option2 + "',optionC = '" + option3 + "',optionD = '" + option4 + "',ans = '" + ans + "'  where qset = '" + qSet + "' and qNo = '" + qNo + "' ";
+
+                    fn.setData(query, "Question No : " + qNo + "\n Question Set :" + qSet + "\n  is Updated.");
+                    clearAll();
+                }
+
+
+
             }
             else
             {
@@ -149,14 +205,14 @@ namespace Essai
             opf.Filter = "Select Photo(*.jpg;*.png;*.gif)|*.jpg;*.png;*.gif";
             if (opf.ShowDialog() == DialogResult.OK)
             {
-                pictureBox2.Image = Image.FromFile(opf.FileName);
+                pictureBox.Image = Image.FromFile(opf.FileName);
             }
         }
         byte[] ConvertImageToBytes(Image img)
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                img.Save(ms,System.Drawing.Imaging.ImageFormat.Png);
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 return ms.ToArray();
             }
         }

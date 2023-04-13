@@ -19,6 +19,7 @@ namespace Essai
         DataSet ds;
         static int i = 0;
         Int64 questionNo = 1;
+        
         public Quiz()
         {
             InitializeComponent();
@@ -123,6 +124,15 @@ namespace Essai
             {
                 label_totalQuestions.Text = ds.Tables[0].Rows[i][0].ToString();
             }
+        }
+        private int getQuestionId(int id )
+        {
+            query = "select * from questions  ";
+            ds = fn.getData(query);
+
+            id = Convert.ToInt32(ds.Tables[0].Rows[i][0].ToString());
+
+            return id; 
         }
     }
 }
