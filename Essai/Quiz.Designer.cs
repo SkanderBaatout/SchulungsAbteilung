@@ -30,12 +30,11 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Quiz));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pictureBox1 = new PictureBox();
             btn_next = new Guna.UI2.WinForms.Guna2Button();
             label1 = new Label();
-            label9 = new Label();
             label10 = new Label();
             label11 = new Label();
             label_nameEmp = new Label();
@@ -50,7 +49,6 @@
             dateTimePicker1 = new DateTimePicker();
             label_question = new Label();
             label_set = new Label();
-            label_questionNo = new Label();
             label_idEmp = new Label();
             pictureBox = new PictureBox();
             label15 = new Label();
@@ -76,7 +74,7 @@
             // 
             btn_next.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btn_next.BorderRadius = 15;
-            btn_next.CustomizableEdges = customizableEdges1;
+            btn_next.CustomizableEdges = customizableEdges3;
             btn_next.DisabledState.BorderColor = Color.DarkGray;
             btn_next.DisabledState.CustomBorderColor = Color.DarkGray;
             btn_next.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -86,7 +84,7 @@
             btn_next.ForeColor = Color.White;
             btn_next.Location = new Point(738, 566);
             btn_next.Name = "btn_next";
-            btn_next.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btn_next.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btn_next.Size = new Size(168, 45);
             btn_next.TabIndex = 40;
             btn_next.Text = "Next";
@@ -103,23 +101,12 @@
             label1.TabIndex = 22;
             label1.Text = "Set :";
             // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label9.ForeColor = Color.Teal;
-            label9.Location = new Point(39, 110);
-            label9.Name = "label9";
-            label9.Size = new Size(177, 23);
-            label9.TabIndex = 44;
-            label9.Text = "Question number :";
-            // 
             // label10
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label10.ForeColor = Color.Teal;
-            label10.Location = new Point(293, 110);
+            label10.Location = new Point(379, 107);
             label10.Name = "label10";
             label10.Size = new Size(33, 23);
             label10.TabIndex = 45;
@@ -130,7 +117,7 @@
             label11.AutoSize = true;
             label11.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label11.ForeColor = Color.Teal;
-            label11.Location = new Point(434, 110);
+            label11.Location = new Point(520, 107);
             label11.Name = "label11";
             label11.Size = new Size(72, 23);
             label11.TabIndex = 46;
@@ -141,7 +128,7 @@
             label_nameEmp.AutoSize = true;
             label_nameEmp.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label_nameEmp.ForeColor = Color.Black;
-            label_nameEmp.Location = new Point(512, 110);
+            label_nameEmp.Location = new Point(598, 107);
             label_nameEmp.Name = "label_nameEmp";
             label_nameEmp.Size = new Size(32, 23);
             label_nameEmp.TabIndex = 50;
@@ -152,7 +139,7 @@
             label16.AutoSize = true;
             label16.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label16.ForeColor = Color.Teal;
-            label16.Location = new Point(599, 19);
+            label16.Location = new Point(309, 65);
             label16.Name = "label16";
             label16.Size = new Size(121, 23);
             label16.TabIndex = 51;
@@ -163,7 +150,7 @@
             label17.AutoSize = true;
             label17.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label17.ForeColor = Color.Teal;
-            label17.Location = new Point(608, 57);
+            label17.Location = new Point(665, 65);
             label17.Name = "label17";
             label17.Size = new Size(112, 23);
             label17.TabIndex = 52;
@@ -174,7 +161,7 @@
             label18.AutoSize = true;
             label18.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label18.ForeColor = Color.Teal;
-            label18.Location = new Point(608, 110);
+            label18.Location = new Point(665, 106);
             label18.Name = "label18";
             label18.Size = new Size(167, 23);
             label18.TabIndex = 53;
@@ -182,7 +169,7 @@
             // 
             // timer1
             // 
-            timer1.Enabled = true;
+            timer1.Interval = 1000;
             timer1.Tick += timer1_Tick_1;
             // 
             // radioButton1
@@ -231,7 +218,7 @@
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Location = new Point(738, 16);
+            dateTimePicker1.Location = new Point(448, 62);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(200, 27);
             dateTimePicker1.TabIndex = 58;
@@ -254,19 +241,10 @@
             label_set.TabIndex = 60;
             label_set.Text = "label15";
             // 
-            // label_questionNo
-            // 
-            label_questionNo.AutoSize = true;
-            label_questionNo.Location = new Point(222, 112);
-            label_questionNo.Name = "label_questionNo";
-            label_questionNo.Size = new Size(19, 21);
-            label_questionNo.TabIndex = 61;
-            label_questionNo.Text = "1";
-            // 
             // label_idEmp
             // 
             label_idEmp.AutoSize = true;
-            label_idEmp.Location = new Point(332, 112);
+            label_idEmp.Location = new Point(418, 109);
             label_idEmp.Name = "label_idEmp";
             label_idEmp.Size = new Size(66, 21);
             label_idEmp.TabIndex = 62;
@@ -285,16 +263,16 @@
             label15.AutoSize = true;
             label15.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label15.ForeColor = Color.Teal;
-            label15.Location = new Point(274, 68);
+            label15.Location = new Point(40, 110);
             label15.Name = "label15";
-            label15.Size = new Size(158, 23);
+            label15.Size = new Size(109, 23);
             label15.TabIndex = 64;
-            label15.Text = "Total Questions :";
+            label15.Text = "Questions :";
             // 
             // qNo
             // 
             qNo.AutoSize = true;
-            qNo.Location = new Point(434, 68);
+            qNo.Location = new Point(155, 112);
             qNo.Name = "qNo";
             qNo.Size = new Size(19, 21);
             qNo.TabIndex = 65;
@@ -303,7 +281,7 @@
             // label_remainingTime
             // 
             label_remainingTime.AutoSize = true;
-            label_remainingTime.Location = new Point(781, 112);
+            label_remainingTime.Location = new Point(838, 108);
             label_remainingTime.Name = "label_remainingTime";
             label_remainingTime.Size = new Size(66, 21);
             label_remainingTime.TabIndex = 66;
@@ -312,7 +290,7 @@
             // label_total_Time
             // 
             label_total_Time.AutoSize = true;
-            label_total_Time.Location = new Point(738, 59);
+            label_total_Time.Location = new Point(795, 67);
             label_total_Time.Name = "label_total_Time";
             label_total_Time.Size = new Size(50, 21);
             label_total_Time.TabIndex = 67;
@@ -329,7 +307,6 @@
             Controls.Add(label15);
             Controls.Add(pictureBox);
             Controls.Add(label_idEmp);
-            Controls.Add(label_questionNo);
             Controls.Add(label_set);
             Controls.Add(label_question);
             Controls.Add(dateTimePicker1);
@@ -343,7 +320,6 @@
             Controls.Add(label_nameEmp);
             Controls.Add(label11);
             Controls.Add(label10);
-            Controls.Add(label9);
             Controls.Add(pictureBox1);
             Controls.Add(btn_next);
             Controls.Add(label1);
@@ -384,7 +360,6 @@
         private TextBox textBox_set;
         private Label Set;
         private Label label1;
-        private Label label9;
         private Label label10;
         private Label label11;
         private Label label12;
@@ -402,7 +377,6 @@
         private DateTimePicker dateTimePicker1;
         private Label label_question;
         private Label label_set;
-        private Label label_questionNo;
         private Label label_idEmp;
         private PictureBox pictureBox;
         private Label label15;

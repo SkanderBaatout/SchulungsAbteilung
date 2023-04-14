@@ -45,22 +45,28 @@ namespace Essai
             nextQuestions();
             i = 0;
             questionNumber();
+            // Calculate the total time for all questions
+            int totalTime = totalQuestions * 30;
+
+            // Update the label with the total time
+            label_total_Time.Text = totalTime.ToString() + " seconds";
 
             // Call the questionNo() method to get the total number of questions
             totalQuestions = questionNumber();
 
             // Set the initial remaining time to 30 seconds for the first question
-            remainingTime = 30;
+            remainingTime = totalQuestions * 30;
 
             // Initialize the timer
-            timer = new System.Windows.Forms.Timer();
-            timer.Interval = 1000; // Set the interval of the timer in milliseconds
-            timer.Tick += timer1_Tick_1; // Add an event handler for the Tick event of the timer
-            timer.Start(); // Start the timer
+            timer1 = new System.Windows.Forms.Timer();
+            timer1.Interval = 1000; // Set the interval of the timer in milliseconds
+            timer1.Tick += timer1_Tick_1; // Add an event handler for the Tick event of the timer
+            timer1.Start(); // Start the timer
 
             // Update the label with the initial question number and remaining time
             qNo.Text = "Question " + currentQuestionNo.ToString() + " / " + totalQuestions.ToString();
             label_remainingTime.Text = remainingTime.ToString() + " seconds";
+            label_total_Time.Text = remainingTime.ToString() + " seconds";
 
         }
 
@@ -135,6 +141,7 @@ namespace Essai
                         {
                             score = score + 1;
                             i++;
+
                         }
                         else
                         {
@@ -180,7 +187,19 @@ namespace Essai
 
         private void btn_next_Click(object sender, EventArgs e)
         {
-            nextQuestions();
+            if (currentQuestionNo <= totalQuestions)
+            {
+                nextQuestions();
+                qNo.Text = "Question " + (currentQuestionNo += 1).ToString() + " / " + totalQuestions.ToString();
+            }
+
+           // if (i == ds.Tables[0].Rows.Count)
+            else {
+                timer1.Stop();
+                MessageBox.Show("Vous avez terminé le quiz!", "Quiz terminé");
+                // Perform any other actions needed when all questions are finished
+                // e.g. calculate final score, show result, etc.
+            }
         }
         private void getSet()
         {
@@ -203,7 +222,7 @@ namespace Essai
         }
         private int questionNumber()
         {
-            query = "select COUNT(question) from questions where qset = '" + label_set.Text + "' ;"
+            query = "select COUNT(question) from questions where qset = '" + label_set.Text + "' ";
             ds = fn.getData(query);
             int count = 0;
 
@@ -242,7 +261,7 @@ namespace Essai
                 if (currentQuestionNo > totalQuestions)
                 {
                     // Stop the timer
-                    timer.Stop();
+                    timer1.Stop();
 
                     // Show a message indicating the end of the quiz
                     MessageBox.Show("Quiz ended.", "Quiz Ended", MessageBoxButtons.OK, MessageBoxIcon.Information);
