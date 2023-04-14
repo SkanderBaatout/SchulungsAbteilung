@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -86,16 +87,20 @@ namespace Essai
             string option3 = textBox_option3.Text;
             string option4 = textBox_option4.Text;
             string ans = textBox_answer.Text;
-            Image image = pictureBox2.Image;
+            // Image image = pictureBox2.Image;
+            byte[] imageBytes = null; // Déclarer un tableau d'octets pour stocker les données de l'image
 
 
-            
+
+
             if (pictureBox2.Image != null)
             {
                 // Convertir l'image en tableau d'octets
-                MemoryStream ms = new MemoryStream();
-                image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                byte[] imageBytes = ms.ToArray();
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    pictureBox2.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    imageBytes = ms.ToArray();
+                }
 
                 query = "insert into questions (qset,qNo,question,optionA,optionB,optionC,optionD,ans,photo) values ('" + qSet + "','" + qNo + "','" + question + "','" + option1 + "','" + option2 + "','" + option3 + "','" + option4 + "','" + ans + "','" + imageBytes + "' )";
                 fn.setData(query, "Question Added");
@@ -106,12 +111,13 @@ namespace Essai
                 query = "insert into questions (qset,qNo,question,optionA,optionB,optionC,optionD,ans,photo) values ('" + qSet + "','" + qNo + "','" + question + "','" + option1 + "','" + option2 + "','" + option3 + "','" + option4 + "','" + ans + "',(NULL) )";
                 fn.setData(query, "Question Added");
             }
-           
+
             clearAll();
 
             questionNo++;
             questionLabel.Text = questionNo.ToString();
         }
+
         public void clearAll()
         {
             textBox_question.Clear();

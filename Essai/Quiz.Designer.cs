@@ -49,10 +49,14 @@
             radioButton4 = new RadioButton();
             dateTimePicker1 = new DateTimePicker();
             label_question = new Label();
-            label_totalQuestions = new Label();
+            label_set = new Label();
             label_questionNo = new Label();
             label_idEmp = new Label();
             pictureBox = new PictureBox();
+            label15 = new Label();
+            qNo = new Label();
+            label_remainingTime = new Label();
+            label_total_Time = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             SuspendLayout();
@@ -95,9 +99,9 @@
             label1.ForeColor = Color.Teal;
             label1.Location = new Point(39, 64);
             label1.Name = "label1";
-            label1.Size = new Size(158, 23);
+            label1.Size = new Size(48, 23);
             label1.TabIndex = 22;
-            label1.Text = "Total Questions :";
+            label1.Text = "Set :";
             // 
             // label9
             // 
@@ -176,6 +180,11 @@
             label18.TabIndex = 53;
             label18.Text = "Remaining Time :";
             // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Tick += timer1_Tick_1;
+            // 
             // radioButton1
             // 
             radioButton1.AutoSize = true;
@@ -236,14 +245,14 @@
             label_question.TabIndex = 59;
             label_question.Text = "Question";
             // 
-            // label_totalQuestions
+            // label_set
             // 
-            label_totalQuestions.AutoSize = true;
-            label_totalQuestions.Location = new Point(218, 68);
-            label_totalQuestions.Name = "label_totalQuestions";
-            label_totalQuestions.Size = new Size(66, 21);
-            label_totalQuestions.TabIndex = 60;
-            label_totalQuestions.Text = "label15";
+            label_set.AutoSize = true;
+            label_set.Location = new Point(93, 68);
+            label_set.Name = "label_set";
+            label_set.Size = new Size(66, 21);
+            label_set.TabIndex = 60;
+            label_set.Text = "label15";
             // 
             // label_questionNo
             // 
@@ -265,21 +274,63 @@
             // 
             // pictureBox
             // 
-            pictureBox.Location = new Point(434, 245);
+            pictureBox.Location = new Point(465, 219);
             pictureBox.Name = "pictureBox";
             pictureBox.Size = new Size(441, 234);
             pictureBox.TabIndex = 63;
             pictureBox.TabStop = false;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label15.ForeColor = Color.Teal;
+            label15.Location = new Point(274, 68);
+            label15.Name = "label15";
+            label15.Size = new Size(158, 23);
+            label15.TabIndex = 64;
+            label15.Text = "Total Questions :";
+            // 
+            // qNo
+            // 
+            qNo.AutoSize = true;
+            qNo.Location = new Point(434, 68);
+            qNo.Name = "qNo";
+            qNo.Size = new Size(19, 21);
+            qNo.TabIndex = 65;
+            qNo.Text = "0";
+            // 
+            // label_remainingTime
+            // 
+            label_remainingTime.AutoSize = true;
+            label_remainingTime.Location = new Point(781, 112);
+            label_remainingTime.Name = "label_remainingTime";
+            label_remainingTime.Size = new Size(66, 21);
+            label_remainingTime.TabIndex = 66;
+            label_remainingTime.Text = "label19";
+            // 
+            // label_total_Time
+            // 
+            label_total_Time.AutoSize = true;
+            label_total_Time.Location = new Point(738, 59);
+            label_total_Time.Name = "label_total_Time";
+            label_total_Time.Size = new Size(50, 21);
+            label_total_Time.TabIndex = 67;
+            label_total_Time.Text = "01:00";
             // 
             // Quiz
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(950, 650);
+            Controls.Add(label_total_Time);
+            Controls.Add(label_remainingTime);
+            Controls.Add(qNo);
+            Controls.Add(label15);
             Controls.Add(pictureBox);
             Controls.Add(label_idEmp);
             Controls.Add(label_questionNo);
-            Controls.Add(label_totalQuestions);
+            Controls.Add(label_set);
             Controls.Add(label_question);
             Controls.Add(dateTimePicker1);
             Controls.Add(radioButton4);
@@ -350,9 +401,13 @@
         private RadioButton radioButton4;
         private DateTimePicker dateTimePicker1;
         private Label label_question;
-        private Label label_totalQuestions;
+        private Label label_set;
         private Label label_questionNo;
         private Label label_idEmp;
         private PictureBox pictureBox;
+        private Label label15;
+        private Label qNo;
+        private Label label_remainingTime;
+        private Label label_total_Time;
     }
 }
