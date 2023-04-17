@@ -33,13 +33,15 @@ namespace Essai
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            Form1 form = new Form1();
+            EmployeeBord form = new EmployeeBord();
             form.Show();
             this.Hide();
         }
 
         private void Quiz_Load(object sender, EventArgs e)
         {
+            label_nameEmp.Text = LoginForm.username;
+            label_cinEmp.Text = LoginForm.cin;
             // score = 0;
             getSet();
             nextQuestions();
@@ -82,6 +84,7 @@ namespace Essai
             {
                 if (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked)
                 {
+
                     if (ds.Tables[0].Rows[i][6] != DBNull.Value)
                     {
                         label_question.Text = ds.Tables[0].Rows[i][0].ToString();
@@ -90,25 +93,25 @@ namespace Essai
                         radioButton3.Text = ds.Tables[0].Rows[i][3].ToString();
                         radioButton4.Text = ds.Tables[0].Rows[i][4].ToString();
 
+                        // Récupérer les données d'image depuis la colonne de la base de données
                         byte[] img = (byte[])ds.Tables[0].Rows[i][6];
 
                         if (img != null && img.Length > 0)
                         {
                             try
                             {
+                                // Créer une image à partir des données d'image
                                 using (MemoryStream ms = new MemoryStream(img))
                                 {
                                     Image image = Image.FromStream(ms);
                                     pictureBox.Image = image;
-                                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                                    pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                                 }
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("An error occurred while manipulating the image: " + ex.Message, "Error");
+                                MessageBox.Show("Une erreur s'est produite lors de la manipulation de l'image : " + ex.Message, "Erreur");
                             }
-
-
                         }
                         else
                         {
@@ -158,7 +161,13 @@ namespace Essai
             else
             {
                 questNum = 0;
-                MessageBox.Show(score + "");
+                // MessageBox.Show(score + "");
+                // Display the score in custom dialog
+                using (ScoreDialogForm scoreDialog = new ScoreDialogForm())
+                {
+                    scoreDialog.Score = score;
+                    scoreDialog.ShowDialog();
+                }
             }
         }
 
@@ -193,10 +202,21 @@ namespace Essai
                 qNo.Text = "Question " + (currentQuestionNo += 1).ToString() + " / " + totalQuestions.ToString();
             }
 
-           // if (i == ds.Tables[0].Rows.Count)
-            else {
+
+            else
+            {
                 timer1.Stop();
+
                 MessageBox.Show("Vous avez terminé le quiz!", "Quiz terminé");
+
+                btn_next.Text = "Submit";
+                // Display the score in custom dialog
+                using (ScoreDialogForm scoreDialog = new ScoreDialogForm())
+                {
+                    scoreDialog.Score = score;
+                    scoreDialog.ShowDialog();
+                }
+
                 // Perform any other actions needed when all questions are finished
                 // e.g. calculate final score, show result, etc.
             }
@@ -211,15 +231,7 @@ namespace Essai
                 label_set.Text = ds.Tables[0].Rows[i][0].ToString();
             }
         }
-        private int getQuestionId(int id)
-        {
-            query = "select * from questions  ";
-            ds = fn.getData(query);
 
-            id = Convert.ToInt32(ds.Tables[0].Rows[i][0].ToString());
-
-            return id;
-        }
         private int questionNumber()
         {
             query = "select COUNT(question) from questions where qset = '" + label_set.Text + "' ";

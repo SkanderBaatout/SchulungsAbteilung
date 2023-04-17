@@ -50,6 +50,8 @@
             panel_admin = new Panel();
             checkBox_showPass = new CheckBox();
             panel_Employee = new Panel();
+            textBox_cin = new TextBox();
+            label11 = new Label();
             checkBox_showpassEmp = new CheckBox();
             textBox_emp_username = new TextBox();
             textBox_emp_pass = new TextBox();
@@ -269,6 +271,8 @@
             // 
             // panel_Employee
             // 
+            panel_Employee.Controls.Add(textBox_cin);
+            panel_Employee.Controls.Add(label11);
             panel_Employee.Controls.Add(checkBox_showpassEmp);
             panel_Employee.Controls.Add(textBox_emp_username);
             panel_Employee.Controls.Add(textBox_emp_pass);
@@ -282,12 +286,32 @@
             panel_Employee.Size = new Size(453, 325);
             panel_Employee.TabIndex = 12;
             // 
+            // textBox_cin
+            // 
+            textBox_cin.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox_cin.Location = new Point(118, 177);
+            textBox_cin.Name = "textBox_cin";
+            textBox_cin.Size = new Size(289, 27);
+            textBox_cin.TabIndex = 11;
+            textBox_cin.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label11.ForeColor = Color.Teal;
+            label11.Location = new Point(64, 175);
+            label11.Name = "label11";
+            label11.Size = new Size(48, 21);
+            label11.TabIndex = 15;
+            label11.Text = "CIN :";
+            // 
             // checkBox_showpassEmp
             // 
             checkBox_showpassEmp.AutoSize = true;
             checkBox_showpassEmp.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             checkBox_showpassEmp.ForeColor = Color.Teal;
-            checkBox_showpassEmp.Location = new Point(82, 181);
+            checkBox_showpassEmp.Location = new Point(129, 150);
             checkBox_showpassEmp.Name = "checkBox_showpassEmp";
             checkBox_showpassEmp.Size = new Size(127, 21);
             checkBox_showpassEmp.TabIndex = 13;
@@ -298,7 +322,7 @@
             // textBox_emp_username
             // 
             textBox_emp_username.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox_emp_username.Location = new Point(82, 87);
+            textBox_emp_username.Location = new Point(118, 70);
             textBox_emp_username.Name = "textBox_emp_username";
             textBox_emp_username.Size = new Size(289, 27);
             textBox_emp_username.TabIndex = 9;
@@ -307,7 +331,7 @@
             // textBox_emp_pass
             // 
             textBox_emp_pass.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox_emp_pass.Location = new Point(82, 148);
+            textBox_emp_pass.Location = new Point(118, 117);
             textBox_emp_pass.Name = "textBox_emp_pass";
             textBox_emp_pass.PasswordChar = '*';
             textBox_emp_pass.Size = new Size(289, 27);
@@ -319,7 +343,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label8.ForeColor = Color.Teal;
-            label8.Location = new Point(82, 63);
+            label8.Location = new Point(10, 72);
             label8.Name = "label8";
             label8.Size = new Size(102, 21);
             label8.TabIndex = 11;
@@ -330,7 +354,7 @@
             label10.AutoSize = true;
             label10.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label10.ForeColor = Color.Teal;
-            label10.Location = new Point(82, 124);
+            label10.Location = new Point(22, 122);
             label10.Name = "label10";
             label10.Size = new Size(90, 21);
             label10.TabIndex = 12;
@@ -448,5 +472,7 @@
         private TextBox textBox_emp_pass;
         private Label label8;
         private Label label10;
+        private TextBox textBox_cin;
+        private Label label11;
     }
 }

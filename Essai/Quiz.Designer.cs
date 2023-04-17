@@ -30,8 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Quiz));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pictureBox1 = new PictureBox();
             btn_next = new Guna.UI2.WinForms.Guna2Button();
             label1 = new Label();
@@ -49,7 +49,7 @@
             dateTimePicker1 = new DateTimePicker();
             label_question = new Label();
             label_set = new Label();
-            label_idEmp = new Label();
+            label_cinEmp = new Label();
             pictureBox = new PictureBox();
             label15 = new Label();
             qNo = new Label();
@@ -74,7 +74,7 @@
             // 
             btn_next.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btn_next.BorderRadius = 15;
-            btn_next.CustomizableEdges = customizableEdges3;
+            btn_next.CustomizableEdges = customizableEdges1;
             btn_next.DisabledState.BorderColor = Color.DarkGray;
             btn_next.DisabledState.CustomBorderColor = Color.DarkGray;
             btn_next.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -84,7 +84,7 @@
             btn_next.ForeColor = Color.White;
             btn_next.Location = new Point(738, 566);
             btn_next.Name = "btn_next";
-            btn_next.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btn_next.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btn_next.Size = new Size(168, 45);
             btn_next.TabIndex = 40;
             btn_next.Text = "Next";
@@ -106,18 +106,18 @@
             label10.AutoSize = true;
             label10.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label10.ForeColor = Color.Teal;
-            label10.Location = new Point(379, 107);
+            label10.Location = new Point(309, 110);
             label10.Name = "label10";
-            label10.Size = new Size(33, 23);
+            label10.Size = new Size(54, 23);
             label10.TabIndex = 45;
-            label10.Text = "ID:";
+            label10.Text = "CIN :";
             // 
             // label11
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label11.ForeColor = Color.Teal;
-            label11.Location = new Point(520, 107);
+            label11.Location = new Point(464, 108);
             label11.Name = "label11";
             label11.Size = new Size(72, 23);
             label11.TabIndex = 46;
@@ -126,11 +126,11 @@
             // label_nameEmp
             // 
             label_nameEmp.AutoSize = true;
-            label_nameEmp.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label_nameEmp.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label_nameEmp.ForeColor = Color.Black;
-            label_nameEmp.Location = new Point(598, 107);
+            label_nameEmp.Location = new Point(542, 112);
             label_nameEmp.Name = "label_nameEmp";
-            label_nameEmp.Size = new Size(32, 23);
+            label_nameEmp.Size = new Size(28, 21);
             label_nameEmp.TabIndex = 50;
             label_nameEmp.Text = "11";
             // 
@@ -175,6 +175,7 @@
             // radioButton1
             // 
             radioButton1.AutoSize = true;
+            radioButton1.Checked = true;
             radioButton1.Location = new Point(187, 299);
             radioButton1.Name = "radioButton1";
             radioButton1.Size = new Size(95, 25);
@@ -190,7 +191,6 @@
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(95, 25);
             radioButton2.TabIndex = 55;
-            radioButton2.TabStop = true;
             radioButton2.Text = "Answer2";
             radioButton2.UseVisualStyleBackColor = true;
             // 
@@ -201,7 +201,6 @@
             radioButton3.Name = "radioButton3";
             radioButton3.Size = new Size(95, 25);
             radioButton3.TabIndex = 56;
-            radioButton3.TabStop = true;
             radioButton3.Text = "Answer3";
             radioButton3.UseVisualStyleBackColor = true;
             // 
@@ -212,7 +211,6 @@
             radioButton4.Name = "radioButton4";
             radioButton4.Size = new Size(95, 25);
             radioButton4.TabIndex = 57;
-            radioButton4.TabStop = true;
             radioButton4.Text = "Answer4";
             radioButton4.UseVisualStyleBackColor = true;
             // 
@@ -241,20 +239,21 @@
             label_set.TabIndex = 60;
             label_set.Text = "label15";
             // 
-            // label_idEmp
+            // label_cinEmp
             // 
-            label_idEmp.AutoSize = true;
-            label_idEmp.Location = new Point(418, 109);
-            label_idEmp.Name = "label_idEmp";
-            label_idEmp.Size = new Size(66, 21);
-            label_idEmp.TabIndex = 62;
-            label_idEmp.Text = "label20";
+            label_cinEmp.AutoSize = true;
+            label_cinEmp.Location = new Point(369, 112);
+            label_cinEmp.Name = "label_cinEmp";
+            label_cinEmp.Size = new Size(66, 21);
+            label_cinEmp.TabIndex = 62;
+            label_cinEmp.Text = "label20";
             // 
             // pictureBox
             // 
             pictureBox.Location = new Point(465, 219);
             pictureBox.Name = "pictureBox";
             pictureBox.Size = new Size(441, 234);
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox.TabIndex = 63;
             pictureBox.TabStop = false;
             // 
@@ -306,7 +305,7 @@
             Controls.Add(qNo);
             Controls.Add(label15);
             Controls.Add(pictureBox);
-            Controls.Add(label_idEmp);
+            Controls.Add(label_cinEmp);
             Controls.Add(label_set);
             Controls.Add(label_question);
             Controls.Add(dateTimePicker1);
@@ -377,7 +376,7 @@
         private DateTimePicker dateTimePicker1;
         private Label label_question;
         private Label label_set;
-        private Label label_idEmp;
+        private Label label_cinEmp;
         private PictureBox pictureBox;
         private Label label15;
         private Label qNo;

@@ -36,7 +36,7 @@ namespace Essai
 
         private void button_login_Click(object sender, EventArgs e)
         {
-            query = "INSERT INTO employees (username, password, gender, email, mobile, birthday) VALUES ('" + textBox_username.Text + "','" + textBox_password.Text + "','" + comboBox_gender.Text + "','" + textBox_email.Text + "','" + textBox_mobile.Text + "' ,'" + dateTimePicker.Value.ToString("yyyy-MM-dd") + "' )";
+            query = "INSERT INTO employees (username, password, gender, email, mobile, birthday,cin) VALUES ('" + textBox_username.Text + "','" + textBox_password.Text + "','" + comboBox_gender.Text + "','" + textBox_email.Text + "','" + textBox_mobile.Text + "' ,'" + dateTimePicker.Value.ToString("yyyy-MM-dd") + "','" + textBox_cin.Text + "' )";
             ds = fn.getData(query);
 
             if (textBox_password.Text != textBox_confirmPass.Text)

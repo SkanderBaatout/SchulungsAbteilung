@@ -13,6 +13,8 @@ namespace Essai
 {
     public partial class LoginForm : Form
     {
+        public static string username;
+        public static string cin;
         EmployeeClass employee = new EmployeeClass();
         Function fn = new Function();
         string query;
@@ -120,12 +122,15 @@ namespace Essai
         }
         private void button_employee_login_Click(object sender, EventArgs e)
         {
-            query = "select * from employees where username ='" + textBox_emp_username.Text + "' AND  password ='" + textBox_emp_pass.Text + "' ";
+            username = textBox_emp_username.Text;
+            cin = textBox_cin.Text;
+
+            query = "select * from employees where username ='" + textBox_emp_username.Text + "' AND  password ='" + textBox_emp_pass.Text + "' AND cin ='" + textBox_cin.Text + "' ";
             ds = fn.getData(query);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 this.Hide();
-                Quiz form = new Quiz();
+                EmployeeBord form = new EmployeeBord();
                 form.Show();
             }
             else

@@ -34,6 +34,8 @@
             button_goBack = new Button();
             guna2Elipse4 = new Guna.UI2.WinForms.Guna2Elipse(components);
             panel_admin = new Panel();
+            textBox_cin = new TextBox();
+            label3 = new Label();
             label_error = new Label();
             dateTimePicker = new DateTimePicker();
             comboBox_gender = new ComboBox();
@@ -77,7 +79,7 @@
             button_goBack.FlatStyle = FlatStyle.Flat;
             button_goBack.Font = new Font("Century Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point);
             button_goBack.ForeColor = Color.White;
-            button_goBack.Location = new Point(195, 412);
+            button_goBack.Location = new Point(195, 444);
             button_goBack.Name = "button_goBack";
             button_goBack.Size = new Size(289, 44);
             button_goBack.TabIndex = 22;
@@ -87,6 +89,8 @@
             // 
             // panel_admin
             // 
+            panel_admin.Controls.Add(textBox_cin);
+            panel_admin.Controls.Add(label3);
             panel_admin.Controls.Add(label_error);
             panel_admin.Controls.Add(button_goBack);
             panel_admin.Controls.Add(dateTimePicker);
@@ -105,10 +109,30 @@
             panel_admin.Controls.Add(button_register);
             panel_admin.Controls.Add(label2);
             panel_admin.Controls.Add(label4);
-            panel_admin.Location = new Point(137, 145);
+            panel_admin.Location = new Point(137, 131);
             panel_admin.Name = "panel_admin";
-            panel_admin.Size = new Size(649, 477);
+            panel_admin.Size = new Size(649, 491);
             panel_admin.TabIndex = 18;
+            // 
+            // textBox_cin
+            // 
+            textBox_cin.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox_cin.Location = new Point(195, 364);
+            textBox_cin.Name = "textBox_cin";
+            textBox_cin.Size = new Size(289, 27);
+            textBox_cin.TabIndex = 8;
+            textBox_cin.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.ForeColor = Color.Teal;
+            label3.Location = new Point(129, 364);
+            label3.Name = "label3";
+            label3.Size = new Size(48, 21);
+            label3.TabIndex = 25;
+            label3.Text = "CIN :";
             // 
             // label_error
             // 
@@ -123,24 +147,24 @@
             // 
             // dateTimePicker
             // 
-            dateTimePicker.Location = new Point(195, 278);
+            dateTimePicker.Location = new Point(195, 275);
             dateTimePicker.Name = "dateTimePicker";
             dateTimePicker.Size = new Size(289, 27);
-            dateTimePicker.TabIndex = 21;
+            dateTimePicker.TabIndex = 6;
             // 
             // comboBox_gender
             // 
             comboBox_gender.FormattingEnabled = true;
             comboBox_gender.Items.AddRange(new object[] { "Male", "Female", "Other" });
-            comboBox_gender.Location = new Point(195, 233);
+            comboBox_gender.Location = new Point(195, 230);
             comboBox_gender.Name = "comboBox_gender";
             comboBox_gender.Size = new Size(197, 29);
-            comboBox_gender.TabIndex = 20;
+            comboBox_gender.TabIndex = 5;
             // 
             // textBox_password
             // 
             textBox_password.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox_password.Location = new Point(192, 88);
+            textBox_password.Location = new Point(191, 88);
             textBox_password.Name = "textBox_password";
             textBox_password.PasswordChar = '*';
             textBox_password.Size = new Size(288, 27);
@@ -150,11 +174,11 @@
             // textBox_confirmPass
             // 
             textBox_confirmPass.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox_confirmPass.Location = new Point(195, 130);
+            textBox_confirmPass.Location = new Point(191, 130);
             textBox_confirmPass.Name = "textBox_confirmPass";
             textBox_confirmPass.PasswordChar = '*';
             textBox_confirmPass.Size = new Size(289, 27);
-            textBox_confirmPass.TabIndex = 17;
+            textBox_confirmPass.TabIndex = 3;
             textBox_confirmPass.TextAlign = HorizontalAlignment.Center;
             // 
             // label11
@@ -162,7 +186,7 @@
             label11.AutoSize = true;
             label11.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label11.ForeColor = Color.Teal;
-            label11.Location = new Point(87, 95);
+            label11.Location = new Point(82, 88);
             label11.Name = "label11";
             label11.Size = new Size(90, 21);
             label11.TabIndex = 18;
@@ -173,7 +197,7 @@
             label12.AutoSize = true;
             label12.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label12.ForeColor = Color.Teal;
-            label12.Location = new Point(25, 133);
+            label12.Location = new Point(21, 133);
             label12.Name = "label12";
             label12.Size = new Size(155, 21);
             label12.TabIndex = 19;
@@ -185,13 +209,13 @@
             textBox_email.Location = new Point(195, 318);
             textBox_email.Name = "textBox_email";
             textBox_email.Size = new Size(289, 27);
-            textBox_email.TabIndex = 12;
+            textBox_email.TabIndex = 7;
             textBox_email.TextAlign = HorizontalAlignment.Center;
             // 
             // textBox_username
             // 
             textBox_username.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox_username.Location = new Point(195, 53);
+            textBox_username.Location = new Point(191, 45);
             textBox_username.Name = "textBox_username";
             textBox_username.Size = new Size(289, 27);
             textBox_username.TabIndex = 1;
@@ -213,7 +237,7 @@
             label10.AutoSize = true;
             label10.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label10.ForeColor = Color.Teal;
-            label10.Location = new Point(74, 56);
+            label10.Location = new Point(70, 48);
             label10.Name = "label10";
             label10.Size = new Size(102, 21);
             label10.TabIndex = 15;
@@ -224,7 +248,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label7.ForeColor = Color.Teal;
-            label7.Location = new Point(95, 241);
+            label7.Location = new Point(95, 238);
             label7.Name = "label7";
             label7.Size = new Size(82, 21);
             label7.TabIndex = 10;
@@ -235,7 +259,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label8.ForeColor = Color.Teal;
-            label8.Location = new Point(90, 278);
+            label8.Location = new Point(90, 275);
             label8.Name = "label8";
             label8.Size = new Size(86, 21);
             label8.TabIndex = 11;
@@ -244,7 +268,7 @@
             // textBox_mobile
             // 
             textBox_mobile.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox_mobile.Location = new Point(195, 191);
+            textBox_mobile.Location = new Point(195, 184);
             textBox_mobile.Name = "textBox_mobile";
             textBox_mobile.Size = new Size(289, 27);
             textBox_mobile.TabIndex = 4;
@@ -256,7 +280,7 @@
             button_register.FlatStyle = FlatStyle.Flat;
             button_register.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             button_register.ForeColor = Color.White;
-            button_register.Location = new Point(195, 365);
+            button_register.Location = new Point(195, 397);
             button_register.Name = "button_register";
             button_register.Size = new Size(289, 41);
             button_register.TabIndex = 5;
@@ -280,7 +304,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label4.ForeColor = Color.Teal;
-            label4.Location = new Point(105, 194);
+            label4.Location = new Point(105, 187);
             label4.Name = "label4";
             label4.Size = new Size(70, 21);
             label4.TabIndex = 7;
@@ -428,5 +452,7 @@
         private Button button_goBack;
         private Label label13;
         private Label label_error;
+        private TextBox textBox_cin;
+        private Label label3;
     }
 }
