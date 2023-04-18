@@ -166,7 +166,7 @@ namespace Essai
                     MemoryStream ms = new MemoryStream();
                     pictureBox.Image.Save(ms, pictureBox.Image.RawFormat);
                     byte[] img = ms.ToArray();
-                    query = "update questions set question = '" + question + "',optionA = '" + option1 + "',optionB = '" + option2 + "',optionC = '" + option3 + "',optionD = '" + option4 + "',ans = '" + ans + "' ,photo = '" + img + "' where qset = '" + qSet + "' and qNo = '" + qNo + "' ";
+                    query = "update questions set question = '" + question + "',optionA = '" + option1 + "',optionB = '" + option2 + "',optionC = '" + option3 + "',optionD = '" + option4 + "',ans = '" + ans + "' ,photo = CONVERT(VARBINARY,'" + img + "') where qset = '" + qSet + "' and qNo = '" + qNo + "' ";
 
                     fn.setData(query, "Question No : " + qNo + "\n Question Set :" + qSet + "\n  is Updated.");
                     clearAll();

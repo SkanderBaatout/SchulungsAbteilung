@@ -76,7 +76,7 @@ namespace Essai
 
         private void nextQuestions()
         {
-            query = "select question,optionA,optionB,optionC,optionD,ans,photo from questions  where qset = '" + label_set.Text + "'";
+            query = "select question,optionA,optionB,optionC,optionD,ans,CONVERT(varbinary, photo) as photo from questions  where qset = '" + label_set.Text + "'";
             ds = fn.getData(query);
 
             int questNum = ds.Tables[0].Rows.Count;
@@ -105,7 +105,7 @@ namespace Essai
                                 {
                                     Image image = Image.FromStream(ms);
                                     pictureBox.Image = image;
-                                    pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                                 }
                             }
                             catch (Exception ex)

@@ -10,7 +10,7 @@ namespace Essai
 {
      class Function
     {
-        protected SqlConnection GetConnection()
+        public SqlConnection GetConnection()
         {
             SqlConnection con = new SqlConnection();
             con.ConnectionString = "data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True";
@@ -25,6 +25,8 @@ namespace Essai
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             da.Fill(ds);
+
+            
             return ds;
         }
         public void setData(string query , string msg)
@@ -39,6 +41,7 @@ namespace Essai
             MessageBox.Show(msg,"Information",MessageBoxButtons.OK,MessageBoxIcon.Information);
 
         }
+       
         public SqlDataReader getForCombo(string query)
         {
             SqlConnection con = GetConnection();
