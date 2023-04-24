@@ -72,6 +72,39 @@ namespace Essai
 
         }
 
+        private void insertText()
+        {
+            try
+            {
+                string candidate = LoginForm.cin;
+                int qset = Convert.ToInt32(label_set.Text);
+
+                string checkQuery = "SELECT COUNT(*) FROM scoreQUiz WHERE cin = '{0}'";
+                checkQuery = string.Format(checkQuery, candidate);
+                DataSet ds = fn.getData(checkQuery);
+                int count = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
+
+               // int count = Convert.ToInt32(fn.getSingleValue(checkQuery));
+
+                if (count > 0)
+                {
+                    string updateQuery = "UPDATE scoreQUiz SET qset = {0}, date = '{1}', score = {2} WHERE cin = '{3}'";
+                    updateQuery = string.Format(updateQuery, qset, System.DateTime.Today.Date.ToString("yyyy-MM-dd"), score, candidate);
+                    fn.setData(updateQuery, "Data updated successfully!");
+                }
+                else
+                {
+                    string insertQuery = "INSERT INTO scoreQUiz (cin, qset, date, score) VALUES ('{0}', {1}, '{2}', {3})";
+                    insertQuery = string.Format(insertQuery, candidate, qset, System.DateTime.Today.Date.ToString("yyyy-MM-dd"), score);
+                    fn.setData(insertQuery, "Data inserted successfully!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+
+        }
 
 
         private void nextQuestions()
@@ -160,7 +193,7 @@ namespace Essai
             }
             else
             {
-                questNum = 0;
+               
                 // MessageBox.Show(score + "");
                 // Display the score in custom dialog
                 using (ScoreDialogForm scoreDialog = new ScoreDialogForm())
@@ -168,6 +201,8 @@ namespace Essai
                     scoreDialog.Score = score;
                     scoreDialog.ShowDialog();
                 }
+                insertText();
+                questNum = 0;
             }
         }
 
