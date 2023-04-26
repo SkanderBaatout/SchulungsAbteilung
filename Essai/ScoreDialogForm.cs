@@ -12,6 +12,8 @@ namespace Essai
 {
     public partial class ScoreDialogForm : Form
     {
+        Quiz quiz = new Quiz();
+        
         public int Score { get; set; }
 
         public ScoreDialogForm()
@@ -22,13 +24,16 @@ namespace Essai
         private void ScoreDialogForm_Load(object sender, EventArgs e)
         {
             // Set the score value to the label
-            labelScore.Text = "Score: " + Score.ToString();
+            labelScore.Text = "You got : " + Score.ToString();
+            
         }
        
         private void btnClose_Click_1(object sender, EventArgs e)
         {
+           
             // Close the dialog
             this.Close();
+            
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MySqlX.XDevAPI.Relational;
+﻿using Essai.Models;
+using MySqlX.XDevAPI.Relational;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -72,30 +73,28 @@ namespace Essai
 
         }
 
-        private void insertText()
+        public void insertTest()
         {
             try
             {
                 string candidate = LoginForm.cin;
-                int qset = Convert.ToInt32(label_set.Text);
-
+                // Appeler la méthode getSet pour récupérer la valeur qset            
+                int qset = Convert.ToInt32(getSet());
                 string checkQuery = "SELECT COUNT(*) FROM scoreQUiz WHERE cin = '{0}'";
                 checkQuery = string.Format(checkQuery, candidate);
                 DataSet ds = fn.getData(checkQuery);
                 int count = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
-
-               // int count = Convert.ToInt32(fn.getSingleValue(checkQuery));
-
                 if (count > 0)
                 {
                     string updateQuery = "UPDATE scoreQUiz SET qset = {0}, date = '{1}', score = {2} WHERE cin = '{3}'";
-                    updateQuery = string.Format(updateQuery, qset, System.DateTime.Today.Date.ToString("yyyy-MM-dd"), score, candidate);
+                    updateQuery = string.Format(updateQuery, qset, System.DateTime.Now.ToString("yyyy-MM-dd HH:mm"), score, candidate); ;
                     fn.setData(updateQuery, "Data updated successfully!");
                 }
                 else
                 {
                     string insertQuery = "INSERT INTO scoreQUiz (cin, qset, date, score) VALUES ('{0}', {1}, '{2}', {3})";
-                    insertQuery = string.Format(insertQuery, candidate, qset, System.DateTime.Today.Date.ToString("yyyy-MM-dd"), score);
+                    insertQuery = string.Format(insertQuery, candidate, qset, System.DateTime.Now.ToString("yyyy-MM-dd HH:mm"), score);
+                    
                     fn.setData(insertQuery, "Data inserted successfully!");
                 }
             }
@@ -173,6 +172,7 @@ namespace Essai
                         radioButton4.Text = ds.Tables[0].Rows[i][4].ToString();
 
                         correct();
+
                         if (c == Convert.ToInt32(ds.Tables[0].Rows[i][5].ToString()))
                         {
                             score = score + 1;
@@ -193,15 +193,14 @@ namespace Essai
             }
             else
             {
-               
-                // MessageBox.Show(score + "");
+                insertTest();
                 // Display the score in custom dialog
                 using (ScoreDialogForm scoreDialog = new ScoreDialogForm())
                 {
                     scoreDialog.Score = score;
                     scoreDialog.ShowDialog();
                 }
-                insertText();
+
                 questNum = 0;
             }
         }
@@ -234,12 +233,12 @@ namespace Essai
             if (currentQuestionNo <= totalQuestions)
             {
                 nextQuestions();
+
                 qNo.Text = "Question " + (currentQuestionNo += 1).ToString() + " / " + totalQuestions.ToString();
             }
-
-
             else
             {
+
                 timer1.Stop();
 
                 MessageBox.Show("Vous avez terminé le quiz!", "Quiz terminé");
@@ -252,19 +251,23 @@ namespace Essai
                     scoreDialog.ShowDialog();
                 }
 
-                // Perform any other actions needed when all questions are finished
-                // e.g. calculate final score, show result, etc.
             }
         }
-        private void getSet()
+        private string getSet()
         {
             query = "SELECT   TOP 1 qset FROM questions ORDER BY NewID();";
             DataSet ds = fn.getData(query);
 
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                label_set.Text = ds.Tables[0].Rows[i][0].ToString();
+                string qset = ds.Tables[0].Rows[i][0].ToString();
+                //label_set.Text = ds.Tables[0].Rows[i][0].ToString();
+                label_set.Text = qset;
+                return qset;
+
+
             }
+            return null;
         }
 
         private int questionNumber()
@@ -321,6 +324,12 @@ namespace Essai
                     label_remainingTime.Text = remainingTime.ToString() + " seconds";
                 }
             }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            insertTest();
+            Quiz_Load(this,null);
         }
     }
 }

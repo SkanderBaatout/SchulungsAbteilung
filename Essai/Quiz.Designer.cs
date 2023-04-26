@@ -55,8 +55,10 @@
             qNo = new Label();
             label_remainingTime = new Label();
             label_total_Time = new Label();
+            pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -295,11 +297,23 @@
             label_total_Time.TabIndex = 67;
             label_total_Time.Text = "01:00";
             // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(221, 15);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(61, 23);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 68;
+            pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
+            // 
             // Quiz
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(950, 650);
+            Controls.Add(pictureBox2);
             Controls.Add(label_total_Time);
             Controls.Add(label_remainingTime);
             Controls.Add(qNo);
@@ -331,6 +345,7 @@
             Load += Quiz_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -382,5 +397,6 @@
         private Label qNo;
         private Label label_remainingTime;
         private Label label_total_Time;
+        private PictureBox pictureBox2;
     }
 }

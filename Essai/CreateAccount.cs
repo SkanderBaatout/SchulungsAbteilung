@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Essai.Models;
+using Microsoft.Data.SqlClient;
 using Mysqlx.Crud;
 using System;
 using System.Collections.Generic;

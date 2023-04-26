@@ -1,4 +1,5 @@
-﻿using Guna.UI2.WinForms.Suite;
+﻿using Essai.Models;
+using Guna.UI2.WinForms.Suite;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using System;

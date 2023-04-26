@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient; 
+using MySql.Data.MySqlClient;
 
-namespace Essai
+namespace Essai.Models
 {
     internal class DbConnect
     {   // to create connection
         MySqlConnection connect = new MySqlConnection("datasource=localhost;port=3306;username=root;password=;database=studentdb");
-        
+
         //to get connection
         public MySqlConnection GetConnection
         {
@@ -23,7 +23,7 @@ namespace Essai
         //create function to open that connection
         public void openConnect()
         {
-            if(connect.State==System.Data.ConnectionState.Closed)
+            if (connect.State == System.Data.ConnectionState.Closed)
                 connect.Open();
         }
 
@@ -32,7 +32,7 @@ namespace Essai
             if (connect.State == System.Data.ConnectionState.Open)
                 connect.Close();
         }
-    
+
     }
 
 }
