@@ -31,9 +31,10 @@
             panel1 = new Panel();
             button1 = new Button();
             panel2 = new Panel();
-            xlView2 = new XLView();
+            dataGridView = new DataGridView();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -59,21 +60,22 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(xlView2);
+            panel2.Controls.Add(dataGridView);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 100);
             panel2.Name = "panel2";
             panel2.Size = new Size(950, 550);
             panel2.TabIndex = 1;
             // 
-            // xlView2
+            // dataGridView
             // 
-            xlView2.Dock = DockStyle.Fill;
-            xlView2.Location = new Point(0, 0);
-            xlView2.Margin = new Padding(4);
-            xlView2.Name = "xlView2";
-            xlView2.Size = new Size(950, 550);
-            xlView2.TabIndex = 0;
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Location = new Point(174, 37);
+            dataGridView.Name = "dataGridView";
+            dataGridView.RowTemplate.Height = 25;
+            dataGridView.Size = new Size(699, 441);
+            dataGridView.TabIndex = 0;
+            dataGridView.CellContentClick += dataGridView_CellContentClick;
             // 
             // PlanFormation
             // 
@@ -90,6 +92,7 @@
             Text = "PlanFormation";
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
         }
 
@@ -99,6 +102,6 @@
         private Button button1;
         private XLView xlView1;
         private Panel panel2;
-        private XLView xlView2;
+        private DataGridView dataGridView;
     }
 }

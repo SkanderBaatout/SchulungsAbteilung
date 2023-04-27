@@ -252,9 +252,9 @@
             // 
             // pictureBox
             // 
-            pictureBox.Location = new Point(465, 219);
+            pictureBox.Location = new Point(414, 219);
             pictureBox.Name = "pictureBox";
-            pictureBox.Size = new Size(441, 234);
+            pictureBox.Size = new Size(492, 319);
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox.TabIndex = 63;
             pictureBox.TabStop = false;

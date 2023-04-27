@@ -94,7 +94,7 @@ namespace Essai
                 {
                     string insertQuery = "INSERT INTO scoreQUiz (cin, qset, date, score) VALUES ('{0}', {1}, '{2}', {3})";
                     insertQuery = string.Format(insertQuery, candidate, qset, System.DateTime.Now.ToString("yyyy-MM-dd HH:mm"), score);
-                    
+
                     fn.setData(insertQuery, "Data inserted successfully!");
                 }
             }
@@ -104,10 +104,9 @@ namespace Essai
             }
 
         }
-
-
         private void nextQuestions()
         {
+
             query = "select question,optionA,optionB,optionC,optionD,ans,CONVERT(varbinary, photo) as photo from questions  where qset = '" + label_set.Text + "'";
             ds = fn.getData(query);
 
@@ -127,6 +126,7 @@ namespace Essai
 
                         // Récupérer les données d'image depuis la colonne de la base de données
                         byte[] img = (byte[])ds.Tables[0].Rows[i][6];
+                        
 
                         if (img != null && img.Length > 0)
                         {
@@ -135,6 +135,7 @@ namespace Essai
                                 // Créer une image à partir des données d'image
                                 using (MemoryStream ms = new MemoryStream(img))
                                 {
+
                                     Image image = Image.FromStream(ms);
                                     pictureBox.Image = image;
                                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -261,11 +262,8 @@ namespace Essai
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 string qset = ds.Tables[0].Rows[i][0].ToString();
-                //label_set.Text = ds.Tables[0].Rows[i][0].ToString();
                 label_set.Text = qset;
                 return qset;
-
-
             }
             return null;
         }
@@ -329,7 +327,7 @@ namespace Essai
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             insertTest();
-            Quiz_Load(this,null);
+
         }
     }
 }
