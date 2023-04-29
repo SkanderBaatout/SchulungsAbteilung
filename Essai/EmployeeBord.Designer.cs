@@ -54,10 +54,10 @@
             button_exit = new Button();
             button_dashboard = new Button();
             button_score = new Button();
-            button_course = new Button();
-            button_questions = new Button();
             panel_course_subMenu = new Panel();
             button_plan = new Button();
+            button_questions = new Button();
+            button_course = new Button();
             panel_logo.SuspendLayout();
             panel_main.SuspendLayout();
             panel_cover.SuspendLayout();
@@ -371,41 +371,6 @@
             button_score.TextAlign = ContentAlignment.MiddleLeft;
             button_score.UseVisualStyleBackColor = false;
             // 
-            // button_course
-            // 
-            button_course.BackColor = Color.Teal;
-            button_course.Dock = DockStyle.Top;
-            button_course.FlatAppearance.BorderSize = 0;
-            button_course.FlatStyle = FlatStyle.Flat;
-            button_course.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            button_course.ForeColor = Color.White;
-            button_course.Location = new Point(0, 102);
-            button_course.Name = "button_course";
-            button_course.Padding = new Padding(10, 0, 0, 0);
-            button_course.Size = new Size(200, 37);
-            button_course.TabIndex = 3;
-            button_course.Text = "Formations";
-            button_course.TextAlign = ContentAlignment.MiddleLeft;
-            button_course.UseVisualStyleBackColor = false;
-            // 
-            // button_questions
-            // 
-            button_questions.BackColor = Color.Teal;
-            button_questions.Dock = DockStyle.Top;
-            button_questions.FlatAppearance.BorderSize = 0;
-            button_questions.FlatStyle = FlatStyle.Flat;
-            button_questions.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            button_questions.ForeColor = Color.White;
-            button_questions.Location = new Point(0, 0);
-            button_questions.Name = "button_questions";
-            button_questions.Padding = new Padding(10, 0, 0, 0);
-            button_questions.Size = new Size(200, 37);
-            button_questions.TabIndex = 10;
-            button_questions.Text = "Exams";
-            button_questions.TextAlign = ContentAlignment.MiddleLeft;
-            button_questions.UseVisualStyleBackColor = false;
-            button_questions.Click += button_questions_Click;
-            // 
             // panel_course_subMenu
             // 
             panel_course_subMenu.BackColor = Color.DarkCyan;
@@ -433,6 +398,43 @@
             button_plan.Text = "Plan de Formation";
             button_plan.TextAlign = ContentAlignment.MiddleLeft;
             button_plan.UseVisualStyleBackColor = false;
+            button_plan.Click += button_plan_Click;
+            // 
+            // button_questions
+            // 
+            button_questions.BackColor = Color.Teal;
+            button_questions.Dock = DockStyle.Top;
+            button_questions.FlatAppearance.BorderSize = 0;
+            button_questions.FlatStyle = FlatStyle.Flat;
+            button_questions.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button_questions.ForeColor = Color.White;
+            button_questions.Location = new Point(0, 0);
+            button_questions.Name = "button_questions";
+            button_questions.Padding = new Padding(10, 0, 0, 0);
+            button_questions.Size = new Size(200, 37);
+            button_questions.TabIndex = 10;
+            button_questions.Text = "Exams";
+            button_questions.TextAlign = ContentAlignment.MiddleLeft;
+            button_questions.UseVisualStyleBackColor = false;
+            button_questions.Click += button_questions_Click;
+            // 
+            // button_course
+            // 
+            button_course.BackColor = Color.Teal;
+            button_course.Dock = DockStyle.Top;
+            button_course.FlatAppearance.BorderSize = 0;
+            button_course.FlatStyle = FlatStyle.Flat;
+            button_course.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button_course.ForeColor = Color.White;
+            button_course.Location = new Point(0, 102);
+            button_course.Name = "button_course";
+            button_course.Padding = new Padding(10, 0, 0, 0);
+            button_course.Size = new Size(200, 37);
+            button_course.TabIndex = 3;
+            button_course.Text = "Formations";
+            button_course.TextAlign = ContentAlignment.MiddleLeft;
+            button_course.UseVisualStyleBackColor = false;
+            button_course.Click += button_course_Click;
             // 
             // EmployeeBord
             // 

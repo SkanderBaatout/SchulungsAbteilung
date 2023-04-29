@@ -35,5 +35,18 @@ namespace Essai
             this.Hide();
             login.Show();
         }
+
+        private void button_plan_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_course_Click(object sender, EventArgs e)
+        {
+            Questions questions = new Questions();
+
+            this.Hide();
+            questions.Show();
+        }
     }
 }
