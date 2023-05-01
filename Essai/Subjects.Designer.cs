@@ -35,15 +35,15 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             guna2CirclePictureBox6 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             guna2CirclePictureBox5 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             guna2CirclePictureBox4 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
@@ -52,15 +52,15 @@
             panel2 = new Panel();
             guna2CirclePictureBox2 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             label4 = new Label();
-            guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
-            guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
-            guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
-            guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
-            maskedTextBox1 = new MaskedTextBox();
+            editbtn = new Guna.UI2.WinForms.Guna2Button();
+            resetbtn = new Guna.UI2.WinForms.Guna2Button();
+            savebtn = new Guna.UI2.WinForms.Guna2Button();
+            subjectTb = new MaskedTextBox();
             panel1 = new Panel();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
+            subjectsList = new Guna.UI2.WinForms.Guna2DataGridView();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox4).BeginInit();
@@ -68,7 +68,7 @@
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox1).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)guna2DataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)subjectsList).BeginInit();
             SuspendLayout();
             // 
             // guna2CirclePictureBox6
@@ -85,6 +85,7 @@
             guna2CirclePictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
             guna2CirclePictureBox6.TabIndex = 5;
             guna2CirclePictureBox6.TabStop = false;
+            guna2CirclePictureBox6.Click += guna2CirclePictureBox6_Click;
             // 
             // guna2CirclePictureBox5
             // 
@@ -175,6 +176,7 @@
             guna2CirclePictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             guna2CirclePictureBox2.TabIndex = 1;
             guna2CirclePictureBox2.TabStop = false;
+            guna2CirclePictureBox2.Click += guna2CirclePictureBox2_Click;
             // 
             // label4
             // 
@@ -188,125 +190,77 @@
             label4.TabIndex = 32;
             label4.Text = "Subjects List";
             // 
-            // guna2DataGridView1
+            // editbtn
             // 
-            dataGridViewCellStyle1.BackColor = Color.White;
-            guna2DataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            guna2DataGridView1.ColumnHeadersHeight = 4;
-            guna2DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
-            guna2DataGridView1.GridColor = Color.FromArgb(231, 229, 255);
-            guna2DataGridView1.Location = new Point(12, 307);
-            guna2DataGridView1.Name = "guna2DataGridView1";
-            guna2DataGridView1.RowHeadersVisible = false;
-            guna2DataGridView1.RowTemplate.Height = 25;
-            guna2DataGridView1.Size = new Size(871, 331);
-            guna2DataGridView1.TabIndex = 31;
-            guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
-            guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
-            guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
-            guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
-            guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
-            guna2DataGridView1.ThemeStyle.BackColor = Color.White;
-            guna2DataGridView1.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
-            guna2DataGridView1.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(100, 88, 255);
-            guna2DataGridView1.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
-            guna2DataGridView1.ThemeStyle.HeaderStyle.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            guna2DataGridView1.ThemeStyle.HeaderStyle.ForeColor = Color.White;
-            guna2DataGridView1.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            guna2DataGridView1.ThemeStyle.HeaderStyle.Height = 4;
-            guna2DataGridView1.ThemeStyle.ReadOnly = false;
-            guna2DataGridView1.ThemeStyle.RowsStyle.BackColor = Color.White;
-            guna2DataGridView1.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            guna2DataGridView1.ThemeStyle.RowsStyle.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            guna2DataGridView1.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(71, 69, 94);
-            guna2DataGridView1.ThemeStyle.RowsStyle.Height = 25;
-            guna2DataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            guna2DataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            editbtn.BorderRadius = 15;
+            editbtn.CustomizableEdges = customizableEdges7;
+            editbtn.DisabledState.BorderColor = Color.DarkGray;
+            editbtn.DisabledState.CustomBorderColor = Color.DarkGray;
+            editbtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            editbtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            editbtn.FillColor = Color.White;
+            editbtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            editbtn.ForeColor = Color.Teal;
+            editbtn.Location = new Point(351, 195);
+            editbtn.Name = "editbtn";
+            editbtn.ShadowDecoration.BorderRadius = 15;
+            editbtn.ShadowDecoration.Color = Color.Transparent;
+            editbtn.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            editbtn.Size = new Size(180, 35);
+            editbtn.TabIndex = 30;
+            editbtn.Text = "Edit";
+            editbtn.Click += editbtn_Click;
             // 
-            // guna2Button3
+            // resetbtn
             // 
-            guna2Button3.BorderRadius = 15;
-            guna2Button3.CustomizableEdges = customizableEdges7;
-            guna2Button3.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button3.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button3.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button3.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button3.FillColor = Color.White;
-            guna2Button3.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            guna2Button3.ForeColor = Color.Teal;
-            guna2Button3.Location = new Point(351, 195);
-            guna2Button3.Name = "guna2Button3";
-            guna2Button3.ShadowDecoration.BorderRadius = 15;
-            guna2Button3.ShadowDecoration.Color = Color.Transparent;
-            guna2Button3.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2Button3.Size = new Size(180, 35);
-            guna2Button3.TabIndex = 30;
-            guna2Button3.Text = "Edit";
+            resetbtn.BorderRadius = 15;
+            resetbtn.CustomizableEdges = customizableEdges9;
+            resetbtn.DisabledState.BorderColor = Color.DarkGray;
+            resetbtn.DisabledState.CustomBorderColor = Color.DarkGray;
+            resetbtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            resetbtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            resetbtn.FillColor = Color.White;
+            resetbtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            resetbtn.ForeColor = Color.Teal;
+            resetbtn.Location = new Point(561, 195);
+            resetbtn.Name = "resetbtn";
+            resetbtn.ShadowDecoration.BorderRadius = 15;
+            resetbtn.ShadowDecoration.Color = Color.Transparent;
+            resetbtn.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            resetbtn.Size = new Size(180, 35);
+            resetbtn.TabIndex = 29;
+            resetbtn.Text = "Reset";
+            resetbtn.Click += resetbtn_Click;
             // 
-            // guna2Button2
+            // savebtn
             // 
-            guna2Button2.BorderRadius = 15;
-            guna2Button2.CustomizableEdges = customizableEdges9;
-            guna2Button2.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button2.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button2.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button2.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button2.FillColor = Color.White;
-            guna2Button2.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            guna2Button2.ForeColor = Color.Teal;
-            guna2Button2.Location = new Point(561, 195);
-            guna2Button2.Name = "guna2Button2";
-            guna2Button2.ShadowDecoration.BorderRadius = 15;
-            guna2Button2.ShadowDecoration.Color = Color.Transparent;
-            guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            guna2Button2.Size = new Size(180, 35);
-            guna2Button2.TabIndex = 29;
-            guna2Button2.Text = "Reset";
+            savebtn.BorderRadius = 15;
+            savebtn.CustomizableEdges = customizableEdges11;
+            savebtn.DisabledState.BorderColor = Color.DarkGray;
+            savebtn.DisabledState.CustomBorderColor = Color.DarkGray;
+            savebtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            savebtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            savebtn.FillColor = Color.White;
+            savebtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            savebtn.ForeColor = Color.Teal;
+            savebtn.Location = new Point(132, 195);
+            savebtn.Name = "savebtn";
+            savebtn.ShadowDecoration.BorderRadius = 15;
+            savebtn.ShadowDecoration.Color = Color.Transparent;
+            savebtn.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            savebtn.Size = new Size(180, 35);
+            savebtn.TabIndex = 28;
+            savebtn.Text = "Save";
+            savebtn.Click += savebtn_Click;
             // 
-            // guna2Button1
+            // subjectTb
             // 
-            guna2Button1.BorderRadius = 15;
-            guna2Button1.CustomizableEdges = customizableEdges11;
-            guna2Button1.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button1.FillColor = Color.White;
-            guna2Button1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            guna2Button1.ForeColor = Color.Teal;
-            guna2Button1.Location = new Point(132, 195);
-            guna2Button1.Name = "guna2Button1";
-            guna2Button1.ShadowDecoration.BorderRadius = 15;
-            guna2Button1.ShadowDecoration.Color = Color.Transparent;
-            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            guna2Button1.Size = new Size(180, 35);
-            guna2Button1.TabIndex = 28;
-            guna2Button1.Text = "Save";
-            // 
-            // maskedTextBox1
-            // 
-            maskedTextBox1.Location = new Point(289, 120);
-            maskedTextBox1.Name = "maskedTextBox1";
-            maskedTextBox1.Size = new Size(256, 27);
-            maskedTextBox1.TabIndex = 21;
-            maskedTextBox1.Text = "Subject Name";
-            maskedTextBox1.TextAlign = HorizontalAlignment.Center;
+            subjectTb.Location = new Point(289, 120);
+            subjectTb.Name = "subjectTb";
+            subjectTb.Size = new Size(256, 27);
+            subjectTb.TabIndex = 21;
+            subjectTb.Text = "Subject Name";
+            subjectTb.TextAlign = HorizontalAlignment.Center;
             // 
             // panel1
             // 
@@ -340,6 +294,7 @@
             label2.Size = new Size(130, 25);
             label2.TabIndex = 18;
             label2.Text = "Candidates";
+            label2.Click += label2_Click;
             // 
             // label1
             // 
@@ -353,26 +308,78 @@
             label1.TabIndex = 17;
             label1.Text = "Questions";
             // 
+            // subjectsList
+            // 
+            dataGridViewCellStyle1.BackColor = Color.White;
+            subjectsList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            subjectsList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            subjectsList.ColumnHeadersHeight = 25;
+            subjectsList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            subjectsList.DefaultCellStyle = dataGridViewCellStyle3;
+            subjectsList.GridColor = Color.FromArgb(231, 229, 255);
+            subjectsList.Location = new Point(5, 300);
+            subjectsList.Name = "subjectsList";
+            subjectsList.RowHeadersVisible = false;
+            subjectsList.RowTemplate.Height = 24;
+            subjectsList.Size = new Size(878, 338);
+            subjectsList.TabIndex = 34;
+            subjectsList.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
+            subjectsList.ThemeStyle.AlternatingRowsStyle.Font = null;
+            subjectsList.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
+            subjectsList.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
+            subjectsList.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
+            subjectsList.ThemeStyle.BackColor = Color.White;
+            subjectsList.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
+            subjectsList.ThemeStyle.HeaderStyle.BackColor = Color.Black;
+            subjectsList.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
+            subjectsList.ThemeStyle.HeaderStyle.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            subjectsList.ThemeStyle.HeaderStyle.ForeColor = Color.White;
+            subjectsList.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            subjectsList.ThemeStyle.HeaderStyle.Height = 25;
+            subjectsList.ThemeStyle.ReadOnly = false;
+            subjectsList.ThemeStyle.RowsStyle.BackColor = Color.White;
+            subjectsList.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            subjectsList.ThemeStyle.RowsStyle.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            subjectsList.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(71, 69, 94);
+            subjectsList.ThemeStyle.RowsStyle.Height = 24;
+            subjectsList.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            subjectsList.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            subjectsList.CellContentClick += subjectsList_CellContentClick;
+            // 
             // Subjects
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Teal;
             ClientSize = new Size(950, 650);
+            Controls.Add(subjectsList);
             Controls.Add(panel2);
             Controls.Add(label4);
-            Controls.Add(guna2DataGridView1);
-            Controls.Add(guna2Button3);
-            Controls.Add(guna2Button2);
-            Controls.Add(guna2Button1);
-            Controls.Add(maskedTextBox1);
+            Controls.Add(editbtn);
+            Controls.Add(resetbtn);
+            Controls.Add(savebtn);
+            Controls.Add(subjectTb);
             Controls.Add(panel1);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "Subjects";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Subjects";
@@ -383,7 +390,7 @@
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox1).EndInit();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)guna2DataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)subjectsList).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -398,14 +405,14 @@
         private Panel panel2;
         private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox2;
         private Label label4;
-        private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView1;
-        private Guna.UI2.WinForms.Guna2Button guna2Button3;
-        private Guna.UI2.WinForms.Guna2Button guna2Button2;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
-        private MaskedTextBox maskedTextBox1;
+        private Guna.UI2.WinForms.Guna2Button editbtn;
+        private Guna.UI2.WinForms.Guna2Button resetbtn;
+        private Guna.UI2.WinForms.Guna2Button savebtn;
+        private MaskedTextBox subjectTb;
         private Panel panel1;
         private Label label3;
         private Label label2;
         private Label label1;
+        private Guna.UI2.WinForms.Guna2DataGridView subjectsList;
     }
 }

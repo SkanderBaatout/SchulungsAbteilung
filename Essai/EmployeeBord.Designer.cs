@@ -55,7 +55,6 @@
             button_dashboard = new Button();
             button_score = new Button();
             panel_course_subMenu = new Panel();
-            button_plan = new Button();
             button_questions = new Button();
             button_course = new Button();
             panel_logo.SuspendLayout();
@@ -327,7 +326,7 @@
             button_exit.FlatStyle = FlatStyle.Flat;
             button_exit.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button_exit.ForeColor = Color.White;
-            button_exit.Location = new Point(0, 288);
+            button_exit.Location = new Point(0, 253);
             button_exit.Name = "button_exit";
             button_exit.Padding = new Padding(10, 0, 0, 0);
             button_exit.Size = new Size(200, 37);
@@ -345,7 +344,7 @@
             button_dashboard.FlatStyle = FlatStyle.Flat;
             button_dashboard.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button_dashboard.ForeColor = Color.White;
-            button_dashboard.Location = new Point(0, 251);
+            button_dashboard.Location = new Point(0, 216);
             button_dashboard.Name = "button_dashboard";
             button_dashboard.Padding = new Padding(10, 0, 0, 0);
             button_dashboard.Size = new Size(200, 37);
@@ -362,7 +361,7 @@
             button_score.FlatStyle = FlatStyle.Flat;
             button_score.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button_score.ForeColor = Color.White;
-            button_score.Location = new Point(0, 214);
+            button_score.Location = new Point(0, 179);
             button_score.Name = "button_score";
             button_score.Padding = new Padding(10, 0, 0, 0);
             button_score.Size = new Size(200, 37);
@@ -370,35 +369,17 @@
             button_score.Text = "Score";
             button_score.TextAlign = ContentAlignment.MiddleLeft;
             button_score.UseVisualStyleBackColor = false;
+            button_score.Click += button_score_Click;
             // 
             // panel_course_subMenu
             // 
             panel_course_subMenu.BackColor = Color.DarkCyan;
-            panel_course_subMenu.Controls.Add(button_plan);
             panel_course_subMenu.Controls.Add(button_questions);
             panel_course_subMenu.Dock = DockStyle.Top;
             panel_course_subMenu.Location = new Point(0, 139);
             panel_course_subMenu.Name = "panel_course_subMenu";
-            panel_course_subMenu.Size = new Size(200, 75);
+            panel_course_subMenu.Size = new Size(200, 40);
             panel_course_subMenu.TabIndex = 4;
-            // 
-            // button_plan
-            // 
-            button_plan.BackColor = Color.Teal;
-            button_plan.Dock = DockStyle.Top;
-            button_plan.FlatAppearance.BorderSize = 0;
-            button_plan.FlatStyle = FlatStyle.Flat;
-            button_plan.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            button_plan.ForeColor = Color.White;
-            button_plan.Location = new Point(0, 37);
-            button_plan.Name = "button_plan";
-            button_plan.Padding = new Padding(10, 0, 0, 0);
-            button_plan.Size = new Size(200, 37);
-            button_plan.TabIndex = 12;
-            button_plan.Text = "Plan de Formation";
-            button_plan.TextAlign = ContentAlignment.MiddleLeft;
-            button_plan.UseVisualStyleBackColor = false;
-            button_plan.Click += button_plan_Click;
             // 
             // button_questions
             // 
@@ -494,7 +475,6 @@
         private Button button_score;
         private Button button_course;
         private Panel panel_course_subMenu;
-        private Button button_plan;
         private Button button_questions;
     }
 }

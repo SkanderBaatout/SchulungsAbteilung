@@ -43,10 +43,16 @@ namespace Essai
 
         private void button_course_Click(object sender, EventArgs e)
         {
-            Questions questions = new Questions();
-
+            Candidats candidats = new Candidats();
             this.Hide();
-            questions.Show();
+            candidats.Show();
+        }
+
+        private void button_score_Click(object sender, EventArgs e)
+        {
+            Subjects sub = new Subjects();
+            this.Hide();
+            sub.Show();
         }
     }
 }
