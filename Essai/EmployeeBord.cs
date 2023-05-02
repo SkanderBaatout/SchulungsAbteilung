@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,14 +13,34 @@ namespace Essai
 {
     public partial class EmployeeBord : Form
     {
+        public static string trainingName = "";
         public EmployeeBord()
         {
             InitializeComponent();
+            GetSubjects();
+          
+
+
+        }
+        SqlConnection Con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True");
+        private void GetSubjects()
+        {
+            Con.Open();
+            SqlCommand cmd = new SqlCommand("select SName from SubjectTbl  ", Con);
+            SqlDataReader rdr;
+            rdr = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("SName", typeof(string));
+            dt.Load(rdr);
+            Trainingscb.ValueMember = "SName";
+            Trainingscb.DataSource = dt;
+            Con.Close();
         }
 
         private void EmployeeBord_Load(object sender, EventArgs e)
         {
             username.Text = LoginForm.username;
+            trainingName = Trainingscb.SelectedValue.ToString();
         }
 
         private void button_questions_Click(object sender, EventArgs e)

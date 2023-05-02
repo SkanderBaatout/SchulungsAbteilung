@@ -35,9 +35,8 @@
             panel_cover = new Panel();
             pictureBox2 = new PictureBox();
             panel3 = new Panel();
+            Trainingscb = new ComboBox();
             label11 = new Label();
-            label9 = new Label();
-            label10 = new Label();
             comboBox1 = new ComboBox();
             label_femaleEmp = new Label();
             label_maleEmp = new Label();
@@ -124,9 +123,8 @@
             // panel3
             // 
             panel3.BackColor = Color.Teal;
+            panel3.Controls.Add(Trainingscb);
             panel3.Controls.Add(label11);
-            panel3.Controls.Add(label9);
-            panel3.Controls.Add(label10);
             panel3.Controls.Add(comboBox1);
             panel3.Controls.Add(label_femaleEmp);
             panel3.Controls.Add(label_maleEmp);
@@ -136,6 +134,16 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(934, 103);
             panel3.TabIndex = 2;
+            // 
+            // Trainingscb
+            // 
+            Trainingscb.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Trainingscb.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            Trainingscb.FormattingEnabled = true;
+            Trainingscb.Location = new Point(680, 30);
+            Trainingscb.Name = "Trainingscb";
+            Trainingscb.Size = new Size(222, 27);
+            Trainingscb.TabIndex = 8;
             // 
             // label11
             // 
@@ -147,28 +155,6 @@
             label11.Size = new Size(131, 21);
             label11.TabIndex = 7;
             label11.Text = "Select Training :";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.ForeColor = Color.White;
-            label9.Location = new Point(802, 67);
-            label9.Name = "label9";
-            label9.Size = new Size(75, 21);
-            label9.TabIndex = 6;
-            label9.Text = "Female :";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label10.ForeColor = Color.White;
-            label10.Location = new Point(713, 67);
-            label10.Name = "label10";
-            label10.Size = new Size(57, 21);
-            label10.TabIndex = 5;
-            label10.Text = "Male :";
             // 
             // comboBox1
             // 
@@ -455,8 +441,6 @@
         private PictureBox pictureBox2;
         private Panel panel3;
         private Label label11;
-        private Label label9;
-        private Label label10;
         private ComboBox comboBox1;
         private Label label_femaleEmp;
         private Label label_maleEmp;
@@ -476,5 +460,6 @@
         private Button button_course;
         private Panel panel_course_subMenu;
         private Button button_questions;
+        private ComboBox Trainingscb;
     }
 }

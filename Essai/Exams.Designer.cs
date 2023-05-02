@@ -93,6 +93,7 @@
             Q9o1 = new RadioButton();
             submitbtn = new Guna.UI2.WinForms.Guna2Button();
             panel2 = new Panel();
+            labelName = new Label();
             guna2CirclePictureBox6 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             guna2CirclePictureBox5 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             guna2CirclePictureBox4 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
@@ -100,9 +101,11 @@
             guna2CirclePictureBox2 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             TimeLabel = new Label();
-            label3 = new Label();
+            labelSubject = new Label();
             TimingBar = new Guna.UI2.WinForms.Guna2CircleProgressBar();
             timer1 = new System.Windows.Forms.Timer(components);
+            QdateTimeP = new DateTimePicker();
+            QTime = new DateTimePicker();
             Q1.SuspendLayout();
             Q2.SuspendLayout();
             Q3.SuspendLayout();
@@ -151,9 +154,9 @@
             Q1.Controls.Add(Q1o2);
             Q1.Controls.Add(Q1o1);
             Q1.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            Q1.Location = new Point(20, 79);
+            Q1.Location = new Point(12, 79);
             Q1.Name = "Q1";
-            Q1.Size = new Size(226, 156);
+            Q1.Size = new Size(234, 156);
             Q1.TabIndex = 21;
             Q1.TabStop = false;
             Q1.Text = "Question 1";
@@ -194,6 +197,7 @@
             Q1o2.TabStop = true;
             Q1o2.Text = "Option2";
             Q1o2.UseVisualStyleBackColor = true;
+            Q1o2.CheckedChanged += Q1o2_CheckedChanged;
             // 
             // Q1o1
             // 
@@ -217,7 +221,7 @@
             Q2.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             Q2.Location = new Point(252, 79);
             Q2.Name = "Q2";
-            Q2.Size = new Size(231, 156);
+            Q2.Size = new Size(244, 156);
             Q2.TabIndex = 22;
             Q2.TabStop = false;
             Q2.Text = "Question 1";
@@ -277,9 +281,9 @@
             Q3.Controls.Add(Q3o2);
             Q3.Controls.Add(Q3o1);
             Q3.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            Q3.Location = new Point(489, 79);
+            Q3.Location = new Point(502, 79);
             Q3.Name = "Q3";
-            Q3.Size = new Size(230, 156);
+            Q3.Size = new Size(240, 156);
             Q3.TabIndex = 23;
             Q3.TabStop = false;
             Q3.Text = "Question 1";
@@ -339,9 +343,9 @@
             Q4.Controls.Add(Q4o2);
             Q4.Controls.Add(Q4o1);
             Q4.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            Q4.Location = new Point(740, 79);
+            Q4.Location = new Point(748, 79);
             Q4.Name = "Q4";
-            Q4.Size = new Size(239, 156);
+            Q4.Size = new Size(254, 156);
             Q4.TabIndex = 24;
             Q4.TabStop = false;
             Q4.Text = "Question 1";
@@ -401,9 +405,9 @@
             Q8.Controls.Add(Q8o2);
             Q8.Controls.Add(Q8o1);
             Q8.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            Q8.Location = new Point(740, 258);
+            Q8.Location = new Point(748, 258);
             Q8.Name = "Q8";
-            Q8.Size = new Size(239, 156);
+            Q8.Size = new Size(254, 156);
             Q8.TabIndex = 28;
             Q8.TabStop = false;
             Q8.Text = "Question 1";
@@ -463,9 +467,9 @@
             Q7.Controls.Add(Q7o2);
             Q7.Controls.Add(Q7o1);
             Q7.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            Q7.Location = new Point(489, 258);
+            Q7.Location = new Point(502, 258);
             Q7.Name = "Q7";
-            Q7.Size = new Size(230, 156);
+            Q7.Size = new Size(240, 156);
             Q7.TabIndex = 27;
             Q7.TabStop = false;
             Q7.Text = "Question 1";
@@ -527,7 +531,7 @@
             Q6.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             Q6.Location = new Point(252, 258);
             Q6.Name = "Q6";
-            Q6.Size = new Size(231, 156);
+            Q6.Size = new Size(244, 156);
             Q6.TabIndex = 26;
             Q6.TabStop = false;
             Q6.Text = "Question 1";
@@ -587,9 +591,9 @@
             Q5.Controls.Add(Q5o2);
             Q5.Controls.Add(Q5o1);
             Q5.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            Q5.Location = new Point(20, 258);
+            Q5.Location = new Point(12, 258);
             Q5.Name = "Q5";
-            Q5.Size = new Size(226, 156);
+            Q5.Size = new Size(234, 156);
             Q5.TabIndex = 25;
             Q5.TabStop = false;
             Q5.Text = "Question 1";
@@ -649,9 +653,9 @@
             Q10.Controls.Add(Q10o2);
             Q10.Controls.Add(Q10o1);
             Q10.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            Q10.Location = new Point(489, 433);
+            Q10.Location = new Point(502, 433);
             Q10.Name = "Q10";
-            Q10.Size = new Size(230, 156);
+            Q10.Size = new Size(240, 156);
             Q10.TabIndex = 31;
             Q10.TabStop = false;
             Q10.Text = "Question 1";
@@ -713,7 +717,7 @@
             Q9.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             Q9.Location = new Point(252, 433);
             Q9.Name = "Q9";
-            Q9.Size = new Size(231, 156);
+            Q9.Size = new Size(244, 156);
             Q9.TabIndex = 30;
             Q9.TabStop = false;
             Q9.Text = "Question 1";
@@ -790,6 +794,7 @@
             // panel2
             // 
             panel2.BackColor = Color.White;
+            panel2.Controls.Add(labelName);
             panel2.Controls.Add(guna2CirclePictureBox6);
             panel2.Controls.Add(guna2CirclePictureBox5);
             panel2.Controls.Add(guna2CirclePictureBox4);
@@ -797,10 +802,22 @@
             panel2.Controls.Add(guna2CirclePictureBox2);
             panel2.Controls.Add(guna2CirclePictureBox1);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(994, 0);
+            panel2.Location = new Point(1020, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(51, 650);
+            panel2.Size = new Size(52, 650);
             panel2.TabIndex = 34;
+            // 
+            // labelName
+            // 
+            labelName.AutoSize = true;
+            labelName.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            labelName.ForeColor = Color.Black;
+            labelName.Location = new Point(0, 52);
+            labelName.Margin = new Padding(4, 0, 4, 0);
+            labelName.Name = "labelName";
+            labelName.Size = new Size(46, 16);
+            labelName.TabIndex = 38;
+            labelName.Text = "Name";
             // 
             // guna2CirclePictureBox6
             // 
@@ -904,17 +921,17 @@
             TimeLabel.TabIndex = 35;
             TimeLabel.Text = "Timing";
             // 
-            // label3
+            // labelSubject
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(842, 12);
-            label3.Margin = new Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(79, 23);
-            label3.TabIndex = 36;
-            label3.Text = "Subject";
+            labelSubject.AutoSize = true;
+            labelSubject.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            labelSubject.ForeColor = Color.White;
+            labelSubject.Location = new Point(910, 9);
+            labelSubject.Margin = new Padding(4, 0, 4, 0);
+            labelSubject.Name = "labelSubject";
+            labelSubject.Size = new Size(79, 23);
+            labelSubject.TabIndex = 36;
+            labelSubject.Text = "Subject";
             // 
             // TimingBar
             // 
@@ -939,14 +956,34 @@
             // 
             timer1.Tick += timer1_Tick;
             // 
+            // QdateTimeP
+            // 
+            QdateTimeP.Format = DateTimePickerFormat.Short;
+            QdateTimeP.Location = new Point(778, 5);
+            QdateTimeP.Name = "QdateTimeP";
+            QdateTimeP.Size = new Size(115, 27);
+            QdateTimeP.TabIndex = 38;
+            QdateTimeP.Visible = false;
+            // 
+            // QTime
+            // 
+            QTime.Format = DateTimePickerFormat.Time;
+            QTime.Location = new Point(778, 39);
+            QTime.Name = "QTime";
+            QTime.Size = new Size(115, 27);
+            QTime.TabIndex = 39;
+            QTime.Visible = false;
+            // 
             // Exams
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Teal;
-            ClientSize = new Size(1045, 650);
+            ClientSize = new Size(1072, 650);
+            Controls.Add(QTime);
+            Controls.Add(QdateTimeP);
             Controls.Add(TimingBar);
-            Controls.Add(label3);
+            Controls.Add(labelSubject);
             Controls.Add(panel2);
             Controls.Add(submitbtn);
             Controls.Add(Q10);
@@ -989,6 +1026,7 @@
             Q9.ResumeLayout(false);
             Q9.PerformLayout();
             panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox4).EndInit();
@@ -1064,8 +1102,11 @@
         private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox2;
         private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox1;
         private Label TimeLabel;
-        private Label label3;
+        private Label labelSubject;
         private Guna.UI2.WinForms.Guna2CircleProgressBar TimingBar;
         private System.Windows.Forms.Timer timer1;
+        private Label labelName;
+        private DateTimePicker QdateTimeP;
+        private DateTimePicker QTime;
     }
 }

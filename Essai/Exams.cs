@@ -16,45 +16,79 @@ namespace Essai
         public Exams()
         {
             InitializeComponent();
+           
+            labelName.Text = LoginForm.username;
+            labelSubject.Text = EmployeeBord.trainingName;
+            Qn = CountQuestions();
             FetchQuestions();
-            //MultiRandom();
-            // timer1.Start();
+            //SaveHighest();
 
         }
-
+        int Qn;
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
 
         }
         SqlConnection Con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True");
         string a1, a2, a3, a4, a5, a6, a7, a8, a9, a10;
-        private int GenerateRandom()
+        string[] Ua = new string[10];
+
+        private int CountQuestions()
         {
-            Random rd = new Random();
-            int x = rd.Next(1, 4);
-            int y = rd.Next(1, 4);
-            int z = rd.Next(1, 4);
-            MessageBox.Show("" + x + "and" + y + "and" + z);
-            return x;
+            int Qnum;
+            Con.Open();
+            SqlDataAdapter sda = new SqlDataAdapter("select Count(*) from QuestionTbl where QS ='" + labelSubject.Text + "'", Con);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            Qnum = Convert.ToInt32(dt.Rows[0][0]);
+            Con.Close();
+           // MessageBox.Show("" + Qnum);
+            return Qnum;
         }
+        private void SaveHighest()
+        {
+            Con.Open();
+            SqlDataAdapter sda = new SqlDataAdapter("select MAX(RScore) from  ResultTbl Where RCandidate = '"+labelName.Text+"' ", Con);
+            DataTable dt2 = new DataTable();
+            sda.Fill(dt2);
+            int BestScore = Convert.ToInt32(dt2.Rows[0][0].ToString());
+            try
+            {
+                SqlCommand cmd = new SqlCommand("Update employees set score=@sc WHERE username=@cn", Con);
+                cmd.Parameters.AddWithValue("@cn", labelName.Text);
+                cmd.Parameters.AddWithValue("@cs", BestScore);
+               
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Candidate Updated.");
+
+                Con.Close();
+       
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            Con.Close();
+        }
+       
         int[] keys = new int[10];
+
         private void MultiRandom()
         {
+            //Generate 10 random numbers
             HashSet<int> numbers = new HashSet<int>();
             var rnd = new Random();
             while (numbers.Count < 10)
             {
-                numbers.Add(rnd.Next(1, 14));
+                numbers.Add(rnd.Next(1, Qn));
             }
             for (int i = 0; i < 10; i++)
             {
                 keys[i] = numbers.ElementAt(i);
             }
-            /* for (int y=0; y< 5; y++)
-            {
-                MessageBox.Show("" + keys[y]);
-            } */
         }
+       
         private void FetchQuestions()
         {
             try
@@ -249,15 +283,381 @@ namespace Essai
             timer1.Start();
         }
         int score = 0;
+        private void checkQ1()
+        {
+            if (Q1o1.Checked)
+            {
+                Ua[0] = "";
+                Ua[0] = Q1o1.Text;
+            }
+            else if (Q1o2.Checked)
+            {
+                Ua[0] = "";
+                Ua[0] = Q1o2.Text;
+            }
+            else if (Q1o3.Checked)
+            {
+                Ua[0] = "";
+                Ua[0] = Q1o3.Text;
+            }
+            else if (Q1o4.Checked)
+            {
+                Ua[0] = "";
+                Ua[0] = Q1o4.Text;
+            }
+            if (Ua[0] == a1)
+            {
+                score = score + 1;
+            }
+            else
+            {
+                score = score;
+            }
+        }
+        private void checkQ2()
+        {
+            if (Q2o1.Checked)
+            {
+                Ua[1] = "";
+                Ua[1] = Q2o1.Text;
+            }
+            else if (Q2o2.Checked)
+            {
+                Ua[1] = "";
+                Ua[1] = Q2o2.Text;
+            }
+            else if (Q2o3.Checked)
+            {
+                Ua[1] = "";
+                Ua[1] = Q2o3.Text;
+            }
+            else if (Q2o4.Checked)
+            {
+                Ua[1] = "";
+                Ua[1] = Q2o4.Text;
+            }
+            if (Ua[1] == a2)
+            {
+                score = score + 1;
+            }
+            else
+            {
+                //score = score;
+            }
+        }
+        private void checkQ3()
+        {
+            if (Q3o1.Checked)
+            {
+                Ua[2] = "";
+                Ua[2] = Q3o1.Text;
+            }
+            else if (Q3o2.Checked)
+            {
+                Ua[2] = "";
+                Ua[2] = Q3o2.Text;
+            }
+            else if (Q3o3.Checked)
+            {
+                Ua[2] = "";
+                Ua[2] = Q3o3.Text;
+            }
+            else if (Q3o4.Checked)
+            {
+                Ua[2] = "";
+                Ua[2] = Q3o4.Text;
+            }
+            if (Ua[2] == a3)
+            {
+                score = score + 1;
+            }
+            else
+            {
+                //score = score;
+            }
+        }
+        private void checkQ4()
+        {
+            if (Q4o1.Checked)
+            {
+                Ua[3] = "";
+                Ua[3] = Q4o1.Text;
+            }
+            else if (Q4o2.Checked)
+            {
+                Ua[3] = "";
+                Ua[3] = Q4o2.Text;
+            }
+            else if (Q4o3.Checked)
+            {
+                Ua[3] = "";
+                Ua[3] = Q4o3.Text;
+            }
+            else if (Q4o4.Checked)
+            {
+                Ua[3] = "";
+                Ua[3] = Q4o4.Text;
+            }
+            if (Ua[3] == a4)
+            {
+                score = score + 1;
+            }
+            else
+            {
+                //score = score;
+            }
+        }
+        private void checkQ5()
+        {
+            if (Q5o1.Checked)
+            {
+                Ua[4] = "";
+                Ua[4] = Q5o1.Text;
+            }
+            else if (Q5o2.Checked)
+            {
+                Ua[4] = "";
+                Ua[4] = Q5o2.Text;
+            }
+            else if (Q5o3.Checked)
+            {
+                Ua[4] = "";
+                Ua[4] = Q5o3.Text;
+            }
+            else if (Q5o4.Checked)
+            {
+                Ua[4] = "";
+                Ua[4] = Q5o4.Text;
+            }
+            if (Ua[4] == a5)
+            {
+                score = score + 1;
+            }
+            else
+            {
+                //score = score;
+            }
+        }
+        private void checkQ6()
+        {
+            if (Q6o1.Checked)
+            {
+                Ua[5] = "";
+                Ua[5] = Q6o1.Text;
+            }
+            else if (Q6o2.Checked)
+            {
+                Ua[5] = "";
+                Ua[5] = Q6o2.Text;
+            }
+            else if (Q6o3.Checked)
+            {
+                Ua[5] = "";
+                Ua[5] = Q6o3.Text;
+            }
+            else if (Q6o4.Checked)
+            {
+                Ua[5] = "";
+                Ua[5] = Q6o4.Text;
+            }
+            if (Ua[5] == a6)
+            {
+                score = score + 1;
+            }
+            else
+            {
+                //score = score;
+            }
+        }
+        private void checkQ7()
+        {
+            if (Q7o1.Checked)
+            {
+                Ua[6] = "";
+                Ua[6] = Q7o1.Text;
+            }
+            else if (Q7o2.Checked)
+            {
+                Ua[6] = "";
+                Ua[6] = Q7o2.Text;
+            }
+            else if (Q7o3.Checked)
+            {
+                Ua[6] = "";
+                Ua[6] = Q7o3.Text;
+            }
+            else if (Q7o4.Checked)
+            {
+                Ua[6] = "";
+                Ua[6] = Q7o4.Text;
+            }
+            if (Ua[6] == a7)
+            {
+                score = score + 1;
+            }
+            else
+            {
+                //score = score;
+            }
+        }
+        private void checkQ8()
+        {
+            if (Q8o1.Checked)
+            {
+                Ua[7] = "";
+                Ua[7] = Q8o1.Text;
+            }
+            else if (Q8o2.Checked)
+            {
+                Ua[7] = "";
+                Ua[7] = Q8o2.Text;
+            }
+            else if (Q8o3.Checked)
+            {
+                Ua[7] = "";
+                Ua[7] = Q8o3.Text;
+            }
+            else if (Q8o4.Checked)
+            {
+                Ua[7] = "";
+                Ua[7] = Q8o4.Text;
+            }
+            if (Ua[7] == a8)
+            {
+                score = score + 1;
+            }
+            else
+            {
+                //score = score;
+            }
+        }
+        private void checkQ9()
+        {
+            if (Q9o1.Checked)
+            {
+                Ua[8] = "";
+                Ua[8] = Q9o1.Text;
+            }
+            else if (Q9o2.Checked)
+            {
+                Ua[8] = "";
+                Ua[8] = Q9o2.Text;
+            }
+            else if (Q9o3.Checked)
+            {
+                Ua[8] = "";
+                Ua[8] = Q9o3.Text;
+            }
+            else if (Q9o4.Checked)
+            {
+                Ua[8] = "";
+                Ua[8] = Q9o4.Text;
+            }
+            if (Ua[8] == a9)
+            {
+                score = score + 1;
+            }
+            else
+            {
+                //score = score;
+            }
+        }
+        private void checkQ10()
+        {
+            if (Q10o1.Checked)
+            {
+                Ua[9] = "";
+                Ua[9] = Q10o1.Text;
+            }
+            else if (Q10o2.Checked)
+            {
+                Ua[9] = "";
+                Ua[9] = Q10o2.Text;
+            }
+            else if (Q10o3.Checked)
+            {
+                Ua[9] = "";
+                Ua[9] = Q10o3.Text;
+            }
+            else if (Q10o4.Checked)
+            {
+                Ua[9] = "";
+                Ua[9] = Q10o4.Text;
+            }
+            if (Ua[9] == a10)
+            {
+                score = score + 1;
+            }
+            else
+            {
+                //score = score;
+            }
+        }
+
+
+
         private void submitbtn_Click_1(object sender, EventArgs e)
+        {
+            score = 0;
+            checkQ1();
+            checkQ2();
+            checkQ3();
+            checkQ4();
+            checkQ5();
+            checkQ6();
+            checkQ7();
+            checkQ8();
+            checkQ9();
+            checkQ10();
+            MessageBox.Show("" + score);
+            InsertResult();
+            SaveHighest();
+            LoginForm log = new LoginForm();
+            log.Show();
+            this.Hide();
+
+        }
+        private void Reset()
         {
 
         }
-        string[] Ua = new string[10];   
+        private void InsertResult()
+        {
+            try
+            {
+
+                Con.Open();
+                SqlCommand cmd = new SqlCommand("INSERT INTO ResultTbl (RSubject, RCandidate, RDate, RTime,RScore) VALUES (@rs, @rc, @rd, @rt, @rsc)", Con);
+                //@rs, @rc, @rd, @rt, @rsc
+                cmd.Parameters.AddWithValue("@rs", labelSubject.Text);
+                cmd.Parameters.AddWithValue("@rc", labelName.Text);
+                cmd.Parameters.AddWithValue("@rd", QdateTimeP.Value.Date);
+                cmd.Parameters.AddWithValue("@rt", QTime.Text);
+                cmd.Parameters.AddWithValue("@rsc", score);
+
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Result Saved.");
+
+                Con.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void Q1o1_CheckedChanged(object sender, EventArgs e)
         {
-            Ua[0] = Q1o1.Text;
-            MessageBox.Show("Selected answer is " + Ua[0]);
+            // Ua[0] = Q1o1.Text;
+            //MessageBox.Show("Selected answer is " + Ua[0]);
+        }
+
+        private void Q1o2_CheckedChanged(object sender, EventArgs e)
+        {
+            // Ua[0] = Q1o2.Text;
+            // MessageBox.Show("Selected answer is " + Ua[0]);
+            // 
         }
     }
 }

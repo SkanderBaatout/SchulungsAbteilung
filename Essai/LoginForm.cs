@@ -124,19 +124,27 @@ namespace Essai
         {
             username = textBox_emp_username.Text;
             cin = textBox_cin.Text;
-
-            query = "select * from employees where username ='" + textBox_emp_username.Text + "' AND  password ='" + textBox_emp_pass.Text + "' AND cin ='" + textBox_cin.Text + "' ";
-            ds = fn.getData(query);
-            if (ds.Tables[0].Rows.Count > 0)
+            if(textBox_emp_username.Text == "" || textBox_emp_pass.Text =="" || textBox_cin.Text == "")
             {
-                this.Hide();
-                EmployeeBord form = new EmployeeBord();
-                form.Show();
+                MessageBox.Show("Enter Employee Name , Cin And Password");
             }
             else
             {
-                MessageBox.Show("Invalid username or password !!", "Error");
+                query = "select * from employees where username ='" + textBox_emp_username.Text + "' AND  password ='" + textBox_emp_pass.Text + "' AND cin ='" + textBox_cin.Text + "' ";
+                ds = fn.getData(query);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    this.Hide();
+                    EmployeeBord form = new EmployeeBord();
+                    form.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid username or password !!", "Error");
+                }
             }
+
+            
         }
 
 

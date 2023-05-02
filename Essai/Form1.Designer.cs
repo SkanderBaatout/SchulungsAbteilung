@@ -59,8 +59,6 @@
             pictureBox2 = new PictureBox();
             panel3 = new Panel();
             label11 = new Label();
-            label9 = new Label();
-            label10 = new Label();
             comboBox1 = new ComboBox();
             label_femaleEmp = new Label();
             label_maleEmp = new Label();
@@ -533,8 +531,6 @@
             // 
             panel3.BackColor = Color.Teal;
             panel3.Controls.Add(label11);
-            panel3.Controls.Add(label9);
-            panel3.Controls.Add(label10);
             panel3.Controls.Add(comboBox1);
             panel3.Controls.Add(label_femaleEmp);
             panel3.Controls.Add(label_maleEmp);
@@ -555,28 +551,6 @@
             label11.Size = new Size(131, 21);
             label11.TabIndex = 7;
             label11.Text = "Select Training :";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.ForeColor = Color.White;
-            label9.Location = new Point(802, 67);
-            label9.Name = "label9";
-            label9.Size = new Size(75, 21);
-            label9.TabIndex = 6;
-            label9.Text = "Female :";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label10.ForeColor = Color.White;
-            label10.Location = new Point(713, 67);
-            label10.Name = "label10";
-            label10.Size = new Size(57, 21);
-            label10.TabIndex = 5;
-            label10.Text = "Male :";
             // 
             // comboBox1
             // 
@@ -767,8 +741,6 @@
         private Panel panel3;
         private Panel panel2;
         private Panel panel1;
-        private Label label9;
-        private Label label10;
         private ComboBox comboBox1;
         private Label label_femaleEmp;
         private Label label_maleEmp;
