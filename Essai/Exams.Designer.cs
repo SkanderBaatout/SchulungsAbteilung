@@ -197,7 +197,6 @@
             Q1o2.TabStop = true;
             Q1o2.Text = "Option2";
             Q1o2.UseVisualStyleBackColor = true;
-            Q1o2.CheckedChanged += Q1o2_CheckedChanged;
             // 
             // Q1o1
             // 
@@ -210,7 +209,6 @@
             Q1o1.TabStop = true;
             Q1o1.Text = "Option1";
             Q1o1.UseVisualStyleBackColor = true;
-            Q1o1.CheckedChanged += Q1o1_CheckedChanged;
             // 
             // Q2
             // 
@@ -1001,6 +999,7 @@
             Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
+            MaximumSize = new Size(1072, 650);
             Name = "Exams";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Exams";

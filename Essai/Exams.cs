@@ -16,13 +16,11 @@ namespace Essai
         public Exams()
         {
             InitializeComponent();
-           
+
             labelName.Text = LoginForm.username;
             labelSubject.Text = EmployeeBord.trainingName;
             Qn = CountQuestions();
             FetchQuestions();
-            //SaveHighest();
-
         }
         int Qn;
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
@@ -42,13 +40,13 @@ namespace Essai
             sda.Fill(dt);
             Qnum = Convert.ToInt32(dt.Rows[0][0]);
             Con.Close();
-           // MessageBox.Show("" + Qnum);
+
             return Qnum;
         }
         private void SaveHighest()
         {
             Con.Open();
-            SqlDataAdapter sda = new SqlDataAdapter("select MAX(RScore) from  ResultTbl Where RCandidate = '"+labelName.Text+"' ", Con);
+            SqlDataAdapter sda = new SqlDataAdapter("select MAX(RScore) from  ResultTbl Where RCandidate = '" + labelName.Text + "'", Con);
             DataTable dt2 = new DataTable();
             sda.Fill(dt2);
             int BestScore = Convert.ToInt32(dt2.Rows[0][0].ToString());
@@ -57,12 +55,12 @@ namespace Essai
                 SqlCommand cmd = new SqlCommand("Update employees set score=@sc WHERE username=@cn", Con);
                 cmd.Parameters.AddWithValue("@cn", labelName.Text);
                 cmd.Parameters.AddWithValue("@cs", BestScore);
-               
+
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Candidate Updated.");
 
                 Con.Close();
-       
+
             }
             catch (Exception ex)
             {
@@ -71,7 +69,7 @@ namespace Essai
 
             Con.Close();
         }
-       
+
         int[] keys = new int[10];
 
         private void MultiRandom()
@@ -88,7 +86,7 @@ namespace Essai
                 keys[i] = numbers.ElementAt(i);
             }
         }
-       
+
         private void FetchQuestions()
         {
             try
@@ -617,10 +615,7 @@ namespace Essai
             this.Hide();
 
         }
-        private void Reset()
-        {
 
-        }
         private void InsertResult()
         {
             try
@@ -647,17 +642,6 @@ namespace Essai
             }
         }
 
-        private void Q1o1_CheckedChanged(object sender, EventArgs e)
-        {
-            // Ua[0] = Q1o1.Text;
-            //MessageBox.Show("Selected answer is " + Ua[0]);
-        }
 
-        private void Q1o2_CheckedChanged(object sender, EventArgs e)
-        {
-            // Ua[0] = Q1o2.Text;
-            // MessageBox.Show("Selected answer is " + Ua[0]);
-            // 
-        }
     }
 }

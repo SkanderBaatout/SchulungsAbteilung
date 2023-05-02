@@ -64,9 +64,9 @@ namespace Essai
 
         private void button_course_Click(object sender, EventArgs e)
         {
-            Candidats candidats = new Candidats();
+            Exams ex = new Exams();
             this.Hide();
-            candidats.Show();
+            ex.Show();
         }
 
         private void button_score_Click(object sender, EventArgs e)
