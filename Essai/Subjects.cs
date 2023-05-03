@@ -86,7 +86,23 @@ namespace Essai
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@SName", subjectTb.Text);
                 cmd.Parameters.AddWithValue("@Description", descriptionTB.Text);
-                cmd.Parameters.AddWithValue("@Content", Encoding.UTF8.GetBytes(contentTB.Text));
+
+                if (!string.IsNullOrEmpty(contentTB.Text))
+                {
+                    if (contentTB.Text.StartsWith("file:"))
+                    {
+                        cmd.Parameters.AddWithValue("@Content", File.ReadAllBytes(contentTB.Text.Substring(5)));
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@Content", Encoding.UTF8.GetBytes(contentTB.Text));
+                    }
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@Content", DBNull.Value);
+                }
+
                 cmd.Parameters.AddWithValue("@ContentType", contentTypeTB.Text);
                 cmd.Parameters.AddWithValue("@DateAdded", dateTimePicker.Value);
                 cmd.Parameters.AddWithValue("@IsActive", isActiveCheckBox.Checked);
@@ -95,7 +111,6 @@ namespace Essai
                 con.Close();
             }
         }
-        // Update an existing subject in the database
         private void UpdateSubject()
         {
             using (SqlConnection con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True"))
@@ -135,7 +150,7 @@ namespace Essai
         {
             using (SqlConnection con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True"))
             {
-                string query = "SELECT * FROM SubjectTbl WHERE SId = @SId";
+                string query = "SELECT SName, Description, Content, ContentType, DateAdded, IsActive FROM SubjectTbl WHERE SId = @SId";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, con);
                 adapter.SelectCommand.Parameters.AddWithValue("@SId", subjectId);
                 DataTable table = new DataTable();
@@ -143,44 +158,34 @@ namespace Essai
                 if (table.Rows.Count > 0)
                 {
                     DataRow row = table.Rows[0];
-                    subjectTb.Text = row["SName"].ToString();
-                    descriptionTB.Text = row["Description"].ToString();
-                    // contentTB.Text = Encoding.UTF8.GetString((byte[])row["Content"]);
-                    object contentValue = row["Content"];
-                    if (contentValue != DBNull.Value)
+                    subjectTb.Text = row.Field<string>("SName");
+                    descriptionTB.Text = row.Field<string>("Description");
+
+                    byte[] contentBytes = row.Field<byte[]>("Content");
+                    if (contentBytes != null && contentBytes.Length > 0)
                     {
-                        contentTB.Text = Encoding.UTF8.GetString((byte[])contentValue);
+                        if (contentBytes[0] == 0x66 && contentBytes[1] == 0x69 && contentBytes[2] == 0x6c && contentBytes[3] == 0x65 && contentBytes[4] == 0x3a)
+                        {
+                            string filePath = Encoding.UTF8.GetString(contentBytes).Substring(5);
+                            contentTB.Text = "file:" + filePath;
+                        }
+                        else
+                        {
+                            contentTB.Text = Encoding.UTF8.GetString(contentBytes);
+                        }
                     }
                     else
                     {
                         contentTB.Text = "";
                     }
-                    contentTypeTB.Text = row["ContentType"].ToString();
-                    //dateTimePicker.Value = (DateTime)row["DateAdded"];
-                    object dateAddedValue = row["DateAdded"];
-                    if (dateAddedValue != DBNull.Value)
-                    {
-                        dateTimePicker.Value = (DateTime)dateAddedValue;
-                    }
-                    else
-                    {
-                        dateTimePicker.Value = DateTime.Now;
-                    }
-                    //isActiveCheckBox.Checked = (bool)row["IsActive"];
-                    object isActiveValue = row["IsActive"];
-                    if (isActiveValue != DBNull.Value)
-                    {
-                        isActiveCheckBox.Checked = (bool)isActiveValue;
-                    }
-                    else
-                    {
-                        isActiveCheckBox.Checked = false;
-                    }
+
+                    contentTypeTB.Text = row.Field<string>("ContentType");
+                    dateTimePicker.Value = row.Field<DateTime?>("DateAdded") ?? DateTime.Now;
+                    isActiveCheckBox.Checked = row.Field<bool?>("IsActive") ?? false;
                     currentSubjectId = subjectId;
                 }
             }
         }
-
         private void resetbtn_Click(object sender, EventArgs e)
         {
             Reset();
@@ -244,6 +249,20 @@ namespace Essai
             {
                 int selectedSubjectId = (int)subjectsList.Rows[selectedRowIndex].Cells["SId"].Value;
                 LoadSubject(selectedSubjectId);
+            }
+        }
+
+        private void loadBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = openFileDialog.FileName;
+                if (File.Exists(fileName))
+                {
+                    contentTB.Text = "file:" + fileName;
+                }
             }
         }
     }

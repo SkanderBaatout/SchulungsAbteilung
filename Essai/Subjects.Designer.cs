@@ -66,13 +66,14 @@
             isActiveCheckBox = new CheckBox();
             label5 = new Label();
             descriptionTB = new TextBox();
-            contentTB = new TextBox();
             label6 = new Label();
             contentTypeTB = new TextBox();
             label7 = new Label();
             label8 = new Label();
             dateTimePicker = new DateTimePicker();
             deleteButton = new Guna.UI2.WinForms.Guna2Button();
+            loadBtn = new Button();
+            contentTB = new TextBox();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox4).BeginInit();
@@ -195,7 +196,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(361, 277);
+            label4.Location = new Point(429, 277);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(150, 28);
@@ -213,7 +214,7 @@
             editbtn.FillColor = Color.White;
             editbtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             editbtn.ForeColor = Color.Teal;
-            editbtn.Location = new Point(276, 226);
+            editbtn.Location = new Point(17, 270);
             editbtn.Name = "editbtn";
             editbtn.ShadowDecoration.BorderRadius = 15;
             editbtn.ShadowDecoration.Color = Color.Transparent;
@@ -234,7 +235,7 @@
             resetbtn.FillColor = Color.White;
             resetbtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             resetbtn.ForeColor = Color.Teal;
-            resetbtn.Location = new Point(675, 226);
+            resetbtn.Location = new Point(232, 270);
             resetbtn.Name = "resetbtn";
             resetbtn.ShadowDecoration.BorderRadius = 15;
             resetbtn.ShadowDecoration.Color = Color.Transparent;
@@ -255,7 +256,7 @@
             savebtn.FillColor = Color.White;
             savebtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             savebtn.ForeColor = Color.Teal;
-            savebtn.Location = new Point(57, 226);
+            savebtn.Location = new Point(17, 226);
             savebtn.Name = "savebtn";
             savebtn.ShadowDecoration.BorderRadius = 15;
             savebtn.ShadowDecoration.Color = Color.Transparent;
@@ -377,7 +378,7 @@
             // 
             isActiveCheckBox.AutoSize = true;
             isActiveCheckBox.ForeColor = Color.White;
-            isActiveCheckBox.Location = new Point(507, 161);
+            isActiveCheckBox.Location = new Point(276, 168);
             isActiveCheckBox.Name = "isActiveCheckBox";
             isActiveCheckBox.Size = new Size(97, 25);
             isActiveCheckBox.TabIndex = 35;
@@ -401,18 +402,11 @@
             descriptionTB.Size = new Size(170, 27);
             descriptionTB.TabIndex = 37;
             // 
-            // contentTB
-            // 
-            contentTB.Location = new Point(434, 89);
-            contentTB.Name = "contentTB";
-            contentTB.Size = new Size(170, 27);
-            contentTB.TabIndex = 39;
-            // 
             // label6
             // 
             label6.AutoSize = true;
             label6.ForeColor = Color.White;
-            label6.Location = new Point(434, 65);
+            label6.Location = new Point(683, 95);
             label6.Name = "label6";
             label6.Size = new Size(77, 21);
             label6.TabIndex = 38;
@@ -420,7 +414,7 @@
             // 
             // contentTypeTB
             // 
-            contentTypeTB.Location = new Point(615, 89);
+            contentTypeTB.Location = new Point(420, 179);
             contentTypeTB.Name = "contentTypeTB";
             contentTypeTB.Size = new Size(170, 27);
             contentTypeTB.TabIndex = 41;
@@ -429,7 +423,7 @@
             // 
             label7.AutoSize = true;
             label7.ForeColor = Color.White;
-            label7.Location = new Point(615, 65);
+            label7.Location = new Point(420, 155);
             label7.Name = "label7";
             label7.Size = new Size(118, 21);
             label7.TabIndex = 40;
@@ -439,7 +433,7 @@
             // 
             label8.AutoSize = true;
             label8.ForeColor = Color.White;
-            label8.Location = new Point(216, 149);
+            label8.Location = new Point(39, 144);
             label8.Name = "label8";
             label8.Size = new Size(110, 21);
             label8.TabIndex = 42;
@@ -447,7 +441,7 @@
             // 
             // dateTimePicker
             // 
-            dateTimePicker.Location = new Point(211, 173);
+            dateTimePicker.Location = new Point(34, 168);
             dateTimePicker.Name = "dateTimePicker";
             dateTimePicker.Size = new Size(200, 27);
             dateTimePicker.TabIndex = 43;
@@ -463,7 +457,7 @@
             deleteButton.FillColor = Color.White;
             deleteButton.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             deleteButton.ForeColor = Color.Teal;
-            deleteButton.Location = new Point(476, 226);
+            deleteButton.Location = new Point(232, 226);
             deleteButton.Name = "deleteButton";
             deleteButton.ShadowDecoration.BorderRadius = 15;
             deleteButton.ShadowDecoration.Color = Color.Transparent;
@@ -473,18 +467,36 @@
             deleteButton.Text = "Delete";
             deleteButton.Click += deleteButton_Click;
             // 
+            // loadBtn
+            // 
+            loadBtn.Location = new Point(676, 132);
+            loadBtn.Name = "loadBtn";
+            loadBtn.Size = new Size(112, 44);
+            loadBtn.TabIndex = 45;
+            loadBtn.Text = "Load";
+            loadBtn.UseVisualStyleBackColor = true;
+            loadBtn.Click += loadBtn_Click;
+            // 
+            // contentTB
+            // 
+            contentTB.Location = new Point(658, 196);
+            contentTB.Name = "contentTB";
+            contentTB.Size = new Size(170, 27);
+            contentTB.TabIndex = 46;
+            // 
             // Subjects
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Teal;
             ClientSize = new Size(950, 650);
+            Controls.Add(contentTB);
+            Controls.Add(loadBtn);
             Controls.Add(deleteButton);
             Controls.Add(dateTimePicker);
             Controls.Add(label8);
             Controls.Add(contentTypeTB);
             Controls.Add(label7);
-            Controls.Add(contentTB);
             Controls.Add(label6);
             Controls.Add(descriptionTB);
             Controls.Add(label5);
@@ -540,12 +552,13 @@
         private CheckBox isActiveCheckBox;
         private Label label5;
         private TextBox descriptionTB;
-        private TextBox contentTB;
         private Label label6;
         private TextBox contentTypeTB;
         private Label label7;
         private Label label8;
         private DateTimePicker dateTimePicker;
         private Guna.UI2.WinForms.Guna2Button deleteButton;
+        private Button loadBtn;
+        private TextBox contentTB;
     }
 }
