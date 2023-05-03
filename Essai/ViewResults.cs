@@ -21,7 +21,7 @@ namespace Essai
             GetSubjects();
             GetCandidate();
             DisplayResults();
-            
+
         }
         SqlConnection Con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True");
 
@@ -99,6 +99,13 @@ namespace Essai
         private void candidatecb_SelectionChangeCommitted(object sender, EventArgs e)
         {
             FilterByCandidate();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Form1 form = new Form1();
+            form.Show();
+            this.Hide();
         }
     }
 }

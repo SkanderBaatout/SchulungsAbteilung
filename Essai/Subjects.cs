@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataTable = System.Data.DataTable;
 
 namespace Essai
 {
@@ -22,79 +24,160 @@ namespace Essai
         private void Reset()
         {
             subjectTb.Text = "";
+            descriptionTB.Text = "";
+            contentTB.Text = "";
+            contentTypeTB.Text = "";
+            dateTimePicker.Value = DateTime.Now;
+            isActiveCheckBox.Checked = true;
+            currentSubjectId = 0;
             key = 0;
         }
+        private int currentSubjectId = 0;
+
 
         SqlConnection Con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True");
         private void DisplaySubjects()
         {
             Con.Open();
-            String Query = "select * from SubjectTbl ";
-            SqlDataAdapter sda = new SqlDataAdapter(Query, Con);
-            SqlCommandBuilder builder = new SqlCommandBuilder(sda);
-            var ds = new DataSet();
-            sda.Fill(ds);
-            subjectsList.DataSource = ds.Tables[0];
+            string query = "SELECT * FROM SubjectTbl";
+            SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            subjectsList.DataSource = table;
             Con.Close();
         }
 
         private void savebtn_Click(object sender, EventArgs e)
         {
-            if (subjectTb.Text == "")
+            if (subjectTb.Text.Trim() == "")
             {
-                MessageBox.Show("Missing Informations");
+                MessageBox.Show("Please enter a subject name.");
+                return;
+            }
+            if (currentSubjectId == 0)
+            {
+                SaveSubject();
             }
             else
             {
-                try
-                {
-                    Con.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO SubjectTbl (SName) VALUES (@sn)", Con);
-
-                    cmd.Parameters.AddWithValue("@sn", subjectTb.Text);
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Subject Saved.");
-
-                    Con.Close();
-                    Reset();
-                    DisplaySubjects();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
+                UpdateSubject();
             }
+            DisplaySubjects();
+
+            Reset();
         }
 
         private void editbtn_Click(object sender, EventArgs e)
         {
-            if (subjectTb.Text == "")
+            int selectedRowIndex = subjectsList.SelectedCells.Count > 0 ? subjectsList.SelectedCells[0].RowIndex : -1;
+            if (selectedRowIndex >= 0)
             {
-                MessageBox.Show("Missing Informations");
+                int selectedSubjectId = (int)subjectsList.Rows[selectedRowIndex].Cells["SId"].Value;
+                LoadSubject(selectedSubjectId);
             }
-            else
+        }
+        // Save a new subject to the database
+        private void SaveSubject()
+        {
+            using (SqlConnection con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True"))
             {
-                try
+                string query = "INSERT INTO SubjectTbl (SName, Description, Content, ContentType, DateAdded, IsActive) " +
+                    "VALUES (@SName, @Description, @Content, @ContentType, @DateAdded, @IsActive)";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@SName", subjectTb.Text);
+                cmd.Parameters.AddWithValue("@Description", descriptionTB.Text);
+                cmd.Parameters.AddWithValue("@Content", Encoding.UTF8.GetBytes(contentTB.Text));
+                cmd.Parameters.AddWithValue("@ContentType", contentTypeTB.Text);
+                cmd.Parameters.AddWithValue("@DateAdded", dateTimePicker.Value);
+                cmd.Parameters.AddWithValue("@IsActive", isActiveCheckBox.Checked);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+        // Update an existing subject in the database
+        private void UpdateSubject()
+        {
+            using (SqlConnection con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True"))
+            {
+                string query = "UPDATE SubjectTbl SET SName = @SName, Description = @Description, " +
+                    "Content = @Content, ContentType = @ContentType, DateAdded = @DateAdded, IsActive = @IsActive " +
+                    "WHERE SId = @SId";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@SId", currentSubjectId);
+                cmd.Parameters.AddWithValue("@SName", subjectTb.Text);
+                cmd.Parameters.AddWithValue("@Description", descriptionTB.Text);
+                cmd.Parameters.AddWithValue("@Content", Encoding.UTF8.GetBytes(contentTB.Text));
+                cmd.Parameters.AddWithValue("@ContentType", contentTypeTB.Text);
+                cmd.Parameters.AddWithValue("@DateAdded", dateTimePicker.Value);
+                cmd.Parameters.AddWithValue("@IsActive", isActiveCheckBox.Checked);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+        // Delete a subject from the database
+        private void DeleteSubject(int subjectId)
+        {
+            using (SqlConnection con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True"))
+            {
+                string query = "DELETE FROM SubjectTbl WHERE SId = @SId";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@SId", subjectId);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+        // Load the data for the selected subject into the form
+        private void LoadSubject(int subjectId)
+        {
+            using (SqlConnection con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True"))
+            {
+                string query = "SELECT * FROM SubjectTbl WHERE SId = @SId";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, con);
+                adapter.SelectCommand.Parameters.AddWithValue("@SId", subjectId);
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+                if (table.Rows.Count > 0)
                 {
-                    Con.Open();
-                    SqlCommand cmd = new SqlCommand("Update SubjectTbl set SName=@sn WHERE SId=@CKey", Con);
-
-                    cmd.Parameters.AddWithValue("@sn", subjectTb.Text);
-                    cmd.Parameters.AddWithValue("@CKey", key);
-
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Subject Updated.");
-
-                    Con.Close();
-                    Reset();
-                    DisplaySubjects();
+                    DataRow row = table.Rows[0];
+                    subjectTb.Text = row["SName"].ToString();
+                    descriptionTB.Text = row["Description"].ToString();
+                    // contentTB.Text = Encoding.UTF8.GetString((byte[])row["Content"]);
+                    object contentValue = row["Content"];
+                    if (contentValue != DBNull.Value)
+                    {
+                        contentTB.Text = Encoding.UTF8.GetString((byte[])contentValue);
+                    }
+                    else
+                    {
+                        contentTB.Text = "";
+                    }
+                    contentTypeTB.Text = row["ContentType"].ToString();
+                    //dateTimePicker.Value = (DateTime)row["DateAdded"];
+                    object dateAddedValue = row["DateAdded"];
+                    if (dateAddedValue != DBNull.Value)
+                    {
+                        dateTimePicker.Value = (DateTime)dateAddedValue;
+                    }
+                    else
+                    {
+                        dateTimePicker.Value = DateTime.Now;
+                    }
+                    //isActiveCheckBox.Checked = (bool)row["IsActive"];
+                    object isActiveValue = row["IsActive"];
+                    if (isActiveValue != DBNull.Value)
+                    {
+                        isActiveCheckBox.Checked = (bool)isActiveValue;
+                    }
+                    else
+                    {
+                        isActiveCheckBox.Checked = false;
+                    }
+                    currentSubjectId = subjectId;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
             }
         }
 
@@ -136,6 +219,32 @@ namespace Essai
             Questions obj = new Questions();
             obj.Show();
             this.Hide();
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            int selectedRowIndex = subjectsList.SelectedCells.Count > 0 ? subjectsList.SelectedCells[0].RowIndex : -1;
+            if (selectedRowIndex >= 0)
+            {
+                int selectedSubjectId = (int)subjectsList.Rows[selectedRowIndex].Cells["SId"].Value;
+                if (MessageBox.Show("Are you sure you want to delete this subject?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    DeleteSubject(selectedSubjectId);
+                    DisplaySubjects();
+                    Reset();
+                }
+            }
+        }
+
+        private void subjectsList_SelectionChanged(object sender, EventArgs e)
+        {
+            Reset();
+            int selectedRowIndex = subjectsList.SelectedCells.Count > 0 ? subjectsList.SelectedCells[0].RowIndex : -1;
+            if (selectedRowIndex >= 0)
+            {
+                int selectedSubjectId = (int)subjectsList.Rows[selectedRowIndex].Cells["SId"].Value;
+                LoadSubject(selectedSubjectId);
+            }
         }
     }
 }

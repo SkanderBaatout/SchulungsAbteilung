@@ -54,6 +54,7 @@
             subjectcb = new ComboBox();
             candidatecb = new ComboBox();
             resultDGV = new Guna.UI2.WinForms.Guna2DataGridView();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox2).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox6).BeginInit();
@@ -62,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)resultDGV).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // label4
@@ -186,9 +188,9 @@
             // 
             panel1.BackColor = Color.White;
             panel1.ForeColor = Color.White;
-            panel1.Location = new Point(608, 42);
+            panel1.Location = new Point(603, 42);
             panel1.Name = "panel1";
-            panel1.Size = new Size(125, 5);
+            panel1.Size = new Size(95, 5);
             panel1.TabIndex = 38;
             // 
             // label3
@@ -235,9 +237,9 @@
             label5.Location = new Point(603, 14);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(130, 25);
+            label5.Size = new Size(79, 25);
             label5.TabIndex = 50;
-            label5.Text = "Candidates";
+            label5.Text = "Results";
             // 
             // subjectcb
             // 
@@ -310,12 +312,24 @@
             resultDGV.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
             resultDGV.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(12, 7);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(96, 32);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 54;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
+            // 
             // ViewResults
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Teal;
             ClientSize = new Size(934, 611);
+            Controls.Add(pictureBox1);
             Controls.Add(resultDGV);
             Controls.Add(candidatecb);
             Controls.Add(subjectcb);
@@ -340,6 +354,7 @@
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)resultDGV).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -362,5 +377,6 @@
         private ComboBox subjectcb;
         private ComboBox candidatecb;
         private Guna.UI2.WinForms.Guna2DataGridView resultDGV;
+        private PictureBox pictureBox1;
     }
 }

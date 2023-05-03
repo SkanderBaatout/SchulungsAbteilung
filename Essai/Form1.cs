@@ -160,9 +160,9 @@ namespace Essai
 
         private void button_exit_Click(object sender, EventArgs e)
         {
-            LoginForm login = new LoginForm();
+            ViewResults rs = new ViewResults();
+            rs.Show();
             this.Hide();
-            login.Show();
         }
 
         private void button_dashboard_Click(object sender, EventArgs e)
@@ -211,6 +211,27 @@ namespace Essai
             form.Show();
             this.Hide();
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoginForm login = new LoginForm();
+            this.Hide();
+            login.Show();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Candidats can = new Candidats();
+            this.Hide();
+            can.Show();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            Subjects sub = new Subjects();
+            sub.Show();
+            this.Hide();
         }
     }
 }

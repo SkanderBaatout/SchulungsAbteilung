@@ -13,48 +13,58 @@ namespace Essai
 {
     public partial class Exams : Form
     {
+
         public Exams()
         {
             InitializeComponent();
-
+           // Qn = CountQuestions();
             labelName.Text = LoginForm.username;
             labelSubject.Text = EmployeeBord.trainingName;
-            Qn = CountQuestions();
+            MultiRandom();
             FetchQuestions();
+          
         }
         int Qn;
+        SqlConnection Con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True");
+        string a1, a2, a3, a4, a5, a6, a7, a8, a9, a10;
+        string[] Ua = new string[10];
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
 
         }
-        SqlConnection Con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True");
-        string a1, a2, a3, a4, a5, a6, a7, a8, a9, a10;
-        string[] Ua = new string[10];
+       
 
         private int CountQuestions()
         {
             int Qnum;
             Con.Open();
-            SqlDataAdapter sda = new SqlDataAdapter("select Count(*) from QuestionTbl where QS ='" + labelSubject.Text + "'", Con);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            Qnum = Convert.ToInt32(dt.Rows[0][0]);
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM QuestionTbl WHERE QS = @Subject", Con);
+            cmd.Parameters.AddWithValue("@Subject", labelSubject.Text);
+            Qnum = (int)cmd.ExecuteScalar();
             Con.Close();
 
             return Qnum;
         }
+        private int GenerateRand()
+        {
+            Random rd = new Random();
+            int x = rd.Next(1,4);
+            int y = rd.Next(1, 4);
+            int z = rd.Next(1, 4);
+            return x;
+        }
         private void SaveHighest()
         {
             Con.Open();
-            SqlDataAdapter sda = new SqlDataAdapter("select MAX(RScore) from  ResultTbl Where RCandidate = '" + labelName.Text + "'", Con);
+            SqlDataAdapter sda2 = new SqlDataAdapter("select MAX(RScore) from  ResultTbl Where RCandidate = '" + labelName.Text + "'", Con);
             DataTable dt2 = new DataTable();
-            sda.Fill(dt2);
+            sda2.Fill(dt2);
             int BestScore = Convert.ToInt32(dt2.Rows[0][0].ToString());
             try
             {
                 SqlCommand cmd = new SqlCommand("Update employees set score=@sc WHERE username=@cn", Con);
                 cmd.Parameters.AddWithValue("@cn", labelName.Text);
-                cmd.Parameters.AddWithValue("@cs", BestScore);
+                cmd.Parameters.AddWithValue("@sc", BestScore);
 
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Candidate Updated.");
@@ -79,7 +89,7 @@ namespace Essai
             var rnd = new Random();
             while (numbers.Count < 10)
             {
-                numbers.Add(rnd.Next(1, Qn));
+                numbers.Add(rnd.Next(1,14));
             }
             for (int i = 0; i < 10; i++)
             {
@@ -91,7 +101,7 @@ namespace Essai
         {
             try
             {
-                // int QNum = GenerateRandom();
+                int QNum =GenerateRand();
                 MultiRandom();
                 Con.Open();
                 String Query = "select * from QuestionTbl WHERE QId = '" + keys[0] + "'  ";
@@ -610,6 +620,8 @@ namespace Essai
             MessageBox.Show("" + score);
             InsertResult();
             SaveHighest();
+
+
             LoginForm log = new LoginForm();
             log.Show();
             this.Hide();
