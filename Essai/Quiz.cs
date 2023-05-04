@@ -27,6 +27,7 @@ namespace Essai
         private int _remainingTime;
         private System.Windows.Forms.Timer _timer;
         private List<int> _questionIndexes;
+        private bool _quizEnded = false;
 
         public Quiz()
         {
@@ -55,38 +56,52 @@ namespace Essai
 
         private void btn_next_Click(object sender, EventArgs e)
         {
-            // Check if there are remaining questions
-            if (_currentIndex < _totalQuestions - 1)
+            // Check if the quiz has ended
+            if (_quizEnded)
             {
-                // Check if an option is selected
-                if (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked)
-                {
-                    // Check if the selected option is correct
-                    if (GetSelectedOption() == GetCorrectOption())
-                    {
-                        _score++;
-                    }
+                // Display the score
+                MessageBox.Show("Vous avez marqué " + _score.ToString() + " sur " + _totalQuestions.ToString() + ".", "Score");
 
-                    // Move to the next question
-                    _currentIndex++;
-                    DisplayQuestion(_currentIndex);
-                    UpdateQuestionNumber(_currentIndex + 1, _totalQuestions);
-                    ResetOptionSelection();
-                    ResetRemainingTime();
-                }
-                else
-                {
-                    MessageBox.Show("Aucune question sélectionnée ! Sélectionnez au moins une question.", "Erreur");
-                }
+                // Move to the EmployeeBordForm
+                EmployeeBord form = new EmployeeBord();
+                form.Show();
+                this.Hide();
             }
             else
             {
-                // End the quiz
-                int qset = Convert.ToInt32(label_set.Text);
-                EndQuiz(qset);
+                // Check if there are remaining questions
+                if (_currentIndex < _totalQuestions - 1)
+                {
+                    // Check if an option is selected
+                    if (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked)
+                    {
+                        // Check if the selected option is correct
+                        if (GetSelectedOption() == GetCorrectOption())
+                        {
+                            _score++;
+                        }
 
-                // Insert the score into the database
-                InsertTest(qset);
+                        // Move to the next question
+                        _currentIndex++;
+                        DisplayQuestion(_currentIndex);
+                        UpdateQuestionNumber(_currentIndex + 1, _totalQuestions);
+                        ResetOptionSelection();
+                        ResetRemainingTime();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Aucune question sélectionnée ! Sélectionnez au moins une question.", "Erreur");
+                    }
+                }
+                else
+                {
+                    // End the quiz
+                    int qset = Convert.ToInt32(label_set.Text);
+                    EndQuiz(qset);
+
+                    // Insert the score into the database
+                    InsertTest(qset);
+                }
             }
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -221,11 +236,18 @@ namespace Essai
             // Stop the timer
             _timer.Stop();
 
+            // Disable the quiz controls
+            radioButton1.Enabled = false;
+            radioButton2.Enabled = false;
+            radioButton3.Enabled = false;
+            radioButton4.Enabled = false;
+            btn_next.Text = "Submit";
+
             // Show the results
             MessageBox.Show("Vous avez marqué " + _score.ToString() + " sur " + _totalQuestions.ToString() + ".", "Résultats");
 
-            // Reset the quiz
-            SetUpQuiz(qset);
+            // Set quizEnded to true
+            _quizEnded = true;
         }
 
         private int GetRandomQset()
@@ -300,7 +322,15 @@ namespace Essai
         {
             try
             {
-                _query = "INSERT INTO scores (cin, qset, score, date) VALUES (@cin, @qset, @score, @date)";
+                _query = "IF NOT EXISTS (SELECT 1 FROM scores WHERE cin = @cin AND qset = @qset) " +
+                         "BEGIN " +
+                         "INSERT INTO scores (cin, qset, score, date) VALUES (@cin, @qset, @score, @date) " +
+                         "END " +
+                         "ELSE " +
+                         "BEGIN " +
+                         "IF @score > (SELECT score FROM scores WHERE cin = @cin AND qset = @qset) " +
+                         "UPDATE scores SET score = @score, date = @date WHERE cin = @cin AND qset = @qset " +
+                         "END";
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     using (SqlCommand command = new SqlCommand(_query, connection))
