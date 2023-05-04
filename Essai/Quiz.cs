@@ -1,11 +1,11 @@
 ﻿using Essai.Models;
-using MySqlX.XDevAPI.Relational;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO; // Added for MemoryStream
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -16,20 +16,32 @@ namespace Essai
 {
     public partial class Quiz : Form
     {
-        Function fn = new Function();
-        string query;
-        DataSet ds;
-        static int i = 0;
-        Int64 questionNo = 1;
-        private int currentQuestionNo = 1; // Track the current question number
-        private int totalQuestions = 0; // Track the total number of questions
-        private int remainingTime = 0; // Track the remaining time in seconds
-        private System.Windows.Forms.Timer timer; // Timer to update the label with remaining time
-
+        private readonly Function _function = new Function();
+        private readonly Random _random = new Random();
+        private readonly string _connectionString = "data source=SKANDERBAATOUT;database=quiz;integrated security=True;TrustServerCertificate=True;";
+        private string _query;
+        private DataSet _dataSet;
+        private int _currentIndex = -1;
+        private int _score;
+        private int _totalQuestions;
+        private int _remainingTime;
+        private System.Windows.Forms.Timer _timer;
+        private List<int> _questionIndexes;
 
         public Quiz()
         {
             InitializeComponent();
+        }
+
+        private void Quiz_Load(object sender, EventArgs e)
+        {
+            label_nameEmp.Text = LoginForm.username;
+            label_cinEmp.Text = LoginForm.cin;
+            int qset = GetRandomQset();
+            label_set.Text = qset.ToString();
+
+            // Set up the quiz
+            SetUpQuiz(qset);
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -39,153 +51,28 @@ namespace Essai
             this.Hide();
         }
 
-        private void Quiz_Load(object sender, EventArgs e)
+
+
+        private void btn_next_Click(object sender, EventArgs e)
         {
-            label_nameEmp.Text = LoginForm.username;
-            label_cinEmp.Text = LoginForm.cin;
-            // score = 0;
-            getSet();
-            nextQuestions();
-            i = 0;
-            questionNumber();
-            // Calculate the total time for all questions
-            int totalTime = totalQuestions * 30;
-
-            // Update the label with the total time
-            label_total_Time.Text = totalTime.ToString() + " seconds";
-
-            // Call the questionNo() method to get the total number of questions
-            totalQuestions = questionNumber();
-
-            // Set the initial remaining time to 30 seconds for the first question
-            remainingTime = totalQuestions * 30;
-
-            // Initialize the timer
-            timer1 = new System.Windows.Forms.Timer();
-            timer1.Interval = 1000; // Set the interval of the timer in milliseconds
-            timer1.Tick += timer1_Tick_1; // Add an event handler for the Tick event of the timer
-            timer1.Start(); // Start the timer
-
-            // Update the label with the initial question number and remaining time
-            qNo.Text = "Question " + currentQuestionNo.ToString() + " / " + totalQuestions.ToString();
-            label_remainingTime.Text = remainingTime.ToString() + " seconds";
-            label_total_Time.Text = remainingTime.ToString() + " seconds";
-
-        }
-
-        public void insertTest()
-        {
-            try
+            // Check if there are remaining questions
+            if (_currentIndex < _totalQuestions - 1)
             {
-                string candidate = LoginForm.cin;
-                // Appeler la méthode getSet pour récupérer la valeur qset            
-                int qset = Convert.ToInt32(getSet());
-                string checkQuery = "SELECT COUNT(*) FROM scoreQUiz WHERE cin = '{0}'";
-                checkQuery = string.Format(checkQuery, candidate);
-                DataSet ds = fn.getData(checkQuery);
-                int count = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
-                if (count > 0)
-                {
-                    string updateQuery = "UPDATE scoreQUiz SET qset = {0}, date = '{1}', score = {2} WHERE cin = '{3}'";
-                    updateQuery = string.Format(updateQuery, qset, System.DateTime.Now.ToString("yyyy-MM-dd HH:mm"), score, candidate); ;
-                    fn.setData(updateQuery, "Data updated successfully!");
-                }
-                else
-                {
-                    string insertQuery = "INSERT INTO scoreQUiz (cin, qset, date, score) VALUES ('{0}', {1}, '{2}', {3})";
-                    insertQuery = string.Format(insertQuery, candidate, qset, System.DateTime.Now.ToString("yyyy-MM-dd HH:mm"), score);
-
-                    fn.setData(insertQuery, "Data inserted successfully!");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
-            }
-
-        }
-        private void nextQuestions()
-        {
-
-            query = "select question,optionA,optionB,optionC,optionD,ans,CONVERT(varbinary, photo) as photo from questions  where qset = '" + label_set.Text + "'";
-            ds = fn.getData(query);
-
-            int questNum = ds.Tables[0].Rows.Count;
-            if (i < questNum)
-            {
+                // Check if an option is selected
                 if (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked)
                 {
-
-                    if (ds.Tables[0].Rows[i][6] != DBNull.Value)
+                    // Check if the selected option is correct
+                    if (GetSelectedOption() == GetCorrectOption())
                     {
-                        label_question.Text = ds.Tables[0].Rows[i][0].ToString();
-                        radioButton1.Text = ds.Tables[0].Rows[i][1].ToString();
-                        radioButton2.Text = ds.Tables[0].Rows[i][2].ToString();
-                        radioButton3.Text = ds.Tables[0].Rows[i][3].ToString();
-                        radioButton4.Text = ds.Tables[0].Rows[i][4].ToString();
-
-                        // Récupérer les données d'image depuis la colonne de la base de données
-                        byte[] img = (byte[])ds.Tables[0].Rows[i][6];
-                        
-
-                        if (img != null && img.Length > 0)
-                        {
-                            try
-                            {
-                                // Créer une image à partir des données d'image
-                                using (MemoryStream ms = new MemoryStream(img))
-                                {
-
-                                    Image image = Image.FromStream(ms);
-                                    pictureBox.Image = image;
-                                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Une erreur s'est produite lors de la manipulation de l'image : " + ex.Message, "Erreur");
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("L'image est vide ou nulle", "Erreur");
-                        }
-
-
-                        correct();
-                        if (c == Convert.ToInt32(ds.Tables[0].Rows[i][5].ToString()))
-                        {
-                            score = score + 1;
-                            i++;
-                        }
-                        else
-                        {
-                            i++;
-                        }
-
+                        _score++;
                     }
-                    else
-                    {
-                        label_question.Text = ds.Tables[0].Rows[i][0].ToString();
-                        radioButton1.Text = ds.Tables[0].Rows[i][1].ToString();
-                        radioButton2.Text = ds.Tables[0].Rows[i][2].ToString();
-                        radioButton3.Text = ds.Tables[0].Rows[i][3].ToString();
-                        radioButton4.Text = ds.Tables[0].Rows[i][4].ToString();
 
-                        correct();
-
-                        if (c == Convert.ToInt32(ds.Tables[0].Rows[i][5].ToString()))
-                        {
-                            score = score + 1;
-                            i++;
-
-                        }
-                        else
-                        {
-                            i++;
-                        }
-
-                    }
+                    // Move to the next question
+                    _currentIndex++;
+                    DisplayQuestion(_currentIndex);
+                    UpdateQuestionNumber(_currentIndex + 1, _totalQuestions);
+                    ResetOptionSelection();
+                    ResetRemainingTime();
                 }
                 else
                 {
@@ -194,140 +81,246 @@ namespace Essai
             }
             else
             {
-                insertTest();
-                // Display the score in custom dialog
-                using (ScoreDialogForm scoreDialog = new ScoreDialogForm())
+                // End the quiz
+                int qset = Convert.ToInt32(label_set.Text);
+                EndQuiz(qset);
+
+                // Insert the score into the database
+                InsertTest(qset);
+            }
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            // Update the remaining time
+            _remainingTime--;
+            label_remainingTime.Text = _remainingTime.ToString() + " seconds";
+
+            // Check if the time has run out
+            if (_remainingTime == 0)
+            {
+                // Move to the next question
+                btn_next.PerformClick();
+            }
+        }
+
+        private void SetUpQuiz(int qset)
+        {
+            // Get the questions for the qset
+            _query = "SELECT question, optionA, optionB, optionC, optionD, ans, photo FROM questions WHERE qset = @qset";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(_query, connection))
                 {
-                    scoreDialog.Score = score;
-                    scoreDialog.ShowDialog();
+                    command.Parameters.AddWithValue("@qset", qset);
+                    connection.Open();
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    _dataSet = new DataSet();
+                    adapter.Fill(_dataSet);
+                    connection.Close();
                 }
-
-                questNum = 0;
             }
+
+            // Shuffle the questions
+            _questionIndexes = Enumerable.Range(0, _dataSet.Tables[0].Rows.Count).ToList();
+            Shuffle(_questionIndexes);
+
+            // Initialize the quiz
+            _totalQuestions = _dataSet.Tables[0].Rows.Count;
+            _currentIndex = 0;
+            _score = 0;
+            _remainingTime = _totalQuestions * 30;
+
+            // Start the timer
+            _timer = new System.Windows.Forms.Timer();
+            _timer.Interval = 1000;
+            _timer.Tick += timer1_Tick;
+            _timer.Start();
+
+            // Display the first question
+            DisplayQuestion(_currentIndex);
+            UpdateQuestionNumber(1, _totalQuestions);
+            label_total_Time.Text = _remainingTime.ToString() + " seconds";
         }
-
-        int c;
-        int score;
-        private void correct()
+        private void DisplayQuestion(int index)
         {
-            if (radioButton1.Checked)
-            {
-                c = 1;
-            }
-            else if (radioButton2.Checked)
-            {
-                c = 2;
-            }
-            else if (radioButton3.Checked)
-            {
-                c = 3;
-            }
-            else if (radioButton4.Checked)
-            {
-                c = 4;
-            }
-        }
+            DataRow row = _dataSet.Tables[0].Rows[_questionIndexes[index]];
+            string question = row["question"].ToString();
+            string optionA = row["optionA"].ToString();
+            string optionB = row["optionB"].ToString();
+            string optionC = row["optionC"].ToString();
+            string optionD = row["optionD"].ToString();
+            string photo = row["photo"].ToString();
 
+            label_question.Text = question;
+            radioButton1.Text = optionA;
+            radioButton2.Text = optionB;
+            radioButton3.Text = optionC;
+            radioButton4.Text = optionD;
 
-        private void btn_next_Click(object sender, EventArgs e)
-        {
-            if (currentQuestionNo <= totalQuestions)
+            if (!string.IsNullOrEmpty(photo))
             {
-                nextQuestions();
-
-                qNo.Text = "Question " + (currentQuestionNo += 1).ToString() + " / " + totalQuestions.ToString();
+                pictureBox_question.Image = LoadImage(photo);
             }
             else
             {
-
-                timer1.Stop();
-
-                MessageBox.Show("Vous avez terminé le quiz!", "Quiz terminé");
-
-                btn_next.Text = "Submit";
-                // Display the score in custom dialog
-                using (ScoreDialogForm scoreDialog = new ScoreDialogForm())
-                {
-                    scoreDialog.Score = score;
-                    scoreDialog.ShowDialog();
-                }
-
+                pictureBox_question.Image = null;
             }
         }
-        private string getSet()
-        {
-            query = "SELECT   TOP 1 qset FROM questions ORDER BY NewID();";
-            DataSet ds = fn.getData(query);
 
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+        private int GetSelectedOption()
+        {
+            if (radioButton1.Checked)
             {
-                string qset = ds.Tables[0].Rows[i][0].ToString();
-                label_set.Text = qset;
-                return qset;
+                return 1;
             }
-            return null;
+            else if (radioButton2.Checked)
+            {
+                return 2;
+            }
+            else if (radioButton3.Checked)
+            {
+                return 3;
+            }
+            else if (radioButton4.Checked)
+            {
+                return 4;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
-        private int questionNumber()
+        private int GetCorrectOption()
         {
-            query = "select COUNT(question) from questions where qset = '" + label_set.Text + "' ";
-            ds = fn.getData(query);
-            int count = 0;
+            DataRow row = _dataSet.Tables[0].Rows[_questionIndexes[_currentIndex]];
+            return Convert.ToInt32(row["ans"]);
+        }
 
+        private void UpdateQuestionNumber(int current, int total)
+        {
+            qNo.Text = "Question " + current.ToString() + " sur " + total.ToString();
+        }
+
+        private void ResetOptionSelection()
+        {
+            radioButton1.Checked = false;
+            radioButton2.Checked = false;
+            radioButton3.Checked = false;
+            radioButton4.Checked = false;
+        }
+
+        private void ResetRemainingTime()
+        {
+            _remainingTime = _totalQuestions * 30;
+            label_total_Time.Text = _remainingTime.ToString() + " seconds";
+        }
+
+        private void EndQuiz(int qset)
+        {
+            // Stop the timer
+            _timer.Stop();
+
+            // Show the results
+            MessageBox.Show("Vous avez marqué " + _score.ToString() + " sur " + _totalQuestions.ToString() + ".", "Résultats");
+
+            // Reset the quiz
+            SetUpQuiz(qset);
+        }
+
+        private int GetRandomQset()
+        {
+            _query = "SELECT TOP 1 qset FROM questions GROUP BY qset ORDER BY NEWID()";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(_query, connection))
+                {
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        int qset = Convert.ToInt32(result);
+                        connection.Close();
+                        return qset;
+                    }
+                    else
+                    {
+                        connection.Close();
+                        throw new Exception("No qset found");
+                    }
+                }
+            }
+        }
+
+        private void Shuffle<T>(IList<T> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = _random.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+
+        private Image LoadImage(object image)
+        {
+            if (image == DBNull.Value)
+            {
+                return null;
+            }
+
+            if (image is string path)
+            {
+                if (File.Exists(path))
+                {
+                    byte[] bytes = File.ReadAllBytes(path);
+                    MemoryStream stream = new MemoryStream(bytes);
+                    return Image.FromStream(stream);
+                }
+                else
+                {
+                    throw new FileNotFoundException("File not found", path);
+                }
+            }
+            else if (image is byte[] bytes)
+            {
+                MemoryStream stream = new MemoryStream(bytes);
+                return Image.FromStream(stream);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid image type", nameof(image));
+            }
+        }
+
+        private void InsertTest(int qset)
+        {
             try
             {
-                if (ds.Tables[0].Rows.Count > 0)
+                _query = "INSERT INTO scores (cin, qset, score, date) VALUES (@cin, @qset, @score, @date)";
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    count = Convert.ToInt32(ds.Tables[0].Rows[0][0]); // Retrieve the count from the first row of the result set
+                    using (SqlCommand command = new SqlCommand(_query, connection))
+                    {
+                        command.Parameters.AddWithValue("@cin", LoginForm.cin);
+                        command.Parameters.AddWithValue("@qset", qset);
+                        command.Parameters.AddWithValue("@score", _score);
+                        command.Parameters.AddWithValue("@date", DateTime.Now);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                    }
                 }
             }
             catch (Exception ex)
             {
-
-                MessageBox.Show("Une erreur s'est produite lors de la récupération du nombre de questions : " + ex.Message, "Erreur");
+                // Log the exception
+                string errorMessage = $"Error inserting score into database: {ex.Message}";
+                MessageBox.Show(errorMessage, "Error");
             }
-            qNo.Text = count.ToString();
-            return count;
-
-
-        }
-
-
-        private void timer1_Tick_1(object sender, EventArgs e)
-        {
-            // Update the remaining time and label
-            remainingTime--;
-            label_remainingTime.Text = remainingTime.ToString() + " seconds";
-
-            // Check if the remaining time has reached 0
-            if (remainingTime == 0)
-            {
-                // Move on to the next question
-                currentQuestionNo++;
-
-                // Check if all questions have been answered
-                if (currentQuestionNo > totalQuestions)
-                {
-                    // Stop the timer
-                    timer1.Stop();
-
-                    // Show a message indicating the end of the quiz
-                    MessageBox.Show("Quiz ended.", "Quiz Ended", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    // Update the label with the next question number and reset the remaining time
-                    qNo.Text = "Question " + currentQuestionNo.ToString() + " / " + totalQuestions.ToString();
-                    remainingTime = 30;
-                    label_remainingTime.Text = remainingTime.ToString() + " seconds";
-                }
-            }
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            insertTest();
-
         }
     }
 }

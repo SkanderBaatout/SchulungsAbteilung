@@ -231,27 +231,43 @@ namespace Essai
             int selectedRowIndex = subjectsList.SelectedCells.Count > 0 ? subjectsList.SelectedCells[0].RowIndex : -1;
             if (selectedRowIndex >= 0)
             {
-                int selectedSubjectId = (int)subjectsList.Rows[selectedRowIndex].Cells["SId"].Value;
-                if (MessageBox.Show("Are you sure you want to delete this subject?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                // Check if the value of the "SId" cell is not null before casting it to an int
+                if (subjectsList.Rows[selectedRowIndex].Cells["SId"].Value != null)
                 {
-                    DeleteSubject(selectedSubjectId);
-                    DisplaySubjects();
-                    Reset();
+                    int selectedSubjectId = (int)subjectsList.Rows[selectedRowIndex].Cells["SId"].Value;
+                    if (MessageBox.Show("Are you sure you want to delete this subject?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        DeleteSubject(selectedSubjectId);
+                        DisplaySubjects();
+                        Reset();
+                    }
+                }
+                else
+                {
+                    // Handle the case where the value of the "SId" cell is null
+                    MessageBox.Show("Selected subject does not have a valid ID");
                 }
             }
         }
-
         private void subjectsList_SelectionChanged(object sender, EventArgs e)
         {
             Reset();
             int selectedRowIndex = subjectsList.SelectedCells.Count > 0 ? subjectsList.SelectedCells[0].RowIndex : -1;
             if (selectedRowIndex >= 0)
             {
-                int selectedSubjectId = (int)subjectsList.Rows[selectedRowIndex].Cells["SId"].Value;
-                LoadSubject(selectedSubjectId);
+                // Check if the value of the "SId" cell is not DBNull.Value before casting it to an int
+                if (subjectsList.Rows[selectedRowIndex].Cells["SId"].Value != DBNull.Value)
+                {
+                    int selectedSubjectId = Convert.ToInt32(subjectsList.Rows[selectedRowIndex].Cells["SId"].Value);
+                    LoadSubject(selectedSubjectId);
+                }
+                else
+                {
+                    // Handle the case where the value of the "SId" cell is DBNull.Value
+                    MessageBox.Show("Selected subject does not have a valid ID");
+                }
             }
         }
-
         private void loadBtn_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

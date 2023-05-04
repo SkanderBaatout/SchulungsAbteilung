@@ -50,15 +50,13 @@
             label_question = new Label();
             label_set = new Label();
             label_cinEmp = new Label();
-            pictureBox = new PictureBox();
+            pictureBox_question = new PictureBox();
             label15 = new Label();
             qNo = new Label();
             label_remainingTime = new Label();
             label_total_Time = new Label();
-            pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox_question).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -84,7 +82,7 @@
             btn_next.FillColor = Color.Teal;
             btn_next.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btn_next.ForeColor = Color.White;
-            btn_next.Location = new Point(738, 566);
+            btn_next.Location = new Point(738, 593);
             btn_next.Name = "btn_next";
             btn_next.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btn_next.Size = new Size(168, 45);
@@ -172,7 +170,7 @@
             // timer1
             // 
             timer1.Interval = 1000;
-            timer1.Tick += timer1_Tick_1;
+            timer1.Tick += timer1_Tick;
             // 
             // radioButton1
             // 
@@ -250,14 +248,14 @@
             label_cinEmp.TabIndex = 62;
             label_cinEmp.Text = "label20";
             // 
-            // pictureBox
+            // pictureBox_question
             // 
-            pictureBox.Location = new Point(414, 219);
-            pictureBox.Name = "pictureBox";
-            pictureBox.Size = new Size(492, 319);
-            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox.TabIndex = 63;
-            pictureBox.TabStop = false;
+            pictureBox_question.Location = new Point(353, 168);
+            pictureBox_question.Name = "pictureBox_question";
+            pictureBox_question.Size = new Size(553, 398);
+            pictureBox_question.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox_question.TabIndex = 63;
+            pictureBox_question.TabStop = false;
             // 
             // label15
             // 
@@ -297,28 +295,16 @@
             label_total_Time.TabIndex = 67;
             label_total_Time.Text = "01:00";
             // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(221, 15);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(61, 23);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 68;
-            pictureBox2.TabStop = false;
-            pictureBox2.Click += pictureBox2_Click;
-            // 
             // Quiz
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(950, 650);
-            Controls.Add(pictureBox2);
             Controls.Add(label_total_Time);
             Controls.Add(label_remainingTime);
             Controls.Add(qNo);
             Controls.Add(label15);
-            Controls.Add(pictureBox);
+            Controls.Add(pictureBox_question);
             Controls.Add(label_cinEmp);
             Controls.Add(label_set);
             Controls.Add(label_question);
@@ -344,8 +330,7 @@
             Text = "Quiz";
             Load += Quiz_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox_question).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -392,11 +377,10 @@
         private Label label_question;
         private Label label_set;
         private Label label_cinEmp;
-        private PictureBox pictureBox;
+        private PictureBox pictureBox_question;
         private Label label15;
         private Label qNo;
         private Label label_remainingTime;
         private Label label_total_Time;
-        private PictureBox pictureBox2;
     }
 }
