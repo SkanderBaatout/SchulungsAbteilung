@@ -39,24 +39,24 @@
             textBox_username = new TextBox();
             textBox_password = new TextBox();
             button_login = new Button();
-            label3 = new Label();
-            label4 = new Label();
+            label_username = new Label();
+            label_password = new Label();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
             guna2Elipse2 = new Guna.UI2.WinForms.Guna2Elipse(components);
             guna2Elipse3 = new Guna.UI2.WinForms.Guna2Elipse(components);
             label5 = new Label();
-            label7 = new Label();
+            label_title = new Label();
             comboBox_selectUser = new ComboBox();
             panel_admin = new Panel();
             checkBox_showPass = new CheckBox();
             panel_Employee = new Panel();
             textBox_cin = new TextBox();
-            label11 = new Label();
+            label_cin = new Label();
             checkBox_showpassEmp = new CheckBox();
             textBox_emp_username = new TextBox();
             textBox_emp_pass = new TextBox();
-            label8 = new Label();
-            label10 = new Label();
+            label_emp_username = new Label();
+            label_emp_pass = new Label();
             button_employee_login = new Button();
             button_employee_register = new Button();
             label9 = new Label();
@@ -171,27 +171,27 @@
             button_login.UseVisualStyleBackColor = false;
             button_login.Click += button_login_Click;
             // 
-            // label3
+            // label_username
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.ForeColor = Color.Teal;
-            label3.Location = new Point(22, 69);
-            label3.Name = "label3";
-            label3.Size = new Size(102, 21);
-            label3.TabIndex = 6;
-            label3.Text = "User Name :";
+            label_username.AutoSize = true;
+            label_username.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label_username.ForeColor = Color.Teal;
+            label_username.Location = new Point(22, 69);
+            label_username.Name = "label_username";
+            label_username.Size = new Size(102, 21);
+            label_username.TabIndex = 6;
+            label_username.Text = "User Name :";
             // 
-            // label4
+            // label_password
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.ForeColor = Color.Teal;
-            label4.Location = new Point(34, 127);
-            label4.Name = "label4";
-            label4.Size = new Size(90, 21);
-            label4.TabIndex = 7;
-            label4.Text = "Password :";
+            label_password.AutoSize = true;
+            label_password.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label_password.ForeColor = Color.Teal;
+            label_password.Location = new Point(34, 127);
+            label_password.Name = "label_password";
+            label_password.Size = new Size(90, 21);
+            label_password.TabIndex = 7;
+            label_password.Text = "Password :";
             // 
             // guna2Elipse1
             // 
@@ -219,16 +219,16 @@
             label5.TabIndex = 8;
             label5.Text = " @Copy Right Draxlmaier El Jem 2023";
             // 
-            // label7
+            // label_title
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Century Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.ForeColor = Color.Teal;
-            label7.Location = new Point(371, 215);
-            label7.Name = "label7";
-            label7.Size = new Size(191, 24);
-            label7.TabIndex = 9;
-            label7.Text = "Select User Type  :";
+            label_title.AutoSize = true;
+            label_title.Font = new Font("Century Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label_title.ForeColor = Color.Teal;
+            label_title.Location = new Point(371, 215);
+            label_title.Name = "label_title";
+            label_title.Size = new Size(194, 25);
+            label_title.TabIndex = 9;
+            label_title.Text = "Select User Type  :";
             // 
             // comboBox_selectUser
             // 
@@ -248,9 +248,9 @@
             panel_admin.Controls.Add(textBox_username);
             panel_admin.Controls.Add(textBox_password);
             panel_admin.Controls.Add(button_login);
-            panel_admin.Controls.Add(label3);
+            panel_admin.Controls.Add(label_username);
             panel_admin.Controls.Add(label2);
-            panel_admin.Controls.Add(label4);
+            panel_admin.Controls.Add(label_password);
             panel_admin.Location = new Point(220, 317);
             panel_admin.Name = "panel_admin";
             panel_admin.Size = new Size(471, 298);
@@ -272,16 +272,16 @@
             // panel_Employee
             // 
             panel_Employee.Controls.Add(textBox_cin);
-            panel_Employee.Controls.Add(label11);
+            panel_Employee.Controls.Add(label_cin);
             panel_Employee.Controls.Add(checkBox_showpassEmp);
             panel_Employee.Controls.Add(textBox_emp_username);
             panel_Employee.Controls.Add(textBox_emp_pass);
-            panel_Employee.Controls.Add(label8);
-            panel_Employee.Controls.Add(label10);
+            panel_Employee.Controls.Add(label_emp_username);
+            panel_Employee.Controls.Add(label_emp_pass);
             panel_Employee.Controls.Add(button_employee_login);
             panel_Employee.Controls.Add(button_employee_register);
             panel_Employee.Controls.Add(label9);
-            panel_Employee.Location = new Point(235, 288);
+            panel_Employee.Location = new Point(223, 293);
             panel_Employee.Name = "panel_Employee";
             panel_Employee.Size = new Size(453, 324);
             panel_Employee.TabIndex = 12;
@@ -295,16 +295,16 @@
             textBox_cin.TabIndex = 11;
             textBox_cin.TextAlign = HorizontalAlignment.Center;
             // 
-            // label11
+            // label_cin
             // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.ForeColor = Color.Teal;
-            label11.Location = new Point(64, 175);
-            label11.Name = "label11";
-            label11.Size = new Size(48, 21);
-            label11.TabIndex = 15;
-            label11.Text = "CIN :";
+            label_cin.AutoSize = true;
+            label_cin.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label_cin.ForeColor = Color.Teal;
+            label_cin.Location = new Point(64, 175);
+            label_cin.Name = "label_cin";
+            label_cin.Size = new Size(48, 21);
+            label_cin.TabIndex = 15;
+            label_cin.Text = "CIN :";
             // 
             // checkBox_showpassEmp
             // 
@@ -317,7 +317,6 @@
             checkBox_showpassEmp.TabIndex = 13;
             checkBox_showpassEmp.Text = "Show Password";
             checkBox_showpassEmp.UseVisualStyleBackColor = true;
-            checkBox_showpassEmp.CheckedChanged += checkBox_showpassEmp_CheckedChanged;
             // 
             // textBox_emp_username
             // 
@@ -338,27 +337,27 @@
             textBox_emp_pass.TabIndex = 10;
             textBox_emp_pass.TextAlign = HorizontalAlignment.Center;
             // 
-            // label8
+            // label_emp_username
             // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.ForeColor = Color.Teal;
-            label8.Location = new Point(10, 72);
-            label8.Name = "label8";
-            label8.Size = new Size(102, 21);
-            label8.TabIndex = 11;
-            label8.Text = "User Name :";
+            label_emp_username.AutoSize = true;
+            label_emp_username.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label_emp_username.ForeColor = Color.Teal;
+            label_emp_username.Location = new Point(10, 72);
+            label_emp_username.Name = "label_emp_username";
+            label_emp_username.Size = new Size(102, 21);
+            label_emp_username.TabIndex = 11;
+            label_emp_username.Text = "User Name :";
             // 
-            // label10
+            // label_emp_pass
             // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label10.ForeColor = Color.Teal;
-            label10.Location = new Point(22, 122);
-            label10.Name = "label10";
-            label10.Size = new Size(90, 21);
-            label10.TabIndex = 12;
-            label10.Text = "Password :";
+            label_emp_pass.AutoSize = true;
+            label_emp_pass.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label_emp_pass.ForeColor = Color.Teal;
+            label_emp_pass.Location = new Point(22, 122);
+            label_emp_pass.Name = "label_emp_pass";
+            label_emp_pass.Size = new Size(90, 21);
+            label_emp_pass.TabIndex = 12;
+            label_emp_pass.Text = "Password :";
             // 
             // button_employee_login
             // 
@@ -366,7 +365,7 @@
             button_employee_login.FlatStyle = FlatStyle.Flat;
             button_employee_login.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             button_employee_login.ForeColor = Color.White;
-            button_employee_login.Location = new Point(144, 219);
+            button_employee_login.Location = new Point(144, 224);
             button_employee_login.Name = "button_employee_login";
             button_employee_login.Size = new Size(234, 41);
             button_employee_login.TabIndex = 7;
@@ -380,7 +379,7 @@
             button_employee_register.FlatStyle = FlatStyle.Flat;
             button_employee_register.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             button_employee_register.ForeColor = Color.White;
-            button_employee_register.Location = new Point(144, 266);
+            button_employee_register.Location = new Point(144, 271);
             button_employee_register.Name = "button_employee_register";
             button_employee_register.Size = new Size(234, 41);
             button_employee_register.TabIndex = 5;
@@ -418,7 +417,7 @@
             Controls.Add(panel_Employee);
             Controls.Add(panel_admin);
             Controls.Add(comboBox_selectUser);
-            Controls.Add(label7);
+            Controls.Add(label_title);
             Controls.Add(label5);
             Controls.Add(pictureBox2);
             Controls.Add(panel1);
@@ -449,15 +448,15 @@
         private TextBox textBox_username;
         private TextBox textBox_password;
         private Button button_login;
-        private Label label3;
-        private Label label4;
+        private Label label_username;
+        private Label label_password;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse2;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse3;
         private Label label5;
         private Label label6;
         private ComboBox comboBox_selectUser;
-        private Label label7;
+        private Label label_title;
         private Panel panel_admin;
         private CheckBox checkBox_showPass;
         private Panel panel_Employee;
@@ -470,9 +469,9 @@
         private CheckBox checkBox_showpassEmp;
         private TextBox textBox_emp_username;
         private TextBox textBox_emp_pass;
-        private Label label8;
-        private Label label10;
+        private Label label_emp_username;
+        private Label label_emp_pass;
         private TextBox textBox_cin;
-        private Label label11;
+        private Label label_cin;
     }
 }

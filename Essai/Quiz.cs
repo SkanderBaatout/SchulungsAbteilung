@@ -164,7 +164,7 @@ namespace Essai
             string optionB = row["optionB"].ToString();
             string optionC = row["optionC"].ToString();
             string optionD = row["optionD"].ToString();
-            string photo = row["photo"].ToString();
+            byte[] imageData = row["photo"] as byte[]; // retrieve the image data as a byte array
 
             label_question.Text = question;
             radioButton1.Text = optionA;
@@ -172,16 +172,17 @@ namespace Essai
             radioButton3.Text = optionC;
             radioButton4.Text = optionD;
 
-            if (!string.IsNullOrEmpty(photo))
+            if (imageData != null)
             {
-                pictureBox_question.Image = LoadImage(photo);
+                // if the image data is not null, load it as an Image object and display it in the PictureBox
+                Image image = LoadImage(imageData);
+                pictureBox_question.Image = image;
             }
             else
             {
                 pictureBox_question.Image = null;
             }
         }
-
         private int GetSelectedOption()
         {
             if (radioButton1.Checked)
@@ -294,20 +295,7 @@ namespace Essai
                 return null;
             }
 
-            if (image is string path)
-            {
-                if (File.Exists(path))
-                {
-                    byte[] bytes = File.ReadAllBytes(path);
-                    MemoryStream stream = new MemoryStream(bytes);
-                    return Image.FromStream(stream);
-                }
-                else
-                {
-                    throw new FileNotFoundException("File not found", path);
-                }
-            }
-            else if (image is byte[] bytes)
+            if (image is byte[] bytes)
             {
                 MemoryStream stream = new MemoryStream(bytes);
                 return Image.FromStream(stream);
