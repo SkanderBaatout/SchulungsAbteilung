@@ -149,5 +149,84 @@ namespace Essai
             form.Show();
             this.Hide();
         }
+
+        private void SaveBtn_Click_1(object sender, EventArgs e)
+        {
+            if (CName.Text == "" || CCin.Text == "" || dateTimePicker.Value == DateTime.Now || CPassword.Text == "" || CPhone.Text == "")
+            {
+                MessageBox.Show("Missing Informations");
+            }
+            else
+            {
+                try
+                {
+                    int score = 0;
+                    Con.Open();
+                    // SqlCommand cmd = new SqlCommand("insert into employees values (username,password,mobile,birtday,cin,score ) values (@cn,@cp,@cm,@cb,@cc,@cs)", Con);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO employees (username, password, mobile, birthday, cin, score) VALUES (@cn, @cp, @cm, @cb, @cc, @cs)", Con);
+                    //(@cn,@cp,@cm,@cb,@cc,@cs)
+                    cmd.Parameters.AddWithValue("@cn", CName.Text);
+                    cmd.Parameters.AddWithValue("@cp", CPassword.Text);
+                    cmd.Parameters.AddWithValue("@cm", CPhone.Text);
+                    cmd.Parameters.AddWithValue("@cb", dateTimePicker.Value);
+                    //cmd.Parameters.AddWithValue("@cb", CBirthday.Text);
+                    cmd.Parameters.AddWithValue("@cc", CCin.Text);
+                    cmd.Parameters.AddWithValue("@cs", score);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Candidate Saved.");
+
+                    Con.Close();
+                    Reset();
+                    DisplayCandidates();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+        }
+
+        private void EditBtn_Click_1(object sender, EventArgs e)
+        {
+            if (CName.Text == "" || CCin.Text == "" || dateTimePicker.Value == DateTime.Now || CPassword.Text == "" || CPhone.Text == "")
+            {
+                MessageBox.Show("Missing Informations");
+            }
+            else
+            {
+                try
+                {
+                    int score = 0;
+                    Con.Open();
+                    // SqlCommand cmd = new SqlCommand("insert into employees values (username,password,mobile,birtday,cin,score ) values (@cn,@cp,@cm,@cb,@cc,@cs)", Con);
+                    SqlCommand cmd = new SqlCommand("Update employees set username=@cn, password=@cp ,mobile=@cm, birthday=@cb,cin=@cc WHERE id=@CKey", Con);
+                    //(@cn,@cp,@cm,@cb,@cc,@cs)
+                    cmd.Parameters.AddWithValue("@cn", CName.Text);
+                    cmd.Parameters.AddWithValue("@cp", CPassword.Text);
+                    cmd.Parameters.AddWithValue("@cm", CPhone.Text);
+                    cmd.Parameters.AddWithValue("@cb", dateTimePicker.Value);
+                    //cmd.Parameters.AddWithValue("@cb", CBirthday.Text);
+                    cmd.Parameters.AddWithValue("@cc", CCin.Text);
+                    cmd.Parameters.AddWithValue("@CKey", key);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Candidate Updated.");
+
+                    Con.Close();
+                    Reset();
+                    DisplayCandidates();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+        }
+
+        private void ResetBtn_Click_1(object sender, EventArgs e)
+        {
+            Reset();
+        }
     }
 }

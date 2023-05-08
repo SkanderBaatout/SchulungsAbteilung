@@ -31,14 +31,7 @@
             components = new System.ComponentModel.Container();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Exams));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             panel1 = new Panel();
             label1 = new Label();
             Q1 = new GroupBox();
@@ -92,14 +85,7 @@
             Q9o2 = new RadioButton();
             Q9o1 = new RadioButton();
             submitbtn = new Guna.UI2.WinForms.Guna2Button();
-            panel2 = new Panel();
             labelName = new Label();
-            guna2CirclePictureBox6 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
-            guna2CirclePictureBox5 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
-            guna2CirclePictureBox4 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
-            guna2CirclePictureBox3 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
-            guna2CirclePictureBox2 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
-            guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             TimeLabel = new Label();
             labelSubject = new Label();
             TimingBar = new Guna.UI2.WinForms.Guna2CircleProgressBar();
@@ -116,20 +102,13 @@
             Q5.SuspendLayout();
             Q10.SuspendLayout();
             Q9.SuspendLayout();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox1).BeginInit();
             TimingBar.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.BackColor = Color.White;
-            panel1.ForeColor = Color.White;
+            panel1.BackColor = Color.Teal;
+            panel1.ForeColor = Color.Teal;
             panel1.Location = new Point(457, 52);
             panel1.Name = "panel1";
             panel1.Size = new Size(70, 5);
@@ -139,7 +118,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.White;
+            label1.ForeColor = Color.Teal;
             label1.Location = new Point(457, 24);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
@@ -776,142 +755,36 @@
             submitbtn.DisabledState.CustomBorderColor = Color.DarkGray;
             submitbtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             submitbtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            submitbtn.FillColor = Color.White;
+            submitbtn.FillColor = Color.Teal;
             submitbtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            submitbtn.ForeColor = Color.Teal;
-            submitbtn.Location = new Point(386, 603);
+            submitbtn.ForeColor = Color.White;
+            submitbtn.Location = new Point(412, 595);
             submitbtn.Name = "submitbtn";
             submitbtn.ShadowDecoration.BorderRadius = 15;
             submitbtn.ShadowDecoration.Color = Color.Transparent;
             submitbtn.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            submitbtn.Size = new Size(180, 35);
+            submitbtn.Size = new Size(167, 45);
             submitbtn.TabIndex = 32;
             submitbtn.Text = "Submit";
             submitbtn.Click += submitbtn_Click_1;
             // 
-            // panel2
-            // 
-            panel2.BackColor = Color.White;
-            panel2.Controls.Add(labelName);
-            panel2.Controls.Add(guna2CirclePictureBox6);
-            panel2.Controls.Add(guna2CirclePictureBox5);
-            panel2.Controls.Add(guna2CirclePictureBox4);
-            panel2.Controls.Add(guna2CirclePictureBox3);
-            panel2.Controls.Add(guna2CirclePictureBox2);
-            panel2.Controls.Add(guna2CirclePictureBox1);
-            panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(1020, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(52, 650);
-            panel2.TabIndex = 34;
-            // 
             // labelName
             // 
             labelName.AutoSize = true;
-            labelName.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            labelName.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             labelName.ForeColor = Color.Black;
-            labelName.Location = new Point(0, 52);
+            labelName.Location = new Point(922, 39);
             labelName.Margin = new Padding(4, 0, 4, 0);
             labelName.Name = "labelName";
-            labelName.Size = new Size(46, 16);
+            labelName.Size = new Size(58, 19);
             labelName.TabIndex = 38;
             labelName.Text = "Name";
-            // 
-            // guna2CirclePictureBox6
-            // 
-            guna2CirclePictureBox6.BackColor = Color.White;
-            guna2CirclePictureBox6.ErrorImage = (Image)resources.GetObject("guna2CirclePictureBox6.ErrorImage");
-            guna2CirclePictureBox6.Image = (Image)resources.GetObject("guna2CirclePictureBox6.Image");
-            guna2CirclePictureBox6.ImageRotate = 0F;
-            guna2CirclePictureBox6.Location = new Point(8, 300);
-            guna2CirclePictureBox6.Name = "guna2CirclePictureBox6";
-            guna2CirclePictureBox6.ShadowDecoration.CustomizableEdges = customizableEdges3;
-            guna2CirclePictureBox6.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CirclePictureBox6.Size = new Size(31, 37);
-            guna2CirclePictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
-            guna2CirclePictureBox6.TabIndex = 5;
-            guna2CirclePictureBox6.TabStop = false;
-            // 
-            // guna2CirclePictureBox5
-            // 
-            guna2CirclePictureBox5.BackColor = Color.White;
-            guna2CirclePictureBox5.ErrorImage = (Image)resources.GetObject("guna2CirclePictureBox5.ErrorImage");
-            guna2CirclePictureBox5.Image = (Image)resources.GetObject("guna2CirclePictureBox5.Image");
-            guna2CirclePictureBox5.ImageRotate = 0F;
-            guna2CirclePictureBox5.Location = new Point(8, 351);
-            guna2CirclePictureBox5.Name = "guna2CirclePictureBox5";
-            guna2CirclePictureBox5.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            guna2CirclePictureBox5.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CirclePictureBox5.Size = new Size(31, 37);
-            guna2CirclePictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
-            guna2CirclePictureBox5.TabIndex = 4;
-            guna2CirclePictureBox5.TabStop = false;
-            // 
-            // guna2CirclePictureBox4
-            // 
-            guna2CirclePictureBox4.BackColor = Color.White;
-            guna2CirclePictureBox4.ErrorImage = (Image)resources.GetObject("guna2CirclePictureBox4.ErrorImage");
-            guna2CirclePictureBox4.Image = (Image)resources.GetObject("guna2CirclePictureBox4.Image");
-            guna2CirclePictureBox4.ImageRotate = 0F;
-            guna2CirclePictureBox4.Location = new Point(8, 235);
-            guna2CirclePictureBox4.Name = "guna2CirclePictureBox4";
-            guna2CirclePictureBox4.ShadowDecoration.CustomizableEdges = customizableEdges5;
-            guna2CirclePictureBox4.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CirclePictureBox4.Size = new Size(31, 59);
-            guna2CirclePictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
-            guna2CirclePictureBox4.TabIndex = 3;
-            guna2CirclePictureBox4.TabStop = false;
-            // 
-            // guna2CirclePictureBox3
-            // 
-            guna2CirclePictureBox3.BackColor = Color.White;
-            guna2CirclePictureBox3.ErrorImage = (Image)resources.GetObject("guna2CirclePictureBox3.ErrorImage");
-            guna2CirclePictureBox3.Image = (Image)resources.GetObject("guna2CirclePictureBox3.Image");
-            guna2CirclePictureBox3.ImageRotate = 0F;
-            guna2CirclePictureBox3.Location = new Point(8, 407);
-            guna2CirclePictureBox3.Name = "guna2CirclePictureBox3";
-            guna2CirclePictureBox3.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2CirclePictureBox3.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CirclePictureBox3.Size = new Size(31, 37);
-            guna2CirclePictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            guna2CirclePictureBox3.TabIndex = 2;
-            guna2CirclePictureBox3.TabStop = false;
-            // 
-            // guna2CirclePictureBox2
-            // 
-            guna2CirclePictureBox2.BackColor = Color.White;
-            guna2CirclePictureBox2.ErrorImage = (Image)resources.GetObject("guna2CirclePictureBox2.ErrorImage");
-            guna2CirclePictureBox2.Image = (Image)resources.GetObject("guna2CirclePictureBox2.Image");
-            guna2CirclePictureBox2.ImageRotate = 0F;
-            guna2CirclePictureBox2.Location = new Point(8, 176);
-            guna2CirclePictureBox2.Name = "guna2CirclePictureBox2";
-            guna2CirclePictureBox2.ShadowDecoration.CustomizableEdges = customizableEdges7;
-            guna2CirclePictureBox2.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CirclePictureBox2.Size = new Size(31, 37);
-            guna2CirclePictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            guna2CirclePictureBox2.TabIndex = 1;
-            guna2CirclePictureBox2.TabStop = false;
-            // 
-            // guna2CirclePictureBox1
-            // 
-            guna2CirclePictureBox1.BackColor = Color.White;
-            guna2CirclePictureBox1.ErrorImage = (Image)resources.GetObject("guna2CirclePictureBox1.ErrorImage");
-            guna2CirclePictureBox1.Image = (Image)resources.GetObject("guna2CirclePictureBox1.Image");
-            guna2CirclePictureBox1.ImageRotate = 0F;
-            guna2CirclePictureBox1.Location = new Point(8, 12);
-            guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
-            guna2CirclePictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CirclePictureBox1.Size = new Size(31, 37);
-            guna2CirclePictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            guna2CirclePictureBox1.TabIndex = 0;
-            guna2CirclePictureBox1.TabStop = false;
             // 
             // TimeLabel
             // 
             TimeLabel.AutoSize = true;
             TimeLabel.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            TimeLabel.ForeColor = Color.White;
+            TimeLabel.ForeColor = Color.Black;
             TimeLabel.Location = new Point(34, 51);
             TimeLabel.Margin = new Padding(4, 0, 4, 0);
             TimeLabel.Name = "TimeLabel";
@@ -923,7 +796,7 @@
             // 
             labelSubject.AutoSize = true;
             labelSubject.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            labelSubject.ForeColor = Color.White;
+            labelSubject.ForeColor = Color.Black;
             labelSubject.Location = new Point(910, 9);
             labelSubject.Margin = new Padding(4, 0, 4, 0);
             labelSubject.Name = "labelSubject";
@@ -933,6 +806,7 @@
             // 
             // TimingBar
             // 
+            TimingBar.BackColor = Color.Transparent;
             TimingBar.Controls.Add(TimeLabel);
             TimingBar.FillColor = Color.FromArgb(200, 213, 218, 223);
             TimingBar.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -941,9 +815,9 @@
             TimingBar.Maximum = 350;
             TimingBar.Minimum = 0;
             TimingBar.Name = "TimingBar";
-            TimingBar.ProgressColor = Color.FromArgb(128, 128, 255);
-            TimingBar.ProgressColor2 = Color.DeepPink;
-            TimingBar.ShadowDecoration.CustomizableEdges = customizableEdges9;
+            TimingBar.ProgressColor = Color.Teal;
+            TimingBar.ProgressColor2 = Color.DarkTurquoise;
+            TimingBar.ShadowDecoration.CustomizableEdges = customizableEdges3;
             TimingBar.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             TimingBar.Size = new Size(138, 138);
             TimingBar.TabIndex = 37;
@@ -957,18 +831,18 @@
             // QdateTimeP
             // 
             QdateTimeP.Format = DateTimePickerFormat.Short;
-            QdateTimeP.Location = new Point(778, 5);
+            QdateTimeP.Location = new Point(764, 5);
             QdateTimeP.Name = "QdateTimeP";
-            QdateTimeP.Size = new Size(115, 27);
+            QdateTimeP.Size = new Size(129, 27);
             QdateTimeP.TabIndex = 38;
             QdateTimeP.Visible = false;
             // 
             // QTime
             // 
             QTime.Format = DateTimePickerFormat.Time;
-            QTime.Location = new Point(778, 39);
+            QTime.Location = new Point(764, 39);
             QTime.Name = "QTime";
-            QTime.Size = new Size(115, 27);
+            QTime.Size = new Size(129, 27);
             QTime.TabIndex = 39;
             QTime.Visible = false;
             // 
@@ -976,13 +850,13 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Teal;
-            ClientSize = new Size(1072, 650);
+            BackColor = Color.White;
+            ClientSize = new Size(1040, 650);
+            Controls.Add(labelName);
             Controls.Add(QTime);
             Controls.Add(QdateTimeP);
             Controls.Add(TimingBar);
             Controls.Add(labelSubject);
-            Controls.Add(panel2);
             Controls.Add(submitbtn);
             Controls.Add(Q10);
             Controls.Add(Q9);
@@ -1024,14 +898,6 @@
             Q10.PerformLayout();
             Q9.ResumeLayout(false);
             Q9.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox1).EndInit();
             TimingBar.ResumeLayout(false);
             TimingBar.PerformLayout();
             ResumeLayout(false);
@@ -1093,13 +959,6 @@
         private RadioButton Q9o2;
         private RadioButton Q9o1;
         private Guna.UI2.WinForms.Guna2Button submitbtn;
-        private Panel panel2;
-        private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox6;
-        private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox5;
-        private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox4;
-        private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox3;
-        private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox2;
-        private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox1;
         private Label TimeLabel;
         private Label labelSubject;
         private Guna.UI2.WinForms.Guna2CircleProgressBar TimingBar;

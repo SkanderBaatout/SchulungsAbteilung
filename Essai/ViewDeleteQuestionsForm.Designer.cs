@@ -73,7 +73,7 @@
             btn_delete.DisabledState.CustomBorderColor = Color.DarkGray;
             btn_delete.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             btn_delete.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btn_delete.FillColor = Color.FromArgb(255, 128, 128);
+            btn_delete.FillColor = Color.OrangeRed;
             btn_delete.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btn_delete.ForeColor = Color.White;
             btn_delete.Location = new Point(761, 593);
@@ -109,6 +109,7 @@
             // 
             dataGridViewCellStyle1.BackColor = Color.White;
             dataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridView.BackgroundColor = Color.Gainsboro;
             dataGridView.BorderStyle = BorderStyle.Fixed3D;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
@@ -140,7 +141,7 @@
             dataGridView.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
             dataGridView.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
             dataGridView.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
-            dataGridView.ThemeStyle.BackColor = Color.White;
+            dataGridView.ThemeStyle.BackColor = Color.Gainsboro;
             dataGridView.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
             dataGridView.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(100, 88, 255);
             dataGridView.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -162,6 +163,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(950, 650);
             Controls.Add(dataGridView);
             Controls.Add(comboSet);

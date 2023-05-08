@@ -40,33 +40,37 @@
             // comboBox_subjects
             // 
             comboBox_subjects.FormattingEnabled = true;
-            comboBox_subjects.Location = new Point(383, 57);
+            comboBox_subjects.Location = new Point(547, 80);
+            comboBox_subjects.Margin = new Padding(4, 4, 4, 4);
             comboBox_subjects.Name = "comboBox_subjects";
-            comboBox_subjects.Size = new Size(121, 23);
+            comboBox_subjects.Size = new Size(210, 29);
             comboBox_subjects.TabIndex = 0;
             comboBox_subjects.SelectedIndexChanged += comboBox_subjects_SelectedIndexChanged;
             // 
             // label_subjectName
             // 
             label_subjectName.AutoSize = true;
-            label_subjectName.Location = new Point(157, 55);
+            label_subjectName.Location = new Point(224, 77);
+            label_subjectName.Margin = new Padding(4, 0, 4, 0);
             label_subjectName.Name = "label_subjectName";
-            label_subjectName.Size = new Size(38, 15);
+            label_subjectName.Size = new Size(57, 21);
             label_subjectName.TabIndex = 1;
             label_subjectName.Text = "label1";
             // 
             // textBox_content
             // 
-            textBox_content.Location = new Point(448, 128);
+            textBox_content.Location = new Point(547, 141);
+            textBox_content.Margin = new Padding(4, 4, 4, 4);
             textBox_content.Name = "textBox_content";
-            textBox_content.Size = new Size(100, 23);
+            textBox_content.Size = new Size(141, 27);
             textBox_content.TabIndex = 2;
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(486, 312);
+            pictureBox1.Location = new Point(479, 243);
+            pictureBox1.Margin = new Padding(4, 4, 4, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(253, 113);
+            pictureBox1.Size = new Size(420, 335);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
@@ -74,23 +78,28 @@
             // dataGridView
             // 
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(54, 186);
+            dataGridView.Location = new Point(13, 243);
+            dataGridView.Margin = new Padding(4, 4, 4, 4);
             dataGridView.Name = "dataGridView";
             dataGridView.RowTemplate.Height = 25;
-            dataGridView.Size = new Size(408, 239);
+            dataGridView.Size = new Size(413, 335);
             dataGridView.TabIndex = 4;
             // 
             // FollowSubjectForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(934, 611);
             Controls.Add(dataGridView);
             Controls.Add(pictureBox1);
             Controls.Add(textBox_content);
             Controls.Add(label_subjectName);
             Controls.Add(comboBox_subjects);
+            Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 4, 4, 4);
             Name = "FollowSubjectForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FollowSubjectForm";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();

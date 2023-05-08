@@ -9,13 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Essai
+namespace Essai.Classes
 {
     internal class ScoreClass
     {
         DbConnect connect = new DbConnect();
         // create function to add score
-        public bool insertScore(int stid,string courName, double scor, string desc)
+        public bool insertScore(int stid, string courName, double scor, string desc)
         {
             MySqlCommand command = new MySqlCommand("INSERT INTO `score`(`EmployeeId`, `CourseName`, `Score`, `Description`) VALUES(@stid, @cn, @sco, @desc)", connect.GetConnection);
             //@stid,@cn,@sco,@desc
@@ -49,19 +49,19 @@ namespace Essai
         }
 
         // create a function to check if course already have a score or not
-        public bool checkScore(int stid,string cName)
+        public bool checkScore(int stid, string cName)
         {
-            DataTable table = getList(new MySqlCommand("SELECT * FROM `score` WHERE `EmployeeId`=  '"+ stid + "'  AND `CourseName`=  '"+   cName +"' "));
+            DataTable table = getList(new MySqlCommand("SELECT * FROM `score` WHERE `EmployeeId`=  '" + stid + "'  AND `CourseName`=  '" + cName + "' "));
             if (table.Rows.Count > 0)
             {
                 return true;
             }
             else
-                return false; 
+                return false;
         }
 
         // create function to edit score data 
-        public bool updateScore(int stid,string scn , double scor, string desc)
+        public bool updateScore(int stid, string scn, double scor, string desc)
         {
             MySqlCommand command = new MySqlCommand("UPDATE `score` SET `Score`=@sco,`Description`=@desc  WHERE `EmployeeId`=@stid AND `CourseName`=@scn\r\n", connect.GetConnection);
             //@stid,@sco,@desc

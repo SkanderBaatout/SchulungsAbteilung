@@ -73,9 +73,9 @@ namespace Essai
 
         private void btn_delete_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show("Are you Sure?","Delete Confirmation!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (MessageBox.Show("Are you Sure?", "Delete Confirmation!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                query = "delete from questions where id = '" + id + "' and qNo = '"+questionNo+"' ";
+                query = "delete from questions where id = '" + id + "' and qNo = '" + questionNo + "' ";
                 fn.setData(query, "Question Deleted.");
                 ViewDeleteQuestionsForm_Load(this, null);
 

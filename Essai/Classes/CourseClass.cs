@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Essai
+namespace Essai.Classes
 {
     internal class CourseClass
     {
         DbConnect connect = new DbConnect();
         // create function to insert  course
-        public bool insertCourse(string cName,int hr , string desc)
+        public bool insertCourse(string cName, int hr, string desc)
         {
             MySqlCommand command = new MySqlCommand("INSERT INTO `course`( `courseName`, `courseHour`, `courseDescription`) VALUES (@cn,@ch,@desc)", connect.GetConnection);
             //@cn,@ch,@desc
@@ -23,7 +23,7 @@ namespace Essai
 
             connect.openConnect();
 
-            if(command.ExecuteNonQuery() == 1)
+            if (command.ExecuteNonQuery() == 1)
             {
                 connect.closeConnect();
                 return true;
@@ -54,7 +54,7 @@ namespace Essai
             command.Parameters.Add("@cn", MySqlDbType.VarChar).Value = cName;
             command.Parameters.Add("@ch", MySqlDbType.Int32).Value = hr;
             command.Parameters.Add("@desc", MySqlDbType.VarChar).Value = desc;
-           
+
             connect.openConnect();
             if (command.ExecuteNonQuery() == 1)
             {
@@ -70,9 +70,9 @@ namespace Essai
         // create a function to delete a course
         // we only need course id
         public bool deleteCourse(int id)
-         {
+        {
             MySqlCommand command = new MySqlCommand("DELETE FROM `course` WHERE courseId=@id", connect.GetConnection);
-            command.Parameters.Add("@id",MySqlDbType.Int32).Value=id;
+            command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
             connect.openConnect();
             if (command.ExecuteNonQuery() == 1)
             {
@@ -85,8 +85,8 @@ namespace Essai
                 return false;
             }
 
-         }
-        
+        }
+
 
     }
 }

@@ -34,6 +34,7 @@
             button_exit = new Button();
             button_dashboard = new Button();
             panel_score_subMenu = new Panel();
+            button3 = new Button();
             button_print_score = new Button();
             button2 = new Button();
             button_new_score = new Button();
@@ -73,7 +74,6 @@
             label1 = new Label();
             panel1 = new Panel();
             label12 = new Label();
-            button3 = new Button();
             panel_slide.SuspendLayout();
             panel_score_subMenu.SuspendLayout();
             panel_course_subMenu.SuspendLayout();
@@ -139,7 +139,7 @@
             button_exit.Padding = new Padding(10, 0, 0, 0);
             button_exit.Size = new Size(183, 37);
             button_exit.TabIndex = 8;
-            button_exit.Text = "View Results";
+            button_exit.Text = "Quizes Results";
             button_exit.TextAlign = ContentAlignment.MiddleLeft;
             button_exit.UseVisualStyleBackColor = false;
             button_exit.Click += button_exit_Click;
@@ -174,6 +174,24 @@
             panel_score_subMenu.Name = "panel_score_subMenu";
             panel_score_subMenu.Size = new Size(183, 155);
             panel_score_subMenu.TabIndex = 6;
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.Teal;
+            button3.Dock = DockStyle.Top;
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button3.ForeColor = Color.White;
+            button3.Location = new Point(0, 126);
+            button3.Name = "button3";
+            button3.Padding = new Padding(10, 0, 0, 0);
+            button3.Size = new Size(183, 29);
+            button3.TabIndex = 8;
+            button3.Text = "Manage Trainings";
+            button3.TextAlign = ContentAlignment.MiddleLeft;
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click_1;
             // 
             // button_print_score
             // 
@@ -724,24 +742,6 @@
             label12.Size = new Size(312, 19);
             label12.TabIndex = 1;
             label12.Text = "SATE ElJEM Training Service Department";
-            // 
-            // button3
-            // 
-            button3.BackColor = Color.Teal;
-            button3.Dock = DockStyle.Top;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            button3.ForeColor = Color.White;
-            button3.Location = new Point(0, 126);
-            button3.Name = "button3";
-            button3.Padding = new Padding(10, 0, 0, 0);
-            button3.Size = new Size(183, 29);
-            button3.TabIndex = 8;
-            button3.Text = "Manage Trainings";
-            button3.TextAlign = ContentAlignment.MiddleLeft;
-            button3.UseVisualStyleBackColor = false;
-            button3.Click += button3_Click_1;
             // 
             // Form1
             // 

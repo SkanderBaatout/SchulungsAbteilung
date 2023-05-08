@@ -380,7 +380,7 @@
             button_questions.Padding = new Padding(10, 0, 0, 0);
             button_questions.Size = new Size(200, 37);
             button_questions.TabIndex = 10;
-            button_questions.Text = "Exams";
+            button_questions.Text = "Exam";
             button_questions.TextAlign = ContentAlignment.MiddleLeft;
             button_questions.UseVisualStyleBackColor = false;
             button_questions.Click += button_questions_Click;
@@ -398,7 +398,7 @@
             button_course.Padding = new Padding(10, 0, 0, 0);
             button_course.Size = new Size(200, 37);
             button_course.TabIndex = 3;
-            button_course.Text = "Formations";
+            button_course.Text = "Training Quiz";
             button_course.TextAlign = ContentAlignment.MiddleLeft;
             button_course.UseVisualStyleBackColor = false;
             button_course.Click += button_course_Click;

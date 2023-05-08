@@ -8,17 +8,17 @@ using Essai.Models;
 using MySql.Data.MySqlClient;
 
 
-namespace Essai
+namespace Essai.Classes
 {
     internal class EmployeeClass
     {
         DbConnect connect = new DbConnect();
         // create function to add a new employees to database
-        public bool insertEmployee(string fname , string lname,DateTime bdate,string gender,string phone,string address , byte[] img)
+        public bool insertEmployee(string fname, string lname, DateTime bdate, string gender, string phone, string address, byte[] img)
         {
-            MySqlCommand command = new MySqlCommand("INSERT INTO `employee`( `EmployeeFirstName`, `EmployeeLastName`, `Birthdate`, `Gender`, `Phone`, `Address`, `Photo`) VALUES (@fn,@ln,@bd,@gd,@ph,@ad,@img)",connect.GetConnection);
+            MySqlCommand command = new MySqlCommand("INSERT INTO `employee`( `EmployeeFirstName`, `EmployeeLastName`, `Birthdate`, `Gender`, `Phone`, `Address`, `Photo`) VALUES (@fn,@ln,@bd,@gd,@ph,@ad,@img)", connect.GetConnection);
             //@fn,@ln,@bd,@gd,@ph,@ad,@img
-            command.Parameters.Add("fn",MySqlDbType.VarChar).Value= fname;
+            command.Parameters.Add("fn", MySqlDbType.VarChar).Value = fname;
             command.Parameters.Add("ln", MySqlDbType.VarChar).Value = lname;
             command.Parameters.Add("bd", MySqlDbType.Date).Value = bdate;
             command.Parameters.Add("gd", MySqlDbType.VarChar).Value = gender;
@@ -36,14 +36,14 @@ namespace Essai
             else
             {
                 connect.closeConnect();
-                return false; 
+                return false;
             }
         }
 
         // to get employees table 
         public DataTable getEmployeeList(MySqlCommand command)
         {
-            command.Connection=connect.GetConnection ;
+            command.Connection = connect.GetConnection;
             MySqlDataAdapter adapter = new MySqlDataAdapter(command);
             DataTable table = new DataTable();
             adapter.Fill(table);
@@ -79,7 +79,7 @@ namespace Essai
         // create a function to search for employee (firstname , lastname , address)
         public DataTable searchEmployee(string searchData)
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `employee` WHERE CONCAT( `EmployeeFirstName`,`EmployeeLastName`,`Address`) LIKE '%"+ searchData +"%'", connect.GetConnection);
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `employee` WHERE CONCAT( `EmployeeFirstName`,`EmployeeLastName`,`Address`) LIKE '%" + searchData + "%'", connect.GetConnection);
             MySqlDataAdapter adapter = new MySqlDataAdapter(command);
             DataTable table = new DataTable();
             adapter.Fill(table);
@@ -87,7 +87,7 @@ namespace Essai
 
         }
         // create a function to edit employee
-        public bool updateEmployee(int id , string fname, string lname, DateTime bdate, string gender, string phone, string address, byte[] img)
+        public bool updateEmployee(int id, string fname, string lname, DateTime bdate, string gender, string phone, string address, byte[] img)
         {
             MySqlCommand command = new MySqlCommand("UPDATE `employee` SET `EmployeeFirstName`=@fn,`EmployeeLastName`=@ln,`Birthdate`=@bd,`Gender`=@gd,`Phone`=@ph,`Address`=@ad,`Photo`=@img WHERE `EmployeeId`=@id", connect.GetConnection);
             //@fn,@ln,@bd,@gd,@ph,@ad,@img
@@ -117,7 +117,7 @@ namespace Essai
         public bool deleteStudent(int id)
         {
             MySqlCommand command = new MySqlCommand("DELETE FROM `employee` WHERE `EmployeeId`=@id", connect.GetConnection);
-            
+
             //@id
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
             connect.openConnect();

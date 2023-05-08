@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Essai.Classes;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;

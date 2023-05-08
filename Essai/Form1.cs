@@ -1,3 +1,5 @@
+using Essai.Classes;
+
 namespace Essai
 {
     public partial class Form1 : Form

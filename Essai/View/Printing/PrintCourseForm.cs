@@ -1,4 +1,4 @@
-﻿using DGVPrinterHelper;
+﻿using Essai.Classes;
 using Microsoft.VisualBasic.Devices;
 using MySql.Data.MySqlClient;
 using System;

@@ -17,12 +17,12 @@ namespace Essai
         public Exams()
         {
             InitializeComponent();
-           // Qn = CountQuestions();
+            // Qn = CountQuestions();
             labelName.Text = LoginForm.username;
             labelSubject.Text = EmployeeBord.trainingName;
             MultiRandom();
             FetchQuestions();
-          
+
         }
         int Qn;
         SqlConnection Con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True");
@@ -32,7 +32,7 @@ namespace Essai
         {
 
         }
-       
+
 
         private int CountQuestions()
         {
@@ -48,7 +48,7 @@ namespace Essai
         private int GenerateRand()
         {
             Random rd = new Random();
-            int x = rd.Next(1,4);
+            int x = rd.Next(1, 4);
             int y = rd.Next(1, 4);
             int z = rd.Next(1, 4);
             return x;
@@ -89,7 +89,7 @@ namespace Essai
             var rnd = new Random();
             while (numbers.Count < 10)
             {
-                numbers.Add(rnd.Next(1,14));
+                numbers.Add(rnd.Next(1, 14));
             }
             for (int i = 0; i < 10; i++)
             {
@@ -101,7 +101,7 @@ namespace Essai
         {
             try
             {
-                int QNum =GenerateRand();
+                int QNum = GenerateRand();
                 MultiRandom();
                 Con.Open();
                 String Query = "select * from QuestionTbl WHERE QId = '" + keys[0] + "'  ";
