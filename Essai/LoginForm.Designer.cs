@@ -281,7 +281,7 @@
             panel_Employee.Controls.Add(button_employee_login);
             panel_Employee.Controls.Add(button_employee_register);
             panel_Employee.Controls.Add(label9);
-            panel_Employee.Location = new Point(223, 293);
+            panel_Employee.Location = new Point(235, 293);
             panel_Employee.Name = "panel_Employee";
             panel_Employee.Size = new Size(453, 324);
             panel_Employee.TabIndex = 12;
@@ -317,6 +317,7 @@
             checkBox_showpassEmp.TabIndex = 13;
             checkBox_showpassEmp.Text = "Show Password";
             checkBox_showpassEmp.UseVisualStyleBackColor = true;
+            checkBox_showpassEmp.CheckedChanged += checkBox_showpassEmp_CheckedChanged;
             // 
             // textBox_emp_username
             // 

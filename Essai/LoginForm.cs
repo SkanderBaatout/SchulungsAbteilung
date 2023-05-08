@@ -21,7 +21,7 @@ namespace Essai
             label_username.Font = new Font("Roboto", 12, FontStyle.Regular);
             label_password.Font = new Font("Roboto", 12, FontStyle.Regular);
             //label_username_error.Font = new Font("Roboto", 10, FontStyle.Regular);
-           // label_password_error.Font = new Font("Roboto", 10, FontStyle.Regular);
+            // label_password_error.Font = new Font("Roboto", 10, FontStyle.Regular);
             button_login.Font = new Font("Roboto", 12, FontStyle.Bold);
             checkBox_showPass.Font = new Font("Roboto", 10, FontStyle.Regular);
             comboBox_selectUser.Font = new Font("Roboto", 12, FontStyle.Regular);
@@ -30,9 +30,9 @@ namespace Essai
             label_emp_username.Font = new Font("Roboto", 12, FontStyle.Regular);
             label_emp_pass.Font = new Font("Roboto", 12, FontStyle.Regular);
             label_cin.Font = new Font("Roboto", 12, FontStyle.Regular);
-           // label_emp_username_error.Font = new Font("Roboto", 10, FontStyle.Regular);
-           // label_emp_pass_error.Font = new Font("Roboto", 10, FontStyle.Regular);
-           // label_cin_error.Font = new Font("Roboto", 10, FontStyle.Regular);
+            // label_emp_username_error.Font = new Font("Roboto", 10, FontStyle.Regular);
+            // label_emp_pass_error.Font = new Font("Roboto", 10, FontStyle.Regular);
+            // label_cin_error.Font = new Font("Roboto", 10, FontStyle.Regular);
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -55,8 +55,8 @@ namespace Essai
             if (string.IsNullOrWhiteSpace(textBox_username.Text))
             {
                 MessageBox.Show("Username is required");
-               // label_username_error.Text = "Username is required";
-               // label_username_error.ForeColor = Color.Red;
+                // label_username_error.Text = "Username is required";
+                // label_username_error.ForeColor = Color.Red;
                 textBox_username.BackColor = Color.LightSalmon;
             }
             else
@@ -71,8 +71,8 @@ namespace Essai
             if (string.IsNullOrWhiteSpace(textBox_password.Text))
             {
                 MessageBox.Show("Password is required");
-               // label_password_error.Text = "Password is required";
-               // label_password_error.ForeColor = Color.Red;
+                // label_password_error.Text = "Password is required";
+                // label_password_error.ForeColor = Color.Red;
                 textBox_password.BackColor = Color.LightSalmon;
             }
             else
@@ -171,15 +171,10 @@ namespace Essai
 
         private void checkBox_showPass_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox_showPass.Checked)
-            {
-                textBox_password.UseSystemPasswordChar = false;
-            }
-            else
-            {
-                textBox_password.UseSystemPasswordChar = true;
-            }
+            textBox_password.PasswordChar = checkBox_showPass.Checked ? '\0' : '*';
+            checkBox_showPass.Text = checkBox_showPass.Checked ? "Hide Password" : "Show Password";
         }
+
 
         private void button_employee_login_MouseEnter(object sender, EventArgs e)
         {
@@ -273,13 +268,13 @@ namespace Essai
             if (string.IsNullOrWhiteSpace(textBox_emp_username.Text))
             {
                 MessageBox.Show("Username is required");
-               // label_emp_username_error.Text = "Username is required";
-               // label_emp_username_error.ForeColor = Color.Red;
+                // label_emp_username_error.Text = "Username is required";
+                // label_emp_username_error.ForeColor = Color.Red;
                 textBox_emp_username.BackColor = Color.LightSalmon;
             }
             else
             {
-               // label_emp_username_error.Text = "";
+                // label_emp_username_error.Text = "";
                 textBox_emp_username.BackColor = Color.White;
             }
         }
@@ -289,8 +284,8 @@ namespace Essai
             if (string.IsNullOrWhiteSpace(textBox_emp_pass.Text))
             {
                 MessageBox.Show("Password is required");
-               // label_emp_pass_error.Text = "Password is required";
-               // label_emp_pass_error.ForeColor = Color.Red;
+                // label_emp_pass_error.Text = "Password is required";
+                // label_emp_pass_error.ForeColor = Color.Red;
                 textBox_emp_pass.BackColor = Color.LightSalmon;
             }
             else
@@ -305,8 +300,8 @@ namespace Essai
             if (string.IsNullOrWhiteSpace(textBox_cin.Text))
             {
                 MessageBox.Show("CIN is required");
-               // label_cin_error.Text = "CIN is required";
-               // label_cin_error.ForeColor = Color.Red;
+                // label_cin_error.Text = "CIN is required";
+                // label_cin_error.ForeColor = Color.Red;
                 textBox_cin.BackColor = Color.LightSalmon;
             }
             else
@@ -314,6 +309,12 @@ namespace Essai
                 //label_cin_error.Text = "";
                 textBox_cin.BackColor = Color.White;
             }
+        }
+
+        private void checkBox_showpassEmp_CheckedChanged(object sender, EventArgs e)
+        {
+            textBox_emp_pass.PasswordChar = checkBox_showpassEmp.Checked ? '\0' : '*';
+            checkBox_showpassEmp.Text = checkBox_showpassEmp.Checked ? "Hide Password" : "Show Password";
         }
     }
 }

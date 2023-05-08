@@ -25,8 +25,11 @@
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.4" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="MySql.Data" Version="8.0.33" />
     <PackageReference Include="Open-XML-SDK" Version="2.9.1" />
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
