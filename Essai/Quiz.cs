@@ -1,9 +1,11 @@
-﻿using Essai.Models;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Essai.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -11,6 +13,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Essai.Classes;
 
 namespace Essai
 {
@@ -175,7 +180,7 @@ namespace Essai
             if (imageData != null)
             {
                 // if the image data is not null, load it as an Image object and display it in the PictureBox
-                Image image = LoadImage(imageData);
+                System.Drawing.Image image = LoadImage(imageData);
                 pictureBox_question.Image = image;
             }
             else
@@ -249,8 +254,121 @@ namespace Essai
 
             // Set quizEnded to true
             _quizEnded = true;
-        }
 
+            // Create a new PDF document
+            iTextSharp.text.Document document = new iTextSharp.text.Document();
+            string fileName = "badge.pdf";
+            try
+            {
+                PdfWriter.GetInstance(document, new FileStream(fileName, FileMode.Create));
+
+                // Open the document
+                document.Open();
+
+                // Create four colored squares based on the user's score
+                int squareSize = 50;
+                int padding = 10;
+                int x = 0;
+                int y = (int)document.PageSize.Height - squareSize - padding;
+                for (int i = 0; i < 4; i++)
+                {
+                    RectangleWithBackground rectangle = new RectangleWithBackground(x, y, x + squareSize, y + squareSize, 0, 0, BaseColor.BLACK, BaseColor.LIGHT_GRAY);
+                    switch (i)
+                    {
+                        case 0:
+                            if (_score >= 0 && _score < 25)
+                            {
+                                rectangle.BackgroundColor = new BaseColor(System.Drawing.Color.Red);
+                            }
+                            else
+                            {
+                                rectangle.BackgroundColor = BaseColor.LIGHT_GRAY;
+                            }
+                            break;
+                        case 1:
+                            if (_score >= 25 && _score < 50)
+                            {
+                                rectangle.BackgroundColor = new BaseColor(System.Drawing.Color.Orange);
+                            }
+                            else
+                            {
+                                rectangle.BackgroundColor = BaseColor.LIGHT_GRAY;
+                            }
+                            break;
+                        case 2:
+                            if (_score >= 50 && _score < 75)
+                            {
+                                rectangle.BackgroundColor = new BaseColor(System.Drawing.Color.Yellow);
+                            }
+                            else
+                            {
+                                rectangle.BackgroundColor = BaseColor.LIGHT_GRAY;
+                            }
+                            break;
+                        case 3:
+                            if (_score >= 75 && _score <= 100)
+                            {
+                                rectangle.BackgroundColor = new BaseColor(System.Drawing.Color.Green);
+                            }
+                            else
+                            {
+                                rectangle.BackgroundColor = BaseColor.LIGHT_GRAY;
+                            }
+                            break;
+                    }
+                    document.Add(rectangle);
+                    x += squareSize + padding;
+                }
+
+                // Add the name, CIN and score to the document
+                BaseFont baseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 12, iTextSharp.text.Font.NORMAL);
+                document.Add(new iTextSharp.text.Paragraph("Nom: " + label_nameEmp.Text, font));
+                document.Add(new iTextSharp.text.Paragraph("CIN: " + label_cinEmp.Text, font));
+                document.Add(new iTextSharp.text.Paragraph("Score: " + _score.ToString() + " sur " + _totalQuestions.ToString(), font));
+
+                // Show a dialog box with the option to print the badge
+                DialogResult result = MessageBox.Show("Voulez-vous imprimer votre badge ?", "Impression", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    // Print the badge
+                    PrintPdf(fileName);
+                }
+            }
+            catch (DocumentException de)
+            {
+                Console.Error.WriteLine(de.Message);
+            }
+            catch (IOException ioe)
+            {
+                Console.Error.WriteLine(ioe.Message);
+            }
+            finally
+            {
+                // Close the document
+                document.Close();
+            }
+        }
+        private void PrintPdf(string fileName)
+        {
+            if (!File.Exists(fileName))
+            {
+                throw new ArgumentException("File not found", nameof(fileName));
+            }
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = @"C:\Program Files\Adobe\Acrobat DC\Acrobat\Acrobat.exe";
+            startInfo.Arguments = "/t \"" + fileName + "\"";
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.UseShellExecute = true;
+            startInfo.CreateNoWindow = true;
+
+            using (Process process = new Process())
+            {
+                process.StartInfo = startInfo;
+                process.Start();
+            }
+        }
         private int GetRandomQset()
         {
             _query = "SELECT TOP 1 qset FROM questions GROUP BY qset ORDER BY NEWID()";
@@ -288,24 +406,48 @@ namespace Essai
             }
         }
 
-        private Image LoadImage(object image)
+        private System.Drawing.Image LoadImage(object image)
         {
             if (image == DBNull.Value)
             {
                 return null;
             }
 
-            if (image is byte[] bytes)
+            if (image is string filePath)
             {
-                MemoryStream stream = new MemoryStream(bytes);
-                return Image.FromStream(stream);
+                return System.Drawing.Image.FromFile(filePath);
+            }
+            else if (image is string hexString)
+            {
+                byte[] bytes = Enumerable.Range(0, hexString.Length)
+                                      .Where(x => x % 2 == 0)
+                                      .Select(x => Convert.ToByte(hexString.Substring(x, 2), 16))
+                                      .ToArray();
+                if (bytes == null || bytes.Length == 0)
+                {
+                    return null;
+                }
+                using (MemoryStream stream = new MemoryStream(bytes))
+                {
+                    return System.Drawing.Image.FromStream(stream);
+                }
+            }
+            else if (image is byte[] bytes)
+            {
+                if (bytes == null || bytes.Length == 0)
+                {
+                    return null;
+                }
+                using (MemoryStream stream = new MemoryStream(bytes))
+                {
+                    return System.Drawing.Image.FromStream(stream);
+                }
             }
             else
             {
                 throw new ArgumentException("Invalid image type", nameof(image));
             }
         }
-
         private void InsertTest(int qset)
         {
             try
@@ -338,6 +480,29 @@ namespace Essai
                 // Log the exception
                 string errorMessage = $"Error inserting score into database: {ex.Message}";
                 MessageBox.Show(errorMessage, "Error");
+            }
+        }
+        private System.Drawing.Color GetBadgeColor(int score)
+        {
+            if (score >= 0 && score <= 5)
+            {
+                return System.Drawing.Color.Yellow;
+            }
+            else if (score > 5 && score <= 10)
+            {
+                return System.Drawing.Color.Green;
+            }
+            else if (score > 10 && score <= 15)
+            {
+                return System.Drawing.Color.Blue;
+            }
+            else if (score > 15)
+            {
+                return System.Drawing.Color.Red;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid score");
             }
         }
     }

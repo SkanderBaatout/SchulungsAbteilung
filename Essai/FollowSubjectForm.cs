@@ -229,7 +229,7 @@ namespace Essai
             webView.Visible = false;
         }
 
-        protected override void Dispose(bool disposing)
+        /*protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
@@ -237,6 +237,6 @@ namespace Essai
                 components.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
     }
 }
