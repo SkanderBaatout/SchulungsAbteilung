@@ -33,15 +33,20 @@
             textBox_content = new TextBox();
             pictureBox1 = new PictureBox();
             dataGridView = new DataGridView();
+            webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
+            splitContainer1 = new SplitContainer();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.SuspendLayout();
             SuspendLayout();
             // 
             // comboBox_subjects
             // 
             comboBox_subjects.FormattingEnabled = true;
             comboBox_subjects.Location = new Point(547, 80);
-            comboBox_subjects.Margin = new Padding(4, 4, 4, 4);
+            comboBox_subjects.Margin = new Padding(4);
             comboBox_subjects.Name = "comboBox_subjects";
             comboBox_subjects.Size = new Size(210, 29);
             comboBox_subjects.TabIndex = 0;
@@ -60,7 +65,7 @@
             // textBox_content
             // 
             textBox_content.Location = new Point(547, 141);
-            textBox_content.Margin = new Padding(4, 4, 4, 4);
+            textBox_content.Margin = new Padding(4);
             textBox_content.Name = "textBox_content";
             textBox_content.Size = new Size(141, 27);
             textBox_content.TabIndex = 2;
@@ -68,7 +73,7 @@
             // pictureBox1
             // 
             pictureBox1.Location = new Point(479, 243);
-            pictureBox1.Margin = new Padding(4, 4, 4, 4);
+            pictureBox1.Margin = new Padding(4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(420, 335);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -79,17 +84,37 @@
             // 
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Location = new Point(13, 243);
-            dataGridView.Margin = new Padding(4, 4, 4, 4);
+            dataGridView.Margin = new Padding(4);
             dataGridView.Name = "dataGridView";
             dataGridView.RowTemplate.Height = 25;
             dataGridView.Size = new Size(413, 335);
             dataGridView.TabIndex = 4;
+            // 
+            // webView21
+            // 
+            webView21.AllowExternalDrop = true;
+            webView21.CreationProperties = null;
+            webView21.DefaultBackgroundColor = Color.White;
+            webView21.Location = new Point(153, 133);
+            webView21.Name = "webView21";
+            webView21.Size = new Size(266, 84);
+            webView21.TabIndex = 5;
+            webView21.ZoomFactor = 1D;
+            // 
+            // splitContainer1
+            // 
+            splitContainer1.Location = new Point(319, 27);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Size = new Size(150, 100);
+            splitContainer1.TabIndex = 6;
             // 
             // FollowSubjectForm
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(934, 611);
+            Controls.Add(splitContainer1);
+            Controls.Add(webView21);
             Controls.Add(dataGridView);
             Controls.Add(pictureBox1);
             Controls.Add(textBox_content);
@@ -97,12 +122,15 @@
             Controls.Add(comboBox_subjects);
             Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "FollowSubjectForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FollowSubjectForm";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -114,5 +142,7 @@
         private TextBox textBox_content;
         private PictureBox pictureBox1;
         private DataGridView dataGridView;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
+        private SplitContainer splitContainer1;
     }
 }

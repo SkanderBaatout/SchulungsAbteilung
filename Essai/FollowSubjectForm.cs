@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Windows.Forms;
-using PdfiumViewer;
-using VLC.DotNet.Core;
-using VLC.DotNet.Forms;
-using OfficeOpenXml;
-using Microsoft.Data.SqlClient;
-using Serilog;
-using System.Data;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using Essai.Repository;
+using Microsoft.Data.SqlClient;
+using OfficeOpenXml;
+using PdfiumViewer;
+using Serilog;
+using Microsoft.Web.WebView2.WinForms;
+using System.Diagnostics;
 
 namespace Essai
 {
@@ -19,6 +20,7 @@ namespace Essai
         private readonly string _connectionString;
         private readonly ILogger _logger;
         private readonly SubjectRepository _subjectRepository;
+        private WebView2 webView;
 
         public FollowSubjectForm()
         {
@@ -37,7 +39,7 @@ namespace Essai
             LoadSubjectsAsync();
         }
 
-        private async Task LoadSubjectsAsync()
+        private async void LoadSubjectsAsync()
         {
             try
             {
@@ -117,7 +119,7 @@ namespace Essai
                     DisplayPdf(content);
                     break;
                 case ".mp4":
-                    DisplayVideo(content);
+                    PlayVideo(content);
                     break;
                 case ".jpg":
                 case ".jpeg":
@@ -152,14 +154,24 @@ namespace Essai
             }
         }
 
-        private void DisplayVideo(byte[] content)
+        private void PlayVideo(byte[] content)
         {
-            var media = new VlcMedia(new MemoryStream(content));
-            var player = new VlcControl();
-            player.Dock = DockStyle.Fill;
-            player.Media = media;
-            player.Play();
-            this.Controls.Add(player);
+            try
+            {
+                string vlcPath = @"C:\Program Files\VideoLAN\VLC\vlc.exe";
+                string videoPath = Path.Combine(Path.GetTempPath(), "video.mp4");
+
+                // Write the video content to a temporary file
+                File.WriteAllBytes(videoPath, content);
+
+                // Launch VLC and play the video
+                Process.Start(vlcPath, $"\"{videoPath}\" --fullscreen");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error playing video");
+                MessageBox.Show("Error playing video: " + ex.Message);
+            }
         }
 
         private void DisplayImage(byte[] content)
@@ -173,11 +185,8 @@ namespace Essai
         private void DisplayWordDoc(byte[] content)
         {
             // You could use another third-party library, such as Spire.Doc, to display Word documents
-            axWebBrowser1.Navigate("about:blank");
-            axWebBrowser1.Document.OpenNew(true);
-            axWebBrowser1.Document.Write(Encoding.UTF8.GetString(content));
-            axWebBrowser1.Refresh();
-            axWebBrowser1.Visible = true;
+            webView.NavigateToString(Encoding.UTF8.GetString(content));
+            webView.Visible = true;
         }
 
         private void DisplayExcel(byte[] content)
@@ -210,13 +219,24 @@ namespace Essai
             }
         }
 
-        private void FollowSubjectForm_FormClosing(object sender, FormClosingEventArgs e)
+        private async void FollowSubjectForm_Load(object sender, EventArgs e)
         {
-            // Close database connection when form is closed
-            _subjectRepository.Dispose();
+            // Initialize WebView2 control
+            webView = new WebView2();
+            webView.Dock = DockStyle.Fill;
+            splitContainer1.Panel2.Controls.Add(webView);
+            await webView.EnsureCoreWebView2Async();
+            webView.Visible = false;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                _subjectRepository.Dispose();
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
-
-
-
 }
