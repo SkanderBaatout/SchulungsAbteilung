@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateQuestionForm));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            pictureBox1 = new PictureBox();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             btn_reset = new Guna.UI2.WinForms.Guna2Button();
             btn_update = new Guna.UI2.WinForms.Guna2Button();
             textBox_answer = new TextBox();
@@ -55,25 +53,13 @@
             comboSet = new ComboBox();
             pictureBox = new PictureBox();
             label9 = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(23, 19);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(96, 32);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 43;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
             // 
             // btn_reset
             // 
             btn_reset.BorderRadius = 15;
-            btn_reset.CustomizableEdges = customizableEdges5;
+            btn_reset.CustomizableEdges = customizableEdges1;
             btn_reset.DisabledState.BorderColor = Color.DarkGray;
             btn_reset.DisabledState.CustomBorderColor = Color.DarkGray;
             btn_reset.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -83,7 +69,7 @@
             btn_reset.ForeColor = Color.White;
             btn_reset.Location = new Point(459, 593);
             btn_reset.Name = "btn_reset";
-            btn_reset.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btn_reset.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btn_reset.Size = new Size(167, 45);
             btn_reset.TabIndex = 41;
             btn_reset.Text = "Reset";
@@ -92,7 +78,7 @@
             // btn_update
             // 
             btn_update.BorderRadius = 15;
-            btn_update.CustomizableEdges = customizableEdges7;
+            btn_update.CustomizableEdges = customizableEdges3;
             btn_update.DisabledState.BorderColor = Color.DarkGray;
             btn_update.DisabledState.CustomBorderColor = Color.DarkGray;
             btn_update.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -102,7 +88,7 @@
             btn_update.ForeColor = Color.White;
             btn_update.Location = new Point(285, 593);
             btn_update.Name = "btn_update";
-            btn_update.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btn_update.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btn_update.Size = new Size(168, 45);
             btn_update.TabIndex = 40;
             btn_update.Text = "Update";
@@ -291,7 +277,6 @@
             Controls.Add(pictureBox);
             Controls.Add(comboSet);
             Controls.Add(comboQuestion);
-            Controls.Add(pictureBox1);
             Controls.Add(btn_reset);
             Controls.Add(btn_update);
             Controls.Add(textBox_answer);
@@ -316,15 +301,12 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "UpdateQuestionForm";
             Load += UpdateQuestionForm_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private PictureBox pictureBox1;
         private Guna.UI2.WinForms.Guna2Button btn_reset;
         private Guna.UI2.WinForms.Guna2Button btn_update;
         private TextBox textBox_answer;

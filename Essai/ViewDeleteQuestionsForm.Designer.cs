@@ -28,19 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewDeleteQuestionsForm));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             comboSet = new ComboBox();
-            pictureBox1 = new PictureBox();
             btn_delete = new Guna.UI2.WinForms.Guna2Button();
             Set = new Label();
             label1 = new Label();
             dataGridView = new Guna.UI2.WinForms.Guna2DataGridView();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -53,17 +50,6 @@
             comboSet.Size = new Size(374, 27);
             comboSet.TabIndex = 65;
             comboSet.SelectedIndexChanged += comboSet_SelectedIndexChanged;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(12, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(96, 32);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 63;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
             // 
             // btn_delete
             // 
@@ -167,7 +153,6 @@
             ClientSize = new Size(950, 650);
             Controls.Add(dataGridView);
             Controls.Add(comboSet);
-            Controls.Add(pictureBox1);
             Controls.Add(btn_delete);
             Controls.Add(Set);
             Controls.Add(label1);
@@ -178,7 +163,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ViewDeleteQuestionsForm";
             Load += ViewDeleteQuestionsForm_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -187,7 +171,6 @@
         #endregion
 
         private ComboBox comboSet;
-        private PictureBox pictureBox1;
         private Guna.UI2.WinForms.Guna2Button btn_delete;
         private Label Set;
         private Label label1;

@@ -85,5 +85,20 @@ namespace Essai
                 }
             }
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchKeyword = tbSearchKeyword.Text.Trim();
+            if (string.IsNullOrEmpty(searchKeyword))
+            {
+                // If the search box is empty, show all employees
+                dgvEmployees.DataSource = _employeeDataAccess.GetEmployees();
+            }
+            else
+            {
+                // Perform the search and show the results
+                dgvEmployees.DataSource = _employeeDataAccess.SearchEmployees(searchKeyword);
+            }
+        }
     }
 }

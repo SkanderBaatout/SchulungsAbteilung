@@ -486,7 +486,7 @@
             label_femaleEmp.AutoSize = true;
             label_femaleEmp.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label_femaleEmp.ForeColor = Color.White;
-            label_femaleEmp.Location = new Point(164, 55);
+            label_femaleEmp.Location = new Point(230, 55);
             label_femaleEmp.Name = "label_femaleEmp";
             label_femaleEmp.Size = new Size(75, 21);
             label_femaleEmp.TabIndex = 3;
@@ -497,7 +497,7 @@
             label_maleEmp.AutoSize = true;
             label_maleEmp.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label_maleEmp.ForeColor = Color.White;
-            label_maleEmp.Location = new Point(75, 55);
+            label_maleEmp.Location = new Point(65, 55);
             label_maleEmp.Name = "label_maleEmp";
             label_maleEmp.Size = new Size(57, 21);
             label_maleEmp.TabIndex = 2;
@@ -508,7 +508,7 @@
             label_totalEmp.AutoSize = true;
             label_totalEmp.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label_totalEmp.ForeColor = Color.White;
-            label_totalEmp.Location = new Point(51, 18);
+            label_totalEmp.Location = new Point(51, 11);
             label_totalEmp.Name = "label_totalEmp";
             label_totalEmp.Size = new Size(139, 21);
             label_totalEmp.TabIndex = 1;

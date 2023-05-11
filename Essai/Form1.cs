@@ -5,10 +5,13 @@ namespace Essai
     public partial class Form1 : Form
     {
         EmployeeClass employee = new EmployeeClass();
+        private EmployeeDataAccess _employeeDataAccess;
         public Form1()
         {
             InitializeComponent();
             customizeDesign();
+            _employeeDataAccess = new EmployeeDataAccess();
+
         }
 
 
@@ -20,10 +23,18 @@ namespace Essai
         //create a function to display employee count
         private void employeeCount()
         {
+            // Count and display the total number of employees
+            int totalEmployees = _employeeDataAccess.CountEmployees();
             //Display values
-            label_totalEmp.Text = "Total Employees : " + employee.totalEmployees();
-            label_maleEmp.Text = "Male : " + employee.maleEmployees();
-            label_femaleEmp.Text = "Female : " + employee.femaleEmployees();
+            label_totalEmp.Text = $"Total Employees: {totalEmployees}";
+
+            // Count and display the number of male employees
+            int maleEmployees = _employeeDataAccess.CountMaleEmployees();
+            label_maleEmp.Text = $"Male Employees: {maleEmployees}";
+
+            // Count and display the number of female employees
+            int femaleEmployees = _employeeDataAccess.CountFemaleEmployees();
+            label_femaleEmp.Text = $"Female Employees: {femaleEmployees}";
         }
         private void customizeDesign()
         {

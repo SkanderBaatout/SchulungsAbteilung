@@ -104,7 +104,7 @@ namespace Essai
 
                 query = "insert into questions (qset,qNo,question,optionA,optionB,optionC,optionD,ans,photo) values ('" + qSet + "','" + qNo + "','" + question + "','" + option1 + "','" + option2 + "','" + option3 + "','" + option4 + "','" + ans + "', CONVERT(varbinary,'" + imageBytes + "') )";
                 fn.setData(query, "Question Added");
-                
+
             }
             else
             {

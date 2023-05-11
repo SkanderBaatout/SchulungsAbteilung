@@ -34,7 +34,6 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddQuestionForm));
             label1 = new Label();
             Set = new Label();
             textBox_set = new TextBox();
@@ -56,9 +55,7 @@
             btn_next = new Guna.UI2.WinForms.Guna2Button();
             btn_reset = new Guna.UI2.WinForms.Guna2Button();
             btn_finish = new Guna.UI2.WinForms.Guna2Button();
-            pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
@@ -284,17 +281,6 @@
             btn_finish.Text = "Finish";
             btn_finish.Click += btn_finish_Click;
             // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(12, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(96, 32);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 21;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
-            // 
             // pictureBox2
             // 
             pictureBox2.BackColor = Color.Gainsboro;
@@ -313,7 +299,6 @@
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
             Controls.Add(pictureBox2);
-            Controls.Add(pictureBox1);
             Controls.Add(btn_finish);
             Controls.Add(btn_reset);
             Controls.Add(btn_next);
@@ -342,7 +327,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "AddQuestionForm";
             Load += AddQuestionForm_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -371,7 +355,6 @@
         private Guna.UI2.WinForms.Guna2Button btn_next;
         private Guna.UI2.WinForms.Guna2Button btn_reset;
         private Guna.UI2.WinForms.Guna2Button btn_finish;
-        private PictureBox pictureBox1;
         private PictureBox pictureBox2;
     }
 }
