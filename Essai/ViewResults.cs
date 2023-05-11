@@ -21,8 +21,10 @@ namespace Essai
             GetSubjects();
             GetCandidate();
             DisplayResults();
-
+            subjectcb.SelectedIndexChanged += new EventHandler(subjectcb_SelectedIndexChanged);
+            candidatecb.SelectedIndexChanged += new EventHandler(candidatecb_SelectedIndexChanged);
         }
+
         SqlConnection Con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True");
 
         private void GetSubjects()
@@ -38,6 +40,7 @@ namespace Essai
             subjectcb.DataSource = dt;
             Con.Close();
         }
+
         private void GetCandidate()
         {
             Con.Open();
@@ -51,6 +54,7 @@ namespace Essai
             candidatecb.DataSource = dt;
             Con.Close();
         }
+
         private void DisplayResults()
         {
             Con.Open();
@@ -62,10 +66,11 @@ namespace Essai
             resultDGV.DataSource = ds.Tables[0];
             Con.Close();
         }
+
         private void FilterBySub()
         {
             Con.Open();
-            String Query = "select * from ResultTbl Where RSubject ='" + subjectcb.SelectedValue.ToString() + "'  ";
+            String Query = "SELECT RCandidate, RSubject, MAX(RScore) as RScore FROM ResultTbl WHERE RSubject = '" + subjectcb.SelectedValue.ToString() + "' GROUP BY RCandidate, RSubject";
             SqlDataAdapter sda = new SqlDataAdapter(Query, Con);
             SqlCommandBuilder builder = new SqlCommandBuilder(sda);
             var ds = new DataSet();
@@ -73,6 +78,7 @@ namespace Essai
             resultDGV.DataSource = ds.Tables[0];
             Con.Close();
         }
+
         private void FilterByCandidate()
         {
             Con.Open();
@@ -84,6 +90,7 @@ namespace Essai
             resultDGV.DataSource = ds.Tables[0];
             Con.Close();
         }
+
         private void guna2CirclePictureBox2_Click(object sender, EventArgs e)
         {
             LoginForm log = new LoginForm();
@@ -91,12 +98,12 @@ namespace Essai
             this.Hide();
         }
 
-        private void subjectcb_SelectionChangeCommitted(object sender, EventArgs e)
+        private void subjectcb_SelectedIndexChanged(object sender, EventArgs e)
         {
             FilterBySub();
         }
 
-        private void candidatecb_SelectionChangeCommitted(object sender, EventArgs e)
+        private void candidatecb_SelectedIndexChanged(object sender, EventArgs e)
         {
             FilterByCandidate();
         }
@@ -106,6 +113,11 @@ namespace Essai
             Form1 form = new Form1();
             form.Show();
             this.Hide();
+        }
+
+        private void ViewResults_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

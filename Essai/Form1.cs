@@ -71,7 +71,7 @@ namespace Essai
         private void button2_Click(object sender, EventArgs e)
         {
 
-            openChildForm(new ManageemployeeForm());
+            openChildForm(new EmployeeManagementForm());
 
             hideSubMenu();
 
@@ -162,9 +162,9 @@ namespace Essai
 
         private void button_exit_Click(object sender, EventArgs e)
         {
-            ViewResults rs = new ViewResults();
-            rs.Show();
-            this.Hide();
+            openChildForm(new ViewResults());
+
+            hideSubMenu();
         }
 
         private void button_dashboard_Click(object sender, EventArgs e)
@@ -184,25 +184,22 @@ namespace Essai
 
         private void button_addQuestion_Click(object sender, EventArgs e)
         {
-            AddQuestionForm form = new AddQuestionForm();
-            form.Show();
-            this.Hide();
+            openChildForm(new AddQuestionForm());
+
             hideSubMenu();
         }
 
         private void button_updateQuestion_Click(object sender, EventArgs e)
         {
-            UpdateQuestionForm form = new UpdateQuestionForm();
-            form.Show();
-            this.Hide();
+            openChildForm(new UpdateQuestionForm());
+
             hideSubMenu();
         }
 
         private void button_consultQuestions_Click(object sender, EventArgs e)
         {
-            ViewDeleteQuestionsForm form = new ViewDeleteQuestionsForm();
-            form.Show();
-            this.Hide();
+            openChildForm(new ViewDeleteQuestionsForm());
+
             hideSubMenu();
         }
 
@@ -224,9 +221,9 @@ namespace Essai
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            Candidats can = new Candidats();
-            this.Hide();
-            can.Show();
+            openChildForm(new Candidats());
+
+            hideSubMenu();
         }
 
         private void button3_Click_1(object sender, EventArgs e)

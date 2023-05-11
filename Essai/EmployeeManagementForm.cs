@@ -50,14 +50,21 @@ namespace Essai
 
         private void btnEditEmployee_Click(object sender, EventArgs e)
         {
-            int employeeId = (int)dgvEmployees.SelectedRows[0].Cells["id"].Value;
-            EditEmployeeForm editEmployeeForm = new EditEmployeeForm(employeeId);
-            DialogResult result = editEmployeeForm.ShowDialog();
-
-            if (result == DialogResult.OK)
+            if (dgvEmployees.SelectedRows.Count == 1)
             {
-                // Refresh the data grid view to show the updated employee
-                dgvEmployees.DataSource = _employeeDataAccess.GetEmployees();
+                int employeeId = (int)dgvEmployees.SelectedRows[0].Cells["id"].Value;
+                EditEmployeeForm editEmployeeForm = new EditEmployeeForm(employeeId);
+
+                // Fill the edit form with the data of the selected employee
+                editEmployeeForm.FillForm();
+
+                DialogResult result = editEmployeeForm.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    // Refresh the data grid view to show the updated employee
+                    dgvEmployees.DataSource = _employeeDataAccess.GetEmployees();
+                }
             }
         }
 

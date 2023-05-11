@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeManagementForm));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
@@ -38,28 +37,13 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            pictureBox1 = new PictureBox();
             btnDeleteEmployee = new Guna.UI2.WinForms.Guna2Button();
             dgvEmployees = new Guna.UI2.WinForms.Guna2DataGridView();
             label4 = new Label();
             btnEditEmployee = new Guna.UI2.WinForms.Guna2Button();
-            resetbtn = new Guna.UI2.WinForms.Guna2Button();
             btnAddEmployee = new Guna.UI2.WinForms.Guna2Button();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvEmployees).BeginInit();
             SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(17, 13);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(96, 32);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 70;
-            pictureBox1.TabStop = false;
             // 
             // btnDeleteEmployee
             // 
@@ -73,7 +57,7 @@
             btnDeleteEmployee.FillColor = Color.OrangeRed;
             btnDeleteEmployee.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnDeleteEmployee.ForeColor = Color.White;
-            btnDeleteEmployee.Location = new Point(518, 68);
+            btnDeleteEmployee.Location = new Point(628, 68);
             btnDeleteEmployee.Name = "btnDeleteEmployee";
             btnDeleteEmployee.PressedColor = Color.AntiqueWhite;
             btnDeleteEmployee.ShadowDecoration.BorderRadius = 15;
@@ -144,7 +128,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.Teal;
-            label4.Location = new Point(366, 9);
+            label4.Location = new Point(387, 9);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(181, 28);
@@ -163,7 +147,7 @@
             btnEditEmployee.FillColor = Color.FromArgb(255, 128, 0);
             btnEditEmployee.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnEditEmployee.ForeColor = Color.White;
-            btnEditEmployee.Location = new Point(277, 68);
+            btnEditEmployee.Location = new Point(387, 68);
             btnEditEmployee.Name = "btnEditEmployee";
             btnEditEmployee.ShadowDecoration.BorderRadius = 15;
             btnEditEmployee.ShadowDecoration.Color = Color.Transparent;
@@ -173,30 +157,10 @@
             btnEditEmployee.Text = "Edit Employee";
             btnEditEmployee.Click += btnEditEmployee_Click;
             // 
-            // resetbtn
-            // 
-            resetbtn.BorderRadius = 15;
-            resetbtn.CustomizableEdges = customizableEdges5;
-            resetbtn.DisabledState.BorderColor = Color.DarkGray;
-            resetbtn.DisabledState.CustomBorderColor = Color.DarkGray;
-            resetbtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            resetbtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            resetbtn.FillColor = Color.DarkTurquoise;
-            resetbtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            resetbtn.ForeColor = Color.White;
-            resetbtn.Location = new Point(756, 68);
-            resetbtn.Name = "resetbtn";
-            resetbtn.ShadowDecoration.BorderRadius = 15;
-            resetbtn.ShadowDecoration.Color = Color.Transparent;
-            resetbtn.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            resetbtn.Size = new Size(167, 45);
-            resetbtn.TabIndex = 55;
-            resetbtn.Text = "Reset";
-            // 
             // btnAddEmployee
             // 
             btnAddEmployee.BorderRadius = 15;
-            btnAddEmployee.CustomizableEdges = customizableEdges7;
+            btnAddEmployee.CustomizableEdges = customizableEdges5;
             btnAddEmployee.DisabledState.BorderColor = Color.DarkGray;
             btnAddEmployee.DisabledState.CustomBorderColor = Color.DarkGray;
             btnAddEmployee.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -204,11 +168,11 @@
             btnAddEmployee.FillColor = Color.Teal;
             btnAddEmployee.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnAddEmployee.ForeColor = Color.White;
-            btnAddEmployee.Location = new Point(50, 68);
+            btnAddEmployee.Location = new Point(160, 68);
             btnAddEmployee.Name = "btnAddEmployee";
             btnAddEmployee.ShadowDecoration.BorderRadius = 15;
             btnAddEmployee.ShadowDecoration.Color = Color.Transparent;
-            btnAddEmployee.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnAddEmployee.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnAddEmployee.Size = new Size(195, 45);
             btnAddEmployee.TabIndex = 54;
             btnAddEmployee.Text = "Add Employee";
@@ -219,12 +183,10 @@
             AutoScaleDimensions = new SizeF(10F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(950, 650);
-            Controls.Add(pictureBox1);
             Controls.Add(btnDeleteEmployee);
             Controls.Add(dgvEmployees);
             Controls.Add(label4);
             Controls.Add(btnEditEmployee);
-            Controls.Add(resetbtn);
             Controls.Add(btnAddEmployee);
             Font = new Font("Century", 12F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
@@ -232,19 +194,16 @@
             Name = "EmployeeManagementForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "EmployeeManagementForm";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvEmployees).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private PictureBox pictureBox1;
         private Guna.UI2.WinForms.Guna2Button btnDeleteEmployee;
         private Guna.UI2.WinForms.Guna2DataGridView dgvEmployees;
         private Label label4;
         private Guna.UI2.WinForms.Guna2Button btnEditEmployee;
-        private Guna.UI2.WinForms.Guna2Button resetbtn;
         private Guna.UI2.WinForms.Guna2Button btnAddEmployee;
     }
 }
