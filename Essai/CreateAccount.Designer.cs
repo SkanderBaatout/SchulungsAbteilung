@@ -388,11 +388,12 @@
             label13.AutoSize = true;
             label13.Enabled = false;
             label13.Font = new Font("Century Gothic", 36F, FontStyle.Italic, GraphicsUnit.Point);
+            label13.ForeColor = SystemColors.ButtonShadow;
             label13.Location = new Point(198, 71);
             label13.Name = "label13";
-            label13.Size = new Size(533, 57);
+            label13.Size = new Size(585, 57);
             label13.TabIndex = 19;
-            label13.Text = "We Create Character";
+            label13.Text = "WE CREATE CHARACTER";
             // 
             // CreateAccount
             // 

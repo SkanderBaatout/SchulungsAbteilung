@@ -14,14 +14,16 @@ namespace Essai
     public partial class EmployeeBord : Form
     {
         public static string trainingName = "";
+
         public EmployeeBord()
         {
             InitializeComponent();
             GetSubjects();
 
-
+            
 
         }
+      
         SqlConnection Con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True");
         private void GetSubjects()
         {
@@ -74,6 +76,12 @@ namespace Essai
             Subjects sub = new Subjects();
             this.Hide();
             sub.Show();
+        }
+
+        private void my_profile_Click(object sender, EventArgs e)
+        {
+            ProfileModificationForm profileModificationForm = new ProfileModificationForm(LoginForm.username, LoginForm.cin);
+            profileModificationForm.ShowDialog();
         }
     }
 }

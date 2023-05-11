@@ -38,9 +38,6 @@
             Trainingscb = new ComboBox();
             label11 = new Label();
             comboBox1 = new ComboBox();
-            label_femaleEmp = new Label();
-            label_maleEmp = new Label();
-            label_totalEmp = new Label();
             panel2 = new Panel();
             pictureBox1 = new PictureBox();
             label5 = new Label();
@@ -56,6 +53,7 @@
             panel_course_subMenu = new Panel();
             button_questions = new Button();
             button_course = new Button();
+            my_profile = new Button();
             panel_logo.SuspendLayout();
             panel_main.SuspendLayout();
             panel_cover.SuspendLayout();
@@ -126,9 +124,6 @@
             panel3.Controls.Add(Trainingscb);
             panel3.Controls.Add(label11);
             panel3.Controls.Add(comboBox1);
-            panel3.Controls.Add(label_femaleEmp);
-            panel3.Controls.Add(label_maleEmp);
-            panel3.Controls.Add(label_totalEmp);
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 583);
             panel3.Name = "panel3";
@@ -164,39 +159,6 @@
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(222, 23);
             comboBox1.TabIndex = 4;
-            // 
-            // label_femaleEmp
-            // 
-            label_femaleEmp.AutoSize = true;
-            label_femaleEmp.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label_femaleEmp.ForeColor = Color.White;
-            label_femaleEmp.Location = new Point(164, 55);
-            label_femaleEmp.Name = "label_femaleEmp";
-            label_femaleEmp.Size = new Size(75, 21);
-            label_femaleEmp.TabIndex = 3;
-            label_femaleEmp.Text = "Female :";
-            // 
-            // label_maleEmp
-            // 
-            label_maleEmp.AutoSize = true;
-            label_maleEmp.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label_maleEmp.ForeColor = Color.White;
-            label_maleEmp.Location = new Point(75, 55);
-            label_maleEmp.Name = "label_maleEmp";
-            label_maleEmp.Size = new Size(57, 21);
-            label_maleEmp.TabIndex = 2;
-            label_maleEmp.Text = "Male :";
-            // 
-            // label_totalEmp
-            // 
-            label_totalEmp.AutoSize = true;
-            label_totalEmp.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label_totalEmp.ForeColor = Color.White;
-            label_totalEmp.Location = new Point(51, 18);
-            label_totalEmp.Name = "label_totalEmp";
-            label_totalEmp.Size = new Size(139, 21);
-            label_totalEmp.TabIndex = 1;
-            label_totalEmp.Text = "Total Employees:";
             // 
             // panel2
             // 
@@ -292,6 +254,7 @@
             // 
             panel_slide.AutoScroll = true;
             panel_slide.BackColor = Color.Teal;
+            panel_slide.Controls.Add(my_profile);
             panel_slide.Controls.Add(button_exit);
             panel_slide.Controls.Add(button_dashboard);
             panel_slide.Controls.Add(button_score);
@@ -403,6 +366,24 @@
             button_course.UseVisualStyleBackColor = false;
             button_course.Click += button_course_Click;
             // 
+            // my_profile
+            // 
+            my_profile.BackColor = Color.Teal;
+            my_profile.Dock = DockStyle.Top;
+            my_profile.FlatAppearance.BorderSize = 0;
+            my_profile.FlatStyle = FlatStyle.Flat;
+            my_profile.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            my_profile.ForeColor = Color.White;
+            my_profile.Location = new Point(0, 290);
+            my_profile.Name = "my_profile";
+            my_profile.Padding = new Padding(10, 0, 0, 0);
+            my_profile.Size = new Size(200, 37);
+            my_profile.TabIndex = 9;
+            my_profile.Text = "My Profile";
+            my_profile.TextAlign = ContentAlignment.MiddleLeft;
+            my_profile.UseVisualStyleBackColor = false;
+            my_profile.Click += my_profile_Click;
+            // 
             // EmployeeBord
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -442,9 +423,6 @@
         private Panel panel3;
         private Label label11;
         private ComboBox comboBox1;
-        private Label label_femaleEmp;
-        private Label label_maleEmp;
-        private Label label_totalEmp;
         private Panel panel2;
         private PictureBox pictureBox1;
         private Label label5;
@@ -461,5 +439,6 @@
         private Panel panel_course_subMenu;
         private Button button_questions;
         private ComboBox Trainingscb;
+        private Button my_profile;
     }
 }

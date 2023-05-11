@@ -256,7 +256,7 @@ namespace Essai
             _quizEnded = true;
 
             // Create a new PDF document
-            iTextSharp.text.Document document = new iTextSharp.text.Document();
+            iTextSharp.text.Document document = new iTextSharp.text.Document(new iTextSharp.text.Rectangle(200, 150), 0, 0, 0, 0);
             string fileName = "badge.pdf";
             try
             {
@@ -265,91 +265,62 @@ namespace Essai
                 // Open the document
                 document.Open();
 
-                // Create four colored squares based on the user's score
-                int squareSize = 50;
-                int padding = 10;
-                int x = 0;
-                int y = (int)document.PageSize.Height - squareSize - padding;
-                for (int i = 0; i < 4; i++)
-                {
-                    RectangleWithBackground rectangle = new RectangleWithBackground(x, y, x + squareSize, y + squareSize, 0, 0, BaseColor.BLACK, BaseColor.LIGHT_GRAY);
-                    switch (i)
-                    {
-                        case 0:
-                            if (_score >= 0 && _score < 25)
-                            {
-                                rectangle.BackgroundColor = new BaseColor(System.Drawing.Color.Red);
-                            }
-                            else
-                            {
-                                rectangle.BackgroundColor = BaseColor.LIGHT_GRAY;
-                            }
-                            break;
-                        case 1:
-                            if (_score >= 25 && _score < 50)
-                            {
-                                rectangle.BackgroundColor = new BaseColor(System.Drawing.Color.Orange);
-                            }
-                            else
-                            {
-                                rectangle.BackgroundColor = BaseColor.LIGHT_GRAY;
-                            }
-                            break;
-                        case 2:
-                            if (_score >= 50 && _score < 75)
-                            {
-                                rectangle.BackgroundColor = new BaseColor(System.Drawing.Color.Yellow);
-                            }
-                            else
-                            {
-                                rectangle.BackgroundColor = BaseColor.LIGHT_GRAY;
-                            }
-                            break;
-                        case 3:
-                            if (_score >= 75 && _score <= 100)
-                            {
-                                rectangle.BackgroundColor = new BaseColor(System.Drawing.Color.Green);
-                            }
-                            else
-                            {
-                                rectangle.BackgroundColor = BaseColor.LIGHT_GRAY;
-                            }
-                            break;
-                    }
-                    document.Add(rectangle);
-                    x += squareSize + padding;
-                }
+                // Add a header with the Draxlmaeir logo and Training Service as title
+                iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\Desktop\\icons\\logo.png");
+                logo.ScaleToFit(document.PageSize.Width / 3, document.PageSize.Height / 3);
+                logo.Alignment = iTextSharp.text.Image.ALIGN_LEFT;
+                document.Add(logo);
+                iTextSharp.text.Font headerFont = new iTextSharp.text.Font(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED), 14, iTextSharp.text.Font.BOLD);
+                iTextSharp.text.Paragraph headerParagraph = new iTextSharp.text.Paragraph("Training Service", headerFont);
+                headerParagraph.Alignment = Element.ALIGN_CENTER;
+                document.Add(headerParagraph);
+                document.Add(new iTextSharp.text.Paragraph("\n"));
+
+                // Create a colored rectangle based on the user's score
+                int squareSize = 80;
+                int x = (int)document.PageSize.Width / 2 - squareSize / 2;
+                int y = (int)document.PageSize.Height / 2 - squareSize / 2;
+                RectangleWithBackground rectangle = new RectangleWithBackground(x, y, x + squareSize, y + squareSize, 0, 0, BaseColor.BLACK, BaseColor.LIGHT_GRAY);
+                rectangle.BackgroundColor = new BaseColor(GetBadgeColor(_score));
+                document.Add(rectangle);
 
                 // Add the name, CIN and score to the document
-                BaseFont baseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 12, iTextSharp.text.Font.NORMAL);
-                document.Add(new iTextSharp.text.Paragraph("Nom: " + label_nameEmp.Text, font));
-                document.Add(new iTextSharp.text.Paragraph("CIN: " + label_cinEmp.Text, font));
-                document.Add(new iTextSharp.text.Paragraph("Score: " + _score.ToString() + " sur " + _totalQuestions.ToString(), font));
+                iTextSharp.text.Font font = new iTextSharp.text.Font(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED), 10, iTextSharp.text.Font.NORMAL);
+                iTextSharp.text.Paragraph nameParagraph = new iTextSharp.text.Paragraph("Nom: " + label_nameEmp.Text, font);
+                nameParagraph.Alignment = Element.ALIGN_CENTER;
+                document.Add(nameParagraph);
+                iTextSharp.text.Paragraph cinParagraph = new iTextSharp.text.Paragraph("CIN: " + label_cinEmp.Text, font);
+                cinParagraph.Alignment = Element.ALIGN_CENTER;
+                document.Add(cinParagraph);
+                iTextSharp.text.Paragraph scoreParagraph = new iTextSharp.text.Paragraph("Score: " + _score.ToString() + " sur " + _totalQuestions.ToString(), font);
+                scoreParagraph.Alignment = Element.ALIGN_CENTER;
+                document.Add(scoreParagraph);
 
-                // Show a dialog box with the option to print the badge
-                DialogResult result = MessageBox.Show("Voulez-vous imprimer votre badge ?", "Impression", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
-                {
-                    // Print the badge
-                    PrintPdf(fileName);
-                }
-            }
-            catch (DocumentException de)
-            {
-                Console.Error.WriteLine(de.Message);
-            }
-            catch (IOException ioe)
-            {
-                Console.Error.WriteLine(ioe.Message);
-            }
-            finally
-            {
+                // Add a footer with "WE CREATE CHARACTER"
+                iTextSharp.text.Font footerFont = new iTextSharp.text.Font(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED), 16, iTextSharp.text.Font.BOLD);
+                iTextSharp.text.Paragraph footerParagraph = new iTextSharp.text.Paragraph("WE CREATE CHARACTER", footerFont);
+                footerParagraph.Alignment = Element.ALIGN_CENTER;
+                footerParagraph.SpacingBefore = 10f; // add some space before the footer
+                document.Add(footerParagraph);
+
+                // Set the page size to the size of the rectangle
+                document.SetPageSize(rectangle);
+
+                // Set the page margins to zero
+                document.SetMargins(0f, 0f, 0f, 0f);
+
                 // Close the document
                 document.Close();
+
+                // Show a message box with the location of the PDF file
+                MessageBox.Show("Votre badge a été créé avec succès. Vous pouvez le trouver ici: " + Path.GetFullPath(fileName), "Badge créé");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produite lors de la création du badge: " + ex.Message, "Erreur");
             }
         }
-        private void PrintPdf(string fileName)
+        private void PrintPdf(string fileName, string printerName)
         {
             if (!File.Exists(fileName))
             {
@@ -358,7 +329,7 @@ namespace Essai
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = @"C:\Program Files\Adobe\Acrobat DC\Acrobat\Acrobat.exe";
-            startInfo.Arguments = "/t \"" + fileName + "\"";
+            startInfo.Arguments = "/h /t \"" + fileName + "\" \"" + printerName + "\""; // set printer name
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.UseShellExecute = true;
             startInfo.CreateNoWindow = true;
