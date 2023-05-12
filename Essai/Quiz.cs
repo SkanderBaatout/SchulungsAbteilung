@@ -16,6 +16,12 @@ using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Essai.Classes;
+using System.Runtime.Serialization.Formatters.Binary;
+using ImageMagick;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+using iTextSharp.text;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace Essai
 {
@@ -169,7 +175,7 @@ namespace Essai
             string optionB = row["optionB"].ToString();
             string optionC = row["optionC"].ToString();
             string optionD = row["optionD"].ToString();
-            byte[] imageData = row["photo"] as byte[]; // retrieve the image data as a byte array
+            byte[] imageData = row["PhotoData"] as byte[];
 
             label_question.Text = question;
             radioButton1.Text = optionA;
@@ -179,9 +185,17 @@ namespace Essai
 
             if (imageData != null)
             {
-                // if the image data is not null, load it as an Image object and display it in the PictureBox
-                System.Drawing.Image image = LoadImage(imageData);
-                pictureBox_question.Image = image;
+                // if the imageData is not null, load it as a SerializableImage object and display it in the PictureBox
+                SerializableImage serializableImage = LoadImage(imageData);
+                if (serializableImage != null)
+                {
+                    System.Drawing.Image image = serializableImage.GetImage(pictureBox_question.Width, pictureBox_question.Height);
+                    pictureBox_question.Image = image;
+                }
+                else
+                {
+                    pictureBox_question.Image = null;
+                }
             }
             else
             {
@@ -377,42 +391,130 @@ namespace Essai
             }
         }
 
-        private System.Drawing.Image LoadImage(object image)
+        /*  private System.Drawing.Image LoadImage(object image)
+          {
+              if (image == DBNull.Value)
+              {
+                  return null;
+              }
+
+              if (image is string filePath)
+              {
+                  return System.Drawing.Image.FromFile(filePath);
+              }
+              else if (image is string hexString)
+              {
+                  byte[] bytes = Enumerable.Range(0, hexString.Length)
+                                            .Where(x => x % 2 == 0)
+                                            .Select(x => Convert.ToByte(hexString.Substring(x, 2), 16))
+                                            .ToArray();
+                  if (bytes == null || bytes.Length == 0)
+                  {
+                      return null;
+                  }
+                  using (MemoryStream stream = new MemoryStream(bytes))
+                  {
+                      BinaryFormatter formatter = new BinaryFormatter();
+                      if (stream.Length != bytes.Length)
+                      {
+                          throw new ArgumentException("Invalid image data", nameof(image));
+                      }
+                      return (System.Drawing.Image)formatter.Deserialize(stream);
+                  }
+              }
+              else if (image is byte[] bytes)
+              {
+                  if (bytes == null || bytes.Length == 0)
+                  {
+                      return null;
+                  }
+                  using (MemoryStream stream = new MemoryStream(bytes))
+                  {
+                      BinaryFormatter formatter = new BinaryFormatter();
+                      if (stream.Length != bytes.Length)
+                      {
+                          throw new ArgumentException("Invalid image data", nameof(image));
+                      }
+                      return (System.Drawing.Image)formatter.Deserialize(stream);
+                  }
+              }
+              else
+              {
+                  throw new ArgumentException("Invalid image type", nameof(image));
+              }
+          } */
+        private SerializableImage LoadImage(object image)
         {
             if (image == DBNull.Value)
             {
                 return null;
             }
 
-            if (image is string filePath)
+            if (image is int photoId)
             {
-                return System.Drawing.Image.FromFile(filePath);
-            }
-            else if (image is string hexString)
-            {
-                byte[] bytes = Enumerable.Range(0, hexString.Length)
-                                      .Where(x => x % 2 == 0)
-                                      .Select(x => Convert.ToByte(hexString.Substring(x, 2), 16))
-                                      .ToArray();
-                if (bytes == null || bytes.Length == 0)
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    return null;
+                    connection.Open();
+
+                    string query = "SELECT FileName, ContentType, Data FROM ImageFiles WHERE Id = @Id;";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", photoId);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string fileName = reader.GetString(0);
+                                string contentType = reader.GetString(1);
+                                byte[] data = (byte[])reader.GetValue(2);
+
+                                try
+                                {
+                                    using (MemoryStream ms = new MemoryStream(data))
+                                    {
+                                        using (Bitmap bitmap = new Bitmap(ms))
+                                        {
+                                            return new SerializableImage(bitmap);
+                                        }
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    // Log the exception and return null
+                                    Console.WriteLine($"Error loading image from database: {ex.Message}");
+                                    return null;
+                                }
+                            }
+                        }
+                    }
                 }
-                using (MemoryStream stream = new MemoryStream(bytes))
-                {
-                    return System.Drawing.Image.FromStream(stream);
-                }
+
+                return null;
             }
             else if (image is byte[] bytes)
             {
-                if (bytes == null || bytes.Length == 0)
+                try
                 {
+                    using (MemoryStream ms = new MemoryStream(bytes))
+                    {
+                        using (Bitmap bitmap = new Bitmap(ms))
+                        {
+                            return new SerializableImage(bitmap);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception and return null
+                    Console.WriteLine($"Error loading image from byte array: {ex.Message}");
                     return null;
                 }
-                using (MemoryStream stream = new MemoryStream(bytes))
-                {
-                    return System.Drawing.Image.FromStream(stream);
-                }
+            }
+            else if (image is SerializableImage serializableImage)
+            {
+                return serializableImage;
             }
             else
             {
@@ -420,39 +522,40 @@ namespace Essai
             }
         }
         private void InsertTest(int qset)
-        {
-            try
-            {
-                _query = "IF NOT EXISTS (SELECT 1 FROM scores WHERE cin = @cin AND qset = @qset) " +
-                         "BEGIN " +
-                         "INSERT INTO scores (cin, qset, score, date) VALUES (@cin, @qset, @score, @date) " +
-                         "END " +
-                         "ELSE " +
-                         "BEGIN " +
-                         "IF @score > (SELECT score FROM scores WHERE cin = @cin AND qset = @qset) " +
-                         "UPDATE scores SET score = @score, date = @date WHERE cin = @cin AND qset = @qset " +
-                         "END";
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    using (SqlCommand command = new SqlCommand(_query, connection))
-                    {
-                        command.Parameters.AddWithValue("@cin", LoginForm.cin);
-                        command.Parameters.AddWithValue("@qset", qset);
-                        command.Parameters.AddWithValue("@score", _score);
-                        command.Parameters.AddWithValue("@date", DateTime.Now);
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        connection.Close();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log the exception
-                string errorMessage = $"Error inserting score into database: {ex.Message}";
-                MessageBox.Show(errorMessage, "Error");
-            }
-        }
+          {
+              try
+              {
+                  _query = "IF NOT EXISTS (SELECT 1 FROM scores WHERE cin = @cin AND qset = @qset) " +
+                           "BEGIN " +
+                           "INSERT INTO scores (cin, qset, score, date) VALUES (@cin, @qset, @score, @date) " +
+                           "END " +
+                           "ELSE " +
+                           "BEGIN " +
+                           "IF @score > (SELECT score FROM scores WHERE cin = @cin AND qset = @qset) " +
+                           "UPDATE scores SET score = @score, date = @date WHERE cin = @cin AND qset = @qset " +
+                           "END";
+                  using (SqlConnection connection = new SqlConnection(_connectionString))
+                  {
+                      using (SqlCommand command = new SqlCommand(_query, connection))
+                      {
+                          command.Parameters.AddWithValue("@cin", LoginForm.cin);
+                          command.Parameters.AddWithValue("@qset", qset);
+                          command.Parameters.AddWithValue("@score", _score);
+                          command.Parameters.AddWithValue("@date", DateTime.Now);
+                          connection.Open();
+                          command.ExecuteNonQuery();
+                          connection.Close();
+                      }
+                  }
+              }
+              catch (Exception ex)
+              {
+                  // Log the exception
+                  string errorMessage = $"Error inserting score into database: {ex.Message}";
+                  MessageBox.Show(errorMessage, "Error");
+              }
+          }
+
         private System.Drawing.Color GetBadgeColor(int score)
         {
             if (score >= 0 && score <= 5)
