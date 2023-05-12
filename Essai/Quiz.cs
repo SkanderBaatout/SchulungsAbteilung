@@ -185,15 +185,18 @@ namespace Essai
 
             if (imageData != null)
             {
-                // if the imageData is not null, load it as a SerializableImage object and display it in the PictureBox
-                SerializableImage serializableImage = LoadImage(imageData);
-                if (serializableImage != null)
+                try
                 {
-                    System.Drawing.Image image = serializableImage.GetImage(pictureBox_question.Width, pictureBox_question.Height);
-                    pictureBox_question.Image = image;
+                    using (MemoryStream ms = new MemoryStream(imageData))
+                    {
+                        SerializableImage serializableImage = new SerializableImage(System.Drawing.Image.FromStream(ms));
+                        pictureBox_question.Image = serializableImage.GetImage(pictureBox_question.Width, pictureBox_question.Height);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
+                    // Log the error or display an error message
+                    Console.WriteLine("Error loading image: " + ex.Message);
                     pictureBox_question.Image = null;
                 }
             }
@@ -443,118 +446,62 @@ namespace Essai
                   throw new ArgumentException("Invalid image type", nameof(image));
               }
           } */
-        private SerializableImage LoadImage(object image)
+        private SerializableImage LoadImage(byte[] imageData)
         {
-            if (image == DBNull.Value)
+            if (imageData == null)
             {
                 return null;
             }
 
-            if (image is int photoId)
+            try
             {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
+                using (MemoryStream ms = new MemoryStream(imageData))
                 {
-                    connection.Open();
-
-                    string query = "SELECT FileName, ContentType, Data FROM ImageFiles WHERE Id = @Id;";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", photoId);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                string fileName = reader.GetString(0);
-                                string contentType = reader.GetString(1);
-                                byte[] data = (byte[])reader.GetValue(2);
-
-                                try
-                                {
-                                    using (MemoryStream ms = new MemoryStream(data))
-                                    {
-                                        using (Bitmap bitmap = new Bitmap(ms))
-                                        {
-                                            return new SerializableImage(bitmap);
-                                        }
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    // Log the exception and return null
-                                    Console.WriteLine($"Error loading image from database: {ex.Message}");
-                                    return null;
-                                }
-                            }
-                        }
-                    }
+                    SerializableImage serializableImage = new SerializableImage(System.Drawing.Image.FromStream(ms));
+                    return serializableImage;
                 }
-
+            }
+            catch (Exception ex)
+            {
+                // Log the error or display an error message
+                Console.WriteLine("Error loading image: " + ex.Message);
                 return null;
-            }
-            else if (image is byte[] bytes)
-            {
-                try
-                {
-                    using (MemoryStream ms = new MemoryStream(bytes))
-                    {
-                        using (Bitmap bitmap = new Bitmap(ms))
-                        {
-                            return new SerializableImage(bitmap);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Log the exception and return null
-                    Console.WriteLine($"Error loading image from byte array: {ex.Message}");
-                    return null;
-                }
-            }
-            else if (image is SerializableImage serializableImage)
-            {
-                return serializableImage;
-            }
-            else
-            {
-                throw new ArgumentException("Invalid image type", nameof(image));
             }
         }
         private void InsertTest(int qset)
-          {
-              try
-              {
-                  _query = "IF NOT EXISTS (SELECT 1 FROM scores WHERE cin = @cin AND qset = @qset) " +
-                           "BEGIN " +
-                           "INSERT INTO scores (cin, qset, score, date) VALUES (@cin, @qset, @score, @date) " +
-                           "END " +
-                           "ELSE " +
-                           "BEGIN " +
-                           "IF @score > (SELECT score FROM scores WHERE cin = @cin AND qset = @qset) " +
-                           "UPDATE scores SET score = @score, date = @date WHERE cin = @cin AND qset = @qset " +
-                           "END";
-                  using (SqlConnection connection = new SqlConnection(_connectionString))
-                  {
-                      using (SqlCommand command = new SqlCommand(_query, connection))
-                      {
-                          command.Parameters.AddWithValue("@cin", LoginForm.cin);
-                          command.Parameters.AddWithValue("@qset", qset);
-                          command.Parameters.AddWithValue("@score", _score);
-                          command.Parameters.AddWithValue("@date", DateTime.Now);
-                          connection.Open();
-                          command.ExecuteNonQuery();
-                          connection.Close();
-                      }
-                  }
-              }
-              catch (Exception ex)
-              {
-                  // Log the exception
-                  string errorMessage = $"Error inserting score into database: {ex.Message}";
-                  MessageBox.Show(errorMessage, "Error");
-              }
-          }
+        {
+            try
+            {
+                _query = "IF NOT EXISTS (SELECT 1 FROM scores WHERE cin = @cin AND qset = @qset) " +
+                         "BEGIN " +
+                         "INSERT INTO scores (cin, qset, score, date) VALUES (@cin, @qset, @score, @date) " +
+                         "END " +
+                         "ELSE " +
+                         "BEGIN " +
+                         "IF @score > (SELECT score FROM scores WHERE cin = @cin AND qset = @qset) " +
+                         "UPDATE scores SET score = @score, date = @date WHERE cin = @cin AND qset = @qset " +
+                         "END";
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(_query, connection))
+                    {
+                        command.Parameters.AddWithValue("@cin", LoginForm.cin);
+                        command.Parameters.AddWithValue("@qset", qset);
+                        command.Parameters.AddWithValue("@score", _score);
+                        command.Parameters.AddWithValue("@date", DateTime.Now);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                string errorMessage = $"Error inserting score into database: {ex.Message}";
+                MessageBox.Show(errorMessage, "Error");
+            }
+        }
 
         private System.Drawing.Color GetBadgeColor(int score)
         {

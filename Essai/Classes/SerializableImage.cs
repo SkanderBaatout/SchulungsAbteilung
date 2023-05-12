@@ -7,35 +7,13 @@ using System.Runtime.Serialization;
 namespace Essai.Classes
 {
     [Serializable]
-    public class SerializableImage : ISerializable
+    public class SerializableImage
     {
         private Image _image;
-
-        public SerializableImage() { }
 
         public SerializableImage(Image image)
         {
             _image = image;
-        }
-
-        protected SerializableImage(SerializationInfo info, StreamingContext context)
-        {
-            byte[] data = (byte[])info.GetValue("PhotoData", typeof(byte[]));
-            if (data != null && data.Length > 0)
-            {
-                using (MemoryStream ms = new MemoryStream(data))
-                {
-                    try
-                    {
-                        _image = Image.FromStream(ms);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Log the error or display an error message
-                        Console.WriteLine("Error loading image: " + ex.Message);
-                    }
-                }
-            }
         }
 
         public Image GetImage(int width, int height)
@@ -45,34 +23,33 @@ namespace Essai.Classes
                 return null;
             }
 
-            if (width <= 0 || height <= 0)
-            {
-                throw new ArgumentException("Invalid width or height value");
-            }
-
-            try
-            {
-                return _image.GetThumbnailImage(width, height, null, IntPtr.Zero);
-            }
-            catch (Exception ex)
-            {
-                // Log the error or display an error message
-                Console.WriteLine("Error getting thumbnail image: " + ex.Message);
-                return null;
-            }
+            return _image.GetThumbnailImage(width, height, null, IntPtr.Zero);
         }
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (_image == null)
-            {
-                return;
-            }
 
+        public static implicit operator Image(SerializableImage si)
+        {
+            return si._image;
+        }
+
+        public static implicit operator SerializableImage(Image i)
+        {
+            return new SerializableImage(i);
+        }
+
+        public static implicit operator byte[](SerializableImage si)
+        {
             using (MemoryStream ms = new MemoryStream())
             {
-                _image.Save(ms, ImageFormat.Png);
-                byte[] data = ms.ToArray();
-                info.AddValue("PhotoData", data, typeof(byte[]));
+                si._image.Save(ms, si._image.RawFormat);
+                return ms.ToArray();
+            }
+        }
+
+        public static implicit operator SerializableImage(byte[] bytes)
+        {
+            using (MemoryStream ms = new MemoryStream(bytes))
+            {
+                return new SerializableImage(Image.FromStream(ms));
             }
         }
     }
