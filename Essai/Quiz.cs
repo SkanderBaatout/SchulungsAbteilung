@@ -132,7 +132,7 @@ namespace Essai
         private void SetUpQuiz(int qset)
         {
             // Get the questions for the qset
-            _query = "SELECT question, optionA, optionB, optionC, optionD, ans, photo FROM questions WHERE qset = @qset";
+            _query = "SELECT question, optionA, optionB, optionC, optionD, ans, PhotoData FROM questions WHERE qset = @qset";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 using (SqlCommand command = new SqlCommand(_query, connection))

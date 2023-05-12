@@ -106,7 +106,7 @@ namespace Essai
                 }
 
                 string query = "INSERT INTO questions (qset, qNo, question, optionA, optionB, optionC, optionD, ans, PhotoData) " +
-                    "VALUES (@qset, @qno, @question, @option1, @option2, @option3, @option4, @ans, @image)";
+                    "VALUES (@qset, @qno, @question, @option1, @option2, @option3, @option4, @ans, @image);";
 
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -128,9 +128,10 @@ namespace Essai
                 clearAll();
                 _currentQuestionNumber++;
                 questionLabel.Text = _currentQuestionNumber.ToString();
+
+                MessageBox.Show("Question added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
         private void clearAll()
         {
             textBox_question.Clear();
@@ -167,8 +168,11 @@ namespace Essai
 
         private void btn_finish_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("All questions added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Close();
+            if (MessageBox.Show("Set Will be Changed.", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                textBox_set.Text = (Int64.Parse(textBox_set.Text.ToString()) + 1).ToString();
+                questionLabel.Text = "1";
+            }
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -186,23 +190,22 @@ namespace Essai
 
         private void textBox_question_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(textBox_question.Text))
-            {
+            if (string.IsNullOrWhiteSpace(textBox_question.Text.Trim()) ||
+                 string.IsNullOrWhiteSpace(textBox_option1.Text.Trim()) ||
+                 string.IsNullOrWhiteSpace(textBox_option2.Text.Trim()) ||
+                 string.IsNullOrWhiteSpace(textBox_option3.Text.Trim()) ||
+                 string.IsNullOrWhiteSpace(textBox_option4.Text.Trim()) ||
+                 string.IsNullOrWhiteSpace(textBox_answer.Text.Trim()))
+                        {
                 btn_next.Enabled = false;
-                return;
             }
-
-            if (string.IsNullOrWhiteSpace(textBox_option1.Text) ||
-                string.IsNullOrWhiteSpace(textBox_option2.Text) ||
-                string.IsNullOrWhiteSpace(textBox_option3.Text) ||
-                string.IsNullOrWhiteSpace(textBox_option4.Text) ||
-                string.IsNullOrWhiteSpace(textBox_answer.Text))
+            else
             {
-                btn_next.Enabled = false;
-                return;
+                btn_next.Enabled = true;
             }
-
             btn_next.Enabled = true;
+
+
         }
     }
 }

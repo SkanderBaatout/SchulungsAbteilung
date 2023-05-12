@@ -16,6 +16,8 @@ namespace Essai
     {
         Function fn = new Function();
         string query;
+        private readonly string _connectionString = "data source=SKANDERBAATOUT;database=quiz;integrated security=True;TrustServerCertificate=True;";
+
 
         public UpdateQuestionForm()
         {
@@ -62,69 +64,34 @@ namespace Essai
 
         private void comboQuestion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            query = "select question,optionA,optionB,optionC,optionD,ans,photo from questions where qset = '" + comboSet.Text + "' and qNo = '" + comboQuestion.Text + "'";
-            DataSet ds = fn.getData(query);
-
-            // Vérifier si le DataSet a au moins une table et si la première table a au moins une ligne
-            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            string query = "select question, optionA, optionB, optionC, optionD, ans, PhotoData from questions where qset = @qSet and qNo = @qNo";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
             {
-                // Vérifier si la colonne 6 de la première ligne n'est pas DBNull
-                if (ds.Tables[0].Rows[0][6] != DBNull.Value)
+                command.Parameters.AddWithValue("@qSet", comboSet.Text);
+                command.Parameters.AddWithValue("@qNo", comboQuestion.Text);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
                 {
-                    // Récupérer les valeurs des colonnes de la première ligne du DataSet et les assigner aux textBox appropriées
-                    textBox_question.Text = ds.Tables[0].Rows[0][0].ToString();
-                    textBox_option1.Text = ds.Tables[0].Rows[0][1].ToString();
-                    textBox_option2.Text = ds.Tables[0].Rows[0][2].ToString();
-                    textBox_option3.Text = ds.Tables[0].Rows[0][3].ToString();
-                    textBox_option4.Text = ds.Tables[0].Rows[0][4].ToString();
-                    textBox_answer.Text = ds.Tables[0].Rows[0][5].ToString();
+                    textBox_question.Text = reader["question"].ToString();
+                    textBox_option1.Text = reader["optionA"].ToString();
+                    textBox_option2.Text = reader["optionB"].ToString();
+                    textBox_option3.Text = reader["optionC"].ToString();
+                    textBox_option4.Text = reader["optionD"].ToString();
+                    textBox_answer.Text = reader["ans"].ToString();
 
-                    // Convertir la colonne 6 en tableau d'octets (byte[]) et l'afficher dans un pictureBox
-                    byte[] img = (byte[])ds.Tables[0].Rows[0][6];
-
-                    // Vérifier si l'image est d'un type valide
-                    if (img != null && img.Length > 0)
+                    if (reader["PhotoData"] != DBNull.Value)
                     {
-                        try
-                        {
-                            // Convertir les octets en une image
-                            using (MemoryStream ms = new MemoryStream(img))
-                            {
-                                Image image = Image.FromStream(ms);
-
-                                // Afficher l'image dans la pictureBox
-                                pictureBox.Image = image;
-                                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage; // Pour ajuster la taille de l'image à la PictureBox
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // Afficher un message d'erreur si une exception se produit lors de la manipulation de l'image
-                            MessageBox.Show("Une erreur s'est produite lors de la manipulation de l'image : " + ex.Message, "Erreur");
-                        }
+                        byte[] img = (byte[])reader["PhotoData"];
+                        MemoryStream ms = new MemoryStream(img);
+                        pictureBox.Image = Image.FromStream(ms);
                     }
                     else
                     {
-                        // Afficher un message d'erreur si l'image est vide ou nulle
-                        MessageBox.Show("L'image est vide ou nulle", "Erreur");
+                        pictureBox.Image = null;
                     }
-
-
                 }
-                else
-                {
-                    // Récupérer les valeurs des colonnes de la première ligne du DataSet et les assigner aux textBox appropriées
-                    textBox_question.Text = ds.Tables[0].Rows[0][0].ToString();
-                    textBox_option1.Text = ds.Tables[0].Rows[0][1].ToString();
-                    textBox_option2.Text = ds.Tables[0].Rows[0][2].ToString();
-                    textBox_option3.Text = ds.Tables[0].Rows[0][3].ToString();
-                    textBox_option4.Text = ds.Tables[0].Rows[0][4].ToString();
-                    textBox_answer.Text = ds.Tables[0].Rows[0][5].ToString();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Dataset Empty", "Error");
             }
         }
 
@@ -148,43 +115,48 @@ namespace Essai
 
         private void btn_update_Click(object sender, EventArgs e)
         {
-            if (comboQuestion.SelectedIndex != -1)
+            if (comboSet.Text != "" && comboQuestion.Text != "" && textBox_question.Text != "" && textBox_option1.Text != "" && textBox_option2.Text != "" && textBox_option3.Text != "" && textBox_option4.Text != "" && textBox_answer.Text != "")
             {
-                string qSet = comboSet.Text;
-                string qNo = comboQuestion.Text;
-                string question = textBox_question.Text;
-                string option1 = textBox_option1.Text;
-                string option2 = textBox_option2.Text;
-                string option3 = textBox_option3.Text;
-                string option4 = textBox_option4.Text;
-                string ans = textBox_answer.Text;
-
-
-                if (pictureBox.Image != null)
+                string query = "update questions set question=@ques,optionA=@optA,optionB=@optB,optionC=@optC,optionD=@optD,ans=@ans,PhotoData=@img where qset=@qSet and qNo=@qNo";
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    // to get photo from picture box
-                    MemoryStream ms = new MemoryStream();
-                    pictureBox.Image.Save(ms, pictureBox.Image.RawFormat);
-                    byte[] img = ms.ToArray();
-                    query = "update questions set question = '" + question + "',optionA = '" + option1 + "',optionB = '" + option2 + "',optionC = '" + option3 + "',optionD = '" + option4 + "',ans = '" + ans + "' ,photo = CONVERT(VARBINARY,'" + img + "') where qset = '" + qSet + "' and qNo = '" + qNo + "' ";
+                    command.Parameters.AddWithValue("@ques", textBox_question.Text);
+                    command.Parameters.AddWithValue("@optA", textBox_option1.Text);
+                    command.Parameters.AddWithValue("@optB", textBox_option2.Text);
+                    command.Parameters.AddWithValue("@optC", textBox_option3.Text);
+                    command.Parameters.AddWithValue("@optD", textBox_option4.Text);
+                    command.Parameters.AddWithValue("@ans", textBox_answer.Text);
+                    command.Parameters.AddWithValue("@qSet", comboSet.Text);
+                    command.Parameters.AddWithValue("@qNo", comboQuestion.Text);
 
-                    fn.setData(query, "Question No : " + qNo + "\n Question Set :" + qSet + "\n  is Updated.");
-                    clearAll();
+                    if (pictureBox.Image != null)
+                    {
+                        MemoryStream ms = new MemoryStream();
+                        pictureBox.Image.Save(ms, pictureBox.Image.RawFormat);
+                        byte[] img = ms.ToArray();
+                        command.Parameters.AddWithValue("@img", img);
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@img", DBNull.Value);
+                    }
+
+                    connection.Open();
+                    int result = command.ExecuteNonQuery();
+                    if (result > 0)
+                    {
+                        MessageBox.Show("Question Updated Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Question Update Failed!", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
-                {
-                    query = "update questions set question = '" + question + "',optionA = '" + option1 + "',optionB = '" + option2 + "',optionC = '" + option3 + "',optionD = '" + option4 + "',ans = '" + ans + "'  where qset = '" + qSet + "' and qNo = '" + qNo + "' ";
-
-                    fn.setData(query, "Question No : " + qNo + "\n Question Set :" + qSet + "\n  is Updated.");
-                    clearAll();
-                }
-
-
-
             }
             else
             {
-                MessageBox.Show("Select Question first.", "Message !!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please Fill All Fields!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
