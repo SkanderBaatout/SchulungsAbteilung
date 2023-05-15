@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            saveButton = new Button();
             button1 = new Button();
             panel2 = new Panel();
             dataGridView = new DataGridView();
+            loadDataButton = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
@@ -39,6 +41,8 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(loadDataButton);
+            panel1.Controls.Add(saveButton);
             panel1.Controls.Add(button1);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
@@ -46,11 +50,23 @@
             panel1.Size = new Size(950, 100);
             panel1.TabIndex = 0;
             // 
+            // saveButton
+            // 
+            saveButton.BackColor = Color.Teal;
+            saveButton.ForeColor = Color.White;
+            saveButton.Location = new Point(396, 31);
+            saveButton.Name = "saveButton";
+            saveButton.Size = new Size(121, 42);
+            saveButton.TabIndex = 1;
+            saveButton.Text = "Save";
+            saveButton.UseVisualStyleBackColor = false;
+            saveButton.Click += saveButton_Click;
+            // 
             // button1
             // 
             button1.BackColor = Color.Teal;
             button1.ForeColor = Color.White;
-            button1.Location = new Point(401, 29);
+            button1.Location = new Point(247, 31);
             button1.Name = "button1";
             button1.Size = new Size(121, 42);
             button1.TabIndex = 0;
@@ -69,13 +85,26 @@
             // 
             // dataGridView
             // 
+            dataGridView.BackgroundColor = Color.Gainsboro;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(174, 37);
+            dataGridView.Dock = DockStyle.Bottom;
+            dataGridView.Location = new Point(0, 0);
             dataGridView.Name = "dataGridView";
             dataGridView.RowTemplate.Height = 25;
-            dataGridView.Size = new Size(699, 441);
+            dataGridView.Size = new Size(950, 550);
             dataGridView.TabIndex = 0;
-            dataGridView.CellContentClick += dataGridView_CellContentClick;
+            // 
+            // loadDataButton
+            // 
+            loadDataButton.BackColor = Color.Teal;
+            loadDataButton.ForeColor = Color.White;
+            loadDataButton.Location = new Point(548, 31);
+            loadDataButton.Name = "loadDataButton";
+            loadDataButton.Size = new Size(121, 42);
+            loadDataButton.TabIndex = 2;
+            loadDataButton.Text = "Load Data";
+            loadDataButton.UseVisualStyleBackColor = false;
+            loadDataButton.Click += loadDataButton_Click;
             // 
             // PlanFormation
             // 
@@ -103,5 +132,7 @@
         private XLView xlView1;
         private Panel panel2;
         private DataGridView dataGridView;
+        private Button saveButton;
+        private Button loadDataButton;
     }
 }
