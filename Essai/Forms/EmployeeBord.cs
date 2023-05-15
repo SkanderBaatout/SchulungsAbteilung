@@ -19,8 +19,7 @@ namespace Essai
         {
             InitializeComponent();
             GetSubjects();
-
-            
+            Trainingscb.SelectedIndexChanged += Trainingscb_SelectedIndexChanged;
 
         }
         //to show register form in mainForm
@@ -95,7 +94,40 @@ namespace Essai
 
         private void my_profile_Click(object sender, EventArgs e)
         {
-            openChildForm( new ProfileModificationForm(LoginForm.username, LoginForm.cin));
+            openChildForm(new ProfileModificationForm(LoginForm.username, LoginForm.cin));
+        }
+
+        private void button_exit_Click_1(object sender, EventArgs e)
+        {
+            LoginForm login = new LoginForm();
+            this.Hide();
+            login.Show();
+        }
+
+        private void button_dashboard_Click(object sender, EventArgs e)
+        {
+            if (activeForm != null)
+            {
+                activeForm.Close();
+            }
+            panel_main.Controls.Add(panel_cover);
+        }
+
+        private void button_followTraining_Click(object sender, EventArgs e)
+        {
+            openChildForm(new FollowSubjectForm());
+        }
+
+        private void button_exit_Click_2(object sender, EventArgs e)
+        {
+            LoginForm login = new LoginForm();
+            this.Hide();
+            login.Show();
+        }
+
+        private void Trainingscb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            trainingName = Trainingscb.SelectedValue.ToString();
         }
     }
 }

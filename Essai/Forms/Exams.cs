@@ -53,6 +53,140 @@ namespace Essai
             int z = rd.Next(1, 4);
             return x;
         }
+       
+
+        int[] keys = new int[10];
+
+        private void MultiRandom()
+        {
+            //Generate 10 random numbers
+            HashSet<int> numbers = new HashSet<int>();
+            var rnd = new Random();
+            while (numbers.Count < 10)
+            {
+                numbers.Add(rnd.Next(1, 14));
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                keys[i] = numbers.ElementAt(i);
+            }
+        }
+
+        private void FetchQuestions()
+        {
+            try
+            {
+                // Get the selected subject name from the EmployeeBord form
+                string subjectName = EmployeeBord.trainingName;
+
+                // Fetch questions where the subject matches the selected subject name
+                Con.Open();
+                string query = "SELECT * FROM QuestionTbl WHERE QS = @subjectName";
+                SqlCommand cmd = new SqlCommand(query, Con);
+                cmd.Parameters.AddWithValue("@subjectName", subjectName);
+                DataTable dt = new DataTable();
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                sda.Fill(dt);
+
+                // Check if there are any questions for the selected subject
+                if (dt.Rows.Count == 0)
+                {
+                    // Display a message box indicating that there are no questions for the selected subject
+                    MessageBox.Show("There are no questions for this subject. Please contact the administrator to add questions");
+                    return;
+                }
+
+                // Iterate through the fetched rows and assign the questions to their respective controls
+                int i = 0;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    i++;
+                    switch (i)
+                    {
+                        case 1:
+                            Q1.Text = dr["QDesc"].ToString();
+                            Q1o1.Text = dr["QQ1"].ToString();
+                            Q1o2.Text = dr["QQ2"].ToString();
+                            Q1o3.Text = dr["QQ3"].ToString();
+                            Q1o4.Text = dr["QQ4"].ToString();
+                            a1 = dr["QA"].ToString();
+                            break;
+                        case 2:
+                            Q2.Text = dr["QDesc"].ToString();
+                            Q2o1.Text = dr["QQ1"].ToString();
+                            Q2o2.Text = dr["QQ2"].ToString();
+                            Q2o3.Text = dr["QQ3"].ToString();
+                            Q2o4.Text = dr["QQ4"].ToString();
+                            a2 = dr["QA"].ToString();
+                            break;
+                        case 3:
+                            Q3.Text = dr["QDesc"].ToString();
+                            Q3o1.Text = dr["QQ1"].ToString();
+                            Q3o2.Text = dr["QQ2"].ToString();
+                            Q3o3.Text = dr["QQ3"].ToString();
+                            Q3o4.Text = dr["QQ4"].ToString();
+                            a3 = dr["QA"].ToString();
+                            break;
+                        case 4:
+                            Q4.Text = dr["QDesc"].ToString();
+                            Q4o1.Text = dr["QQ1"].ToString();
+                            Q4o2.Text = dr["QQ2"].ToString();
+                            Q4o3.Text = dr["QQ3"].ToString();
+                            Q4o4.Text = dr["QQ4"].ToString();
+                            a4 = dr["QA"].ToString();
+                            break;
+                        case 5:
+                            Q5.Text = dr["QDesc"].ToString();
+                            Q5o1.Text = dr["QQ1"].ToString();
+                            Q5o2.Text = dr["QQ2"].ToString();
+                            Q5o3.Text = dr["QQ3"].ToString();
+                            Q5o4.Text = dr["QQ4"].ToString();
+                            a5 = dr["QA"].ToString();
+                            break;
+                        case 6:
+                            Q6.Text = dr["QDesc"].ToString();
+                            Q6o1.Text = dr["QQ1"].ToString();
+                            Q6o2.Text = dr["QQ2"].ToString();
+                            Q6o3.Text = dr["QQ3"].ToString();
+                            Q6o4.Text = dr["QQ4"].ToString();
+                            a6 = dr["QA"].ToString();
+                            break;
+                        case 7:
+                            Q7.Text = dr["QDesc"].ToString();
+                            Q7o1.Text = dr["QQ1"].ToString();
+                            Q7o2.Text = dr["QQ2"].ToString();
+                            Q7o3.Text = dr["QQ3"].ToString();
+                            Q7o4.Text = dr["QQ4"].ToString();
+                            a7 = dr["QA"].ToString();
+                            break;
+                        case 8:
+                            Q8.Text = dr["QDesc"].ToString();
+                            Q8o1.Text = dr["QQ1"].ToString();
+                            Q8o2.Text = dr["QQ2"].ToString();
+                            Q8o3.Text = dr["QQ3"].ToString();
+                            Q8o4.Text = dr["QQ4"].ToString();
+                            a8 = dr["QA"].ToString();
+                            break;
+                        case 9:
+                            Q9.Text = dr["QDesc"].ToString();
+                            Q9o1.Text = dr["QQ1"].ToString();
+                            Q9o2.Text = dr["QQ2"].ToString();
+                            Q9o3.Text = dr["QQ3"].ToString();
+                            Q9o4.Text = dr["QQ4"].ToString();
+                            a9 = dr["QA"].ToString();
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Con.Close();
+            }
+        }
         private void SaveHighest()
         {
             Con.Open();
@@ -80,189 +214,6 @@ namespace Essai
             Con.Close();
         }
 
-        int[] keys = new int[10];
-
-        private void MultiRandom()
-        {
-            //Generate 10 random numbers
-            HashSet<int> numbers = new HashSet<int>();
-            var rnd = new Random();
-            while (numbers.Count < 10)
-            {
-                numbers.Add(rnd.Next(1, 14));
-            }
-            for (int i = 0; i < 10; i++)
-            {
-                keys[i] = numbers.ElementAt(i);
-            }
-        }
-
-        private void FetchQuestions()
-        {
-            try
-            {
-                int QNum = GenerateRand();
-                MultiRandom();
-                Con.Open();
-                String Query = "select * from QuestionTbl WHERE QId = '" + keys[0] + "'  ";
-                SqlCommand cmd = new SqlCommand(Query, Con);
-                DataTable dt = new DataTable();
-                SqlDataAdapter sda = new SqlDataAdapter(cmd);
-                sda.Fill(dt);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Q1.Text = dr["QDesc"].ToString();
-                    Q1o1.Text = dr["QQ1"].ToString();
-                    Q1o2.Text = dr["QQ2"].ToString();
-                    Q1o3.Text = dr["QQ3"].ToString();
-                    Q1o4.Text = dr["QQ4"].ToString();
-                    a1 = dr["QA"].ToString();
-
-                }
-                String Query1 = "select * from QuestionTbl WHERE QId = '" + keys[1] + "'  ";
-                cmd = new SqlCommand(Query1, Con);
-                dt = new DataTable();
-                sda = new SqlDataAdapter(cmd);
-                sda.Fill(dt);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Q2.Text = dr["QDesc"].ToString();
-                    Q2o1.Text = dr["QQ1"].ToString();
-                    Q2o2.Text = dr["QQ2"].ToString();
-                    Q2o3.Text = dr["QQ3"].ToString();
-                    Q2o4.Text = dr["QQ4"].ToString();
-                    a2 = dr["QA"].ToString();
-
-                }
-                String Query2 = "select * from QuestionTbl WHERE QId = '" + keys[2] + "'  ";
-                cmd = new SqlCommand(Query2, Con);
-                dt = new DataTable();
-                sda = new SqlDataAdapter(cmd);
-                sda.Fill(dt);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Q3.Text = dr["QDesc"].ToString();
-                    Q3o1.Text = dr["QQ1"].ToString();
-                    Q3o2.Text = dr["QQ2"].ToString();
-                    Q3o3.Text = dr["QQ3"].ToString();
-                    Q3o4.Text = dr["QQ4"].ToString();
-                    a3 = dr["QA"].ToString();
-
-                }
-                String Query3 = "select * from QuestionTbl WHERE QId = '" + keys[3] + "'  ";
-                cmd = new SqlCommand(Query3, Con);
-                dt = new DataTable();
-                sda = new SqlDataAdapter(cmd);
-                sda.Fill(dt);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Q4.Text = dr["QDesc"].ToString();
-                    Q4o1.Text = dr["QQ1"].ToString();
-                    Q4o2.Text = dr["QQ2"].ToString();
-                    Q4o3.Text = dr["QQ3"].ToString();
-                    Q4o4.Text = dr["QQ4"].ToString();
-                    a4 = dr["QA"].ToString();
-
-                }
-                String Query4 = "select * from QuestionTbl WHERE QId = '" + keys[4] + "'  ";
-                cmd = new SqlCommand(Query4, Con);
-                dt = new DataTable();
-                sda = new SqlDataAdapter(cmd);
-                sda.Fill(dt);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Q5.Text = dr["QDesc"].ToString();
-                    Q5o1.Text = dr["QQ1"].ToString();
-                    Q5o2.Text = dr["QQ2"].ToString();
-                    Q5o3.Text = dr["QQ3"].ToString();
-                    Q5o4.Text = dr["QQ4"].ToString();
-                    a5 = dr["QA"].ToString();
-
-                }
-                String Query5 = "select * from QuestionTbl WHERE QId = '" + keys[5] + "'  ";
-                cmd = new SqlCommand(Query5, Con);
-                dt = new DataTable();
-                sda = new SqlDataAdapter(cmd);
-                sda.Fill(dt);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Q6.Text = dr["QDesc"].ToString();
-                    Q6o1.Text = dr["QQ1"].ToString();
-                    Q6o2.Text = dr["QQ2"].ToString();
-                    Q6o3.Text = dr["QQ3"].ToString();
-                    Q6o4.Text = dr["QQ4"].ToString();
-                    a6 = dr["QA"].ToString();
-
-                }
-                String Query6 = "select * from QuestionTbl WHERE QId = '" + keys[6] + "'  ";
-                cmd = new SqlCommand(Query6, Con);
-                dt = new DataTable();
-                sda = new SqlDataAdapter(cmd);
-                sda.Fill(dt);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Q7.Text = dr["QDesc"].ToString();
-                    Q7o1.Text = dr["QQ1"].ToString();
-                    Q7o2.Text = dr["QQ2"].ToString();
-                    Q7o3.Text = dr["QQ3"].ToString();
-                    Q7o4.Text = dr["QQ4"].ToString();
-                    a7 = dr["QA"].ToString();
-
-                }
-                String Query7 = "select * from QuestionTbl WHERE QId = '" + keys[7] + "'  ";
-                cmd = new SqlCommand(Query7, Con);
-                dt = new DataTable();
-                sda = new SqlDataAdapter(cmd);
-                sda.Fill(dt);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Q8.Text = dr["QDesc"].ToString();
-                    Q8o1.Text = dr["QQ1"].ToString();
-                    Q8o2.Text = dr["QQ2"].ToString();
-                    Q8o3.Text = dr["QQ3"].ToString();
-                    Q8o4.Text = dr["QQ4"].ToString();
-                    a8 = dr["QA"].ToString();
-
-                }
-                String Query8 = "select * from QuestionTbl WHERE QId = '" + keys[8] + "'  ";
-                cmd = new SqlCommand(Query8, Con);
-                dt = new DataTable();
-                sda = new SqlDataAdapter(cmd);
-                sda.Fill(dt);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Q9.Text = dr["QDesc"].ToString();
-                    Q9o1.Text = dr["QQ1"].ToString();
-                    Q9o2.Text = dr["QQ2"].ToString();
-                    Q9o3.Text = dr["QQ3"].ToString();
-                    Q9o4.Text = dr["QQ4"].ToString();
-                    a9 = dr["QA"].ToString();
-
-                }
-                String Query9 = "select * from QuestionTbl WHERE QId = '" + keys[9] + "'  ";
-                cmd = new SqlCommand(Query9, Con);
-                dt = new DataTable();
-                sda = new SqlDataAdapter(cmd);
-                sda.Fill(dt);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Q10.Text = dr["QDesc"].ToString();
-                    Q10o1.Text = dr["QQ1"].ToString();
-                    Q10o2.Text = dr["QQ2"].ToString();
-                    Q10o3.Text = dr["QQ3"].ToString();
-                    Q10o4.Text = dr["QQ4"].ToString();
-                    a10 = dr["QA"].ToString();
-
-                }
-                Con.Close();
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-        }
-
         private void submitbtn_Click(object sender, EventArgs e)
         {
 
@@ -281,8 +232,8 @@ namespace Essai
                 timer1.Stop();
                 MessageBox.Show("Time Over");
                 this.Hide();
-                LoginForm log = new LoginForm();
-                log.Show();
+                //LoginForm log = new LoginForm();
+                //log.Show();
             }
         }
 

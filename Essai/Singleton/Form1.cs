@@ -265,5 +265,39 @@ namespace Essai
             openChildForm(new Subjects());
 
         }
+
+        private void Results_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_plan_formation_Click_1(object sender, EventArgs e)
+        {
+            openChildForm(new PlanFormation());
+        }
+
+        private void button_exit_Click_1(object sender, EventArgs e)
+        {
+            openChildForm(new ViewResults());
+
+            hideSubMenu();
+        }
+
+        private void button_dashboard_Click_1(object sender, EventArgs e)
+        {
+            if (activeForm != null)
+            {
+                activeForm.Close();
+            }
+            panel_main.Controls.Add(panel_cover);
+            employeeCount();
+        }
+
+        private void Results_Click_1(object sender, EventArgs e)
+        {
+            LoginForm login = new LoginForm();
+            this.Hide();
+            login.Show();
+        }
     }
 }

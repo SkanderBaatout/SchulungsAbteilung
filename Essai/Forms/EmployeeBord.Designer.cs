@@ -49,11 +49,11 @@
             panel_slide = new Panel();
             button_exit = new Button();
             button_dashboard = new Button();
-            button_score = new Button();
+            button_followTraining = new Button();
+            my_profile = new Button();
             panel_course_subMenu = new Panel();
             button_questions = new Button();
             button_course = new Button();
-            my_profile = new Button();
             panel_logo.SuspendLayout();
             panel_main.SuspendLayout();
             panel_cover.SuspendLayout();
@@ -139,6 +139,7 @@
             Trainingscb.Name = "Trainingscb";
             Trainingscb.Size = new Size(222, 27);
             Trainingscb.TabIndex = 8;
+            Trainingscb.SelectedIndexChanged += Trainingscb_SelectedIndexChanged;
             // 
             // label11
             // 
@@ -254,10 +255,10 @@
             // 
             panel_slide.AutoScroll = true;
             panel_slide.BackColor = Color.Teal;
-            panel_slide.Controls.Add(my_profile);
             panel_slide.Controls.Add(button_exit);
             panel_slide.Controls.Add(button_dashboard);
-            panel_slide.Controls.Add(button_score);
+            panel_slide.Controls.Add(button_followTraining);
+            panel_slide.Controls.Add(my_profile);
             panel_slide.Controls.Add(panel_course_subMenu);
             panel_slide.Controls.Add(button_course);
             panel_slide.Controls.Add(panel_logo);
@@ -275,15 +276,15 @@
             button_exit.FlatStyle = FlatStyle.Flat;
             button_exit.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button_exit.ForeColor = Color.White;
-            button_exit.Location = new Point(0, 253);
+            button_exit.Location = new Point(0, 290);
             button_exit.Name = "button_exit";
             button_exit.Padding = new Padding(10, 0, 0, 0);
             button_exit.Size = new Size(200, 37);
-            button_exit.TabIndex = 8;
+            button_exit.TabIndex = 14;
             button_exit.Text = "Exit";
             button_exit.TextAlign = ContentAlignment.MiddleLeft;
             button_exit.UseVisualStyleBackColor = false;
-            button_exit.Click += button_exit_Click;
+            button_exit.Click += button_exit_Click_2;
             // 
             // button_dashboard
             // 
@@ -293,32 +294,51 @@
             button_dashboard.FlatStyle = FlatStyle.Flat;
             button_dashboard.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button_dashboard.ForeColor = Color.White;
-            button_dashboard.Location = new Point(0, 216);
+            button_dashboard.Location = new Point(0, 253);
             button_dashboard.Name = "button_dashboard";
             button_dashboard.Padding = new Padding(10, 0, 0, 0);
             button_dashboard.Size = new Size(200, 37);
-            button_dashboard.TabIndex = 7;
+            button_dashboard.TabIndex = 13;
             button_dashboard.Text = "Dashboard";
             button_dashboard.TextAlign = ContentAlignment.MiddleLeft;
             button_dashboard.UseVisualStyleBackColor = false;
+            button_dashboard.Click += button_dashboard_Click;
             // 
-            // button_score
+            // button_followTraining
             // 
-            button_score.BackColor = Color.Teal;
-            button_score.Dock = DockStyle.Top;
-            button_score.FlatAppearance.BorderSize = 0;
-            button_score.FlatStyle = FlatStyle.Flat;
-            button_score.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            button_score.ForeColor = Color.White;
-            button_score.Location = new Point(0, 179);
-            button_score.Name = "button_score";
-            button_score.Padding = new Padding(10, 0, 0, 0);
-            button_score.Size = new Size(200, 37);
-            button_score.TabIndex = 5;
-            button_score.Text = "Score";
-            button_score.TextAlign = ContentAlignment.MiddleLeft;
-            button_score.UseVisualStyleBackColor = false;
-            button_score.Click += button_score_Click;
+            button_followTraining.BackColor = Color.Teal;
+            button_followTraining.Dock = DockStyle.Top;
+            button_followTraining.FlatAppearance.BorderSize = 0;
+            button_followTraining.FlatStyle = FlatStyle.Flat;
+            button_followTraining.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button_followTraining.ForeColor = Color.White;
+            button_followTraining.Location = new Point(0, 216);
+            button_followTraining.Name = "button_followTraining";
+            button_followTraining.Padding = new Padding(10, 0, 0, 0);
+            button_followTraining.Size = new Size(200, 37);
+            button_followTraining.TabIndex = 11;
+            button_followTraining.Text = "Follow Training";
+            button_followTraining.TextAlign = ContentAlignment.MiddleLeft;
+            button_followTraining.UseVisualStyleBackColor = false;
+            button_followTraining.Click += button_followTraining_Click;
+            // 
+            // my_profile
+            // 
+            my_profile.BackColor = Color.Teal;
+            my_profile.Dock = DockStyle.Top;
+            my_profile.FlatAppearance.BorderSize = 0;
+            my_profile.FlatStyle = FlatStyle.Flat;
+            my_profile.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            my_profile.ForeColor = Color.White;
+            my_profile.Location = new Point(0, 179);
+            my_profile.Name = "my_profile";
+            my_profile.Padding = new Padding(10, 0, 0, 0);
+            my_profile.Size = new Size(200, 37);
+            my_profile.TabIndex = 9;
+            my_profile.Text = "My Profile";
+            my_profile.TextAlign = ContentAlignment.MiddleLeft;
+            my_profile.UseVisualStyleBackColor = false;
+            my_profile.Click += my_profile_Click;
             // 
             // panel_course_subMenu
             // 
@@ -365,24 +385,6 @@
             button_course.TextAlign = ContentAlignment.MiddleLeft;
             button_course.UseVisualStyleBackColor = false;
             button_course.Click += button_course_Click;
-            // 
-            // my_profile
-            // 
-            my_profile.BackColor = Color.Teal;
-            my_profile.Dock = DockStyle.Top;
-            my_profile.FlatAppearance.BorderSize = 0;
-            my_profile.FlatStyle = FlatStyle.Flat;
-            my_profile.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            my_profile.ForeColor = Color.White;
-            my_profile.Location = new Point(0, 290);
-            my_profile.Name = "my_profile";
-            my_profile.Padding = new Padding(10, 0, 0, 0);
-            my_profile.Size = new Size(200, 37);
-            my_profile.TabIndex = 9;
-            my_profile.Text = "My Profile";
-            my_profile.TextAlign = ContentAlignment.MiddleLeft;
-            my_profile.UseVisualStyleBackColor = false;
-            my_profile.Click += my_profile_Click;
             // 
             // EmployeeBord
             // 
@@ -432,13 +434,13 @@
         private Panel panel1;
         private Label label12;
         private Panel panel_slide;
-        private Button button_exit;
-        private Button button_dashboard;
-        private Button button_score;
         private Button button_course;
         private Panel panel_course_subMenu;
         private Button button_questions;
         private ComboBox Trainingscb;
         private Button my_profile;
+        private Button button_followTraining;
+        private Button button_exit;
+        private Button button_dashboard;
     }
 }
