@@ -132,7 +132,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             label2.ForeColor = Color.Teal;
-            label2.Location = new Point(162, 27);
+            label2.Location = new Point(182, 27);
             label2.Name = "label2";
             label2.Size = new Size(140, 25);
             label2.TabIndex = 2;
@@ -141,19 +141,19 @@
             // textBox_username
             // 
             textBox_username.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox_username.Location = new Point(151, 66);
+            textBox_username.Location = new Point(125, 86);
             textBox_username.Name = "textBox_username";
-            textBox_username.Size = new Size(247, 27);
+            textBox_username.Size = new Size(280, 27);
             textBox_username.TabIndex = 3;
             textBox_username.TextAlign = HorizontalAlignment.Center;
             // 
             // textBox_password
             // 
             textBox_password.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox_password.Location = new Point(151, 121);
+            textBox_password.Location = new Point(125, 141);
             textBox_password.Name = "textBox_password";
             textBox_password.PasswordChar = '*';
-            textBox_password.Size = new Size(247, 27);
+            textBox_password.Size = new Size(280, 27);
             textBox_password.TabIndex = 4;
             textBox_password.TextAlign = HorizontalAlignment.Center;
             // 
@@ -163,9 +163,9 @@
             button_login.FlatStyle = FlatStyle.Flat;
             button_login.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             button_login.ForeColor = Color.White;
-            button_login.Location = new Point(186, 181);
+            button_login.Location = new Point(182, 201);
             button_login.Name = "button_login";
-            button_login.Size = new Size(192, 41);
+            button_login.Size = new Size(181, 41);
             button_login.TabIndex = 5;
             button_login.Text = "LOGIN";
             button_login.UseVisualStyleBackColor = false;
@@ -176,7 +176,7 @@
             label_username.AutoSize = true;
             label_username.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label_username.ForeColor = Color.Teal;
-            label_username.Location = new Point(22, 69);
+            label_username.Location = new Point(17, 86);
             label_username.Name = "label_username";
             label_username.Size = new Size(102, 21);
             label_username.TabIndex = 6;
@@ -187,7 +187,7 @@
             label_password.AutoSize = true;
             label_password.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label_password.ForeColor = Color.Teal;
-            label_password.Location = new Point(34, 127);
+            label_password.Location = new Point(29, 144);
             label_password.Name = "label_password";
             label_password.Size = new Size(90, 21);
             label_password.TabIndex = 7;
@@ -252,9 +252,9 @@
             panel_admin.Controls.Add(label_username);
             panel_admin.Controls.Add(label2);
             panel_admin.Controls.Add(label_password);
-            panel_admin.Location = new Point(220, 317);
+            panel_admin.Location = new Point(213, 291);
             panel_admin.Name = "panel_admin";
-            panel_admin.Size = new Size(471, 298);
+            panel_admin.Size = new Size(504, 286);
             panel_admin.TabIndex = 11;
             // 
             // checkBox_showPass
@@ -262,7 +262,7 @@
             checkBox_showPass.AutoSize = true;
             checkBox_showPass.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             checkBox_showPass.ForeColor = Color.Teal;
-            checkBox_showPass.Location = new Point(162, 154);
+            checkBox_showPass.Location = new Point(127, 174);
             checkBox_showPass.Name = "checkBox_showPass";
             checkBox_showPass.Size = new Size(127, 21);
             checkBox_showPass.TabIndex = 8;
@@ -282,9 +282,9 @@
             panel_Employee.Controls.Add(button_employee_login);
             panel_Employee.Controls.Add(button_employee_register);
             panel_Employee.Controls.Add(label9);
-            panel_Employee.Location = new Point(235, 293);
+            panel_Employee.Location = new Point(216, 280);
             panel_Employee.Name = "panel_Employee";
-            panel_Employee.Size = new Size(453, 324);
+            panel_Employee.Size = new Size(493, 323);
             panel_Employee.TabIndex = 12;
             // 
             // textBox_cin
@@ -292,7 +292,7 @@
             textBox_cin.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox_cin.Location = new Point(118, 177);
             textBox_cin.Name = "textBox_cin";
-            textBox_cin.Size = new Size(275, 27);
+            textBox_cin.Size = new Size(298, 27);
             textBox_cin.TabIndex = 11;
             textBox_cin.TextAlign = HorizontalAlignment.Center;
             // 
@@ -325,7 +325,7 @@
             textBox_emp_username.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox_emp_username.Location = new Point(118, 70);
             textBox_emp_username.Name = "textBox_emp_username";
-            textBox_emp_username.Size = new Size(275, 27);
+            textBox_emp_username.Size = new Size(298, 27);
             textBox_emp_username.TabIndex = 9;
             textBox_emp_username.TextAlign = HorizontalAlignment.Center;
             // 
@@ -335,7 +335,7 @@
             textBox_emp_pass.Location = new Point(118, 117);
             textBox_emp_pass.Name = "textBox_emp_pass";
             textBox_emp_pass.PasswordChar = '*';
-            textBox_emp_pass.Size = new Size(275, 27);
+            textBox_emp_pass.Size = new Size(298, 27);
             textBox_emp_pass.TabIndex = 10;
             textBox_emp_pass.TextAlign = HorizontalAlignment.Center;
             // 
@@ -367,9 +367,9 @@
             button_employee_login.FlatStyle = FlatStyle.Flat;
             button_employee_login.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             button_employee_login.ForeColor = Color.White;
-            button_employee_login.Location = new Point(144, 224);
+            button_employee_login.Location = new Point(158, 225);
             button_employee_login.Name = "button_employee_login";
-            button_employee_login.Size = new Size(234, 41);
+            button_employee_login.Size = new Size(209, 41);
             button_employee_login.TabIndex = 7;
             button_employee_login.Text = "LOGIN";
             button_employee_login.UseVisualStyleBackColor = false;
@@ -381,9 +381,9 @@
             button_employee_register.FlatStyle = FlatStyle.Flat;
             button_employee_register.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             button_employee_register.ForeColor = Color.White;
-            button_employee_register.Location = new Point(144, 271);
+            button_employee_register.Location = new Point(158, 272);
             button_employee_register.Name = "button_employee_register";
-            button_employee_register.Size = new Size(234, 41);
+            button_employee_register.Size = new Size(209, 41);
             button_employee_register.TabIndex = 5;
             button_employee_register.Text = "REGISTER";
             button_employee_register.UseVisualStyleBackColor = false;
@@ -394,7 +394,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Century Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             label9.ForeColor = Color.Teal;
-            label9.Location = new Point(144, 27);
+            label9.Location = new Point(169, 24);
             label9.Name = "label9";
             label9.Size = new Size(173, 25);
             label9.TabIndex = 2;

@@ -82,6 +82,7 @@
             // 
             // txt_cin
             // 
+            txt_cin.BackColor = Color.White;
             txt_cin.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txt_cin.Location = new Point(204, 376);
             txt_cin.Name = "txt_cin";
@@ -132,6 +133,7 @@
             // 
             // txt_username
             // 
+            txt_username.BackColor = Color.White;
             txt_username.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txt_username.Location = new Point(205, 116);
             txt_username.Name = "txt_username";
@@ -207,7 +209,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 24F, FontStyle.Bold, GraphicsUnit.Point);
             label2.ForeColor = Color.Teal;
-            label2.Location = new Point(247, 0);
+            label2.Location = new Point(247, 63);
             label2.Name = "label2";
             label2.Size = new Size(167, 38);
             label2.TabIndex = 2;
@@ -238,7 +240,7 @@
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(282, 51);
+            pictureBox2.Location = new Point(289, 10);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(100, 50);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
@@ -274,6 +276,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(950, 650);
             Controls.Add(label13);
             Controls.Add(panel_admin);

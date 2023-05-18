@@ -213,9 +213,9 @@
             Set.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             Set.Location = new Point(92, 115);
             Set.Name = "Set";
-            Set.Size = new Size(38, 23);
+            Set.Size = new Size(93, 23);
             Set.TabIndex = 23;
-            Set.Text = "Set";
+            Set.Text = "Test Type";
             // 
             // label1
             // 
@@ -250,6 +250,7 @@
             // 
             // pictureBox
             // 
+            pictureBox.BackColor = Color.Gainsboro;
             pictureBox.Location = new Point(494, 441);
             pictureBox.Name = "pictureBox";
             pictureBox.Size = new Size(311, 141);
@@ -272,6 +273,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(950, 650);
             Controls.Add(label9);
             Controls.Add(pictureBox);

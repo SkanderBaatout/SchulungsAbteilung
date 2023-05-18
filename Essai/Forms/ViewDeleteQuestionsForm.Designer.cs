@@ -62,7 +62,7 @@
             btn_delete.FillColor = Color.OrangeRed;
             btn_delete.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btn_delete.ForeColor = Color.White;
-            btn_delete.Location = new Point(761, 593);
+            btn_delete.Location = new Point(758, 603);
             btn_delete.Name = "btn_delete";
             btn_delete.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btn_delete.Size = new Size(168, 45);
@@ -76,9 +76,9 @@
             Set.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             Set.Location = new Point(338, 94);
             Set.Name = "Set";
-            Set.Size = new Size(38, 23);
+            Set.Size = new Size(44, 23);
             Set.TabIndex = 47;
-            Set.Text = "Set";
+            Set.Text = "Test";
             // 
             // label1
             // 
@@ -95,7 +95,6 @@
             // 
             dataGridViewCellStyle1.BackColor = Color.White;
             dataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridView.BackgroundColor = Color.Gainsboro;
             dataGridView.BorderStyle = BorderStyle.Fixed3D;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
@@ -116,18 +115,18 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridView.GridColor = Color.FromArgb(231, 229, 255);
-            dataGridView.Location = new Point(12, 166);
+            dataGridView.Location = new Point(0, 166);
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersVisible = false;
             dataGridView.RowTemplate.Height = 25;
-            dataGridView.Size = new Size(926, 407);
+            dataGridView.Size = new Size(950, 420);
             dataGridView.TabIndex = 66;
             dataGridView.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             dataGridView.ThemeStyle.AlternatingRowsStyle.Font = null;
             dataGridView.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
             dataGridView.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
             dataGridView.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
-            dataGridView.ThemeStyle.BackColor = Color.Gainsboro;
+            dataGridView.ThemeStyle.BackColor = Color.White;
             dataGridView.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
             dataGridView.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(100, 88, 255);
             dataGridView.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;

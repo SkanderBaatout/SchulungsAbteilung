@@ -61,7 +61,7 @@
             btnDeleteEmployee.FillColor = Color.OrangeRed;
             btnDeleteEmployee.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnDeleteEmployee.ForeColor = Color.White;
-            btnDeleteEmployee.Location = new Point(628, 77);
+            btnDeleteEmployee.Location = new Point(594, 78);
             btnDeleteEmployee.Name = "btnDeleteEmployee";
             btnDeleteEmployee.PressedColor = Color.AntiqueWhite;
             btnDeleteEmployee.ShadowDecoration.BorderRadius = 15;
@@ -76,7 +76,6 @@
             // 
             dataGridViewCellStyle1.BackColor = Color.White;
             dgvEmployees.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvEmployees.BackgroundColor = Color.Gainsboro;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
             dataGridViewCellStyle2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -109,7 +108,7 @@
             dgvEmployees.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
             dgvEmployees.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
             dgvEmployees.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
-            dgvEmployees.ThemeStyle.BackColor = Color.Gainsboro;
+            dgvEmployees.ThemeStyle.BackColor = Color.White;
             dgvEmployees.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
             dgvEmployees.ThemeStyle.HeaderStyle.BackColor = Color.Black;
             dgvEmployees.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -132,7 +131,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.Teal;
-            label4.Location = new Point(387, 9);
+            label4.Location = new Point(330, 9);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(181, 28);
@@ -151,7 +150,7 @@
             btnEditEmployee.FillColor = Color.FromArgb(255, 128, 0);
             btnEditEmployee.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnEditEmployee.ForeColor = Color.White;
-            btnEditEmployee.Location = new Point(387, 77);
+            btnEditEmployee.Location = new Point(353, 78);
             btnEditEmployee.Name = "btnEditEmployee";
             btnEditEmployee.ShadowDecoration.BorderRadius = 15;
             btnEditEmployee.ShadowDecoration.Color = Color.Transparent;
@@ -172,7 +171,7 @@
             btnAddEmployee.FillColor = Color.Teal;
             btnAddEmployee.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnAddEmployee.ForeColor = Color.White;
-            btnAddEmployee.Location = new Point(160, 77);
+            btnAddEmployee.Location = new Point(126, 78);
             btnAddEmployee.Name = "btnAddEmployee";
             btnAddEmployee.ShadowDecoration.BorderRadius = 15;
             btnAddEmployee.ShadowDecoration.Color = Color.Transparent;
@@ -214,6 +213,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(950, 650);
             Controls.Add(tbSearchKeyword);
             Controls.Add(btnSearch);

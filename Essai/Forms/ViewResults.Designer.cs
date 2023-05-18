@@ -62,11 +62,11 @@
             resultDGV.DefaultCellStyle = dataGridViewCellStyle3;
             resultDGV.Dock = DockStyle.Bottom;
             resultDGV.GridColor = Color.FromArgb(231, 229, 255);
-            resultDGV.Location = new Point(0, 121);
+            resultDGV.Location = new Point(0, 138);
             resultDGV.Name = "resultDGV";
             resultDGV.RowHeadersVisible = false;
             resultDGV.RowTemplate.Height = 24;
-            resultDGV.Size = new Size(934, 490);
+            resultDGV.Size = new Size(934, 473);
             resultDGV.TabIndex = 62;
             resultDGV.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             resultDGV.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -115,7 +115,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.Teal;
-            label4.Location = new Point(399, 78);
+            label4.Location = new Point(402, 90);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(90, 28);

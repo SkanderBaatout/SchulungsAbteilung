@@ -5,7 +5,6 @@ namespace Essai
 {
     public partial class Form1 : Form
     {
-        EmployeeClass employee = new EmployeeClass();
         private EmployeeDataAccess _employeeDataAccess;
         public Form1()
         {
@@ -15,13 +14,11 @@ namespace Essai
 
         }
 
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
             employeeCount();
         }
-        //create a function to display employee count
+
         private void employeeCount()
         {
             // Count and display the total number of employees
@@ -40,7 +37,7 @@ namespace Essai
         private void customizeDesign()
         {
             panel_std_menu.Visible = false;
-            panel_score_subMenu.Visible = false;
+            panel_quiz_subMenu.Visible = false;
             panel_course_subMenu.Visible = false;
         }
         private void hideSubMenu()
@@ -52,8 +49,8 @@ namespace Essai
             }
             if (panel_course_subMenu.Visible == true)
                 panel_course_subMenu.Visible = false;
-            if (panel_score_subMenu.Visible == true)
-                panel_score_subMenu.Visible = false;
+            if (panel_quiz_subMenu.Visible == true)
+                panel_quiz_subMenu.Visible = false;
         }
         private void showSubMenu(Panel subMenu)
         {
@@ -132,7 +129,7 @@ namespace Essai
 
         private void button_score_Click_1(object sender, EventArgs e)
         {
-            showSubMenu(panel_score_subMenu);
+            showSubMenu(panel_quiz_subMenu);
         }
         #region ScoreSubMenu
 
@@ -278,9 +275,7 @@ namespace Essai
 
         private void button_exit_Click_1(object sender, EventArgs e)
         {
-            openChildForm(new ViewResults());
-
-            hideSubMenu();
+            showSubMenu(panel_quiz_subMenu);
         }
 
         private void button_dashboard_Click_1(object sender, EventArgs e)
@@ -298,6 +293,60 @@ namespace Essai
             LoginForm login = new LoginForm();
             this.Hide();
             login.Show();
+        }
+
+        private void button_manage_trainings_Click_1(object sender, EventArgs e)
+        {
+            showSubMenu(panel_quiz_subMenu);
+        }
+
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            openChildForm(new Subjects());
+        }
+
+        private void button_quizquestions_Click(object sender, EventArgs e)
+        {
+            openChildForm(new Questions());
+        }
+
+        private void button_subjects_Click(object sender, EventArgs e)
+        {
+            openChildForm(new Subjects());
+        }
+
+        private void button_quizquestions_Click_1(object sender, EventArgs e)
+        {
+            openChildForm(new Questions());
+        }
+
+        private void button_results_Click(object sender, EventArgs e)
+        {
+            openChildForm(new ViewResults());
+
+            hideSubMenu();
+        }
+
+        private void button_plan_Click_2(object sender, EventArgs e)
+        {
+            openChildForm(new PlanFormation());
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            LoginForm login = new LoginForm();
+            this.Hide();
+            login.Show();
+        }
+
+        private void dashboardbtn_Click(object sender, EventArgs e)
+        {
+            if (activeForm != null)
+            {
+                activeForm.Close();
+            }
+            panel_main.Controls.Add(panel_cover);
+            employeeCount();
         }
     }
 }

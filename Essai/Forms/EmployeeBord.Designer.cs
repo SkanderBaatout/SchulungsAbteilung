@@ -35,6 +35,8 @@
             panel_cover = new Panel();
             pictureBox2 = new PictureBox();
             panel3 = new Panel();
+            comboBox_Tests = new ComboBox();
+            label4 = new Label();
             Trainingscb = new ComboBox();
             label11 = new Label();
             comboBox1 = new ComboBox();
@@ -121,6 +123,8 @@
             // panel3
             // 
             panel3.BackColor = Color.Teal;
+            panel3.Controls.Add(comboBox_Tests);
+            panel3.Controls.Add(label4);
             panel3.Controls.Add(Trainingscb);
             panel3.Controls.Add(label11);
             panel3.Controls.Add(comboBox1);
@@ -129,6 +133,28 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(934, 103);
             panel3.TabIndex = 2;
+            // 
+            // comboBox_Tests
+            // 
+            comboBox_Tests.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            comboBox_Tests.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            comboBox_Tests.FormattingEnabled = true;
+            comboBox_Tests.Location = new Point(152, 32);
+            comboBox_Tests.Name = "comboBox_Tests";
+            comboBox_Tests.Size = new Size(285, 27);
+            comboBox_Tests.TabIndex = 10;
+            comboBox_Tests.SelectedIndexChanged += comboBox_Tests_SelectedIndexChanged;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(15, 32);
+            label4.Name = "label4";
+            label4.Size = new Size(142, 21);
+            label4.TabIndex = 9;
+            label4.Text = "Select Test Type :";
             // 
             // Trainingscb
             // 
@@ -390,6 +416,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(1134, 686);
             Controls.Add(panel_main);
             Controls.Add(panel_slide);
@@ -442,5 +469,7 @@
         private Button button_followTraining;
         private Button button_exit;
         private Button button_dashboard;
+        private ComboBox comboBox_Tests;
+        private Label label4;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,37 +34,47 @@ namespace Essai
         private void AddQuestionForm_Load(object sender, EventArgs e)
         {
             btn_next.Enabled = true; // Enable the "Next" button
-            string query = "SELECT MAX(qset) FROM questions;";
+
+            // Load the available TestsType names into the ComboBox
+            string query = "SELECT name FROM TestsType;";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
             {
                 connection.Open();
 
-                object result = command.ExecuteScalar();
-                if (result != null && !DBNull.Value.Equals(result))
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    _currentQuestionSet = Convert.ToInt32(result) + 1;
+                    testsCB.Items.Add(reader.GetString(0));
                 }
 
-                textBox_set.Text = _currentQuestionSet.ToString();
+                reader.Close();
+            }
+
+            // Set the default value of the ComboBox to the first item
+            if (testsCB.Items.Count > 0)
+            {
+                testsCB.SelectedIndex = 0;
             }
 
             questionLabel.Text = _currentQuestionNumber.ToString();
             label_NoSet.Visible = false;
         }
-
         private void textBox_set_TextChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(textBox_set.Text, out int qSet))
+            if (!string.IsNullOrWhiteSpace(textBox_set.Text))
             {
                 clearAll();
 
-                string query = $"SELECT COUNT(*) FROM questions WHERE qset = {qSet};";
+                string query = "SELECT COUNT(*) FROM questions q JOIN TestsType t ON q.qset COLLATE Arabic_CI_AS = t.name COLLATE Arabic_CI_AS WHERE t.name = @name;";
 
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@name", textBox_set.Text);
+
                     connection.Open();
 
                     int result = Convert.ToInt32(command.ExecuteScalar());
@@ -85,7 +96,7 @@ namespace Essai
 
         private void btn_next_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(textBox_set.Text, out int qSet))
+            if (!string.IsNullOrWhiteSpace(testsCB.SelectedItem?.ToString()))
             {
                 string qNo = _currentQuestionNumber.ToString();
                 string question = textBox_question.Text;
@@ -105,31 +116,57 @@ namespace Essai
                     }
                 }
 
-                string query = "INSERT INTO questions (qset, qNo, question, optionA, optionB, optionC, optionD, ans, PhotoData) " +
-                    "VALUES (@qset, @qno, @question, @option1, @option2, @option3, @option4, @ans, @image);";
-
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("@qset", qSet);
-                    command.Parameters.AddWithValue("@qno", qNo);
-                    command.Parameters.AddWithValue("@question", question);
-                    command.Parameters.AddWithValue("@option1", option1);
-                    command.Parameters.AddWithValue("@option2", option2);
-                    command.Parameters.AddWithValue("@option3", option3);
-                    command.Parameters.AddWithValue("@option4", option4);
-                    command.Parameters.AddWithValue("@ans", ans);
-                    command.Parameters.AddWithValue("@image", imageBytes);
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
+                    {
+                        connection.Open();
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                        // Get the name for the selected name from the TestsType table
+                        using (SqlCommand getIdCommand = new SqlCommand("SELECT name FROM TestsType WHERE name = @name", connection))
+                        {
+                            getIdCommand.Parameters.AddWithValue("@name", testsCB.SelectedItem.ToString());
+                            string qSet = (string)getIdCommand.ExecuteScalar();
+
+                            // Insert the question into the questions table
+                            using (SqlCommand command = new SqlCommand("INSERT INTO questions (qset, qNo, question, optionA, optionB, optionC, optionD, ans" +
+                                (imageBytes != null ? ", PhotoData" : "") + ") " +
+                                "VALUES (@qset, @qno, @question, @option1, @option2, @option3, @option4, @ans" +
+                                (imageBytes != null ? ", @image" : "") + ");", connection))
+                            {
+                                command.Parameters.AddWithValue("@qset", qSet);
+                                command.Parameters.AddWithValue("@qno", qNo);
+                                command.Parameters.AddWithValue("@question", question);
+                                command.Parameters.AddWithValue("@option1", option1);
+                                command.Parameters.AddWithValue("@option2", option2);
+                                command.Parameters.AddWithValue("@option3", option3);
+                                command.Parameters.AddWithValue("@option4", option4);
+                                command.Parameters.AddWithValue("@ans", ans);
+
+                                if (imageBytes != null)
+                                {
+                                    command.Parameters.AddWithValue("@image", imageBytes);
+                                }
+
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    clearAll();
+                    _currentQuestionNumber++;
+                    questionLabel.Text = _currentQuestionNumber.ToString();
+
+                    MessageBox.Show("Question added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-                clearAll();
-                _currentQuestionNumber++;
-                questionLabel.Text = _currentQuestionNumber.ToString();
-
-                MessageBox.Show("Question added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a question set.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void clearAll()
@@ -196,7 +233,7 @@ namespace Essai
                  string.IsNullOrWhiteSpace(textBox_option3.Text.Trim()) ||
                  string.IsNullOrWhiteSpace(textBox_option4.Text.Trim()) ||
                  string.IsNullOrWhiteSpace(textBox_answer.Text.Trim()))
-                        {
+            {
                 btn_next.Enabled = false;
             }
             else
@@ -206,6 +243,38 @@ namespace Essai
             btn_next.Enabled = true;
 
 
+        }
+
+        private void testsCB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(testsCB.SelectedItem.ToString()))
+            {
+                clearAll();
+
+                string query = "SELECT COUNT(*) FROM questions q JOIN TestsType t ON q.qset COLLATE Arabic_CI_AS = t.name COLLATE Arabic_CI_AS WHERE t.name = @name;";
+
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@name", testsCB.SelectedItem.ToString());
+
+                    connection.Open();
+
+                    int result = Convert.ToInt32(command.ExecuteScalar());
+
+                    if (result > 0)
+                    {
+                        _currentQuestionNumber = result + 1;
+                        questionLabel.Text = _currentQuestionNumber.ToString();
+                    }
+                    else
+                    {
+                        _currentQuestionNumber = 1;
+                        questionLabel.Text = _currentQuestionNumber.ToString();
+                        label_NoSet.Visible = true;
+                    }
+                }
+            }
         }
     }
 }

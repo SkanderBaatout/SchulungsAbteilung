@@ -56,6 +56,7 @@
             btn_reset = new Guna.UI2.WinForms.Guna2Button();
             btn_finish = new Guna.UI2.WinForms.Guna2Button();
             pictureBox2 = new PictureBox();
+            testsCB = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
@@ -64,7 +65,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.Teal;
-            label1.Location = new Point(63, 47);
+            label1.Location = new Point(59, 26);
             label1.Name = "label1";
             label1.Size = new Size(220, 36);
             label1.TabIndex = 0;
@@ -74,15 +75,15 @@
             // 
             Set.AutoSize = true;
             Set.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            Set.Location = new Point(128, 118);
+            Set.Location = new Point(116, 93);
             Set.Name = "Set";
-            Set.Size = new Size(38, 23);
+            Set.Size = new Size(186, 23);
             Set.TabIndex = 1;
-            Set.Text = "Set";
+            Set.Text = "Choose a Test Type";
             // 
             // textBox_set
             // 
-            textBox_set.Location = new Point(116, 142);
+            textBox_set.Location = new Point(116, 175);
             textBox_set.Name = "textBox_set";
             textBox_set.Size = new Size(316, 27);
             textBox_set.TabIndex = 2;
@@ -218,7 +219,7 @@
             label_NoSet.AutoSize = true;
             label_NoSet.Font = new Font("Century Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point);
             label_NoSet.ForeColor = Color.Red;
-            label_NoSet.Location = new Point(128, 172);
+            label_NoSet.Location = new Point(128, 205);
             label_NoSet.Name = "label_NoSet";
             label_NoSet.Size = new Size(264, 19);
             label_NoSet.TabIndex = 17;
@@ -292,12 +293,22 @@
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
             // 
+            // testsCB
+            // 
+            testsCB.FormattingEnabled = true;
+            testsCB.Location = new Point(116, 129);
+            testsCB.Name = "testsCB";
+            testsCB.Size = new Size(316, 29);
+            testsCB.TabIndex = 23;
+            testsCB.SelectedIndexChanged += testsCB_SelectedIndexChanged;
+            // 
             // AddQuestionForm
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(testsCB);
             Controls.Add(pictureBox2);
             Controls.Add(btn_finish);
             Controls.Add(btn_reset);
@@ -356,5 +367,6 @@
         private Guna.UI2.WinForms.Guna2Button btn_reset;
         private Guna.UI2.WinForms.Guna2Button btn_finish;
         private PictureBox pictureBox2;
+        private ComboBox testsCB;
     }
 }

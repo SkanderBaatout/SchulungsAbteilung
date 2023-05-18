@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            loadDataButton = new Button();
             saveButton = new Button();
             button1 = new Button();
             panel2 = new Panel();
             dataGridView = new DataGridView();
-            loadDataButton = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
@@ -41,6 +41,7 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.White;
             panel1.Controls.Add(loadDataButton);
             panel1.Controls.Add(saveButton);
             panel1.Controls.Add(button1);
@@ -49,6 +50,18 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(950, 100);
             panel1.TabIndex = 0;
+            // 
+            // loadDataButton
+            // 
+            loadDataButton.BackColor = Color.Teal;
+            loadDataButton.ForeColor = Color.White;
+            loadDataButton.Location = new Point(548, 31);
+            loadDataButton.Name = "loadDataButton";
+            loadDataButton.Size = new Size(121, 42);
+            loadDataButton.TabIndex = 2;
+            loadDataButton.Text = "Load Data";
+            loadDataButton.UseVisualStyleBackColor = false;
+            loadDataButton.Click += loadDataButton_Click;
             // 
             // saveButton
             // 
@@ -85,7 +98,7 @@
             // 
             // dataGridView
             // 
-            dataGridView.BackgroundColor = Color.Gainsboro;
+            dataGridView.BackgroundColor = Color.White;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Dock = DockStyle.Bottom;
             dataGridView.Location = new Point(0, 0);
@@ -93,18 +106,6 @@
             dataGridView.RowTemplate.Height = 25;
             dataGridView.Size = new Size(950, 550);
             dataGridView.TabIndex = 0;
-            // 
-            // loadDataButton
-            // 
-            loadDataButton.BackColor = Color.Teal;
-            loadDataButton.ForeColor = Color.White;
-            loadDataButton.Location = new Point(548, 31);
-            loadDataButton.Name = "loadDataButton";
-            loadDataButton.Size = new Size(121, 42);
-            loadDataButton.TabIndex = 2;
-            loadDataButton.Text = "Load Data";
-            loadDataButton.UseVisualStyleBackColor = false;
-            loadDataButton.Click += loadDataButton_Click;
             // 
             // PlanFormation
             // 

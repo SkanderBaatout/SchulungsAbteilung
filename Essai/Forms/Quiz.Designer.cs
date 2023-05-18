@@ -235,9 +235,9 @@
             label_set.AutoSize = true;
             label_set.Location = new Point(93, 68);
             label_set.Name = "label_set";
-            label_set.Size = new Size(66, 21);
+            label_set.Size = new Size(89, 21);
             label_set.TabIndex = 60;
-            label_set.Text = "label15";
+            label_set.Text = "TestName";
             // 
             // label_cinEmp
             // 
@@ -299,6 +299,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(950, 650);
             Controls.Add(label_total_Time);
             Controls.Add(label_remainingTime);

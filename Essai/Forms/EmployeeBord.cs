@@ -14,12 +14,16 @@ namespace Essai
     public partial class EmployeeBord : Form
     {
         public static string trainingName = "";
-
+        public static string testName = "";
         public EmployeeBord()
         {
             InitializeComponent();
             GetSubjects();
+            GetTests();
             Trainingscb.SelectedIndexChanged += Trainingscb_SelectedIndexChanged;
+            comboBox_Tests.SelectedIndexChanged += comboBox_Tests_SelectedIndexChanged;
+
+
 
         }
         //to show register form in mainForm
@@ -52,11 +56,25 @@ namespace Essai
             Trainingscb.DataSource = dt;
             Con.Close();
         }
+        private void GetTests()
+        {
+            Con.Open();
+            SqlCommand cmd = new SqlCommand("select name from TestsType  ", Con);
+            SqlDataReader rdr;
+            rdr = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("name", typeof(string));
+            dt.Load(rdr);
+            comboBox_Tests.ValueMember = "name";
+            comboBox_Tests.DataSource = dt;
+            Con.Close();
+        }
 
         private void EmployeeBord_Load(object sender, EventArgs e)
         {
             username.Text = LoginForm.username;
             trainingName = Trainingscb.SelectedValue.ToString();
+            testName = comboBox_Tests.SelectedValue.ToString();
         }
 
         private void button_questions_Click(object sender, EventArgs e)
@@ -128,6 +146,12 @@ namespace Essai
         private void Trainingscb_SelectedIndexChanged(object sender, EventArgs e)
         {
             trainingName = Trainingscb.SelectedValue.ToString();
+        }
+
+        private void comboBox_Tests_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            testName = comboBox_Tests.SelectedValue.ToString();
+
         }
     }
 }
