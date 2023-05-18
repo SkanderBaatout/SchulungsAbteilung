@@ -24,11 +24,7 @@ namespace Essai
             MultiRandom();
             FetchQuestions();
 
-            int numQuestionsDisplayed = this.Controls.OfType<GroupBox>().Count(gb => gb.Name.StartsWith("Q") && gb.Visible);
-            if (numQuestionsDisplayed < 10)
-            {
-                MessageBox.Show("Only " + numQuestionsDisplayed + " questions were displayed in this exam because there are not enough questions available. Please contact the administrator to add more questions.");
-            }
+           
 
         }
         int Qn;
@@ -206,7 +202,7 @@ namespace Essai
             int numQuestionsDisplayed = this.Controls.OfType<GroupBox>().Count(gb => gb.Name.StartsWith("Q") && gb.Visible);
             if (numQuestionsDisplayed < 10)
             {
-                //MessageBox.Show("Only " + numQuestionsDisplayed + " questions were displayed in this exam because there are not enough questions available. Please contact the administrator to add more questions.");
+                MessageBox.Show("Only " + numQuestionsDisplayed + " questions were displayed in this exam because there are not enough questions available. Please contact the administrator to add more questions.");
             }
 
             score = 0;
@@ -240,41 +236,57 @@ namespace Essai
             {
                 Con.Open();
 
-                // Check if the candidate has already taken the same exam
-                SqlCommand cmd1 = new SqlCommand("SELECT COUNT(*) FROM ResultTbl WHERE RCandidate=@candidate AND RSubject=@subject AND RDate=@date", Con);
+                // Get the highest score for the candidate and subject
+                SqlCommand cmd1 = new SqlCommand("SELECT MAX(RScore) FROM ResultTbl WHERE RCandidate=@candidate AND RSubject=@subject", Con);
                 cmd1.Parameters.AddWithValue("@candidate", labelName.Text);
                 cmd1.Parameters.AddWithValue("@subject", labelSubject.Text);
-                cmd1.Parameters.AddWithValue("@date", QdateTimeP.Value.Date);
-                int count = Convert.ToInt32(cmd1.ExecuteScalar());
+                int highestScore = Convert.ToInt32(cmd1.ExecuteScalar());
 
-                // If the candidate has already taken the same exam, update the score if it's higher
-                if (count > 0)
+                // If the new score is higher than the highest score, update the ResultTbl
+                if (score > highestScore)
                 {
-                    SqlCommand cmd2 = new SqlCommand("UPDATE ResultTbl SET RScore=@score, RTime=@time WHERE RCandidate=@candidate AND RSubject=@subject AND RDate=@date", Con);
-                    cmd2.Parameters.AddWithValue("@score", score);
-                    cmd2.Parameters.AddWithValue("@time", DateTime.Now.TimeOfDay);
+                    // Check if the candidate has already taken the same exam
+                    SqlCommand cmd2 = new SqlCommand("SELECT COUNT(*) FROM ResultTbl WHERE RCandidate=@candidate AND RSubject=@subject AND RDate=@date", Con);
                     cmd2.Parameters.AddWithValue("@candidate", labelName.Text);
                     cmd2.Parameters.AddWithValue("@subject", labelSubject.Text);
                     cmd2.Parameters.AddWithValue("@date", QdateTimeP.Value.Date);
-                    cmd2.ExecuteNonQuery();
+                    int count = Convert.ToInt32(cmd2.ExecuteScalar());
+
+                    // If the candidate has already taken the same exam, update the score
+                    if (count > 0)
+                    {
+                        SqlCommand cmd3 = new SqlCommand("UPDATE ResultTbl SET RScore=@score WHERE RCandidate=@candidate AND RSubject=@subject AND RDate=@date", Con);
+                        cmd3.Parameters.AddWithValue("@score", score);
+                        cmd3.Parameters.AddWithValue("@candidate", labelName.Text);
+                        cmd3.Parameters.AddWithValue("@subject", labelSubject.Text);
+                        cmd3.Parameters.AddWithValue("@date", QdateTimeP.Value.Date);
+                        cmd3.ExecuteNonQuery();
+                    }
+                    // Otherwise, insert a new record
+                    else
+                    {
+                        SqlCommand cmd4 = new SqlCommand("INSERT INTO ResultTbl (RCandidate, RSubject, RScore, RDate) VALUES (@candidate, @subject, @score, @date)", Con);
+                        cmd4.Parameters.AddWithValue("@candidate", labelName.Text);
+                        cmd4.Parameters.AddWithValue("@subject", labelSubject.Text);
+                        cmd4.Parameters.AddWithValue("@score", score);
+                        cmd4.Parameters.AddWithValue("@date", QdateTimeP.Value.Date);
+                        cmd4.ExecuteNonQuery();
+                    }
+
+                    MessageBox.Show("Score inserted successfully!");
                 }
-                // Otherwise, insert a new row in the ResultTbl
                 else
                 {
-                    SqlCommand cmd3 = new SqlCommand("INSERT INTO ResultTbl (RSubject, RCandidate, RDate, RTime, RScore) VALUES (@subject, @candidate, @date, @time, @score)", Con);
-                    cmd3.Parameters.AddWithValue("@subject", labelSubject.Text);
-                    cmd3.Parameters.AddWithValue("@candidate", labelName.Text);
-                    cmd3.Parameters.AddWithValue("@date", QdateTimeP.Value.Date);
-                    cmd3.Parameters.AddWithValue("@time", DateTime.Now.TimeOfDay);
-                    cmd3.Parameters.AddWithValue("@score", score);
-                    cmd3.ExecuteNonQuery();
+                    MessageBox.Show("Score is not higher than the previous score.");
                 }
-
-                Con.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Con.Close();
             }
         }
     }

@@ -64,6 +64,13 @@ namespace Essai
             var ds = new DataSet();
             sda.Fill(ds);
             resultDGV.DataSource = ds.Tables[0];
+            resultDGV.Columns[0].HeaderText = "ID";
+
+            resultDGV.Columns[1].HeaderText = "Training";
+            resultDGV.Columns[2].HeaderText = "Candidate";
+            resultDGV.Columns[3].HeaderText = "Date";
+            resultDGV.Columns[4].HeaderText = "Time";
+            resultDGV.Columns[5].HeaderText = "Score";
             Con.Close();
         }
 
@@ -118,6 +125,68 @@ namespace Essai
         private void ViewResults_Load(object sender, EventArgs e)
         {
 
+        }
+        private void ExportToExcel()
+        {
+            try
+            {
+                Con.Open();
+
+                // Create a new Excel workbook and worksheet
+                Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
+                excel.Visible = false;
+                Workbook workbook = excel.Workbooks.Add(Type.Missing);
+                Worksheet worksheet = (Worksheet)workbook.ActiveSheet;
+
+                // Retrieve the data from the ResultTbl table
+                SqlCommand cmd = new SqlCommand("SELECT RCandidate, RSubject, RScore, RDate FROM ResultTbl", Con);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+                // Write the data to the Excel worksheet
+                int row = 1;
+                int col = 1;
+                foreach (DataColumn column in dataTable.Columns)
+                {
+                    worksheet.Cells[row, col] = column.ColumnName;
+                    col++;
+                }
+                row++;
+                foreach (DataRow dataRow in dataTable.Rows)
+                {
+                    col = 1;
+                    foreach (DataColumn column in dataTable.Columns)
+                    {
+                        worksheet.Cells[row, col] = dataRow[column.ColumnName].ToString();
+                        col++;
+                    }
+                    row++;
+                }
+
+                // Save the Excel workbook
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+                saveFileDialog.FileName = "ResultTbl.xlsx";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    workbook.SaveAs(saveFileDialog.FileName);
+                    MessageBox.Show("Exported successfully!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Con.Close();
+            }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            ExportToExcel();
         }
     }
 }

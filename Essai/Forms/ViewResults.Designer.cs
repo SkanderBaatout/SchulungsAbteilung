@@ -31,10 +31,13 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             resultDGV = new Guna.UI2.WinForms.Guna2DataGridView();
             candidatecb = new ComboBox();
             subjectcb = new ComboBox();
             label4 = new Label();
+            btnExport = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)resultDGV).BeginInit();
             SuspendLayout();
             // 
@@ -62,11 +65,11 @@
             resultDGV.DefaultCellStyle = dataGridViewCellStyle3;
             resultDGV.Dock = DockStyle.Bottom;
             resultDGV.GridColor = Color.FromArgb(231, 229, 255);
-            resultDGV.Location = new Point(0, 138);
+            resultDGV.Location = new Point(0, 211);
             resultDGV.Name = "resultDGV";
             resultDGV.RowHeadersVisible = false;
             resultDGV.RowTemplate.Height = 24;
-            resultDGV.Size = new Size(934, 473);
+            resultDGV.Size = new Size(934, 400);
             resultDGV.TabIndex = 62;
             resultDGV.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             resultDGV.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -115,12 +118,33 @@
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.Teal;
-            label4.Location = new Point(402, 90);
+            label4.Location = new Point(410, 152);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(90, 28);
             label4.TabIndex = 58;
             label4.Text = "Results";
+            // 
+            // btnExport
+            // 
+            btnExport.BorderRadius = 15;
+            btnExport.CustomizableEdges = customizableEdges1;
+            btnExport.DisabledState.BorderColor = Color.DarkGray;
+            btnExport.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnExport.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnExport.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnExport.FillColor = Color.Teal;
+            btnExport.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnExport.ForeColor = Color.White;
+            btnExport.Location = new Point(364, 72);
+            btnExport.Name = "btnExport";
+            btnExport.ShadowDecoration.BorderRadius = 15;
+            btnExport.ShadowDecoration.Color = Color.Transparent;
+            btnExport.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnExport.Size = new Size(200, 45);
+            btnExport.TabIndex = 63;
+            btnExport.Text = "Export to Excell";
+            btnExport.Click += btnExport_Click;
             // 
             // ViewResults
             // 
@@ -128,6 +152,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(934, 611);
+            Controls.Add(btnExport);
             Controls.Add(resultDGV);
             Controls.Add(candidatecb);
             Controls.Add(subjectcb);
@@ -150,5 +175,6 @@
         private ComboBox candidatecb;
         private ComboBox subjectcb;
         private Label label4;
+        private Guna.UI2.WinForms.Guna2Button btnExport;
     }
 }

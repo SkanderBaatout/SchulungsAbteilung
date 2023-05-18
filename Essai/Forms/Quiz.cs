@@ -23,6 +23,8 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using iTextSharp.text;
 using Rectangle = System.Drawing.Rectangle;
+using System.Drawing.Printing;
+using Essai.Singleton;
 
 namespace Essai
 {
@@ -259,106 +261,15 @@ namespace Essai
 
             _quizEnded = true;
 
-            string logoPath = "C:\\Users\\ASUS\\Desktop\\icons\\logo.png";
-            string fileName = "badge.pdf";
-            try
-            {
-                using (var document = new iTextSharp.text.Document(new iTextSharp.text.Rectangle(200, 150), 0, 0, 0, 0))
-                {
-                    PdfWriter.GetInstance(document, new FileStream(fileName, FileMode.Create));
-                    document.Open();
+            var logoPath = "C:\\Users\\ASUS\\Desktop\\icons\\logo.png";
+            var name = label_nameEmp.Text;
+            var cin = label_cinEmp.Text;
+            var fileName = "badge_" + name + ".pdf";
 
-                    var logo = iTextSharp.text.Image.GetInstance(logoPath);
-                    logo.ScaleToFit(document.PageSize.Width / 3, document.PageSize.Height / 3);
-                    logo.Alignment = iTextSharp.text.Image.ALIGN_LEFT;
-                    document.Add(logo);
-
-                    var headerFont = new iTextSharp.text.Font(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED), 14, iTextSharp.text.Font.BOLD);
-                    var headerParagraph = new iTextSharp.text.Paragraph("Training Service", headerFont);
-                    headerParagraph.Alignment = Element.ALIGN_CENTER;
-                    document.Add(headerParagraph);
-                    document.Add(new iTextSharp.text.Paragraph("\n"));
-
-                    var squareSize = 80;
-                    var x = (int)document.PageSize.Width / 2 - squareSize / 2;
-                    var y = (int)document.PageSize.Height / 2 - squareSize / 2;
-                    var rectangle = new RectangleWithBackground(x, y, x + squareSize, y + squareSize, 0, 0, BaseColor.BLACK, BaseColor.LIGHT_GRAY);
-                    rectangle.BackgroundColor = new BaseColor(GetBadgeColor(_score));
-                    document.Add(rectangle);
-
-                    var font = new iTextSharp.text.Font(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED), 10, iTextSharp.text.Font.NORMAL);
-                    var nameParagraph = new iTextSharp.text.Paragraph("Nom: " + label_nameEmp.Text, font);
-                    nameParagraph.Alignment = Element.ALIGN_CENTER;
-                    document.Add(nameParagraph);
-                    var cinParagraph = new iTextSharp.text.Paragraph("CIN: " + label_cinEmp.Text, font);
-                    cinParagraph.Alignment = Element.ALIGN_CENTER;
-                    document.Add(cinParagraph);
-                    var scoreParagraph = new iTextSharp.text.Paragraph("Score: " + _score.ToString() + " sur " + _totalQuestions.ToString(), font);
-                    scoreParagraph.Alignment = Element.ALIGN_CENTER;
-                    document.Add(scoreParagraph);
-
-                    var footerFont = new iTextSharp.text.Font(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED), 16, iTextSharp.text.Font.BOLD);
-                    var footerParagraph = new iTextSharp.text.Paragraph("WE CREATE CHARACTER", footerFont);
-                    footerParagraph.Alignment = Element.ALIGN_CENTER;
-                    footerParagraph.SpacingBefore = 10f;
-                    document.Add(footerParagraph);
-
-                    document.SetPageSize(rectangle);
-                    document.SetMargins(0f, 0f, 0f, 0f);
-
-                    document.Close();
-
-                    MessageBox.Show("Votre badge a été créé avec succès. Vous pouvez le trouver ici: " + Path.GetFullPath(fileName), "Badge créé");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Une erreur s'est produite lors de la création du badge: " + ex.Message, "Erreur");
-            }
+            BadgeGenerator.Instance.GenerateBadge(logoPath, testName, name, cin, _score, _totalQuestions, fileName);
         }
-        private void PrintPdf(string fileName, string printerName)
-        {
-            if (!File.Exists(fileName))
-            {
-                throw new ArgumentException("File not found", nameof(fileName));
-            }
 
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = @"C:\Program Files\Adobe\Acrobat DC\Acrobat\Acrobat.exe";
-            startInfo.Arguments = "/h /t \"" + fileName + "\" \"" + printerName + "\""; // set printer name
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.UseShellExecute = true;
-            startInfo.CreateNoWindow = true;
-
-            using (Process process = new Process())
-            {
-                process.StartInfo = startInfo;
-                process.Start();
-            }
-        }
-        private int GetRandomQset()
-        {
-            _query = "SELECT TOP 1 qset FROM questions GROUP BY qset ORDER BY NEWID()";
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                using (SqlCommand command = new SqlCommand(_query, connection))
-                {
-                    connection.Open();
-                    object result = command.ExecuteScalar();
-                    if (result != null)
-                    {
-                        int qset = Convert.ToInt32(result);
-                        connection.Close();
-                        return qset;
-                    }
-                    else
-                    {
-                        connection.Close();
-                        throw new Exception("No qset found");
-                    }
-                }
-            }
-        }
+    
         private string GetRandomTestName()
         {
             _query = "SELECT TOP 1 tt.name FROM questions q INNER JOIN TestsType tt ON q.qset COLLATE Arabic_CI_AS = tt.name COLLATE Arabic_CI_AS GROUP BY tt.name ORDER BY NEWID()";
@@ -399,28 +310,7 @@ namespace Essai
         }
 
         
-        private SerializableImage LoadImage(byte[] imageData)
-        {
-            if (imageData == null)
-            {
-                return null;
-            }
-
-            try
-            {
-                using (MemoryStream ms = new MemoryStream(imageData))
-                {
-                    SerializableImage serializableImage = new SerializableImage(System.Drawing.Image.FromStream(ms));
-                    return serializableImage;
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log the error or display an error message
-                Console.WriteLine("Error loading image: " + ex.Message);
-                return null;
-            }
-        }
+       
         private T ExecuteScalar<T>(string query, params SqlParameter[] parameters)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -504,6 +394,28 @@ namespace Essai
             else
             {
                 throw new ArgumentException("Invalid score");
+            }
+        }
+        private SerializableImage LoadImage(byte[] imageData)
+        {
+            if (imageData == null)
+            {
+                return null;
+            }
+
+            try
+            {
+                using (MemoryStream ms = new MemoryStream(imageData))
+                {
+                    SerializableImage serializableImage = new SerializableImage(System.Drawing.Image.FromStream(ms));
+                    return serializableImage;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the error or display an error message
+                Console.WriteLine("Error loading image: " + ex.Message);
+                return null;
             }
         }
     }

@@ -19,6 +19,7 @@ namespace Essai
         public ViewDeleteQuestionsForm()
         {
             InitializeComponent();
+
         }
 
         private void ViewDeleteQuestionsForm_Load(object sender, EventArgs e)
