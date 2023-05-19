@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panel_slide = new Panel();
             buttonExit = new Button();
@@ -51,6 +52,12 @@
             label2 = new Label();
             panel_main = new Panel();
             panel_cover = new Panel();
+            panel4 = new Panel();
+            label_questions = new Label();
+            label_users = new Label();
+            label_subjects = new Label();
+            pictureBox4 = new PictureBox();
+            pictureBox3 = new PictureBox();
             pictureBox2 = new PictureBox();
             panel3 = new Panel();
             label_femaleEmp = new Label();
@@ -58,12 +65,10 @@
             label_totalEmp = new Label();
             panel2 = new Panel();
             pictureBox1 = new PictureBox();
-            label5 = new Label();
-            label4 = new Label();
-            label3 = new Label();
             label1 = new Label();
             panel1 = new Panel();
             label12 = new Label();
+            guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
             panel_slide.SuspendLayout();
             panel_quiz_subMenu.SuspendLayout();
             panel_course_subMenu.SuspendLayout();
@@ -71,6 +76,9 @@
             panel_logo.SuspendLayout();
             panel_main.SuspendLayout();
             panel_cover.SuspendLayout();
+            panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -95,7 +103,7 @@
             panel_slide.Dock = DockStyle.Left;
             panel_slide.Location = new Point(0, 0);
             panel_slide.Name = "panel_slide";
-            panel_slide.Size = new Size(192, 686);
+            panel_slide.Size = new Size(192, 611);
             panel_slide.TabIndex = 0;
             // 
             // buttonExit
@@ -404,29 +412,96 @@
             panel_main.Dock = DockStyle.Fill;
             panel_main.Location = new Point(192, 0);
             panel_main.Name = "panel_main";
-            panel_main.Size = new Size(942, 686);
+            panel_main.Size = new Size(942, 611);
             panel_main.TabIndex = 1;
             // 
             // panel_cover
             // 
-            panel_cover.Controls.Add(pictureBox2);
+            panel_cover.Controls.Add(panel4);
             panel_cover.Controls.Add(panel3);
             panel_cover.Controls.Add(panel2);
             panel_cover.Controls.Add(panel1);
             panel_cover.Dock = DockStyle.Fill;
             panel_cover.Location = new Point(0, 0);
             panel_cover.Name = "panel_cover";
-            panel_cover.Size = new Size(942, 686);
+            panel_cover.Size = new Size(942, 611);
             panel_cover.TabIndex = 0;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.White;
+            panel4.Controls.Add(label_questions);
+            panel4.Controls.Add(label_users);
+            panel4.Controls.Add(label_subjects);
+            panel4.Controls.Add(pictureBox4);
+            panel4.Controls.Add(pictureBox3);
+            panel4.Controls.Add(pictureBox2);
+            panel4.Location = new Point(3, 132);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(936, 384);
+            panel4.TabIndex = 3;
+            // 
+            // label_questions
+            // 
+            label_questions.AutoSize = true;
+            label_questions.Font = new Font("Century Gothic", 14.25F, FontStyle.Italic, GraphicsUnit.Point);
+            label_questions.ForeColor = Color.Black;
+            label_questions.Location = new Point(712, 235);
+            label_questions.Name = "label_questions";
+            label_questions.Size = new Size(67, 22);
+            label_questions.TabIndex = 14;
+            label_questions.Text = "label5";
+            // 
+            // label_users
+            // 
+            label_users.AutoSize = true;
+            label_users.Font = new Font("Century Gothic", 14.25F, FontStyle.Italic, GraphicsUnit.Point);
+            label_users.ForeColor = Color.Black;
+            label_users.Location = new Point(424, 235);
+            label_users.Name = "label_users";
+            label_users.Size = new Size(67, 22);
+            label_users.TabIndex = 13;
+            label_users.Text = "label4";
+            // 
+            // label_subjects
+            // 
+            label_subjects.AutoSize = true;
+            label_subjects.Font = new Font("Century Gothic", 14.25F, FontStyle.Italic, GraphicsUnit.Point);
+            label_subjects.ForeColor = Color.Black;
+            label_subjects.Location = new Point(133, 235);
+            label_subjects.Name = "label_subjects";
+            label_subjects.Size = new Size(67, 22);
+            label_subjects.TabIndex = 12;
+            label_subjects.Text = "label3";
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(133, 119);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(100, 99);
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox4.TabIndex = 11;
+            pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(424, 119);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(100, 99);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 10;
+            pictureBox3.TabStop = false;
             // 
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(194, 201);
+            pictureBox2.Location = new Point(712, 119);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(560, 186);
+            pictureBox2.Size = new Size(93, 99);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 3;
+            pictureBox2.TabIndex = 9;
             pictureBox2.TabStop = false;
             // 
             // panel3
@@ -436,7 +511,7 @@
             panel3.Controls.Add(label_maleEmp);
             panel3.Controls.Add(label_totalEmp);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 583);
+            panel3.Location = new Point(0, 508);
             panel3.Name = "panel3";
             panel3.Size = new Size(942, 103);
             panel3.TabIndex = 2;
@@ -478,9 +553,6 @@
             // 
             panel2.BackColor = Color.Teal;
             panel2.Controls.Add(pictureBox1);
-            panel2.Controls.Add(label5);
-            panel2.Controls.Add(label4);
-            panel2.Controls.Add(label3);
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 66);
@@ -492,56 +564,23 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(806, -2);
+            pictureBox1.Location = new Point(807, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(120, 77);
+            pictureBox1.Size = new Size(106, 62);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.ForeColor = Color.White;
-            label5.Location = new Point(164, 46);
-            label5.Name = "label5";
-            label5.Size = new Size(62, 21);
-            label5.TabIndex = 3;
-            label5.Text = "Admin";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(164, 15);
-            label4.Name = "label4";
-            label4.Size = new Size(141, 21);
-            label4.TabIndex = 2;
-            label4.Text = "Lokmen ELHadhri";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(75, 46);
-            label3.Name = "label3";
-            label3.Size = new Size(47, 21);
-            label3.TabIndex = 1;
-            label3.Text = "Role:";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(51, 15);
+            label1.Location = new Point(31, 26);
             label1.Name = "label1";
-            label1.Size = new Size(91, 21);
+            label1.Size = new Size(246, 21);
             label1.TabIndex = 0;
-            label1.Text = "Welcome :";
+            label1.Text = "You Login As An Administrator";
             // 
             // panel1
             // 
@@ -565,11 +604,17 @@
             label12.TabIndex = 1;
             label12.Text = "SATE ElJEM Training Service Department";
             // 
+            // guna2Elipse1
+            // 
+            guna2Elipse1.BorderRadius = 15;
+            guna2Elipse1.TargetControl = panel4;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1134, 686);
+            BackColor = Color.White;
+            ClientSize = new Size(1134, 611);
             Controls.Add(panel_main);
             Controls.Add(panel_slide);
             MinimumSize = new Size(1150, 650);
@@ -585,6 +630,10 @@
             panel_logo.PerformLayout();
             panel_main.ResumeLayout(false);
             panel_cover.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
@@ -614,11 +663,7 @@
         private Label label_femaleEmp;
         private Label label_maleEmp;
         private Label label_totalEmp;
-        private Label label5;
-        private Label label4;
-        private Label label3;
         private Label label1;
-        private PictureBox pictureBox2;
         private PictureBox pictureBox1;
         private Label label12;
         private Button button_consultQuestions;
@@ -633,5 +678,13 @@
         private Button buttonExit;
         private Button dashboardbtn;
         private Button button_plan;
+        private Panel panel4;
+        private Label label_questions;
+        private Label label_users;
+        private Label label_subjects;
+        private PictureBox pictureBox4;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox2;
+        private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
     }
 }

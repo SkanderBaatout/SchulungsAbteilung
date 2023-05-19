@@ -205,27 +205,6 @@ namespace Essai
             }
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-            Candidats can = new Candidats();
-            can.Show();
-            this.Hide();
-        }
-
-        private void guna2CirclePictureBox6_Click(object sender, EventArgs e)
-        {
-            Candidats can = new Candidats();
-            can.Show();
-            this.Hide();
-        }
-
-        private void guna2CirclePictureBox2_Click(object sender, EventArgs e)
-        {
-            Questions obj = new Questions();
-            obj.Show();
-            this.Hide();
-        }
-
         private void deleteButton_Click(object sender, EventArgs e)
         {
             int selectedRowIndex = subjectsList.SelectedCells.Count > 0 ? subjectsList.SelectedCells[0].RowIndex : -1;
@@ -282,20 +261,5 @@ namespace Essai
             }
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            Form1 form = new Form1();
-            form.Show();
-            this.Hide();
-        }
-
-        private void descriptionTB_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-        }
     }
 }

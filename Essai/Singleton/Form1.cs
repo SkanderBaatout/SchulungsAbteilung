@@ -5,18 +5,36 @@ namespace Essai
 {
     public partial class Form1 : Form
     {
+        private readonly string _connectionString = "data source=SKANDERBAATOUT;database=quiz;integrated security=True;TrustServerCertificate=True;";
+
         private EmployeeDataAccess _employeeDataAccess;
+        private QuestionDataAccess _questionDataAccess;
+        private UserDataAccess _userDataAccess;
+        private SubjectDataAccess _subjectDataAccess;
+
+
         public Form1()
         {
             InitializeComponent();
             customizeDesign();
             _employeeDataAccess = new EmployeeDataAccess();
+            _questionDataAccess = new QuestionDataAccess(_connectionString);
+            _userDataAccess = new UserDataAccess(_connectionString);
+            _subjectDataAccess = new SubjectDataAccess(_connectionString);
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             employeeCount();
+            // Count and display the total number of questions
+            int totalQuestions = _questionDataAccess.CountQuestions();
+            label_questions.Text = $" {totalQuestions} Questions";
+            // Count and display the total number of users
+            int totalUsers = _userDataAccess.CountUsers();
+            label_users.Text = $" {totalUsers} Users";
+            int totalSubjects = _subjectDataAccess.CountSubjects();
+            label_subjects.Text = $" {totalSubjects} Trainings";
         }
 
         private void employeeCount()

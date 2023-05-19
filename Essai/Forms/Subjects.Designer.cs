@@ -219,7 +219,6 @@
             label5.Size = new Size(94, 19);
             label5.TabIndex = 36;
             label5.Text = "Description";
-            label5.Click += label5_Click;
             // 
             // descriptionTB
             // 
@@ -228,7 +227,6 @@
             descriptionTB.Name = "descriptionTB";
             descriptionTB.Size = new Size(358, 89);
             descriptionTB.TabIndex = 37;
-            descriptionTB.TextChanged += descriptionTB_TextChanged;
             // 
             // label6
             // 
