@@ -91,11 +91,11 @@
             candidatesList.DefaultCellStyle = dataGridViewCellStyle3;
             candidatesList.Dock = DockStyle.Bottom;
             candidatesList.GridColor = Color.FromArgb(231, 229, 255);
-            candidatesList.Location = new Point(0, 352);
+            candidatesList.Location = new Point(0, 365);
             candidatesList.Name = "candidatesList";
             candidatesList.RowHeadersVisible = false;
             candidatesList.RowTemplate.Height = 24;
-            candidatesList.Size = new Size(950, 298);
+            candidatesList.Size = new Size(950, 285);
             candidatesList.TabIndex = 31;
             candidatesList.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             candidatesList.ThemeStyle.AlternatingRowsStyle.Font = null;

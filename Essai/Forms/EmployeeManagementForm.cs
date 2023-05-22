@@ -1,4 +1,5 @@
 ﻿using Essai.DataAccess;
+using Essai.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,15 +14,32 @@ namespace Essai
 {
     public partial class EmployeeManagementForm : Form
     {
+        private int _currentPageNumber = 1;
+
         private readonly EmployeeDataAccess _employeeDataAccess;
 
         public EmployeeManagementForm()
         {
             InitializeComponent();
+            lblPageNumber.Visible = false;
             _employeeDataAccess = new EmployeeDataAccess();
-            dgvEmployees.DataSource = _employeeDataAccess.GetEmployees();
+            dgvEmployees.DataSource = GetEmployeesByPageNumber(_currentPageNumber, 10);
         }
+        public List<Employee> GetEmployeesByPageNumber(int pageNumber, int pageSize)
+        {
+            int startIndex = (pageNumber - 1) * pageSize;
+            return _employeeDataAccess.GetEmployees().Skip(startIndex).Take(pageSize).ToList();
+        }
+        private void UpdateDataGridView(int pageNumber)
+        {
+            _currentPageNumber = pageNumber;
+            dgvEmployees.DataSource = GetEmployeesByPageNumber(_currentPageNumber, 10);
+            int totalPages = (int)Math.Ceiling((double)_employeeDataAccess.CountEmployees() / 10);
 
+
+            lblPageNumber.Text = $"Page {_currentPageNumber} of {totalPages}";
+            lblPageNumber.Visible = true;
+        }
         private void dgvEmployees_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvEmployees.SelectedRows.Count == 1)
@@ -35,7 +53,6 @@ namespace Essai
                 btnDeleteEmployee.Enabled = false;
             }
         }
-
         private void btnAddEmployee_Click(object sender, EventArgs e)
         {
             AddEmployeeForm addEmployeeForm = new AddEmployeeForm();
@@ -47,7 +64,6 @@ namespace Essai
                 dgvEmployees.DataSource = _employeeDataAccess.GetEmployees();
             }
         }
-
         private void btnEditEmployee_Click(object sender, EventArgs e)
         {
             if (dgvEmployees.SelectedRows.Count == 1)
@@ -67,7 +83,6 @@ namespace Essai
                 }
             }
         }
-
         private void btnDeleteEmployee_Click(object sender, EventArgs e)
         {
             int employeeId = (int)dgvEmployees.SelectedRows[0].Cells["id"].Value;
@@ -99,6 +114,40 @@ namespace Essai
                 // Perform the search and show the results
                 dgvEmployees.DataSource = _employeeDataAccess.SearchEmployees(searchKeyword);
             }
+        }
+
+        private void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            UpdateDataGridView(1);
+
+        }
+
+        private void btnPrevPage_Click(object sender, EventArgs e)
+        {
+            if (_currentPageNumber > 1)
+            {
+                UpdateDataGridView(_currentPageNumber - 1);
+            }
+        }
+
+        private void btnNextPage_Click(object sender, EventArgs e)
+        {
+            int totalPages = (int)Math.Ceiling((double)_employeeDataAccess.CountEmployees() / 10);
+            if (_currentPageNumber < totalPages)
+            {
+                UpdateDataGridView(_currentPageNumber + 1);
+            }
+        }
+
+        private void btnLastPage_Click(object sender, EventArgs e)
+        {
+            int totalPages = (int)Math.Ceiling((double)_employeeDataAccess.CountEmployees() / 10);
+            UpdateDataGridView(totalPages);
+        }
+
+        private void EmployeeManagementForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

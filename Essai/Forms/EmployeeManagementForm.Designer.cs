@@ -28,17 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            components = new System.ComponentModel.Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeManagementForm));
             btnDeleteEmployee = new Guna.UI2.WinForms.Guna2Button();
             dgvEmployees = new Guna.UI2.WinForms.Guna2DataGridView();
             label4 = new Label();
@@ -46,13 +48,20 @@
             btnAddEmployee = new Guna.UI2.WinForms.Guna2Button();
             btnSearch = new Guna.UI2.WinForms.Guna2Button();
             tbSearchKeyword = new TextBox();
+            btnFirstPage = new PictureBox();
+            btnPrevPage = new PictureBox();
+            btnNextPage = new Button();
+            lblPageNumber = new Label();
+            guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
             ((System.ComponentModel.ISupportInitialize)dgvEmployees).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)btnFirstPage).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)btnPrevPage).BeginInit();
             SuspendLayout();
             // 
             // btnDeleteEmployee
             // 
             btnDeleteEmployee.BorderRadius = 15;
-            btnDeleteEmployee.CustomizableEdges = customizableEdges1;
+            btnDeleteEmployee.CustomizableEdges = customizableEdges9;
             btnDeleteEmployee.DisabledState.BorderColor = Color.DarkGray;
             btnDeleteEmployee.DisabledState.CustomBorderColor = Color.DarkGray;
             btnDeleteEmployee.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -66,7 +75,7 @@
             btnDeleteEmployee.PressedColor = Color.AntiqueWhite;
             btnDeleteEmployee.ShadowDecoration.BorderRadius = 15;
             btnDeleteEmployee.ShadowDecoration.Color = Color.Transparent;
-            btnDeleteEmployee.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnDeleteEmployee.ShadowDecoration.CustomizableEdges = customizableEdges10;
             btnDeleteEmployee.Size = new Size(196, 45);
             btnDeleteEmployee.TabIndex = 67;
             btnDeleteEmployee.Text = "Delete Employee";
@@ -74,34 +83,34 @@
             // 
             // dgvEmployees
             // 
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dgvEmployees.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvEmployees.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = Color.White;
+            dgvEmployees.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle5.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgvEmployees.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dgvEmployees.ColumnHeadersHeight = 25;
             dgvEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgvEmployees.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.White;
+            dataGridViewCellStyle6.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dgvEmployees.DefaultCellStyle = dataGridViewCellStyle6;
             dgvEmployees.Dock = DockStyle.Bottom;
             dgvEmployees.GridColor = Color.FromArgb(231, 229, 255);
-            dgvEmployees.Location = new Point(0, 149);
+            dgvEmployees.Location = new Point(0, 262);
             dgvEmployees.Name = "dgvEmployees";
             dgvEmployees.ReadOnly = true;
             dgvEmployees.RowHeadersVisible = false;
             dgvEmployees.RowTemplate.Height = 24;
-            dgvEmployees.Size = new Size(950, 501);
+            dgvEmployees.Size = new Size(950, 388);
             dgvEmployees.TabIndex = 58;
             dgvEmployees.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             dgvEmployees.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -141,7 +150,7 @@
             // btnEditEmployee
             // 
             btnEditEmployee.BorderRadius = 15;
-            btnEditEmployee.CustomizableEdges = customizableEdges3;
+            btnEditEmployee.CustomizableEdges = customizableEdges11;
             btnEditEmployee.DisabledState.BorderColor = Color.DarkGray;
             btnEditEmployee.DisabledState.CustomBorderColor = Color.DarkGray;
             btnEditEmployee.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -150,11 +159,11 @@
             btnEditEmployee.FillColor = Color.FromArgb(255, 128, 0);
             btnEditEmployee.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnEditEmployee.ForeColor = Color.White;
-            btnEditEmployee.Location = new Point(353, 78);
+            btnEditEmployee.Location = new Point(371, 78);
             btnEditEmployee.Name = "btnEditEmployee";
             btnEditEmployee.ShadowDecoration.BorderRadius = 15;
             btnEditEmployee.ShadowDecoration.Color = Color.Transparent;
-            btnEditEmployee.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnEditEmployee.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnEditEmployee.Size = new Size(195, 45);
             btnEditEmployee.TabIndex = 56;
             btnEditEmployee.Text = "Edit Employee";
@@ -163,7 +172,7 @@
             // btnAddEmployee
             // 
             btnAddEmployee.BorderRadius = 15;
-            btnAddEmployee.CustomizableEdges = customizableEdges5;
+            btnAddEmployee.CustomizableEdges = customizableEdges13;
             btnAddEmployee.DisabledState.BorderColor = Color.DarkGray;
             btnAddEmployee.DisabledState.CustomBorderColor = Color.DarkGray;
             btnAddEmployee.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -175,7 +184,7 @@
             btnAddEmployee.Name = "btnAddEmployee";
             btnAddEmployee.ShadowDecoration.BorderRadius = 15;
             btnAddEmployee.ShadowDecoration.Color = Color.Transparent;
-            btnAddEmployee.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnAddEmployee.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnAddEmployee.Size = new Size(195, 45);
             btnAddEmployee.TabIndex = 54;
             btnAddEmployee.Text = "Add Employee";
@@ -184,7 +193,7 @@
             // btnSearch
             // 
             btnSearch.BorderRadius = 15;
-            btnSearch.CustomizableEdges = customizableEdges7;
+            btnSearch.CustomizableEdges = customizableEdges15;
             btnSearch.DisabledState.BorderColor = Color.DarkGray;
             btnSearch.DisabledState.CustomBorderColor = Color.DarkGray;
             btnSearch.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -196,7 +205,7 @@
             btnSearch.Name = "btnSearch";
             btnSearch.ShadowDecoration.BorderRadius = 15;
             btnSearch.ShadowDecoration.Color = Color.Transparent;
-            btnSearch.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnSearch.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnSearch.Size = new Size(119, 29);
             btnSearch.TabIndex = 68;
             btnSearch.Text = "Search";
@@ -209,12 +218,65 @@
             tbSearchKeyword.Size = new Size(167, 27);
             tbSearchKeyword.TabIndex = 69;
             // 
+            // btnFirstPage
+            // 
+            btnFirstPage.Image = (Image)resources.GetObject("btnFirstPage.Image");
+            btnFirstPage.Location = new Point(537, 168);
+            btnFirstPage.Name = "btnFirstPage";
+            btnFirstPage.Size = new Size(50, 22);
+            btnFirstPage.SizeMode = PictureBoxSizeMode.Zoom;
+            btnFirstPage.TabIndex = 70;
+            btnFirstPage.TabStop = false;
+            btnFirstPage.Click += btnFirstPage_Click;
+            // 
+            // btnPrevPage
+            // 
+            btnPrevPage.Image = (Image)resources.GetObject("btnPrevPage.Image");
+            btnPrevPage.Location = new Point(350, 168);
+            btnPrevPage.Name = "btnPrevPage";
+            btnPrevPage.Size = new Size(50, 22);
+            btnPrevPage.SizeMode = PictureBoxSizeMode.Zoom;
+            btnPrevPage.TabIndex = 71;
+            btnPrevPage.TabStop = false;
+            btnPrevPage.Click += btnPrevPage_Click;
+            // 
+            // btnNextPage
+            // 
+            btnNextPage.BackColor = Color.LightGray;
+            btnNextPage.ForeColor = Color.Black;
+            btnNextPage.Location = new Point(419, 155);
+            btnNextPage.Name = "btnNextPage";
+            btnNextPage.Size = new Size(102, 35);
+            btnNextPage.TabIndex = 72;
+            btnNextPage.Text = "Next Page";
+            btnNextPage.UseVisualStyleBackColor = false;
+            btnNextPage.Click += btnNextPage_Click;
+            // 
+            // lblPageNumber
+            // 
+            lblPageNumber.AutoSize = true;
+            lblPageNumber.ForeColor = Color.Black;
+            lblPageNumber.Location = new Point(419, 193);
+            lblPageNumber.Name = "lblPageNumber";
+            lblPageNumber.Size = new Size(54, 20);
+            lblPageNumber.TabIndex = 73;
+            lblPageNumber.Text = "label1";
+            // 
+            // guna2Elipse1
+            // 
+            guna2Elipse1.BorderRadius = 15;
+            guna2Elipse1.TargetControl = btnNextPage;
+            // 
             // EmployeeManagementForm
             // 
             AutoScaleDimensions = new SizeF(10F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(lblPageNumber);
+            Controls.Add(btnNextPage);
+            Controls.Add(btnPrevPage);
+            Controls.Add(btnFirstPage);
             Controls.Add(tbSearchKeyword);
             Controls.Add(btnSearch);
             Controls.Add(btnDeleteEmployee);
@@ -228,7 +290,10 @@
             Name = "EmployeeManagementForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "EmployeeManagementForm";
+            Load += EmployeeManagementForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvEmployees).EndInit();
+            ((System.ComponentModel.ISupportInitialize)btnFirstPage).EndInit();
+            ((System.ComponentModel.ISupportInitialize)btnPrevPage).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -241,5 +306,10 @@
         private Guna.UI2.WinForms.Guna2Button btnAddEmployee;
         private Guna.UI2.WinForms.Guna2Button btnSearch;
         private TextBox tbSearchKeyword;
+        private PictureBox btnFirstPage;
+        private PictureBox btnPrevPage;
+        private Button btnNextPage;
+        private Label lblPageNumber;
+        private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
     }
 }

@@ -134,7 +134,62 @@ namespace Essai.DataAccess
 
             return content;
         }
-        public async Task<List<Content>> GetContentsBySubjectIdAsync(int subjectId)
+        public List<Subject> GetActiveSubjectList()
+        {
+            string query = @"SELECT st.*, ct.ContentId, ct.ContentTitle, ct.ContentData
+                 FROM SubjectTbl st
+                 LEFT JOIN ContentTbl ct ON st.SId = ct.SubjectId
+                 WHERE st.IsActive = 1";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                List<Subject> subjects = new List<Subject>();
+
+                while (reader.Read())
+                {
+                    int id = (int)reader["SId"];
+                    string name = (string)reader["SName"];
+                    string description = (string)reader["Description"];
+                    string contentType = (string)reader["ContentType"];
+                    DateTime dateAdded = (DateTime)reader["DateAdded"];
+                    bool isActive = (bool)reader["IsActive"];
+
+                    Content content = null;
+                    if (!reader.IsDBNull(reader.GetOrdinal("ContentTitle")))
+                    {
+                        content = new Content
+                        {
+                            ContentId = reader.IsDBNull(reader.GetOrdinal("ContentId")) ? 0 : (int)reader["ContentId"],
+                            SubjectId = id,
+                            ContentType = (string)reader["ContentType"],
+                            ContentTitle = (string)reader["ContentTitle"],
+                            ContentData = (byte[])reader["ContentData"],
+                            DateAdded = (DateTime)reader["DateAdded"]
+                        };
+                    }
+
+                    Subject subject = new Subject
+                    {
+                        Id = id,
+                        Name = name,
+                        Description = description,
+                        ContentType = contentType,
+                        DateAdded = dateAdded,
+                        IsActive = isActive,
+                        Content = content
+                    };
+                    subjects.Add(subject);
+                
+                }
+
+            return subjects;
+        }
+    }
+    public async Task<List<Content>> GetContentsBySubjectIdAsync(int subjectId)
         {
             List<Content> contents = new List<Content>();
 
@@ -362,7 +417,7 @@ namespace Essai.DataAccess
                 return count > 0;
             }
         }
-        public List<Content> GetMediaContentList(string query)
+        public List<Content> GetMediaContentList(int subjectId, string contentTypeFilter)
         {
             List<Content> contentList = new List<Content>();
 
@@ -370,16 +425,30 @@ namespace Essai.DataAccess
             {
                 connection.Open();
 
+                string query = "SELECT ContentType, ContentTitle, ContentData FROM ContentTbl " +
+                               "WHERE SubjectId = @SubjectId";
+
+                if (contentTypeFilter != "All")
+                {
+                    query += " AND ContentType = @ContentType";
+                }
+
                 SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@SubjectId", subjectId);
+
+                if (contentTypeFilter != "All")
+                {
+                    command.Parameters.AddWithValue("@ContentType", contentTypeFilter);
+                }
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         Content content = new Content();
-                        content.SubjectId = reader.GetInt32(0);
-                        content.ContentType = reader.GetString(1);
-                        content.ContentTitle = reader.GetString(2);
+                        content.SubjectId = subjectId;
+                        content.ContentType = reader.GetString(0);
+                        content.ContentTitle = reader.GetString(1);
                         content.ContentData = (byte[])reader["ContentData"];
                         contentList.Add(content);
                     }

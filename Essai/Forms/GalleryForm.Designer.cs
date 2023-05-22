@@ -28,190 +28,173 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges37 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges38 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges39 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges40 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            ListViewContents = new ListView();
-            ButtonDelete = new Guna.UI2.WinForms.Guna2Button();
-            ButtonAdd = new Guna.UI2.WinForms.Guna2Button();
-            pictureBoxImage = new PictureBox();
+            components = new System.ComponentModel.Container();
+            mediaContentDataGridView = new DataGridView();
             label1 = new Label();
-            ButtonEdit = new Guna.UI2.WinForms.Guna2Button();
-            ButtonView = new Guna.UI2.WinForms.Guna2Button();
-            buttonChangeFile = new Guna.UI2.WinForms.Guna2Button();
-            comboBox = new ComboBox();
-            this.tableLayoutPanel = new TableLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxImage).BeginInit();
-            this.tableLayoutPanel.SuspendLayout();
+            subjectNameFilterTB = new TextBox();
+            contentTypeCB = new ComboBox();
+            totalRecordsLabel = new Label();
+            currentPageLabel = new Label();
+            numericUpDown1 = new NumericUpDown();
+            applyFiltersButton = new Button();
+            nextPageButton = new Button();
+            ContentButton = new Button();
+            previousPageButton = new Button();
+            flowLayoutPanel = new FlowLayoutPanel();
+            pictureBox = new PictureBox();
+            tableLayoutPanel = new TableLayoutPanel();
+            subjectPanel = new Panel();
+            guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
+            ((System.ComponentModel.ISupportInitialize)mediaContentDataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            flowLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             SuspendLayout();
             // 
-            // ListViewContents
+            // mediaContentDataGridView
             // 
-            ListViewContents.Location = new Point(478, 3);
-            ListViewContents.Name = "ListViewContents";
-            ListViewContents.Size = new Size(469, 193);
-            ListViewContents.TabIndex = 0;
-            ListViewContents.UseCompatibleStateImageBehavior = false;
-            ListViewContents.SelectedIndexChanged += ListViewContents_SelectedIndexChanged;
-            // 
-            // ButtonDelete
-            // 
-            ButtonDelete.BorderRadius = 15;
-            ButtonDelete.CustomizableEdges = customizableEdges31;
-            ButtonDelete.DisabledState.BorderColor = Color.DarkGray;
-            ButtonDelete.DisabledState.CustomBorderColor = Color.DarkGray;
-            ButtonDelete.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            ButtonDelete.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            ButtonDelete.FillColor = Color.OrangeRed;
-            ButtonDelete.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            ButtonDelete.ForeColor = Color.White;
-            ButtonDelete.Location = new Point(506, 176);
-            ButtonDelete.Name = "ButtonDelete";
-            ButtonDelete.PressedColor = Color.AntiqueWhite;
-            ButtonDelete.ShadowDecoration.BorderRadius = 15;
-            ButtonDelete.ShadowDecoration.Color = Color.Transparent;
-            ButtonDelete.ShadowDecoration.CustomizableEdges = customizableEdges32;
-            ButtonDelete.Size = new Size(167, 45);
-            ButtonDelete.TabIndex = 46;
-            ButtonDelete.Text = "Delete";
-            ButtonDelete.Click += ButtonDelete_Click;
-            // 
-            // ButtonAdd
-            // 
-            ButtonAdd.BorderRadius = 15;
-            ButtonAdd.CustomizableEdges = customizableEdges33;
-            ButtonAdd.DisabledState.BorderColor = Color.DarkGray;
-            ButtonAdd.DisabledState.CustomBorderColor = Color.DarkGray;
-            ButtonAdd.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            ButtonAdd.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            ButtonAdd.FillColor = Color.Teal;
-            ButtonAdd.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            ButtonAdd.ForeColor = Color.White;
-            ButtonAdd.Location = new Point(110, 176);
-            ButtonAdd.Name = "ButtonAdd";
-            ButtonAdd.ShadowDecoration.BorderRadius = 15;
-            ButtonAdd.ShadowDecoration.Color = Color.Transparent;
-            ButtonAdd.ShadowDecoration.CustomizableEdges = customizableEdges34;
-            ButtonAdd.Size = new Size(167, 45);
-            ButtonAdd.TabIndex = 45;
-            ButtonAdd.Text = "Add";
-            ButtonAdd.Click += ButtonAdd_Click;
-            // 
-            // pictureBoxImage
-            // 
-            pictureBoxImage.Location = new Point(3, 202);
-            pictureBoxImage.Name = "pictureBoxImage";
-            pictureBoxImage.Size = new Size(469, 133);
-            pictureBoxImage.TabIndex = 47;
-            pictureBoxImage.TabStop = false;
+            mediaContentDataGridView.BackgroundColor = Color.Gainsboro;
+            mediaContentDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            mediaContentDataGridView.Location = new Point(558, 141);
+            mediaContentDataGridView.Name = "mediaContentDataGridView";
+            mediaContentDataGridView.RowTemplate.Height = 25;
+            mediaContentDataGridView.Size = new Size(380, 348);
+            mediaContentDataGridView.TabIndex = 0;
+            mediaContentDataGridView.CellContentDoubleClick += mediaContentDataGridView_CellContentDoubleClick;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Century Gothic", 27.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.Teal;
-            label1.Location = new Point(29, 9);
+            label1.Location = new Point(624, 12);
             label1.Name = "label1";
-            label1.Size = new Size(248, 44);
-            label1.TabIndex = 48;
-            label1.Text = "Gallery Form";
+            label1.Size = new Size(57, 21);
+            label1.TabIndex = 1;
+            label1.Text = "label1";
             // 
-            // ButtonEdit
+            // subjectNameFilterTB
             // 
-            ButtonEdit.BorderRadius = 15;
-            ButtonEdit.CustomizableEdges = customizableEdges35;
-            ButtonEdit.DisabledState.BorderColor = Color.DarkGray;
-            ButtonEdit.DisabledState.CustomBorderColor = Color.DarkGray;
-            ButtonEdit.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            ButtonEdit.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            ButtonEdit.FillColor = Color.FromArgb(255, 128, 0);
-            ButtonEdit.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            ButtonEdit.ForeColor = Color.White;
-            ButtonEdit.Location = new Point(311, 176);
-            ButtonEdit.Name = "ButtonEdit";
-            ButtonEdit.ShadowDecoration.BorderRadius = 15;
-            ButtonEdit.ShadowDecoration.Color = Color.Transparent;
-            ButtonEdit.ShadowDecoration.CustomizableEdges = customizableEdges36;
-            ButtonEdit.Size = new Size(167, 45);
-            ButtonEdit.TabIndex = 50;
-            ButtonEdit.Text = "Edit";
-            ButtonEdit.Click += ButtonEdit_Click;
+            subjectNameFilterTB.Location = new Point(687, 12);
+            subjectNameFilterTB.Name = "subjectNameFilterTB";
+            subjectNameFilterTB.Size = new Size(100, 27);
+            subjectNameFilterTB.TabIndex = 2;
             // 
-            // ButtonView
+            // contentTypeCB
             // 
-            ButtonView.BorderRadius = 15;
-            ButtonView.CustomizableEdges = customizableEdges37;
-            ButtonView.DisabledState.BorderColor = Color.DarkGray;
-            ButtonView.DisabledState.CustomBorderColor = Color.DarkGray;
-            ButtonView.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            ButtonView.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            ButtonView.FillColor = Color.DarkTurquoise;
-            ButtonView.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            ButtonView.ForeColor = Color.White;
-            ButtonView.Location = new Point(695, 176);
-            ButtonView.Name = "ButtonView";
-            ButtonView.ShadowDecoration.BorderRadius = 15;
-            ButtonView.ShadowDecoration.Color = Color.Transparent;
-            ButtonView.ShadowDecoration.CustomizableEdges = customizableEdges38;
-            ButtonView.Size = new Size(167, 45);
-            ButtonView.TabIndex = 49;
-            ButtonView.Text = "View";
-            ButtonView.Click += ButtonView_Click;
+            contentTypeCB.FormattingEnabled = true;
+            contentTypeCB.Location = new Point(156, 8);
+            contentTypeCB.Name = "contentTypeCB";
+            contentTypeCB.Size = new Size(143, 29);
+            contentTypeCB.TabIndex = 3;
             // 
-            // buttonChangeFile
+            // totalRecordsLabel
             // 
-            buttonChangeFile.BorderRadius = 15;
-            buttonChangeFile.CustomizableEdges = customizableEdges39;
-            buttonChangeFile.DisabledState.BorderColor = Color.DarkGray;
-            buttonChangeFile.DisabledState.CustomBorderColor = Color.DarkGray;
-            buttonChangeFile.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            buttonChangeFile.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            buttonChangeFile.FillColor = Color.CadetBlue;
-            buttonChangeFile.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonChangeFile.ForeColor = Color.White;
-            buttonChangeFile.Location = new Point(659, 79);
-            buttonChangeFile.Name = "buttonChangeFile";
-            buttonChangeFile.ShadowDecoration.BorderRadius = 15;
-            buttonChangeFile.ShadowDecoration.Color = Color.Transparent;
-            buttonChangeFile.ShadowDecoration.CustomizableEdges = customizableEdges40;
-            buttonChangeFile.Size = new Size(158, 35);
-            buttonChangeFile.TabIndex = 51;
-            buttonChangeFile.Text = "Change File";
-            buttonChangeFile.Click += buttonChangeFile_Click;
+            totalRecordsLabel.AutoSize = true;
+            totalRecordsLabel.Location = new Point(64, 11);
+            totalRecordsLabel.Name = "totalRecordsLabel";
+            totalRecordsLabel.Size = new Size(57, 21);
+            totalRecordsLabel.TabIndex = 4;
+            totalRecordsLabel.Text = "label2";
             // 
-            // comboBox
+            // currentPageLabel
             // 
-            comboBox.FormattingEnabled = true;
-            comboBox.Items.AddRange(new object[] { "All", "Video", "Image", "Audio" });
-            comboBox.Location = new Point(3, 3);
-            comboBox.Name = "comboBox";
-            comboBox.Size = new Size(146, 29);
-            comboBox.TabIndex = 52;
-            comboBox.SelectedIndexChanged += comboBox_SelectedIndexChanged;
+            currentPageLabel.AutoSize = true;
+            currentPageLabel.Location = new Point(359, 497);
+            currentPageLabel.Name = "currentPageLabel";
+            currentPageLabel.Size = new Size(57, 21);
+            currentPageLabel.TabIndex = 5;
+            currentPageLabel.Text = "label3";
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Location = new Point(511, 496);
+            numericUpDown1.Margin = new Padding(4);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(120, 27);
+            numericUpDown1.TabIndex = 6;
+            // 
+            // applyFiltersButton
+            // 
+            applyFiltersButton.BackColor = Color.Teal;
+            applyFiltersButton.ForeColor = Color.White;
+            applyFiltersButton.Location = new Point(305, 9);
+            applyFiltersButton.Name = "applyFiltersButton";
+            applyFiltersButton.Size = new Size(111, 28);
+            applyFiltersButton.TabIndex = 7;
+            applyFiltersButton.Text = "Filter";
+            applyFiltersButton.UseVisualStyleBackColor = false;
+            applyFiltersButton.Click += applyFiltersButton_Click;
+            // 
+            // nextPageButton
+            // 
+            nextPageButton.Location = new Point(570, 530);
+            nextPageButton.Name = "nextPageButton";
+            nextPageButton.Size = new Size(75, 29);
+            nextPageButton.TabIndex = 8;
+            nextPageButton.Text = "Next";
+            nextPageButton.UseVisualStyleBackColor = true;
+            nextPageButton.Click += nextPageButton_Click;
+            // 
+            // ContentButton
+            // 
+            ContentButton.Location = new Point(848, 10);
+            ContentButton.Name = "ContentButton";
+            ContentButton.Size = new Size(90, 29);
+            ContentButton.TabIndex = 9;
+            ContentButton.Text = "button3";
+            ContentButton.UseVisualStyleBackColor = true;
+            ContentButton.Click += ContentButton_Click;
+            // 
+            // previousPageButton
+            // 
+            previousPageButton.Location = new Point(477, 530);
+            previousPageButton.Name = "previousPageButton";
+            previousPageButton.Size = new Size(75, 29);
+            previousPageButton.TabIndex = 10;
+            previousPageButton.Text = "Previous";
+            previousPageButton.UseVisualStyleBackColor = true;
+            previousPageButton.Click += previousPageButton_Click;
+            // 
+            // flowLayoutPanel
+            // 
+            flowLayoutPanel.Controls.Add(pictureBox);
+            flowLayoutPanel.Location = new Point(264, 341);
+            flowLayoutPanel.Name = "flowLayoutPanel";
+            flowLayoutPanel.Size = new Size(288, 148);
+            flowLayoutPanel.TabIndex = 11;
+            // 
+            // pictureBox
+            // 
+            pictureBox.Location = new Point(3, 3);
+            pictureBox.Name = "pictureBox";
+            pictureBox.Size = new Size(274, 103);
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox.TabIndex = 0;
+            pictureBox.TabStop = false;
             // 
             // tableLayoutPanel
             // 
-            this.tableLayoutPanel.ColumnCount = 2;
-            this.tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            this.tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            this.tableLayoutPanel.Controls.Add(ListViewContents, 1, 0);
-            this.tableLayoutPanel.Controls.Add(comboBox, 0, 0);
-            this.tableLayoutPanel.Controls.Add(pictureBoxImage, 0, 1);
-            this.tableLayoutPanel.Dock = DockStyle.Bottom;
-            this.tableLayoutPanel.Location = new Point(0, 251);
-            this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 2;
-            this.tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            this.tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            this.tableLayoutPanel.Size = new Size(950, 399);
-            this.tableLayoutPanel.TabIndex = 53;
+            tableLayoutPanel.ColumnCount = 2;
+            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel.Location = new Point(45, 93);
+            tableLayoutPanel.Name = "tableLayoutPanel";
+            tableLayoutPanel.RowCount = 2;
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel.Size = new Size(496, 230);
+            tableLayoutPanel.TabIndex = 12;
+            // 
+            // subjectPanel
+            // 
+            subjectPanel.Location = new Point(32, 407);
+            subjectPanel.Name = "subjectPanel";
+            subjectPanel.Size = new Size(225, 152);
+            subjectPanel.TabIndex = 13;
+            // 
+            // guna2Elipse1
+            // 
+            guna2Elipse1.BorderRadius = 15;
+            guna2Elipse1.TargetControl = applyFiltersButton;
             // 
             // GalleryForm
             // 
@@ -219,36 +202,52 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
-            Controls.Add(this.tableLayoutPanel);
-            Controls.Add(buttonChangeFile);
-            Controls.Add(ButtonEdit);
-            Controls.Add(ButtonView);
+            Controls.Add(subjectPanel);
+            Controls.Add(flowLayoutPanel);
+            Controls.Add(tableLayoutPanel);
+            Controls.Add(previousPageButton);
+            Controls.Add(ContentButton);
+            Controls.Add(nextPageButton);
+            Controls.Add(applyFiltersButton);
+            Controls.Add(numericUpDown1);
+            Controls.Add(currentPageLabel);
+            Controls.Add(totalRecordsLabel);
+            Controls.Add(contentTypeCB);
+            Controls.Add(subjectNameFilterTB);
             Controls.Add(label1);
-            Controls.Add(ButtonDelete);
-            Controls.Add(ButtonAdd);
+            Controls.Add(mediaContentDataGridView);
             Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
             Name = "GalleryForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "GalleryForm";
-            ((System.ComponentModel.ISupportInitialize)pictureBoxImage).EndInit();
-            this.tableLayoutPanel.ResumeLayout(false);
+            Load += GalleryForm_Load;
+            ((System.ComponentModel.ISupportInitialize)mediaContentDataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            flowLayoutPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private ListView ListViewContents;
-        private Guna.UI2.WinForms.Guna2Button ButtonDelete;
-        private Guna.UI2.WinForms.Guna2Button ButtonAdd;
-        private PictureBox pictureBoxImage;
+        private DataGridView mediaContentDataGridView;
         private Label label1;
-        private Guna.UI2.WinForms.Guna2Button ButtonEdit;
-        private Guna.UI2.WinForms.Guna2Button ButtonView;
-        private Guna.UI2.WinForms.Guna2Button buttonChangeFile;
-        private ComboBox comboBox;
+        private TextBox subjectNameFilterTB;
+        private ComboBox contentTypeCB;
+        private Label totalRecordsLabel;
+        private Label currentPageLabel;
+        private NumericUpDown numericUpDown1;
+        private Button applyFiltersButton;
+        private Button nextPageButton;
+        private Button ContentButton;
+        private Button previousPageButton;
+        private FlowLayoutPanel flowLayoutPanel;
+        private PictureBox pictureBox;
         private TableLayoutPanel tableLayoutPanel;
+        private Panel subjectPanel;
+        private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
     }
 }

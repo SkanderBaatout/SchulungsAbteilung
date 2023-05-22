@@ -1,373 +1,301 @@
 ﻿using Essai.DataAccess;
 using Essai.Models;
-using Microsoft.VisualBasic;
-using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Office.Interop.Word;
+using System.IO;
+using System.Linq;
+using DocumentFormat.OpenXml.Math;
+using WMPLib;
+
 
 namespace Essai.Forms
 {
     public partial class GalleryForm : Form
     {
-        private readonly SubjectDataAccess _subjectDataAccess;
-        private readonly int _subjectId;
-        private List<Content> _contents;
-        private ListView listViewContents;
-        private PictureBox pictureBoxContent;
-        private Button buttonAdd;
-        private Button buttonView;
-        private Button buttonEdit;
-        private Button buttonDelete;
-        private int _pageSize = 10;
-        private int _currentPage = 1;
 
-        public GalleryForm(SubjectDataAccess subjectDataAccess, int subjectId)
+        private readonly SubjectDataAccess subjectDataAccess;
+
+        private int currentPage = 1;
+        private int pageSize = 10;
+        private int totalRecords = 0;
+        private int totalPages = 0;
+        public GalleryForm()
         {
             InitializeComponent();
+            subjectDataAccess = new SubjectDataAccess("data source = SKANDERBAATOUT;database = quiz ;integrated security = True ; TrustServerCertificate=True");
 
-            _subjectDataAccess = subjectDataAccess;
-            _subjectId = subjectId;
+            // Populate the ContentType filter ComboBox with the available content types
+            contentTypeCB.Items.Add("All");
+            contentTypeCB.Items.Add("Docs");
+            contentTypeCB.Items.Add("Images");
+            contentTypeCB.Items.Add("Videos");
+            contentTypeCB.Items.Add("Other");
+            contentTypeCB.SelectedIndex = 0;
 
-
-            _contents = new List<Content>();
-
-            // Create the controls
-            listViewContents = new ListView
-            {
-                View = View.Details,
-                FullRowSelect = true,
-                HideSelection = false,
-                MultiSelect = false,
-                Dock = DockStyle.Fill
-            };
-            buttonAdd = new Button();
-            buttonEdit = new Button();
-            buttonDelete = new Button();
-            buttonView = new Button();
-
-
-            listViewContents.Columns.Add("Type", 100);
-            listViewContents.Columns.Add("Title", 200);
-            listViewContents.Columns.Add("Date Added", 120);
-            listViewContents.SelectedIndexChanged += ListViewContents_SelectedIndexChanged;
-
-            comboBox.SelectedIndexChanged += comboBox_SelectedIndexChanged;
-
-           
-            buttonAdd.Click += ButtonAdd_Click;
-
-           
-            buttonView.Click += ButtonView_Click;
-
-           
-            buttonEdit.Click += ButtonEdit_Click;
-
-            buttonChangeFile.Click += buttonChangeFile_Click;
-
-          
-            buttonDelete.Click += ButtonDelete_Click;
-
-            // Add the controls to the form
-            Controls.Add(tableLayoutPanel);
-            Controls.Add(buttonAdd);
-            Controls.Add(buttonView);
-            Controls.Add(buttonEdit);
-            Controls.Add(buttonChangeFile);
-            Controls.Add(buttonDelete);
-
-            // Load the contents
-            LoadContents();
+            RefreshDataGridView();
         }
-
-        private async void LoadContents()
+        private void RefreshDataGridView()
         {
-            try
+            // Get the filter values from the controls
+            string subjectNameFilter = subjectNameFilterTB.Text.Trim();
+            string contentTypeFilter = contentTypeCB.SelectedItem.ToString();
+
+            // Retrieve the media content data from the database
+            List<Content> mediaContentList = new List<Content>();
+
+            if (!string.IsNullOrWhiteSpace(subjectNameFilter))
             {
-                _contents = await _subjectDataAccess.GetContentsBySubjectIdAsync(_subjectId);
+                // Retrieve the subject ID by name
+                Subject subject = subjectDataAccess.GetSubjectByName(subjectNameFilter);
 
-                // Clear the ListView to avoid duplicates
-                listViewContents.Items.Clear();
-
-                // Add each content item to the ListView
-                foreach (var content in _contents)
+                if (subject != null && subject.IsActive)
                 {
-                    var item = new ListViewItem(new[] { content.ContentType, content.ContentTitle, content.DateAdded.ToString() });
-                    item.Tag = content;
-                    listViewContents.Items.Add(item);
+                    // Retrieve the media content for the subject and content type filter
+                    mediaContentList = subjectDataAccess.GetMediaContentList(subject.Id, contentTypeFilter);
                 }
-                // Update the filter ComboBox
-                UpdateFilterComboBox();
-
-                // Update the navigation buttons
-                UpdateNavigationButtons();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred while loading the contents: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void UpdateFilterComboBox()
-        {
-            // Get the distinct content types
-            var contentTypes = _contents.Select(c => c.ContentType).Distinct().ToList();
-
-            // Update the filter ComboBox
-            comboBox.SelectedIndex = -1;
-            comboBox.Items[0] = $"All ({_contents.Count})";
-            for (int i = 1; i < comboBox.Items.Count; i++)
-            {
-                var contentType = comboBox.Items[i].ToString();
-                var count = _contents.Count(c => c.ContentType.StartsWith(contentType));
-                comboBox.Items[i] = $"{contentType} ({count})";
-            }
-        }
-
-        private void UpdateNavigationButtons()
-        {
-            // Enable or disable the navigation buttons based on the current page and pageSize
-            buttonView.Enabled = listViewContents.SelectedItems.Count > 0;
-            buttonEdit.Enabled = listViewContents.SelectedItems.Count > 0;
-            buttonChangeFile.Enabled = listViewContents.SelectedItems.Count > 0;
-            buttonDelete.Enabled = listViewContents.SelectedItems.Count > 0;
-
-            var pageCount = (int)Math.Ceiling((double)_contents.Count / _pageSize);
-            var startIndex = (_currentPage - 1) * _pageSize + 1;
-            var endIndex = Math.Min(startIndex + _pageSize - 1, _contents.Count);
-            var count = endIndex - startIndex + 1;
-
-            buttonView.Text = $"View ({count})";
-            buttonEdit.Text = $"Edit ({count})";
-            buttonChangeFile.Text = $"Change File ({count})";
-            buttonDelete.Text = $"Delete ({count})";
-
-            buttonView.Enabled = buttonView.Enabled && _currentPage <= pageCount;
-            buttonEdit.Enabled = buttonEdit.Enabled && _currentPage <= pageCount;
-            buttonChangeFile.Enabled = buttonChangeFile.Enabled && _currentPage <= pageCount;
-            buttonDelete.Enabled = buttonDelete.Enabled && _currentPage <= pageCount;
-        }
-
-        private void ListViewContents_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listViewContents.SelectedItems.Count > 0)
-            {
-                var selectedContent = (Content)listViewContents.SelectedItems[0].Tag;
-
-                // Check if the selected content is an audio file
-                if (selectedContent.ContentType.StartsWith("audio"))
-                {
-                    // Use Naudio to play the audio file
-                    using (var audioStream = new MemoryStream(selectedContent.ContentData))
-                    {
-                        var waveOut = new WaveOut();
-                        var waveStream = new WaveFileReader(audioStream);
-                        waveOut.Init(waveStream);
-                        waveOut.Play();
-                    }
-                }
-                else if (selectedContent.ContentType.StartsWith("video"))
-                {
-                    // Use another library to play the video file
-                }
-                else if (selectedContent.ContentType.StartsWith("image"))
-                {
-                    // Use a PictureBox or other control to display the image file
-                    // For example, you can use the following code to display a PNG or JPG image:
-                    var imageStream = new MemoryStream(selectedContent.ContentData);
-                    var image = Image.FromStream(imageStream);
-                    pictureBoxContent.Image = image;
-                }
-
-                // Update the navigation buttons
-                UpdateNavigationButtons();
             }
             else
             {
-                // Clear the multimedia display if no content is selected
-                pictureBoxContent.Image = null;
-
-                // Update the navigation buttons
-                UpdateNavigationButtons();
-            }
-        }
-
-
-
-        private void ButtonAdd_Click(object sender, EventArgs e)
-        {
-            // Create an OpenFileDialog to select a multimedia file
-            var openFileDialog = new OpenFileDialog
-            {
-                Filter = "Multimedia Files (*.mp3;*.mp4;*.png;*.jpg)|*.mp3;*.mp4;*.png;*.jpg",
-                Title = "Select a multimedia file"
-            };
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                // Read the file contents as a byte array
-                var contentData = System.IO.File.ReadAllBytes(openFileDialog.FileName);
-
-                // Create a new Content object with the selected file
-                var contentType = Path.GetExtension(openFileDialog.FileName).ToLower();
-                var contentTitle = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
-                var content = new Content
+                // Retrieve all active subjects and their media content for the content type filter
+                List<Subject> subjectList = subjectDataAccess.GetActiveSubjectList();
+                foreach (Subject subject in subjectList)
                 {
-                    ContentType = contentType,
-                    ContentTitle = contentTitle,
-                    ContentData = contentData,
-                    DateAdded = DateTime.Now,
-                    SubjectId = _subjectId
-                };
-
-                try
-                {
-                    // Save the new content to the database
-                    _subjectDataAccess.InsertContent(content);
-
-                    // Add the new content to the list and select it
-                    _contents.Add(content);
-                    var item = new ListViewItem(new[] { content.ContentType, content.ContentTitle, content.DateAdded.ToString() });
-                    item.Tag = content;
-                    listViewContents.Items.Add(item);
-                    listViewContents.Items[listViewContents.Items.Count - 1].Selected = true;
-
-                    // Update the filter ComboBox
-                    UpdateFilterComboBox();
-
-                    // Update the navigation buttons
-                    UpdateNavigationButtons();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred while adding the content: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-        private async void ButtonDelete_Click(object sender, EventArgs e)
-        {
-            // Confirm with the user before deleting the selected content
-            var confirmResult = MessageBox.Show("Are you sure you want to delete this content?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (confirmResult == DialogResult.Yes)
-            {
-                try
-                {
-                    var selectedContent = (Content)listViewContents.SelectedItems[0].Tag;
-
-                    // Delete the selected content from the database
-                    await _subjectDataAccess.DeleteContentByIdAsync(selectedContent.ContentId);
-
-                    // Remove the selected content from the list and clear the multimedia display
-                    _contents.Remove(selectedContent);
-                    listViewContents.Items.Remove(listViewContents.SelectedItems[0]);
-                    pictureBoxContent.Image = null;
-
-                    // Update the filter ComboBox
-                    UpdateFilterComboBox();
-
-                    // Update the navigation buttons
-                    UpdateNavigationButtons();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred while deleting the content: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void ButtonEdit_Click(object sender, EventArgs e)
-        {
-            var selectedContent = (Content)listViewContents.SelectedItems[0].Tag;
-
-            // Allow the user to edit the title of the selected content
-            var newTitle = Interaction.InputBox("Enter a new title for the content:", "Edit Title", selectedContent.ContentTitle);
-            if (!string.IsNullOrEmpty(newTitle))
-            {
-                try
-                {
-                    // Update the title of the selected content in the database
-                    selectedContent.ContentTitle = newTitle;
-                    _subjectDataAccess.UpdateContent(selectedContent);
-
-                    // Update the title of the selected content in the list
-                    listViewContents.SelectedItems[0].SubItems[1].Text = newTitle;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred while editing the content: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    List<Content> contentList = subjectDataAccess.GetMediaContentList(subject.Id, contentTypeFilter);
+                    mediaContentList.AddRange(contentList);
                 }
             }
 
+            // Filter the media content list based on the current page and page sizeContinuing from the previous answer, here's the updated code to filter the media content list based on the current page and page size, and to update the paging controls:
+
+            // Filter the media content list based on the current page and page size
+            totalRecords = mediaContentList.Count;
+            totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+            int startIndex = (currentPage - 1) * pageSize;
+            int endIndex = Math.Min(startIndex + pageSize, totalRecords);
+            mediaContentList = mediaContentList.GetRange(startIndex, endIndex - startIndex);
+
+            // Clear the existing controls from the TableLayoutPanel
+            tableLayoutPanel.Controls.Clear();
+
+            // Set the number of rows and columns in the TableLayoutPanel
+            tableLayoutPanel.ColumnCount = 3;
+            tableLayoutPanel.RowCount = 2;
+
+            // Set the size of each cell in the TableLayoutPanel
+            int cellWidth = (tableLayoutPanel.ClientSize.Width - tableLayoutPanel.Margin.Horizontal) / tableLayoutPanel.ColumnCount;
+            int cellHeight = (tableLayoutPanel.ClientSize.Height - tableLayoutPanel.Margin.Vertical) / tableLayoutPanel.RowCount;
+            tableLayoutPanel.ColumnStyles.Clear();
+            tableLayoutPanel.RowStyles.Clear();
+            for (int i = 0; i < tableLayoutPanel.ColumnCount; i++)
+            {
+                tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, cellWidth));
+            }
+            for (int i = 0; i < tableLayoutPanel.RowCount; i++)
+            {
+                tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, cellHeight));
+            }
+
+            // Add anew control for each content item
+            int row = 0;
+            int col = 0;
+            foreach (Content content in mediaContentList)
+            {
+                if (content.ContentType == "Images")
+                {
+                    // Create a new PictureBox control to display the image
+                    PictureBox pictureBox = new PictureBox();
+                    pictureBox.Dock = DockStyle.Fill;
+                    pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                    pictureBox.Image = Image.FromStream(new MemoryStream(content.ContentData));
+                    tableLayoutPanel.Controls.Add(pictureBox, col, row);
+                }
+                else
+                {
+                    // Create a new Button control with the content title as the text
+                    Button button = new Button();
+                    button.Text = content.ContentTitle;
+                    button.Tag = content;
+                    button.Click += ContentButton_Click;
+                    tableLayoutPanel.Controls.Add(button, col, row);
+                }
+
+
+                // Increment the row and column counters
+                col++;
+                if (col == tableLayoutPanel.ColumnCount)
+                {
+                    col = 0;
+                    row++;
+                }
+            }
+
+            // Update the paging controls
+            currentPageLabel.Text = "Page " + currentPage + " of " + totalPages;
+            totalRecordsLabel.Text = "Total records: " + totalRecords;
+            previousPageButton.Enabled = currentPage > 1;
+            nextPageButton.Enabled = currentPage < totalPages;
+        }
+        private void GalleryForm_Load(object sender, EventArgs e)
+        {
+
         }
 
-        private void ButtonView_Click(object sender, EventArgs e)
+        private void applyFiltersButton_Click(object sender, EventArgs e)
         {
-            if (listViewContents.SelectedItems.Count > 0)
+            // Reset the current page to 1 when filters are applied
+            currentPage = 1;
+
+            RefreshDataGridView();
+        }
+
+        private void nextPageButton_Click(object sender, EventArgs e)
+        {
+            // Moveto the next page
+            currentPage++;
+
+            RefreshDataGridView();
+        }
+
+        private void previousPageButton_Click(object sender, EventArgs e)
+        {
+            // Move to the previous page
+            currentPage--;
+
+            RefreshDataGridView();
+        }
+
+        private void mediaContentDataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
             {
-                var selectedContent = (Content)listViewContents.SelectedItems[0].Tag;
+                DataGridViewRow row = mediaContentDataGridView.Rows[e.RowIndex];
+                string subjectName = row.Cells[0].Value.ToString();
+                string contentTitle = row.Cells[1].Value.ToString();
+                string contentType = row.Cells[2].Value.ToString();
 
-                // Save the content data to a temporary file
-                string tempFilePath = Path.GetTempFileName();
-                File.WriteAllBytes(tempFilePath, selectedContent.ContentData);
+                Subject subject = subjectDataAccess.GetSubjectByName(subjectName);
 
-                // Open the file using the default application associated with its file type
-                System.Diagnostics.Process.Start(tempFilePath);
+                if (subject != null && subject.Content != null)
+                {
+                    Content content = subject.Content.ContentList.SingleOrDefault(c => c.ContentTitle == contentTitle && c.ContentType == contentType);
+
+                    if (content != null)
+                    {
+                        if (contentType == "Images")
+                        {
+                            // Create a new PictureBox control to display the image
+                            PictureBox pictureBox = new PictureBox();
+                            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                            pictureBox.Image = Image.FromStream(new MemoryStream(content.ContentData));
+
+                            // Add the PictureBox to the TableLayoutPanel
+                            int rowIdx = tableLayoutPanel.RowCount - 1;
+                            int colIdx = tableLayoutPanel.Controls.Count % tableLayoutPanel.ColumnCount;
+                            tableLayoutPanel.Controls.Add(pictureBox, colIdx, rowIdx + 1);
+                            tableLayoutPanel.SetRow(pictureBox, rowIdx);
+                            tableLayoutPanel.SetColumn(pictureBox, colIdx);
+                        }
+                        else
+                        {
+                            // Open the content item in a new window
+                            string contentPath = content.ContentPath;
+
+                            switch (contentType)
+                            {
+                                case "Docs":
+                                    Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
+                                    Document doc = wordApp.Documents.Open(contentPath);
+                                    doc.Activate();
+                                    wordApp.Visible = true;
+                                    break;
+                                case "Videos":
+                                    Process.Start(contentPath);
+                                    break;
+                                default:
+                                    // Open the content using the default program for its file type
+                                    Process.Start(contentPath);
+                                    break;
+                            }
+                        }
+                    }
+                }
             }
         }
-        private void buttonChangeFile_Click(object sender, EventArgs e)
+        private void ContentButton_Click(object sender, EventArgs e)
         {
-            var selectedContent = (Content)listViewContents.SelectedItems[0].Tag;
+            Button button = sender as Button;
+            Content content = button.Tag as Content;
 
-
-            // Allow the user to select a new multimedia file
-            var openFileDialog = new OpenFileDialog
-            {
-                Filter = "Multimedia Files (*.mp3;*.mp4;*.png;*.jpg)|*.mp3;*.mp4;*.png;*.jpg",
-                Title = "Select a new multimedia file"
-            };
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                // Read the file contents as a byte array
-                var newContentData = System.IO.File.ReadAllBytes(openFileDialog.FileName);
-
-                // Update the selected content with the new file
-                try
+           
+             if (content != null)
+             {
+                if (content.ContentType == "Images")
                 {
-                    selectedContent.ContentType = Path.GetExtension(openFileDialog.FileName).ToLower();
-                    selectedContent.ContentTitle = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
-                    selectedContent.ContentData = newContentData;
-                    selectedContent.DateAdded = DateTime.Now;
+                    // Create a new form to display the image
+                    Form imageForm = new Form();
+                    imageForm.StartPosition = FormStartPosition.CenterParent;
+                    imageForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                    imageForm.MaximizeBox = false;
+                    imageForm.MinimizeBox = false;
+                    imageForm.Text = "View Image";
 
-                    // Update the selected content in the database
-                    _subjectDataAccess.UpdateContent(selectedContent);
+                    // Create a new PictureBox control to display the image
+                    PictureBox pictureBox = new PictureBox();
+                    pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                    pictureBox.Image = Image.FromStream(new MemoryStream(content.ContentData));
+                    pictureBox.Dock = DockStyle.Fill;
+                    imageForm.Controls.Add(pictureBox);
 
-                    // Update the selected content in the list and select it
-                    listViewContents.SelectedItems[0].SubItems[0].Text = selectedContent.ContentType;
-                    listViewContents.SelectedItems[0].SubItems[1].Text = selectedContent.ContentTitle;
-                    listViewContents.SelectedItems[0].SubItems[2].Text = selectedContent.DateAdded.ToString();
-                    listViewContents.SelectedItems[0].Tag = selectedContent;
+                    // Set the size of the form based on the size of the image
+                    imageForm.ClientSize = new Size(pictureBox.Image.Width, pictureBox.Image.Height);
 
-                    // Update the navigation buttons
-                    UpdateNavigationButtons();
+                    // Show the form
+                    imageForm.ShowDialog();
                 }
-                catch (Exception ex)
+                else if (content.ContentType == "Videos")
                 {
-                    MessageBox.Show($"An error occurred while changing the file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Play the video using Windows Media Player
+                    Form videoForm = new Form();
+                    videoForm.StartPosition = FormStartPosition.CenterParent;
+                    videoForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                    // Create a new Windows Media Player control
+                    AxWindowsMediaPlayer player = new AxWindowsMediaPlayer();
+                    player.Dock = DockStyle.Fill;
+                    videoForm.Controls.Add(player);
+
+                    // Load the video file and play it
+                    player.URL = content.ContentPath;
+                    player.Ctlcontrols.play();
+
+                    // Set the size of the form based on the size of the video
+                    videoForm.ClientSize = new Size(640, 480);
+
+                    // Show the form
+                    videoForm.ShowDialog();
+                }
+                else if (content.ContentType == "Docs")
+                {
+                    // Open the document using Microsoft Word
+                    Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
+                    Document doc = wordApp.Documents.Open(content.ContentPath);
+                    doc.Activate();
+                    wordApp.Visible = true;
+                }
+                else
+                {
+                    // Open the content using the default program for its file type
+                    Process.Start(content.ContentPath);
                 }
             }
-        }
-
-        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadContents();
         }
     }
 }

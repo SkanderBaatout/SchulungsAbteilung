@@ -35,6 +35,7 @@
             dashboardbtn = new Button();
             button_plan = new Button();
             panel_quiz_subMenu = new Panel();
+            button_galery = new Button();
             button_results = new Button();
             button_quizquestions = new Button();
             button_subjects = new Button();
@@ -69,7 +70,6 @@
             panel1 = new Panel();
             label12 = new Label();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
-            button_galery = new Button();
             panel_slide.SuspendLayout();
             panel_quiz_subMenu.SuspendLayout();
             panel_course_subMenu.SuspendLayout();
@@ -104,7 +104,7 @@
             panel_slide.Dock = DockStyle.Left;
             panel_slide.Location = new Point(0, 0);
             panel_slide.Name = "panel_slide";
-            panel_slide.Size = new Size(192, 611);
+            panel_slide.Size = new Size(192, 655);
             panel_slide.TabIndex = 0;
             // 
             // buttonExit
@@ -173,6 +173,23 @@
             panel_quiz_subMenu.Name = "panel_quiz_subMenu";
             panel_quiz_subMenu.Size = new Size(175, 195);
             panel_quiz_subMenu.TabIndex = 18;
+            // 
+            // button_galery
+            // 
+            button_galery.Dock = DockStyle.Top;
+            button_galery.FlatAppearance.BorderSize = 0;
+            button_galery.FlatStyle = FlatStyle.Flat;
+            button_galery.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            button_galery.ForeColor = Color.White;
+            button_galery.Location = new Point(0, 141);
+            button_galery.Name = "button_galery";
+            button_galery.Padding = new Padding(35, 0, 0, 0);
+            button_galery.Size = new Size(175, 53);
+            button_galery.TabIndex = 15;
+            button_galery.Text = "Content Galery";
+            button_galery.TextAlign = ContentAlignment.MiddleLeft;
+            button_galery.UseVisualStyleBackColor = true;
+            button_galery.Click += button_galery_Click;
             // 
             // button_results
             // 
@@ -414,7 +431,7 @@
             panel_main.Dock = DockStyle.Fill;
             panel_main.Location = new Point(192, 0);
             panel_main.Name = "panel_main";
-            panel_main.Size = new Size(942, 611);
+            panel_main.Size = new Size(942, 655);
             panel_main.TabIndex = 1;
             // 
             // panel_cover
@@ -426,7 +443,7 @@
             panel_cover.Dock = DockStyle.Fill;
             panel_cover.Location = new Point(0, 0);
             panel_cover.Name = "panel_cover";
-            panel_cover.Size = new Size(942, 611);
+            panel_cover.Size = new Size(942, 655);
             panel_cover.TabIndex = 0;
             // 
             // panel4
@@ -513,7 +530,7 @@
             panel3.Controls.Add(label_maleEmp);
             panel3.Controls.Add(label_totalEmp);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 508);
+            panel3.Location = new Point(0, 552);
             panel3.Name = "panel3";
             panel3.Size = new Size(942, 103);
             panel3.TabIndex = 2;
@@ -611,29 +628,12 @@
             guna2Elipse1.BorderRadius = 15;
             guna2Elipse1.TargetControl = panel4;
             // 
-            // button_galery
-            // 
-            button_galery.Dock = DockStyle.Top;
-            button_galery.FlatAppearance.BorderSize = 0;
-            button_galery.FlatStyle = FlatStyle.Flat;
-            button_galery.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            button_galery.ForeColor = Color.White;
-            button_galery.Location = new Point(0, 141);
-            button_galery.Name = "button_galery";
-            button_galery.Padding = new Padding(35, 0, 0, 0);
-            button_galery.Size = new Size(175, 53);
-            button_galery.TabIndex = 15;
-            button_galery.Text = "Content Galery";
-            button_galery.TextAlign = ContentAlignment.MiddleLeft;
-            button_galery.UseVisualStyleBackColor = true;
-            button_galery.Click += button_galery_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1134, 611);
+            ClientSize = new Size(1134, 655);
             Controls.Add(panel_main);
             Controls.Add(panel_slide);
             MinimumSize = new Size(1150, 650);
