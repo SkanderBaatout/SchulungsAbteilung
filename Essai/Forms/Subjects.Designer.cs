@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -49,7 +50,6 @@
             label5 = new Label();
             descriptionTB = new TextBox();
             label6 = new Label();
-            contentTypeTB = new TextBox();
             label7 = new Label();
             label8 = new Label();
             dateTimePicker = new DateTimePicker();
@@ -57,7 +57,11 @@
             loadBtn = new Button();
             contentTB = new TextBox();
             label9 = new Label();
+            contentTypeCB = new ComboBox();
+            contentPathLabel = new Label();
+            bindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)subjectsList).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSource).BeginInit();
             SuspendLayout();
             // 
             // label4
@@ -194,8 +198,7 @@
             subjectsList.ThemeStyle.RowsStyle.Height = 24;
             subjectsList.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
             subjectsList.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            subjectsList.CellContentClick += subjectsList_CellContentClick;
-            subjectsList.SelectionChanged += subjectsList_SelectionChanged;
+            subjectsList.CellDoubleClick += subjectsList_CellDoubleClick;
             // 
             // isActiveCheckBox
             // 
@@ -237,13 +240,6 @@
             label6.Size = new Size(77, 21);
             label6.TabIndex = 38;
             label6.Text = "Content";
-            // 
-            // contentTypeTB
-            // 
-            contentTypeTB.Location = new Point(305, 55);
-            contentTypeTB.Name = "contentTypeTB";
-            contentTypeTB.Size = new Size(170, 27);
-            contentTypeTB.TabIndex = 41;
             // 
             // label7
             // 
@@ -324,19 +320,37 @@
             label9.TabIndex = 48;
             label9.Text = "Training Name";
             // 
+            // contentTypeCB
+            // 
+            contentTypeCB.FormattingEnabled = true;
+            contentTypeCB.Location = new Point(308, 57);
+            contentTypeCB.Name = "contentTypeCB";
+            contentTypeCB.Size = new Size(167, 29);
+            contentTypeCB.TabIndex = 49;
+            // 
+            // contentPathLabel
+            // 
+            contentPathLabel.AutoSize = true;
+            contentPathLabel.Location = new Point(553, 194);
+            contentPathLabel.Name = "contentPathLabel";
+            contentPathLabel.Size = new Size(66, 21);
+            contentPathLabel.TabIndex = 50;
+            contentPathLabel.Text = "label10";
+            // 
             // Subjects
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(contentPathLabel);
+            Controls.Add(contentTypeCB);
             Controls.Add(label9);
             Controls.Add(contentTB);
             Controls.Add(loadBtn);
             Controls.Add(deleteButton);
             Controls.Add(dateTimePicker);
             Controls.Add(label8);
-            Controls.Add(contentTypeTB);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(descriptionTB);
@@ -355,6 +369,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Subjects";
             ((System.ComponentModel.ISupportInitialize)subjectsList).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -374,14 +389,15 @@
         private Label label5;
         private TextBox descriptionTB;
         private Label label6;
-        private TextBox contentTypeTB;
         private Label label7;
         private Label label8;
         private DateTimePicker dateTimePicker;
         private Guna.UI2.WinForms.Guna2Button deleteButton;
         private Button loadBtn;
         private TextBox contentTB;
-        private PictureBox pictureBox1;
         private Label label9;
+        private ComboBox contentTypeCB;
+        private Label contentPathLabel;
+        private BindingSource bindingSource;
     }
 }

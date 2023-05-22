@@ -57,56 +57,56 @@ namespace Essai
             }
         }
 
-        private async void comboBox_subjects_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (comboBox_subjects.SelectedItem == null)
-                {
-                    textBox_content.Text = "";
-                    label_subjectName.Text = "";
-                    return;
-                }
+        /*  private async void comboBox_subjects_SelectedIndexChanged(object sender, EventArgs e)
+          {
+              try
+              {
+                  if (comboBox_subjects.SelectedItem == null)
+                  {
+                      textBox_content.Text = "";
+                      label_subjectName.Text = "";
+                      return;
+                  }
 
-                string selectedSubject = comboBox_subjects.SelectedItem.ToString();
+                  string selectedSubject = comboBox_subjects.SelectedItem.ToString();
 
-                var subject = await _subjectRepository.GetSubjectAsync(selectedSubject);
+                  var subject = await _subjectRepository.GetSubjectAsync(selectedSubject);
 
-                if (subject != null)
-                {
-                    string contentType = subject.ContentType;
-                    byte[] content = subject.Content;
+                  if (subject != null)
+                  {
+                      string contentType = subject.ContentType;
+                      byte[] content = subject.Content;
 
-                    // Check if the content is a file
-                    if (Encoding.UTF8.GetString(content).StartsWith("file:"))
-                    {
-                        string filePath = Encoding.UTF8.GetString(content).Substring(5);
-                        content = File.ReadAllBytes(filePath);
-                        contentType = Path.GetExtension(filePath);
-                    }
+                      // Check if the content is a file
+                      if (Encoding.UTF8.GetString(content).StartsWith("file:"))
+                      {
+                          string filePath = Encoding.UTF8.GetString(content).Substring(5);
+                          content = File.ReadAllBytes(filePath);
+                          contentType = Path.GetExtension(filePath);
+                      }
 
-                    // Display content in TextBox
-                    textBox_content.Text = Encoding.UTF8.GetString(content);
+                      // Display content in TextBox
+                      textBox_content.Text = Encoding.UTF8.GetString(content);
 
-                    // Set content type
-                    DisplayContent(content, contentType);
+                      // Set content type
+                      DisplayContent(content, contentType);
 
-                    // Display subject name
-                    label_subjectName.Text = selectedSubject;
-                }
-                else
-                {
-                    textBox_content.Text = "";
-                    label_subjectName.Text = "";
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Error loading subject content");
-                MessageBox.Show("Error loading subject content: " + ex.Message);
-            }
-        }
-
+                      // Display subject name
+                      label_subjectName.Text = selectedSubject;
+                  }
+                  else
+                  {
+                      textBox_content.Text = "";
+                      label_subjectName.Text = "";
+                  }
+              }
+              catch (Exception ex)
+              {
+                  _logger.Error(ex, "Error loading subject content");
+                  MessageBox.Show("Error loading subject content: " + ex.Message);
+              }
+          }
+        */
         private void DisplayContent(byte[] content, string contentType)
         {
             switch (contentType)
@@ -227,6 +227,16 @@ namespace Essai
             splitContainer1.Panel2.Controls.Add(webView);
             await webView.EnsureCoreWebView2Async();
             webView.Visible = false;
+        }
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void FollowSubjectForm_Load_1(object sender, EventArgs e)
+        {
+
         }
 
         /*protected override void Dispose(bool disposing)

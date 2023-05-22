@@ -69,6 +69,7 @@
             panel1 = new Panel();
             label12 = new Label();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
+            button_galery = new Button();
             panel_slide.SuspendLayout();
             panel_quiz_subMenu.SuspendLayout();
             panel_course_subMenu.SuspendLayout();
@@ -114,7 +115,7 @@
             buttonExit.FlatStyle = FlatStyle.Flat;
             buttonExit.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             buttonExit.ForeColor = Color.White;
-            buttonExit.Location = new Point(0, 686);
+            buttonExit.Location = new Point(0, 742);
             buttonExit.Name = "buttonExit";
             buttonExit.Padding = new Padding(10, 0, 0, 0);
             buttonExit.Size = new Size(175, 41);
@@ -132,7 +133,7 @@
             dashboardbtn.FlatStyle = FlatStyle.Flat;
             dashboardbtn.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             dashboardbtn.ForeColor = Color.White;
-            dashboardbtn.Location = new Point(0, 645);
+            dashboardbtn.Location = new Point(0, 701);
             dashboardbtn.Name = "dashboardbtn";
             dashboardbtn.Padding = new Padding(10, 0, 0, 0);
             dashboardbtn.Size = new Size(175, 41);
@@ -150,7 +151,7 @@
             button_plan.FlatStyle = FlatStyle.Flat;
             button_plan.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button_plan.ForeColor = Color.White;
-            button_plan.Location = new Point(0, 594);
+            button_plan.Location = new Point(0, 650);
             button_plan.Name = "button_plan";
             button_plan.Padding = new Padding(10, 0, 0, 0);
             button_plan.Size = new Size(175, 51);
@@ -163,13 +164,14 @@
             // panel_quiz_subMenu
             // 
             panel_quiz_subMenu.BackColor = Color.DarkCyan;
+            panel_quiz_subMenu.Controls.Add(button_galery);
             panel_quiz_subMenu.Controls.Add(button_results);
             panel_quiz_subMenu.Controls.Add(button_quizquestions);
             panel_quiz_subMenu.Controls.Add(button_subjects);
             panel_quiz_subMenu.Dock = DockStyle.Top;
             panel_quiz_subMenu.Location = new Point(0, 455);
             panel_quiz_subMenu.Name = "panel_quiz_subMenu";
-            panel_quiz_subMenu.Size = new Size(175, 139);
+            panel_quiz_subMenu.Size = new Size(175, 195);
             panel_quiz_subMenu.TabIndex = 18;
             // 
             // button_results
@@ -609,6 +611,23 @@
             guna2Elipse1.BorderRadius = 15;
             guna2Elipse1.TargetControl = panel4;
             // 
+            // button_galery
+            // 
+            button_galery.Dock = DockStyle.Top;
+            button_galery.FlatAppearance.BorderSize = 0;
+            button_galery.FlatStyle = FlatStyle.Flat;
+            button_galery.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            button_galery.ForeColor = Color.White;
+            button_galery.Location = new Point(0, 141);
+            button_galery.Name = "button_galery";
+            button_galery.Padding = new Padding(35, 0, 0, 0);
+            button_galery.Size = new Size(175, 53);
+            button_galery.TabIndex = 15;
+            button_galery.Text = "Content Galery";
+            button_galery.TextAlign = ContentAlignment.MiddleLeft;
+            button_galery.UseVisualStyleBackColor = true;
+            button_galery.Click += button_galery_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -686,5 +705,6 @@
         private PictureBox pictureBox3;
         private PictureBox pictureBox2;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
+        private Button button_galery;
     }
 }

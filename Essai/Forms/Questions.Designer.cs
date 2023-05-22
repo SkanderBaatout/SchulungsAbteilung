@@ -37,6 +37,7 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Questions));
             question = new MaskedTextBox();
             answer = new MaskedTextBox();
             option4 = new MaskedTextBox();
@@ -55,7 +56,12 @@
             label7 = new Label();
             label8 = new Label();
             label10 = new Label();
+            currentPageLabel = new Label();
+            previousButton = new PictureBox();
+            nextButton = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)questionListDGV).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)previousButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nextButton).BeginInit();
             SuspendLayout();
             // 
             // question
@@ -310,12 +316,44 @@
             label10.TabIndex = 54;
             label10.Text = "Option3";
             // 
+            // currentPageLabel
+            // 
+            currentPageLabel.AutoSize = true;
+            currentPageLabel.Location = new Point(817, 269);
+            currentPageLabel.Name = "currentPageLabel";
+            currentPageLabel.Size = new Size(66, 21);
+            currentPageLabel.TabIndex = 57;
+            currentPageLabel.Text = "label10";
+            // 
+            // previousButton
+            // 
+            previousButton.Image = (Image)resources.GetObject("previousButton.Image");
+            previousButton.Location = new Point(889, 253);
+            previousButton.Name = "previousButton";
+            previousButton.Size = new Size(26, 50);
+            previousButton.SizeMode = PictureBoxSizeMode.Zoom;
+            previousButton.TabIndex = 56;
+            previousButton.TabStop = false;
+            // 
+            // nextButton
+            // 
+            nextButton.Image = (Image)resources.GetObject("nextButton.Image");
+            nextButton.Location = new Point(912, 253);
+            nextButton.Name = "nextButton";
+            nextButton.Size = new Size(26, 50);
+            nextButton.SizeMode = PictureBoxSizeMode.Zoom;
+            nextButton.TabIndex = 55;
+            nextButton.TabStop = false;
+            // 
             // Questions
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(currentPageLabel);
+            Controls.Add(previousButton);
+            Controls.Add(nextButton);
             Controls.Add(label10);
             Controls.Add(label8);
             Controls.Add(label7);
@@ -341,6 +379,8 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Questions";
             ((System.ComponentModel.ISupportInitialize)questionListDGV).EndInit();
+            ((System.ComponentModel.ISupportInitialize)previousButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nextButton).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -364,5 +404,8 @@
         private Label label7;
         private Label label8;
         private Label label10;
+        private Label currentPageLabel;
+        private PictureBox previousButton;
+        private PictureBox nextButton;
     }
 }

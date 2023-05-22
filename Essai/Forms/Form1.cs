@@ -1,4 +1,5 @@
 using Essai.DataAccess;
+using Essai.Forms;
 using Essai.Utils.Classes;
 
 namespace Essai
@@ -365,6 +366,12 @@ namespace Essai
             }
             panel_main.Controls.Add(panel_cover);
             employeeCount();
+        }
+
+        private void button_galery_Click(object sender, EventArgs e)
+        {
+            int subjectId = 1; // Replace 1 with the actual subject ID that you want to pass
+            openChildForm(new GalleryForm(_subjectDataAccess,subjectId));
         }
     }
 }

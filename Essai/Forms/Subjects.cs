@@ -1,10 +1,14 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Essai.DataAccess;
+using Essai.Forms;
+using Essai.Models;
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,251 +19,251 @@ namespace Essai
 {
     public partial class Subjects : Form
     {
+        private int currentSubjectId = 0;
+        private string contentFilePath = "";
+
+        private readonly SubjectDataAccess subjectDataAccess;
+
         public Subjects()
         {
             InitializeComponent();
+
+            subjectDataAccess = new SubjectDataAccess("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True");
+
             DisplaySubjects();
-        }
-        int key = 0;
-        private void Reset()
-        {
-            subjectTb.Text = "";
-            descriptionTB.Text = "";
-            contentTB.Text = "";
-            contentTypeTB.Text = "";
-            dateTimePicker.Value = DateTime.Now;
-            isActiveCheckBox.Checked = true;
-            currentSubjectId = 0;
-            key = 0;
-        }
-        private int currentSubjectId = 0;
+            contentTypeCB.Items.Add("Docs");
+            contentTypeCB.Items.Add("Images");
+            contentTypeCB.Items.Add("Videos");
+            contentTypeCB.Items.Add("Other");
+
+            subjectsList.Columns[0].Visible = false;
 
 
-        SqlConnection Con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True");
+            contentPathLabel.Visible = false;
+        }
+
         private void DisplaySubjects()
         {
-            Con.Open();
-            string query = "SELECT * FROM SubjectTbl";
-            SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
-            DataTable table = new DataTable();
-            adapter.Fill(table);
-            subjectsList.DataSource = table;
-            Con.Close();
+            List<Subject> subjects = subjectDataAccess.GetAllSubjects();
+
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Id");
+            dataTable.Columns.Add("Name");
+            dataTable.Columns.Add("Description");
+            dataTable.Columns.Add("ContentType");
+            dataTable.Columns.Add("DateAdded");
+            dataTable.Columns.Add("IsActive");
+            dataTable.Columns.Add("ContentTitle");
+
+            foreach (Subject subject in subjects)
+            {
+                DataRow row = dataTable.NewRow();
+                row["Id"] = subject.Id;
+                row["Name"] = subject.Name;
+                row["Description"] = subject.Description;
+                row["ContentType"] = subject.ContentType;
+                row["DateAdded"] = subject.DateAdded.ToString("yyyy-MM-dd");
+                row["IsActive"] = subject.IsActive;
+
+                if (subject.Content != null)
+                {
+                    row["ContentTitle"] = subject.Content.ContentTitle;
+                }
+
+                dataTable.Rows.Add(row);
+            }
+
+            subjectsList.DataSource = dataTable;
+        }
+        private void ResetForm()
+        {
+            subjectTb.Clear();
+            descriptionTB.Clear();
+            contentTypeCB.SelectedIndex = -1;
+            dateTimePicker.Value = DateTime.Now;
+            isActiveCheckBox.Checked = true;
+            contentFilePath = "";
+            contentPathLabel.Text = "";
+            currentSubjectId = 0;
+
+            savebtn.Text = "Add";
+            deleteButton.Enabled = false;
+        }
+        private void loadBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            if (contentTypeCB.SelectedItem != null)
+            {
+                switch (contentTypeCB.SelectedItem.ToString())
+                {
+                    case "Docs":
+                        openFileDialog.Filter = "Word Documents|*.doc;*.docx|PDF Files|*.pdf";
+                        break;
+                    case "Images":
+                        openFileDialog.Filter = "ImageFiles|*.jpg;*.jpeg;*.png;*.gif";
+                        break;
+                    case "Videos":
+                        openFileDialog.Filter = "Video Files|*.mp4;*.avi;*.wmv;*.mov";
+                        break;
+                    default:
+                        openFileDialog.Filter = "All Files|*.*";
+                        break;
+                }
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    contentFilePath = openFileDialog.FileName;
+                    contentPathLabel.Text = Path.GetFileName(contentFilePath);
+                    contentPathLabel.Visible = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a content type first.");
+            }
         }
 
         private void savebtn_Click(object sender, EventArgs e)
         {
-            if (subjectTb.Text.Trim() == "")
+            if (string.IsNullOrWhiteSpace(subjectTb.Text) || string.IsNullOrWhiteSpace(descriptionTB.Text) ||
+                contentTypeCB.SelectedItem == null || string.IsNullOrWhiteSpace(contentTypeCB.SelectedItem.ToString()))
             {
-                MessageBox.Show("Please enter a subject name.");
+                MessageBox.Show("Please enter a name, description, and content type.");
                 return;
             }
-            if (currentSubjectId == 0)
+
+            // Create a new Subject object
+            Subject subject = new Subject
             {
-                SaveSubject();
+                Name = subjectTb.Text,
+                Description = descriptionTB.Text,
+                ContentType = contentTypeCB.SelectedItem.ToString(),
+                DateAdded = dateTimePicker.Value,
+                IsActive = isActiveCheckBox.Checked,
+                Content = new Content() // Initialize Content to an empty Content object
+            };
+
+            // If a content file was selected, read its data and create a Content object
+            if (!string.IsNullOrWhiteSpace(contentFilePath))
+            {
+                byte[] contentData = File.ReadAllBytes(contentFilePath);
+                string contentTitle = Path.GetFileName(contentFilePath);
+
+                Content content = new Content
+                {
+                    ContentId = 0, // The ContentId will be automatically generated by the database
+                    SubjectId = 0, // The SubjectId will be set later
+                    ContentType = contentTypeCB.SelectedItem.ToString(),
+                    ContentTitle = contentTitle,
+                    ContentData = contentData
+                };
+
+                subject.Content = content;
+            }
+
+            // Save the subject and content data to the database
+            int subjectId = subjectDataAccess.InsertSubject(subject);
+
+            if (subjectId > 0)
+            {
+                if (subject.Content != null)
+                {
+                    subject.Content.SubjectId = subjectId;
+                    subjectDataAccess.InsertContent(subject.Content);
+                }
+
+                MessageBox.Show("Subject added successfully.");
+                ResetForm();
+                DisplaySubjects();
             }
             else
             {
-                UpdateSubject();
-            }
-            DisplaySubjects();
-
-            Reset();
-        }
-
-        private void editbtn_Click(object sender, EventArgs e)
-        {
-            int selectedRowIndex = subjectsList.SelectedCells.Count > 0 ? subjectsList.SelectedCells[0].RowIndex : -1;
-            if (selectedRowIndex >= 0)
-            {
-                int selectedSubjectId = (int)subjectsList.Rows[selectedRowIndex].Cells["SId"].Value;
-                LoadSubject(selectedSubjectId);
+                MessageBox.Show("Failed to add subject.");
             }
         }
-        // Save a new subject to the database
-        private void SaveSubject()
+        private void deleteButton_Click(object sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True"))
+            if (currentSubjectId == 0)
             {
-                string query = "INSERT INTO SubjectTbl (SName, Description, Content, ContentType, DateAdded, IsActive) " +
-                    "VALUES (@SName, @Description, @Content, @ContentType, @DateAdded, @IsActive)";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@SName", subjectTb.Text);
-                cmd.Parameters.AddWithValue("@Description", descriptionTB.Text);
+                MessageBox.Show("Please select a subject to delete.");
+                return;
+            }
 
-                if (!string.IsNullOrEmpty(contentTB.Text))
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this subject?", "Confirm Deletion",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // Retrieve the subject and its content data
+                Subject subject = subjectDataAccess.GetSubjectById(currentSubjectId);
+
+                if (subject != null)
                 {
-                    if (contentTB.Text.StartsWith("file:"))
-                    {
-                        cmd.Parameters.AddWithValue("@Content", File.ReadAllBytes(contentTB.Text.Substring(5)));
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@Content", Encoding.UTF8.GetBytes(contentTB.Text));
-                    }
+                    // Delete the subject and its content data
+                    subjectDataAccess.DeleteSubject(currentSubjectId);
+
+                    MessageBox.Show("Subject deleted successfully.");
+                    ResetForm();
+                    DisplaySubjects();
                 }
                 else
                 {
-                    cmd.Parameters.AddWithValue("@Content", DBNull.Value);
-                }
-
-                cmd.Parameters.AddWithValue("@ContentType", contentTypeTB.Text);
-                cmd.Parameters.AddWithValue("@DateAdded", dateTimePicker.Value);
-                cmd.Parameters.AddWithValue("@IsActive", isActiveCheckBox.Checked);
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
-        }
-        private void UpdateSubject()
-        {
-            using (SqlConnection con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True"))
-            {
-                string query = "UPDATE SubjectTbl SET SName = @SName, Description = @Description, " +
-                    "Content = @Content, ContentType = @ContentType, DateAdded = @DateAdded, IsActive = @IsActive " +
-                    "WHERE SId = @SId";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@SId", currentSubjectId);
-                cmd.Parameters.AddWithValue("@SName", subjectTb.Text);
-                cmd.Parameters.AddWithValue("@Description", descriptionTB.Text);
-                cmd.Parameters.AddWithValue("@Content", Encoding.UTF8.GetBytes(contentTB.Text));
-                cmd.Parameters.AddWithValue("@ContentType", contentTypeTB.Text);
-                cmd.Parameters.AddWithValue("@DateAdded", dateTimePicker.Value);
-                cmd.Parameters.AddWithValue("@IsActive", isActiveCheckBox.Checked);
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
-        }
-
-        // Delete a subject from the database
-        private void DeleteSubject(int subjectId)
-        {
-            using (SqlConnection con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True"))
-            {
-                string query = "DELETE FROM SubjectTbl WHERE SId = @SId";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@SId", subjectId);
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
-        }
-        // Load the data for the selected subject into the form
-        private void LoadSubject(int subjectId)
-        {
-            using (SqlConnection con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True"))
-            {
-                string query = "SELECT SName, Description, Content, ContentType, DateAdded, IsActive FROM SubjectTbl WHERE SId = @SId";
-                SqlDataAdapter adapter = new SqlDataAdapter(query, con);
-                adapter.SelectCommand.Parameters.AddWithValue("@SId", subjectId);
-                DataTable table = new DataTable();
-                adapter.Fill(table);
-                if (table.Rows.Count > 0)
-                {
-                    DataRow row = table.Rows[0];
-                    subjectTb.Text = row.Field<string>("SName");
-                    descriptionTB.Text = row.Field<string>("Description");
-
-                    byte[] contentBytes = row.Field<byte[]>("Content");
-                    if (contentBytes != null && contentBytes.Length > 0)
-                    {
-                        if (contentBytes[0] == 0x66 && contentBytes[1] == 0x69 && contentBytes[2] == 0x6c && contentBytes[3] == 0x65 && contentBytes[4] == 0x3a)
-                        {
-                            string filePath = Encoding.UTF8.GetString(contentBytes).Substring(5);
-                            contentTB.Text = "file:" + filePath;
-                        }
-                        else
-                        {
-                            contentTB.Text = Encoding.UTF8.GetString(contentBytes);
-                        }
-                    }
-                    else
-                    {
-                        contentTB.Text = "";
-                    }
-
-                    contentTypeTB.Text = row.Field<string>("ContentType");
-                    dateTimePicker.Value = row.Field<DateTime?>("DateAdded") ?? DateTime.Now;
-                    isActiveCheckBox.Checked = row.Field<bool?>("IsActive") ?? false;
-                    currentSubjectId = subjectId;
+                    MessageBox.Show("Failed to retrieve subject.");
                 }
             }
         }
         private void resetbtn_Click(object sender, EventArgs e)
         {
-            Reset();
+            ResetForm();
         }
 
-        private void subjectsList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void editbtn_Click(object sender, EventArgs e)
         {
-            subjectTb.Text = subjectsList.SelectedRows[0].Cells[1].Value.ToString();
-
-            if (subjectTb.Text == "")
+            if (currentSubjectId == 0)
             {
-                key = 0;
+                MessageBox.Show("Please select a subject to edit.");
+                return;
+            }
+
+            Subject subject = subjectDataAccess.GetSubjectById(currentSubjectId);
+
+            if (subject != null)
+            {
+                // Update the subject object with the new values from the form controls
+                subject.Name = subjectTb.Text;
+                subject.Description = descriptionTB.Text;
+                subject.ContentType = contentTypeCB.SelectedItem.ToString();
+                subject.DateAdded = dateTimePicker.Value;
+                subject.IsActive = isActiveCheckBox.Checked;
+
+                // Save the updated subject data to the database
+                subjectDataAccess.UpdateSubject(subject);
+
+                MessageBox.Show("Subject updated successfully.");
+                ResetForm();
+                DisplaySubjects();
             }
             else
             {
-                key = Convert.ToInt32(subjectsList.SelectedRows[0].Cells[0].Value.ToString());
+                MessageBox.Show("Failed to retrieve subject.");
             }
         }
+        private void subjectsList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = subjectsList.Rows[e.RowIndex];
 
-        private void deleteButton_Click(object sender, EventArgs e)
-        {
-            int selectedRowIndex = subjectsList.SelectedCells.Count > 0 ? subjectsList.SelectedCells[0].RowIndex : -1;
-            if (selectedRowIndex >= 0)
-            {
-                // Check if the value of the "SId" cell is not null before casting it to an int
-                if (subjectsList.Rows[selectedRowIndex].Cells["SId"].Value != null)
-                {
-                    int selectedSubjectId = (int)subjectsList.Rows[selectedRowIndex].Cells["SId"].Value;
-                    if (MessageBox.Show("Are you sure you want to delete this subject?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        DeleteSubject(selectedSubjectId);
-                        DisplaySubjects();
-                        Reset();
-                    }
-                }
-                else
-                {
-                    // Handle the case where the value of the "SId" cell is null
-                    MessageBox.Show("Selected subject does not have a valid ID");
-                }
-            }
-        }
-        private void subjectsList_SelectionChanged(object sender, EventArgs e)
-        {
-            Reset();
-            int selectedRowIndex = subjectsList.SelectedCells.Count > 0 ? subjectsList.SelectedCells[0].RowIndex : -1;
-            if (selectedRowIndex >= 0)
-            {
-                // Check if the value of the "SId" cell is not DBNull.Value before casting it to an int
-                if (subjectsList.Rows[selectedRowIndex].Cells["SId"].Value != DBNull.Value)
-                {
-                    int selectedSubjectId = Convert.ToInt32(subjectsList.Rows[selectedRowIndex].Cells["SId"].Value);
-                    LoadSubject(selectedSubjectId);
-                }
-                else
-                {
-                    // Handle the case where the value of the "SId" cell is DBNull.Value
-                    MessageBox.Show("Selected subject does not have a valid ID");
-                }
-            }
-        }
-        private void loadBtn_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string fileName = openFileDialog.FileName;
-                if (File.Exists(fileName))
-                {
-                    contentTB.Text = "file:" + fileName;
-                }
-            }
-        }
+                currentSubjectId = int.Parse(row.Cells[0].Value.ToString());
+                subjectTb.Text = row.Cells[1].Value.ToString();
+                descriptionTB.Text = row.Cells[2].Value.ToString();
+                contentTypeCB.SelectedItem = row.Cells[3].Value.ToString();
+                dateTimePicker.Value = DateTime.Parse(row.Cells[4].Value.ToString());
+                isActiveCheckBox.Checked = bool.Parse(row.Cells[5].Value.ToString());
 
+                deleteButton.Enabled = true;
+            }
+        }
     }
 }

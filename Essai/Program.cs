@@ -2,6 +2,7 @@ namespace Essai
 {
     internal static class Program
     {
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -14,4 +15,4 @@ namespace Essai
             Application.Run(new SplashForm()) ;
         }
     }
-}
+}   

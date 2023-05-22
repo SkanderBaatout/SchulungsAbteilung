@@ -38,7 +38,7 @@ namespace Essai.Repository
 
         public async Task<Subject> GetSubjectAsync(string subjectName)
         {
-            var query = "SELECT Content, ContentType FROM SubjectTbl WHERE SName = @SName";
+            var query = "SELECT ContentData, ContentType FROM SubjectTbl WHERE SName = @SName";
             var cmd = new SqlCommand(query, _connection);
             cmd.Parameters.AddWithValue("@SName", subjectName);
 
@@ -48,9 +48,15 @@ namespace Essai.Repository
 
             if (await reader.ReadAsync())
             {
+                var content = new Content
+                {
+                    ContentData = (byte[])reader["ContentData"],
+                    ContentType = reader["ContentType"].ToString()
+                };
+
                 subject = new Subject
                 {
-                    Content = (byte[])reader["Content"],
+                    Content = content,
                     ContentType = reader["ContentType"].ToString()
                 };
             }
@@ -59,7 +65,6 @@ namespace Essai.Repository
 
             return subject;
         }
-
         public void Dispose()
         {
             _connection.Dispose();

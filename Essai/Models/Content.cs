@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace Essai.Models
 {
-    public class Subject
+    public class Content
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public int ContentId { get; set; }
+        public int SubjectId { get; set; }
         public string ContentType { get; set; }
+        public string ContentTitle { get; set; }
+        public byte[] ContentData { get; set; }
         public DateTime DateAdded { get; set; }
-        public bool IsActive { get; set; }
-        public Content Content { get; set; }
     }
 }
