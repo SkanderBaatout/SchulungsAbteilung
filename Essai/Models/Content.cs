@@ -16,6 +16,7 @@ namespace Essai.Models
         public byte[] ContentData { get; set; }
         public DateTime DateAdded { get; set; }
 
+
         public List<Content> ContentList { get; set; }
 
         public IEnumerator GetEnumerator()

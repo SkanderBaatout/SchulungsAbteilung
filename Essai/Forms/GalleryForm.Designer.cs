@@ -45,10 +45,13 @@
             tableLayoutPanel = new TableLayoutPanel();
             subjectPanel = new Panel();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
+            ContentPictureBox = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)mediaContentDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             flowLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
+            tableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ContentPictureBox).BeginInit();
             SuspendLayout();
             // 
             // mediaContentDataGridView
@@ -176,6 +179,7 @@
             tableLayoutPanel.ColumnCount = 2;
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel.Controls.Add(ContentPictureBox, 1, 0);
             tableLayoutPanel.Location = new Point(45, 93);
             tableLayoutPanel.Name = "tableLayoutPanel";
             tableLayoutPanel.RowCount = 2;
@@ -195,6 +199,15 @@
             // 
             guna2Elipse1.BorderRadius = 15;
             guna2Elipse1.TargetControl = applyFiltersButton;
+            // 
+            // ContentPictureBox
+            // 
+            ContentPictureBox.Location = new Point(251, 3);
+            ContentPictureBox.Name = "ContentPictureBox";
+            ContentPictureBox.Size = new Size(100, 50);
+            ContentPictureBox.TabIndex = 0;
+            ContentPictureBox.TabStop = false;
+            ContentPictureBox.Click += ContentPictureBox_Click;
             // 
             // GalleryForm
             // 
@@ -227,6 +240,8 @@
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             flowLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
+            tableLayoutPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)ContentPictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -249,5 +264,6 @@
         private TableLayoutPanel tableLayoutPanel;
         private Panel subjectPanel;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
+        private PictureBox ContentPictureBox;
     }
 }

@@ -104,7 +104,7 @@ namespace Essai.Forms
                 tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, cellHeight));
             }
 
-            // Add anew control for each content item
+            // Add a new control for each content item
             int row = 0;
             int col = 0;
             foreach (Content content in mediaContentList)
@@ -116,20 +116,28 @@ namespace Essai.Forms
                     pictureBox.Dock = DockStyle.Fill;
                     pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                     pictureBox.Image = Image.FromStream(new MemoryStream(content.ContentData));
+
+                    // Add the subject name and added date to the PictureBox
+                    pictureBox.Tag = content;
+                    pictureBox.Click += ContentPictureBox_Click;
                     tableLayoutPanel.Controls.Add(pictureBox, col, row);
                 }
                 else
                 {
-                    // Create a new Button control with the content title as the text
+                    //Create a new Button control with the content title and subject name as the text
                     Button button = new Button();
-                    button.Text = content.ContentTitle;
+                    button.Text = content.ContentTitle + " (" + content.SubjectId + ")";
                     button.Tag = content;
                     button.Click += ContentButton_Click;
+
+                    // Add the added date to the button as a tooltip
+                    ToolTip toolTip = new ToolTip();
+                    toolTip.SetToolTip(button, "Added on " + content.DateAdded.ToString("MMM d, yyyy"));
+
                     tableLayoutPanel.Controls.Add(button, col, row);
                 }
 
-
-                // Increment the row and column counters
+                // Increment the row andcolumn counters
                 col++;
                 if (col == tableLayoutPanel.ColumnCount)
                 {
@@ -137,7 +145,6 @@ namespace Essai.Forms
                     row++;
                 }
             }
-
             // Update the paging controls
             currentPageLabel.Text = "Page " + currentPage + " of " + totalPages;
             totalRecordsLabel.Text = "Total records: " + totalRecords;
@@ -235,9 +242,9 @@ namespace Essai.Forms
             Button button = sender as Button;
             Content content = button.Tag as Content;
 
-           
-             if (content != null)
-             {
+
+            if (content != null)
+            {
                 if (content.ContentType == "Images")
                 {
                     // Create a new form to display the image
@@ -282,6 +289,7 @@ namespace Essai.Forms
                     // Show the form
                     videoForm.ShowDialog();
                 }
+
                 else if (content.ContentType == "Docs")
                 {
                     // Open the document using Microsoft Word
@@ -295,6 +303,45 @@ namespace Essai.Forms
                     // Open the content using the default program for its file type
                     Process.Start(content.ContentPath);
                 }
+            }
+        }
+
+        private void ContentPictureBox_Click(object sender, EventArgs e)
+        {
+            PictureBox pictureBox = sender as PictureBox;
+            Content content = pictureBox.Tag as Content;
+
+            if (content != null)
+            {
+                // Create a new form to display the image
+                Form imageForm = new Form();
+                imageForm.StartPosition = FormStartPosition.CenterParent;
+                imageForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                imageForm.MaximizeBox = false;
+                imageForm.MinimizeBox = false;
+                imageForm.Text = content.ContentTitle;
+
+                // Create a new PictureBox control to display the image
+                PictureBox bigPictureBox = new PictureBox();
+                bigPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                bigPictureBox.Image = Image.FromStream(new MemoryStream(content.ContentData));
+                bigPictureBox.Dock = DockStyle.Fill;
+                imageForm.Controls.Add(bigPictureBox);
+
+                // Create a new Label control to display the subject name and added date
+                Label infoLabel = new Label();
+                infoLabel.Text = "Subject: " + content.SubjectId + "\r\nAdded on: " + content.DateAdded.ToString("MMM d, yyyy");
+                infoLabel.Dock = DockStyle.Bottom;
+                infoLabel.TextAlign = ContentAlignment.MiddleCenter;
+                infoLabel.BackColor = Color.LightGray;
+                infoLabel.Height = 50;
+                imageForm.Controls.Add(infoLabel);
+
+                // Set the size of the form based on the size of the image
+                imageForm.ClientSize = new Size(bigPictureBox.Image.Width, bigPictureBox.Image.Height + infoLabel.Height);
+
+                // Show the form
+                imageForm.ShowDialog();
             }
         }
     }
