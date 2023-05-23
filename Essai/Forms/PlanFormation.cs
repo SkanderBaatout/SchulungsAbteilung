@@ -56,6 +56,13 @@ namespace Essai
             deleteButton.DefaultCellStyle.BackColor = Color.Teal; // set button color;
             dataGridView.Columns.Add(deleteButton);
 
+            var changeFileButton = new DataGridViewButtonColumn();
+            changeFileButton.HeaderText = "Change File";
+            changeFileButton.Text = "Change File";
+            changeFileButton.UseColumnTextForButtonValue = true;
+            changeFileButton.DefaultCellStyle.BackColor = Color.Teal; // set button color
+            dataGridView.Columns.Add(changeFileButton);
+
         }
 
         private void LoadTestTypes()
@@ -183,11 +190,11 @@ namespace Essai
 
             if (selectedTestId == -1) // "All" option selected
             {
-                sqlQuery = "SELECT PlanId, TestTypeId, PlanData FROM Plans";
+                sqlQuery = "SELECT PlanId, TestTypeId, PlanName, PlanData FROM Plans";
             }
             else // specific test type selected
             {
-                sqlQuery = "SELECT PlanId, TestTypeId, PlanData, PlanName FROM Plans WHERE TestTypeId = @testTypeId";
+                sqlQuery = "SELECT PlanId, TestTypeId, PlanName, PlanData FROM Plans WHERE TestTypeId = @testTypeId";
             }
 
             try
@@ -208,13 +215,16 @@ namespace Essai
                         _dataTable.Load(reader);
                         dataGridView.DataSource = _dataTable;
                         dataGridView.Columns["PlanData"].Visible = false;
+                        dataGridView.Columns["PlanId"].DisplayIndex = 0;
+                        dataGridView.Columns["TestTypeId"].DisplayIndex = 1;
+                        dataGridView.Columns["PlanName"].DisplayIndex = 2;
 
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while loading the data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"An error occurred while loading the data:{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -259,29 +269,62 @@ namespace Essai
             var selectedRow = dataGridView.Rows[e.RowIndex];
             var planId = (int)selectedRow.Cells["PlanId"].Value;
 
-            if (dataGridView.Columns[e.ColumnIndex] is DataGridViewButtonColumn && dataGridView.Columns[e.ColumnIndex].HeaderText == "Edit")
+            switch (dataGridView.Columns[e.ColumnIndex].HeaderText)
             {
-                // Hide the "Load Data" and "Save" buttons and disable the DataGridView while editing
-                loadDataButton.Enabled = false;
-                saveButton.Enabled = false;
-                dataGridView.Enabled = false;
+                case "Edit":
+                    // Hide the "Load Data" and "Save" buttons and disable the DataGridView while editing
+                    loadDataButton.Enabled = false;
+                    saveButton.Enabled = false;
+                    dataGridView.Enabled = false;
 
-                // Show the "Select File" button and hide the "Edit" button
-                button1.Visible = true;
+                    // Show the "Select File" button and hide the "Edit" button
+                    button1.Visible = true;
+                    button1.Text = "Save Changes";
 
-                // Store the selected plan ID in the Tag property of the "Select File" button
-                button1.Tag = planId;
-            }
-            else if (dataGridView.Columns[e.ColumnIndex].HeaderText == "Delete")
-            {
-                // Show a confirmation dialog before deleting the plan
-                var result = MessageBox.Show("Are you sure you want to delete this plan?", "Confirmation", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
-                {
-                    // Delete the plan from the database and the DataGridView
-                    DeletePlan(planId);
-                    dataGridView.Rows.RemoveAt(e.RowIndex);
-                }
+                    // Store the selected plan ID in the Tag property of the "Select File" button
+                    button1.Tag = planId;
+                    break;
+
+                case "Delete":
+                    // Show a confirmation dialog before deleting the plan
+                    var result = MessageBox.Show("Are you sure you want to delete this plan?", "Confirmation", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        // Delete the plan from the database and the DataGridView
+                        DeletePlan(planId);
+                        dataGridView.Rows.RemoveAt(e.RowIndex);
+                    }
+                    break;
+
+                case "Change File":
+                    if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            byte[] fileData;
+                            using (var stream = new MemoryStream())
+                            using (var fileStream = openFileDialog1.OpenFile())
+                            {
+                                fileStream.CopyTo(stream);
+                                fileData = stream.ToArray();
+                            }
+                            using (var connection = new SqlConnection(_connectionString))
+                            using (var command = new SqlCommand("UPDATE Plans SET PlanData = @planData WHERE PlanId = @planId", connection))
+                            {
+                                command.Parameters.AddWithValue("@planData", fileData);
+                                command.Parameters.AddWithValue("@planId", planId);
+                                connection.Open();
+                                command.ExecuteNonQuery();
+                            }
+                            MessageBox.Show("File changed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            LoadPlans();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"An error occurred while changing the file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    break;
             }
         }
         private void DeletePlan(int planId)

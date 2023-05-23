@@ -57,9 +57,10 @@
             // label2
             // 
             label2.AutoSize = true;
+            label2.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label2.Location = new Point(454, 50);
             label2.Name = "label2";
-            label2.Size = new Size(231, 21);
+            label2.Size = new Size(218, 19);
             label2.TabIndex = 5;
             label2.Text = "Choose a Test to get its plan";
             // 
