@@ -268,27 +268,6 @@ namespace Essai.Forms
                     // Show the form
                     imageForm.ShowDialog();
                 }
-                else if (content.ContentType == "Videos")
-                {
-                    // Play the video using Windows Media Player
-                    Form videoForm = new Form();
-                    videoForm.StartPosition = FormStartPosition.CenterParent;
-                    videoForm.FormBorderStyle = FormBorderStyle.FixedDialog;
-                    // Create a new Windows Media Player control
-                    AxWindowsMediaPlayer player = new AxWindowsMediaPlayer();
-                    player.Dock = DockStyle.Fill;
-                    videoForm.Controls.Add(player);
-
-                    // Load the video file and play it
-                    player.URL = content.ContentPath;
-                    player.Ctlcontrols.play();
-
-                    // Set the size of the form based on the size of the video
-                    videoForm.ClientSize = new Size(640, 480);
-
-                    // Show the form
-                    videoForm.ShowDialog();
-                }
 
                 else if (content.ContentType == "Docs")
                 {
