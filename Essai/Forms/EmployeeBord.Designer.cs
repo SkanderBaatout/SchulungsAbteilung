@@ -56,6 +56,7 @@
             panel_course_subMenu = new Panel();
             button_questions = new Button();
             button_course = new Button();
+            button_planformation = new Button();
             panel_logo.SuspendLayout();
             panel_main.SuspendLayout();
             panel_cover.SuspendLayout();
@@ -281,6 +282,7 @@
             // 
             panel_slide.AutoScroll = true;
             panel_slide.BackColor = Color.Teal;
+            panel_slide.Controls.Add(button_planformation);
             panel_slide.Controls.Add(button_exit);
             panel_slide.Controls.Add(button_dashboard);
             panel_slide.Controls.Add(button_followTraining);
@@ -412,6 +414,24 @@
             button_course.UseVisualStyleBackColor = false;
             button_course.Click += button_course_Click;
             // 
+            // button_planformation
+            // 
+            button_planformation.BackColor = Color.Teal;
+            button_planformation.Dock = DockStyle.Top;
+            button_planformation.FlatAppearance.BorderSize = 0;
+            button_planformation.FlatStyle = FlatStyle.Flat;
+            button_planformation.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button_planformation.ForeColor = Color.White;
+            button_planformation.Location = new Point(0, 327);
+            button_planformation.Name = "button_planformation";
+            button_planformation.Padding = new Padding(10, 0, 0, 0);
+            button_planformation.Size = new Size(200, 37);
+            button_planformation.TabIndex = 15;
+            button_planformation.Text = "Plan Formation";
+            button_planformation.TextAlign = ContentAlignment.MiddleLeft;
+            button_planformation.UseVisualStyleBackColor = false;
+            button_planformation.Click += button_planformation_Click;
+            // 
             // EmployeeBord
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -471,5 +491,6 @@
         private Button button_dashboard;
         private ComboBox comboBox_Tests;
         private Label label4;
+        private Button button_planformation;
     }
 }

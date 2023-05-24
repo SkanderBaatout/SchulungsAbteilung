@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Essai.Forms;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,7 +23,7 @@ namespace Essai
             GetTests();
             Trainingscb.SelectedIndexChanged += Trainingscb_SelectedIndexChanged;
             comboBox_Tests.SelectedIndexChanged += comboBox_Tests_SelectedIndexChanged;
-
+            button_planformation.Click += button_planformation_Click;
 
 
         }
@@ -69,7 +70,6 @@ namespace Essai
             comboBox_Tests.DataSource = dt;
             Con.Close();
         }
-
         private void EmployeeBord_Load(object sender, EventArgs e)
         {
             username.Text = LoginForm.username;
@@ -146,12 +146,37 @@ namespace Essai
         private void Trainingscb_SelectedIndexChanged(object sender, EventArgs e)
         {
             trainingName = Trainingscb.SelectedValue.ToString();
+            Console.WriteLine("Training name updated to {0}", trainingName);
         }
 
         private void comboBox_Tests_SelectedIndexChanged(object sender, EventArgs e)
         {
             testName = comboBox_Tests.SelectedValue.ToString();
+            Console.WriteLine("Test name updated to {0}", testName);
+        }
+        private void button_planformation_Click(object sender, EventArgs e)
+        {
+            string selectedTestType = comboBox_Tests.SelectedValue.ToString();
 
+            Con.Open();
+            SqlCommand cmd = new SqlCommand("select PlanData from Plans where TestTypeId = (select TestTypeId from TestsType where name = @testType)", Con);
+            cmd.Parameters.AddWithValue("@testType", selectedTestType);
+            byte[] planData = (byte[])cmd.ExecuteScalar();
+            Con.Close();
+
+            if (planData != null)
+            {
+                // Debugging statement to check if the correct plan data is retrieved
+                Console.WriteLine("Plan data retrieved for test type {0}", selectedTestType);
+
+                // A matching record was found, so open the SuivrePlanFormation form
+                openChildForm(new SuivrePlanFormation(planData));
+            }
+            else
+            {
+                // No matching record was found, so display a message box
+                MessageBox.Show("There is no plan available for the selected test type.", "No PlanFound", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
