@@ -16,14 +16,21 @@ namespace Essai
     {
         public static string trainingName = "";
         public static string testName = "";
+        private List<string> quotes;
         public EmployeeBord()
         {
             InitializeComponent();
+            LoadQuotes();
             GetSubjects();
             GetTests();
             Trainingscb.SelectedIndexChanged += Trainingscb_SelectedIndexChanged;
             comboBox_Tests.SelectedIndexChanged += comboBox_Tests_SelectedIndexChanged;
             button_planformation.Click += button_planformation_Click;
+
+            // Display a random quote
+            Random rnd = new Random();
+            int quoteIndex = rnd.Next(quotes.Count);
+            label_quote.Text = quotes[quoteIndex];
 
 
         }
@@ -69,6 +76,11 @@ namespace Essai
             comboBox_Tests.ValueMember = "name";
             comboBox_Tests.DataSource = dt;
             Con.Close();
+        }
+        private void LoadQuotes()
+        {
+            string[] lines = File.ReadAllLines("quotes.txt");
+            quotes = new List<string>(lines);
         }
         private void EmployeeBord_Load(object sender, EventArgs e)
         {
@@ -146,31 +158,49 @@ namespace Essai
         private void Trainingscb_SelectedIndexChanged(object sender, EventArgs e)
         {
             trainingName = Trainingscb.SelectedValue.ToString();
-            Console.WriteLine("Training name updated to {0}", trainingName);
+
         }
 
         private void comboBox_Tests_SelectedIndexChanged(object sender, EventArgs e)
         {
             testName = comboBox_Tests.SelectedValue.ToString();
-            Console.WriteLine("Test name updated to {0}", testName);
+
         }
         private void button_planformation_Click(object sender, EventArgs e)
         {
             string selectedTestType = comboBox_Tests.SelectedValue.ToString();
 
             Con.Open();
-            SqlCommand cmd = new SqlCommand("select PlanData from Plans where TestTypeId = (select TestTypeId from TestsType where name = @testType)", Con);
+            SqlCommand cmd = new SqlCommand("select PlanData, PlanName from Plans where TestTypeId = (select TestTypeId from TestsType where name = @testType) and PlanData is not null", Con);
             cmd.Parameters.AddWithValue("@testType", selectedTestType);
-            byte[] planData = (byte[])cmd.ExecuteScalar();
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<Tuple<byte[], string>> planList = new List<Tuple<byte[], string>>();
+            while (reader.Read())
+            {
+                byte[] planData = (byte[])reader["PlanData"];
+                string planName = (string)reader["PlanName"];
+                planList.Add(new Tuple<byte[], string>(planData, planName));
+            }
             Con.Close();
 
-            if (planData != null)
+            if (planList.Any())
             {
-                // Debugging statement to check if the correct plan data is retrieved
-                Console.WriteLine("Plan data retrieved for test type {0}", selectedTestType);
+                // Filter the plan list based on the selected plan name
+                string selectedPlanName = "Plan de formation " + selectedTestType;
+                var matchingPlans = planList.Where(p => p.Item2 == selectedPlanName).ToList();
+                if (matchingPlans.Any())
+                {
+                    // Debugging statement to check if the correct plan data is retrieved
+                    Console.WriteLine("Plan data retrieved for test type {0} and plan name {1}", selectedTestType, selectedPlanName);
 
-                // A matching record was found, so open the SuivrePlanFormation form
-                openChildForm(new SuivrePlanFormation(planData));
+                    // A matching record was found, so open the SuivrePlanFormation form
+                    openChildForm(new SuivrePlanFormation(matchingPlans.First().Item1));
+                }
+                else
+                {
+                    // No matching record was found, so display a message box
+                    MessageBox.Show("There is no plan available with the selected plan name for the selected test type.", "No PlanFound", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             else
             {

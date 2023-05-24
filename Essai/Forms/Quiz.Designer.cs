@@ -97,9 +97,9 @@
             label1.ForeColor = Color.Teal;
             label1.Location = new Point(39, 64);
             label1.Name = "label1";
-            label1.Size = new Size(48, 23);
+            label1.Size = new Size(54, 23);
             label1.TabIndex = 22;
-            label1.Text = "Set :";
+            label1.Text = "Test :";
             // 
             // label10
             // 

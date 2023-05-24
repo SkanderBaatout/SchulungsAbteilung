@@ -51,9 +51,9 @@
             label1.ForeColor = Color.Teal;
             label1.Location = new Point(46, 21);
             label1.Name = "label1";
-            label1.Size = new Size(350, 44);
+            label1.Size = new Size(334, 44);
             label1.TabIndex = 5;
-            label1.Text = "Plans de formation";
+            label1.Text = "Plan de formation";
             // 
             // SuivrePlanFormation
             // 

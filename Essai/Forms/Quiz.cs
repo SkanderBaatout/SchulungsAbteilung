@@ -50,7 +50,7 @@ namespace Essai
 
         private void Quiz_Load(object sender, EventArgs e)
         {
-            
+
             label_nameEmp.Text = LoginForm.username;
             label_cinEmp.Text = LoginForm.cin;
             string testName = GetRandomTestName();
@@ -66,7 +66,6 @@ namespace Essai
             form.Show();
             this.Hide();
         }
-
 
 
         private void btn_next_Click(object sender, EventArgs e)
@@ -108,7 +107,6 @@ namespace Essai
             }
         }
         private const int TimerInterval = 1000;
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             // Update the remaining time
@@ -231,8 +229,6 @@ namespace Essai
         {
             qNo.Text = $"Question {current} sur {total}";
         }
-
-
         private void ResetOptionSelection()
         {
             radioButton1.Checked = false;
@@ -240,13 +236,11 @@ namespace Essai
             radioButton3.Checked = false;
             radioButton4.Checked = false;
         }
-
         private void ResetRemainingTime()
         {
             _remainingTime = _totalQuestions * 30;
             label_total_Time.Text = _remainingTime.ToString() + " seconds";
         }
-
         private void EndQuiz(string testName)
         {
             _timer.Stop();
@@ -269,7 +263,6 @@ namespace Essai
             BadgeGenerator.Instance.GenerateBadge(logoPath, testName, name, cin, _score, _totalQuestions, fileName);
         }
 
-    
         private string GetRandomTestName()
         {
             _query = "SELECT TOP 1 tt.name FROM questions q INNER JOIN TestsType tt ON q.qset COLLATE Arabic_CI_AS = tt.name COLLATE Arabic_CI_AS GROUP BY tt.name ORDER BY NEWID()";
@@ -309,8 +302,6 @@ namespace Essai
             }
         }
 
-        
-       
         private T ExecuteScalar<T>(string query, params SqlParameter[] parameters)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
