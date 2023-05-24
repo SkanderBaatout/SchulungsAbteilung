@@ -28,6 +28,7 @@ namespace Essai
         private OpenFileDialog openFileDialog1;
         private SaveFileDialog saveFileDialog1;
 
+       
         public PlanFormation()
         {
             InitializeComponent();
@@ -37,6 +38,11 @@ namespace Essai
             dataGridView.CellDoubleClick += dataGridView_CellDoubleClick;
             dataGridView.CellContentClick += dataGridView_CellContentClick;
             dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            // Hide PlanId and TestTypeId columns
+            dataGridView.Columns["PlanId"].Visible = false;
+            dataGridView.Columns["TestTypeId"].Visible = false;
+
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
 
@@ -46,22 +52,23 @@ namespace Essai
             editButton.HeaderText = "Edit";
             editButton.Text = "Edit";
             editButton.UseColumnTextForButtonValue = true;
-            editButton.DefaultCellStyle.BackColor = Color.Teal; // set button color
+            editButton.DefaultCellStyle.SelectionBackColor = Color.Teal; // set button color
             dataGridView.Columns.Add(editButton);
 
             var deleteButton = new DataGridViewButtonColumn();
             deleteButton.HeaderText = "Delete";
             deleteButton.Text = "Delete";
             deleteButton.UseColumnTextForButtonValue = true;
-            deleteButton.DefaultCellStyle.BackColor = Color.Teal; // set button color;
+            deleteButton.DefaultCellStyle.SelectionBackColor = Color.Teal; // set button color;
             dataGridView.Columns.Add(deleteButton);
 
             var changeFileButton = new DataGridViewButtonColumn();
             changeFileButton.HeaderText = "Change File";
             changeFileButton.Text = "Change File";
             changeFileButton.UseColumnTextForButtonValue = true;
-            changeFileButton.DefaultCellStyle.BackColor = Color.Teal; // set button color
+            changeFileButton.DefaultCellStyle.SelectionBackColor = Color.Teal; // set button color
             dataGridView.Columns.Add(changeFileButton);
+
 
         }
 
@@ -339,7 +346,10 @@ namespace Essai
                 }
             }
         }
+
+    
     }
 }
+
 
 
