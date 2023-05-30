@@ -15,6 +15,8 @@ using System.IO;
 using System.Linq;
 using DocumentFormat.OpenXml.Math;
 using WMPLib;
+using Vlc.DotNet.Forms;
+using System.IO;
 
 
 namespace Essai.Forms
@@ -268,7 +270,35 @@ namespace Essai.Forms
                     // Show the form
                     imageForm.ShowDialog();
                 }
+                else if (content.ContentType == "Videos")
+                {
+                    // Play the video using VLC
+                    Form videoForm = new Form();
+                    videoForm.StartPosition = FormStartPosition.CenterParent;
+                    videoForm.FormBorderStyle = FormBorderStyle.FixedDialog;
 
+                    // Create a new Vlc.DotNet.Forms.VlcControl instance
+                    Vlc.DotNet.Forms.VlcControl vlcControl = new Vlc.DotNet.Forms.VlcControl();
+                    vlcControl.Dock = DockStyle.Fill;
+                    videoForm.Controls.Add(vlcControl);
+
+                    // Set the VlcLibDirectory property to the directory where the VLC libraries are installed
+                    vlcControl.VlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
+
+                    // Check if the content path is not null before trying to load the video file
+                    if (!string.IsNullOrEmpty(content.ContentPath))
+                    {
+                        // Load the video file and play it
+                        vlcControl.SetMedia(new Uri(content.ContentPath));
+                        vlcControl.Play();
+                    }
+
+                    // Set the size of the form based on the size of the video
+                    videoForm.ClientSize = new Size(640, 480);
+
+                    // Show the form
+                    videoForm.ShowDialog();
+                }
                 else if (content.ContentType == "Docs")
                 {
                     // Open the document using Microsoft Word

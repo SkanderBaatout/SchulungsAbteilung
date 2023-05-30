@@ -40,6 +40,7 @@ namespace Essai
 
 
             contentPathLabel.Visible = false;
+
         }
 
         private void DisplaySubjects()
@@ -124,7 +125,7 @@ namespace Essai
             }
         }
 
-        private void savebtn_Click(object sender, EventArgs e)
+        private async void savebtn_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(subjectTb.Text) || string.IsNullOrWhiteSpace(descriptionTB.Text) ||
                 contentTypeCB.SelectedItem == null || string.IsNullOrWhiteSpace(contentTypeCB.SelectedItem.ToString()))
@@ -132,6 +133,9 @@ namespace Essai
                 MessageBox.Show("Please enter a name, description, and content type.");
                 return;
             }
+
+            // Disable the "Save" button to prevent multiple clicks
+            savebtn.Enabled = false;
 
             // Create a new Subject object
             Subject subject = new Subject
@@ -163,14 +167,14 @@ namespace Essai
             }
 
             // Save the subject and content data to the database
-            int subjectId = subjectDataAccess.InsertSubject(subject);
+            int subjectId = await Task.Run(() => subjectDataAccess.InsertSubject(subject));
 
             if (subjectId > 0)
             {
                 if (subject.Content != null)
                 {
                     subject.Content.SubjectId = subjectId;
-                    subjectDataAccess.InsertContent(subject.Content);
+                    await Task.Run(() => subjectDataAccess.InsertContent(subject.Content));
                 }
 
                 MessageBox.Show("Subject added successfully.");
@@ -181,6 +185,9 @@ namespace Essai
             {
                 MessageBox.Show("Failed to add subject.");
             }
+
+            // Re-enable the "Save" button
+            savebtn.Enabled = true;
         }
         private void deleteButton_Click(object sender, EventArgs e)
         {

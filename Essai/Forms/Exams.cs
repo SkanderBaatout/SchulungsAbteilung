@@ -24,12 +24,12 @@ namespace Essai
             MultiRandom();
             FetchQuestions();
 
-           
+
 
         }
         int Qn;
         SqlConnection Con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True");
-       
+
         string[] Ua = new string[10];
 
         int[] keys = new int[10];
@@ -131,7 +131,7 @@ namespace Essai
                 cmd.Parameters.AddWithValue("@sc", BestScore);
 
                 cmd.ExecuteNonQuery();
-              
+
 
                 Con.Close();
 

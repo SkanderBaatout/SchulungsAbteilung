@@ -250,9 +250,9 @@
             // 
             // pictureBox_question
             // 
-            pictureBox_question.Location = new Point(353, 168);
+            pictureBox_question.Location = new Point(531, 219);
             pictureBox_question.Name = "pictureBox_question";
-            pictureBox_question.Size = new Size(553, 398);
+            pictureBox_question.Size = new Size(373, 290);
             pictureBox_question.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox_question.TabIndex = 63;
             pictureBox_question.TabStop = false;

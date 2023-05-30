@@ -55,7 +55,6 @@
             label12 = new Label();
             panel_slide = new Panel();
             button_planformation = new Button();
-            button_exit = new Button();
             button_dashboard = new Button();
             button_followTraining = new Button();
             my_profile = new Button();
@@ -63,6 +62,7 @@
             button_questions = new Button();
             button_course = new Button();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
+            button_exit = new Button();
             panel_logo.SuspendLayout();
             panel_main.SuspendLayout();
             panel_cover.SuspendLayout();
@@ -336,8 +336,8 @@
             // 
             panel_slide.AutoScroll = true;
             panel_slide.BackColor = Color.Teal;
-            panel_slide.Controls.Add(button_planformation);
             panel_slide.Controls.Add(button_exit);
+            panel_slide.Controls.Add(button_planformation);
             panel_slide.Controls.Add(button_dashboard);
             panel_slide.Controls.Add(button_followTraining);
             panel_slide.Controls.Add(my_profile);
@@ -358,7 +358,7 @@
             button_planformation.FlatStyle = FlatStyle.Flat;
             button_planformation.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button_planformation.ForeColor = Color.White;
-            button_planformation.Location = new Point(0, 327);
+            button_planformation.Location = new Point(0, 290);
             button_planformation.Name = "button_planformation";
             button_planformation.Padding = new Padding(10, 0, 0, 0);
             button_planformation.Size = new Size(200, 37);
@@ -367,24 +367,6 @@
             button_planformation.TextAlign = ContentAlignment.MiddleLeft;
             button_planformation.UseVisualStyleBackColor = false;
             button_planformation.Click += button_planformation_Click;
-            // 
-            // button_exit
-            // 
-            button_exit.BackColor = Color.Teal;
-            button_exit.Dock = DockStyle.Top;
-            button_exit.FlatAppearance.BorderSize = 0;
-            button_exit.FlatStyle = FlatStyle.Flat;
-            button_exit.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            button_exit.ForeColor = Color.White;
-            button_exit.Location = new Point(0, 290);
-            button_exit.Name = "button_exit";
-            button_exit.Padding = new Padding(10, 0, 0, 0);
-            button_exit.Size = new Size(200, 37);
-            button_exit.TabIndex = 14;
-            button_exit.Text = "Exit";
-            button_exit.TextAlign = ContentAlignment.MiddleLeft;
-            button_exit.UseVisualStyleBackColor = false;
-            button_exit.Click += button_exit_Click_2;
             // 
             // button_dashboard
             // 
@@ -491,6 +473,24 @@
             guna2Elipse1.BorderRadius = 15;
             guna2Elipse1.TargetControl = panel_ska;
             // 
+            // button_exit
+            // 
+            button_exit.BackColor = Color.Teal;
+            button_exit.Dock = DockStyle.Top;
+            button_exit.FlatAppearance.BorderSize = 0;
+            button_exit.FlatStyle = FlatStyle.Flat;
+            button_exit.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button_exit.ForeColor = Color.White;
+            button_exit.Location = new Point(0, 327);
+            button_exit.Name = "button_exit";
+            button_exit.Padding = new Padding(10, 0, 0, 0);
+            button_exit.Size = new Size(200, 37);
+            button_exit.TabIndex = 16;
+            button_exit.Text = "Exit";
+            button_exit.TextAlign = ContentAlignment.MiddleLeft;
+            button_exit.UseVisualStyleBackColor = false;
+            button_exit.Click += button_exit_Click_3;
+            // 
             // EmployeeBord
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -549,7 +549,6 @@
         private ComboBox Trainingscb;
         private Button my_profile;
         private Button button_followTraining;
-        private Button button_exit;
         private Button button_dashboard;
         private ComboBox comboBox_Tests;
         private Label label4;
@@ -560,5 +559,6 @@
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
         private Label label_quote;
+        private Button button_exit;
     }
 }

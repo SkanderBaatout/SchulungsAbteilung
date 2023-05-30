@@ -22,6 +22,8 @@ namespace Essai
         public AddQuestionForm()
         {
             InitializeComponent();
+            label_NoSet.Visible = false;
+            textBox_set.Visible = false; 
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -88,7 +90,7 @@ namespace Essai
                     {
                         _currentQuestionNumber = 1;
                         questionLabel.Text = _currentQuestionNumber.ToString();
-                        label_NoSet.Visible = true;
+                        //label_NoSet.Visible = true;
                     }
                 }
             }

@@ -96,18 +96,6 @@ namespace Essai
             this.Hide();
         }
 
-        private void button_exit_Click(object sender, EventArgs e)
-        {
-            LoginForm login = new LoginForm();
-            this.Hide();
-            login.Show();
-        }
-
-        private void button_plan_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button_course_Click(object sender, EventArgs e)
         {
             Exams ex = new Exams();
@@ -127,12 +115,7 @@ namespace Essai
             openChildForm(new ProfileModificationForm(LoginForm.username, LoginForm.cin));
         }
 
-        private void button_exit_Click_1(object sender, EventArgs e)
-        {
-            LoginForm login = new LoginForm();
-            this.Hide();
-            login.Show();
-        }
+       
 
         private void button_dashboard_Click(object sender, EventArgs e)
         {
@@ -148,12 +131,7 @@ namespace Essai
             openChildForm(new FollowSubjectForm());
         }
 
-        private void button_exit_Click_2(object sender, EventArgs e)
-        {
-            LoginForm login = new LoginForm();
-            this.Hide();
-            login.Show();
-        }
+      
 
         private void Trainingscb_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -207,6 +185,13 @@ namespace Essai
                 // No matching record was found, so display a message box
                 MessageBox.Show("There is no plan available for the selected test type.", "No PlanFound", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void button_exit_Click_3(object sender, EventArgs e)
+        {
+            LoginForm login = new LoginForm();
+            this.Hide();
+            login.Show();
         }
     }
 }

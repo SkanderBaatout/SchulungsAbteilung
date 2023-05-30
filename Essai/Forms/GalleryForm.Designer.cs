@@ -43,25 +43,27 @@
             flowLayoutPanel = new FlowLayoutPanel();
             pictureBox = new PictureBox();
             tableLayoutPanel = new TableLayoutPanel();
+            ContentPictureBox = new PictureBox();
+            vlcControl = new Vlc.DotNet.Forms.VlcControl();
             subjectPanel = new Panel();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
-            ContentPictureBox = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)mediaContentDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             flowLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ContentPictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)vlcControl).BeginInit();
             SuspendLayout();
             // 
             // mediaContentDataGridView
             // 
             mediaContentDataGridView.BackgroundColor = Color.Gainsboro;
             mediaContentDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            mediaContentDataGridView.Location = new Point(558, 141);
+            mediaContentDataGridView.Location = new Point(570, 93);
             mediaContentDataGridView.Name = "mediaContentDataGridView";
             mediaContentDataGridView.RowTemplate.Height = 25;
-            mediaContentDataGridView.Size = new Size(380, 348);
+            mediaContentDataGridView.Size = new Size(380, 396);
             mediaContentDataGridView.TabIndex = 0;
             mediaContentDataGridView.CellContentDoubleClick += mediaContentDataGridView_CellContentDoubleClick;
             // 
@@ -84,7 +86,7 @@
             // contentTypeCB
             // 
             contentTypeCB.FormattingEnabled = true;
-            contentTypeCB.Location = new Point(156, 8);
+            contentTypeCB.Location = new Point(201, 9);
             contentTypeCB.Name = "contentTypeCB";
             contentTypeCB.Size = new Size(143, 29);
             contentTypeCB.TabIndex = 3;
@@ -92,7 +94,7 @@
             // totalRecordsLabel
             // 
             totalRecordsLabel.AutoSize = true;
-            totalRecordsLabel.Location = new Point(64, 11);
+            totalRecordsLabel.Location = new Point(32, 12);
             totalRecordsLabel.Name = "totalRecordsLabel";
             totalRecordsLabel.Size = new Size(57, 21);
             totalRecordsLabel.TabIndex = 4;
@@ -119,7 +121,7 @@
             // 
             applyFiltersButton.BackColor = Color.Teal;
             applyFiltersButton.ForeColor = Color.White;
-            applyFiltersButton.Location = new Point(305, 9);
+            applyFiltersButton.Location = new Point(359, 9);
             applyFiltersButton.Name = "applyFiltersButton";
             applyFiltersButton.Size = new Size(111, 28);
             applyFiltersButton.TabIndex = 7;
@@ -180,6 +182,7 @@
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel.Controls.Add(ContentPictureBox, 1, 0);
+            tableLayoutPanel.Controls.Add(vlcControl, 0, 0);
             tableLayoutPanel.Location = new Point(45, 93);
             tableLayoutPanel.Name = "tableLayoutPanel";
             tableLayoutPanel.RowCount = 2;
@@ -187,6 +190,27 @@
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel.Size = new Size(496, 230);
             tableLayoutPanel.TabIndex = 12;
+            // 
+            // ContentPictureBox
+            // 
+            ContentPictureBox.Location = new Point(251, 3);
+            ContentPictureBox.Name = "ContentPictureBox";
+            ContentPictureBox.Size = new Size(100, 50);
+            ContentPictureBox.TabIndex = 0;
+            ContentPictureBox.TabStop = false;
+            ContentPictureBox.Click += ContentPictureBox_Click;
+            // 
+            // vlcControl
+            // 
+            vlcControl.BackColor = Color.Black;
+            vlcControl.Location = new Point(3, 3);
+            vlcControl.Name = "vlcControl";
+            vlcControl.Size = new Size(242, 109);
+            vlcControl.Spu = -1;
+            vlcControl.TabIndex = 1;
+            vlcControl.Text = "vlcControl1";
+            this.vlcControl.VlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
+            vlcControl.VlcMediaplayerOptions = null;
             // 
             // subjectPanel
             // 
@@ -199,15 +223,6 @@
             // 
             guna2Elipse1.BorderRadius = 15;
             guna2Elipse1.TargetControl = applyFiltersButton;
-            // 
-            // ContentPictureBox
-            // 
-            ContentPictureBox.Location = new Point(251, 3);
-            ContentPictureBox.Name = "ContentPictureBox";
-            ContentPictureBox.Size = new Size(100, 50);
-            ContentPictureBox.TabIndex = 0;
-            ContentPictureBox.TabStop = false;
-            ContentPictureBox.Click += ContentPictureBox_Click;
             // 
             // GalleryForm
             // 
@@ -242,6 +257,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             tableLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ContentPictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)vlcControl).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -265,5 +281,6 @@
         private Panel subjectPanel;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
         private PictureBox ContentPictureBox;
+        private Vlc.DotNet.Forms.VlcControl vlcControl;
     }
 }

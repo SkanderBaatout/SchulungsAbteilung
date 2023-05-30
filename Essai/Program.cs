@@ -1,3 +1,5 @@
+using Essai.Forms;
+
 namespace Essai
 {
     internal static class Program
@@ -12,7 +14,7 @@ namespace Essai
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new SplashForm()) ;
+            Application.Run(new FormationForm()) ;
         }
     }
 }   
