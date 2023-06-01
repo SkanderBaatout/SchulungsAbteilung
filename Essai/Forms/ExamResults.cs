@@ -21,7 +21,6 @@ namespace Essai.Forms
             GetTests();
             GetCandidate();
             DisplayResults();
-
             candidatecb.SelectedIndexChanged += new EventHandler(candidatecb_SelectedIndexChanged);
             TestTypecb.SelectedIndexChanged += new EventHandler(TestTypecb_SelectedIndexChanged);
         }
@@ -31,22 +30,31 @@ namespace Essai.Forms
         private void DisplayResults()
         {
             Con.Open();
-            String Query = "select id, TestName, NumberOfQuestions, Date, Name, CIN, Score, Status from ExamResult";
+            string Query = "select id, TestName, NumberOfQuestions, Date, Name, CIN, Score, Status from ExamResult";
             SqlDataAdapter sda = new SqlDataAdapter(Query, Con);
             SqlCommandBuilder builder = new SqlCommandBuilder(sda);
             var ds = new DataSet();
             sda.Fill(ds);
             resultDGV.DataSource = ds.Tables[0];
-            resultDGV.Columns[0].Visible = false; // hide the ID column
-            resultDGV.Columns[1].HeaderText = "TestName";
-            resultDGV.Columns[2].HeaderText = "NumberOfQuestions";
+            resultDGV.Columns[0].Visible = false; // masquer la colonne ID
+            resultDGV.Columns[1].HeaderText = "Test Name";
+            resultDGV.Columns[2].HeaderText = "Number of questions";
             resultDGV.Columns[3].HeaderText = "Date";
             resultDGV.Columns[4].HeaderText = "Name";
             resultDGV.Columns[5].HeaderText = "CIN";
             resultDGV.Columns[6].HeaderText = "Score";
             resultDGV.Columns[7].HeaderText = "Status";
 
-           
+            /*  foreach (DataGridViewRow row in resultDGV.Rows)
+              {
+                  bool status = Convert.ToBoolean(row.Cells["Status"].Value);
+                  string statusText = status ? "Accepté" : "Rejeté";
+                  Color statusColor = status ? Color.Green : Color.Red;
+
+                  row.Cells["Status"].Value = statusText; // Remplacer la valeur booléenne par le texte du statut
+                  row.Cells["Status"].Style.ForeColor = statusColor;
+              }
+            */
             Con.Close();
         }
         private void GetCandidate()
@@ -173,7 +181,11 @@ namespace Essai.Forms
         {
             string candidateName = candidatecb.SelectedValue.ToString();
             string testName = TestTypecb.SelectedValue.ToString();
-            FilterByCandidateAndTest(candidateName, testName);
+
+            if (candidateName != null && testName != null)
+            {
+                FilterByCandidateAndTest(candidateName, testName);
+            }
         }
 
         private void FilterByTest()
