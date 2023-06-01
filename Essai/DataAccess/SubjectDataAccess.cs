@@ -438,31 +438,38 @@ namespace Essai.DataAccess
             {
                 connection.Open();
 
-                string query = "SELECT ContentType, ContentTitle, ContentData FROM ContentTbl " +
-                               "WHERE SubjectId = @SubjectId";
-
-                if (contentTypeFilter != "All")
-                {
-                    query += " AND ContentType = @ContentType";
-                }
+                // Construct the SQL query with a JOIN on the Subject table
+                string query = "SELECT c.ContentId, c.SubjectId, c.ContentType, c.ContentTitle, c.ContentData, c.DateAdded," +
+                    " s.SId, s.SName, s.Description, s.ContentType, s.DateAdded AS SubjectDateAdded, s.IsActive FROM ContentTbl " +
+                    "AS c JOIN SubjectTbl AS s ON c.SubjectId = s.SId WHERE c.SubjectId = @SubjectId AND " +
+                    "(@ContentTypeFilter = 'All' OR c.ContentType = @ContentTypeFilter)";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@SubjectId", subjectId);
-
-                if (contentTypeFilter != "All")
-                {
-                    command.Parameters.AddWithValue("@ContentType", contentTypeFilter);
-                }
+                command.Parameters.AddWithValue("@ContentTypeFilter", contentTypeFilter); // <-- updated parameter name
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
+                        // Create a new Content object with its corresponding Subject object
                         Content content = new Content();
-                        content.SubjectId = subjectId;
-                        content.ContentType = reader.GetString(0);
-                        content.ContentTitle = reader.GetString(1);
+                        content.ContentId = reader.GetInt32(0);
+                        content.SubjectId = reader.GetInt32(1);
+                        content.ContentType = reader.GetString(2);
+                        content.ContentTitle = reader.GetString(3);
                         content.ContentData = (byte[])reader["ContentData"];
+                        content.DateAdded = reader.GetDateTime(5);
+
+                        Subject subject = new Subject();
+                        subject.Id = reader.GetInt32(6);
+                        subject.Name = reader.GetString(7);
+                        subject.Description = reader.GetString(8);
+                        subject.ContentType = reader.GetString(9);
+                        subject.DateAdded = reader.GetDateTime(10);
+                        subject.IsActive = reader.GetBoolean(11);
+
+                        content.Subject = subject;
                         contentList.Add(content);
                     }
                 }

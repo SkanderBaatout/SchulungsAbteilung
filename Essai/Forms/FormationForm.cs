@@ -24,6 +24,7 @@ namespace Essai.Forms
         private readonly string connectionString = "data source=SKANDERBAATOUT;database=quiz;integrated security=True;TrustServerCertificate=True;";
 
         private int _selectedFormationId;
+        private int _selectedDepartmentId;
 
         public FormationForm()
         {
@@ -31,38 +32,90 @@ namespace Essai.Forms
             _dataAccess = new FormationDataAccess(connectionString);
             _deptDataAccess = new DepartmentDataAccess(connectionString);
             _departments = _deptDataAccess.GetAllDepartments();
+            contentTypeCB.Items.AddRange(new string[] { "Docs", "Images", "Videos", "Other" });
 
-            contentTypeCB.Items.Add("Docs");
-            contentTypeCB.Items.Add("Images");
-            contentTypeCB.Items.Add("Videos");
-            contentTypeCB.Items.Add("Other");
-        }
 
-        private void FormationForm_Load(object sender, EventArgs e)
-        {
-            LoadFormationsAsync();
-            LoadDepartments();
+            // Handle the CellClick event of the grid view to select a row and load its data
+            formationGridView.CellClick += formationGridView_CellClick;
         }
         private async Task LoadFormationsAsync()
         {
             List<Formation> formations = await _dataAccess.GetAllFormationsAsync();
 
-            formationGridView.AutoGenerateColumns = false;
-            formationGridView.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "ID", DataPropertyName = "Id" });
-            formationGridView.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Name", DataPropertyName = "Name" });
-            formationGridView.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Trainer", DataPropertyName = "Trainer" });
-            formationGridView.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Begin Date", DataPropertyName = "BeginDate" });
-            formationGridView.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "End Date", DataPropertyName = "EndDate" });
-            formationGridView.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Content Type", DataPropertyName = "ContentType" });
-            formationGridView.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Department", DataPropertyName = "DeptName" });
-
+            // Bind the data to the grid view
             formationGridView.DataSource = formations;
+            formationGridView.AutoGenerateColumns = false;
         }
+        private void FormationForm_Load(object sender, EventArgs e)
+        {
+            // Define the columns for the grid view
+            formationGridView.AutoGenerateColumns = false;
+
+
+            _dataAccess.LoadFormations(formationGridView);
+            LoadFormationsAsync();
+            LoadDepartments();
+            // Define the columns for the grid view
+            formationGridView.AutoGenerateColumns = false;
+            formationGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Id",
+                DataPropertyName = "Id",
+                Visible = false
+            });
+            formationGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Name",
+                DataPropertyName = "Name",
+                HeaderText = "Name",
+                Width = 200
+            });
+            formationGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Trainer",
+                DataPropertyName = "Trainer",
+                HeaderText = "Trainer",
+                Width = 150
+            });
+            formationGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "BeginDate",
+                DataPropertyName = "BeginDate",
+                HeaderText = "Begin Date",
+                Width = 100
+            });
+            formationGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "EndDate",
+                DataPropertyName = "EndDate",
+                HeaderText = "End Date",
+                Width = 100
+            });
+            formationGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "ContentType",
+                DataPropertyName = "ContentType",
+                HeaderText = "Content Type",
+                Width = 100
+            });
+            formationGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "DeptName",
+                DataPropertyName = "DeptName",
+                HeaderText = "DeptName",
+                Width = 150
+            });
+        }
+
+
         private void LoadDepartments()
         {
             departmentCb.DisplayMember = "Name";
             departmentCb.ValueMember = "Id";
             departmentCb.DataSource = _departments;
+            departmentCb.SelectedIndexChanged += departmentCb_SelectedIndexChanged;
+
+            departmentCb.SelectionChangeCommitted += departmentCb_SelectionChangeCommitted;
         }
 
         private void addbtn_Click(object sender, EventArgs e)
@@ -168,7 +221,7 @@ namespace Essai.Forms
 
             if (result == DialogResult.Yes)
             {
-                int rowsAffected =  _dataAccess.DeleteFormation(_selectedFormationId);
+                int rowsAffected = _dataAccess.DeleteFormation(_selectedFormationId);
 
                 if (rowsAffected > 0)
                 {
@@ -270,20 +323,59 @@ namespace Essai.Forms
 
         private void formationGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.RowIndex < formationGridView.Rows.Count - 1)
+            if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = formationGridView.Rows[e.RowIndex];
-                _selectedFormationId = (int)row.Cells["Id"].Value;
+                // Set the selected Formation ID
+                _selectedFormationId = Convert.ToInt32(row.Cells["Id"].Value);
 
-                // Load the formation content into the appropriate UI elements
-                nameTb.Text = row.Cells["Name"].Value.ToString();
+                // Display the data in the UI elements
+                nameTb.Text = row.Cells["Name"].Value != null ? row.Cells["Name"].Value.ToString() : "";
                 trainerTb.Text = row.Cells["Trainer"].Value.ToString();
-                beginDate.Value = (DateTime)row.Cells["BeginDate"].Value;
-                endDate.Value = (DateTime)row.Cells["EndDate"].Value;
+                beginDate.Value = Convert.ToDateTime(row.Cells["BeginDate"].Value);
+                endDate.Value = Convert.ToDateTime(row.Cells["EndDate"].Value);
                 contentTypeCB.SelectedItem = row.Cells["ContentType"].Value.ToString();
+                string deptName = row.Cells["DeptName"].Value.ToString();
+                Models.Department dept = _departments.FirstOrDefault(d => d.Name == deptName);
+                if (dept != null)
+                {
+                    departmentCb.SelectedItem = dept;
+                }
+            }
+        }
+        private async Task LoadFormationsByDepartmentAsync(int departmentId)
+        {
+            List<Formation> formations = await _dataAccess.GetFormationsByDepartmentAsync(departmentId.ToString());
 
-                Models.Department department = _departments.FirstOrDefault(d => d.Id == (int)row.Cells["DepartmentId"].Value);
-                departmentCb.SelectedItem = department;
+            // Bind the data to the grid view
+            formationGridView.DataSource = formations;
+            formationGridView.AutoGenerateColumns = false;
+        }
+
+        private void departmentCb_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (departmentCb.SelectedItem != null)
+            {
+                Models.Department selectedDepartment = (Models.Department)departmentCb.SelectedItem;
+                if (selectedDepartment != null)
+                {
+                    _selectedDepartmentId = selectedDepartment.Id;
+                    LoadFormationsByDepartmentAsync(_selectedDepartmentId);
+                }
+            }
+        }
+
+        private void departmentCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (departmentCb.SelectedItem != null)
+            {
+                Models.Department selectedDepartment = (Models.Department)departmentCb.SelectedItem;
+                if (selectedDepartment != null)
+                {
+                    _selectedDepartmentId = selectedDepartment.Id;
+                    LoadFormationsByDepartmentAsync(_selectedDepartmentId);
+                }
             }
         }
     }

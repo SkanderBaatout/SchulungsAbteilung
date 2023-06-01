@@ -29,43 +29,26 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            mediaContentDataGridView = new DataGridView();
             label1 = new Label();
             subjectNameFilterTB = new TextBox();
             contentTypeCB = new ComboBox();
             totalRecordsLabel = new Label();
             currentPageLabel = new Label();
-            numericUpDown1 = new NumericUpDown();
             applyFiltersButton = new Button();
             nextPageButton = new Button();
             ContentButton = new Button();
             previousPageButton = new Button();
-            flowLayoutPanel = new FlowLayoutPanel();
+            contentFlowLayoutPanel = new FlowLayoutPanel();
             pictureBox = new PictureBox();
             tableLayoutPanel = new TableLayoutPanel();
             ContentPictureBox = new PictureBox();
             vlcControl = new Vlc.DotNet.Forms.VlcControl();
-            subjectPanel = new Panel();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
-            ((System.ComponentModel.ISupportInitialize)mediaContentDataGridView).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            flowLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ContentPictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)vlcControl).BeginInit();
             SuspendLayout();
-            // 
-            // mediaContentDataGridView
-            // 
-            mediaContentDataGridView.BackgroundColor = Color.Gainsboro;
-            mediaContentDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            mediaContentDataGridView.Location = new Point(570, 93);
-            mediaContentDataGridView.Name = "mediaContentDataGridView";
-            mediaContentDataGridView.RowTemplate.Height = 25;
-            mediaContentDataGridView.Size = new Size(380, 396);
-            mediaContentDataGridView.TabIndex = 0;
-            mediaContentDataGridView.CellContentDoubleClick += mediaContentDataGridView_CellContentDoubleClick;
             // 
             // label1
             // 
@@ -109,14 +92,6 @@
             currentPageLabel.TabIndex = 5;
             currentPageLabel.Text = "label3";
             // 
-            // numericUpDown1
-            // 
-            numericUpDown1.Location = new Point(511, 496);
-            numericUpDown1.Margin = new Padding(4);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(120, 27);
-            numericUpDown1.TabIndex = 6;
-            // 
             // applyFiltersButton
             // 
             applyFiltersButton.BackColor = Color.Teal;
@@ -159,17 +134,16 @@
             previousPageButton.UseVisualStyleBackColor = true;
             previousPageButton.Click += previousPageButton_Click;
             // 
-            // flowLayoutPanel
+            // contentFlowLayoutPanel
             // 
-            flowLayoutPanel.Controls.Add(pictureBox);
-            flowLayoutPanel.Location = new Point(264, 341);
-            flowLayoutPanel.Name = "flowLayoutPanel";
-            flowLayoutPanel.Size = new Size(288, 148);
-            flowLayoutPanel.TabIndex = 11;
+            contentFlowLayoutPanel.Location = new Point(219, 346);
+            contentFlowLayoutPanel.Name = "contentFlowLayoutPanel";
+            contentFlowLayoutPanel.Size = new Size(428, 148);
+            contentFlowLayoutPanel.TabIndex = 11;
             // 
             // pictureBox
             // 
-            pictureBox.Location = new Point(3, 3);
+            pictureBox.Location = new Point(653, 362);
             pictureBox.Name = "pictureBox";
             pictureBox.Size = new Size(274, 103);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -188,12 +162,12 @@
             tableLayoutPanel.RowCount = 2;
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel.Size = new Size(496, 230);
+            tableLayoutPanel.Size = new Size(659, 242);
             tableLayoutPanel.TabIndex = 12;
             // 
             // ContentPictureBox
             // 
-            ContentPictureBox.Location = new Point(251, 3);
+            ContentPictureBox.Location = new Point(332, 3);
             ContentPictureBox.Name = "ContentPictureBox";
             ContentPictureBox.Size = new Size(100, 50);
             ContentPictureBox.TabIndex = 0;
@@ -209,15 +183,8 @@
             vlcControl.Spu = -1;
             vlcControl.TabIndex = 1;
             vlcControl.Text = "vlcControl1";
-            this.vlcControl.VlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
+            vlcControl.VlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\"); ;
             vlcControl.VlcMediaplayerOptions = null;
-            // 
-            // subjectPanel
-            // 
-            subjectPanel.Location = new Point(32, 407);
-            subjectPanel.Name = "subjectPanel";
-            subjectPanel.Size = new Size(225, 152);
-            subjectPanel.TabIndex = 13;
             // 
             // guna2Elipse1
             // 
@@ -230,30 +197,24 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
-            Controls.Add(subjectPanel);
-            Controls.Add(flowLayoutPanel);
+            Controls.Add(pictureBox);
+            Controls.Add(contentFlowLayoutPanel);
             Controls.Add(tableLayoutPanel);
             Controls.Add(previousPageButton);
             Controls.Add(ContentButton);
             Controls.Add(nextPageButton);
             Controls.Add(applyFiltersButton);
-            Controls.Add(numericUpDown1);
             Controls.Add(currentPageLabel);
             Controls.Add(totalRecordsLabel);
             Controls.Add(contentTypeCB);
             Controls.Add(subjectNameFilterTB);
             Controls.Add(label1);
-            Controls.Add(mediaContentDataGridView);
             Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
             Name = "GalleryForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "GalleryForm";
-            Load += GalleryForm_Load;
-            ((System.ComponentModel.ISupportInitialize)mediaContentDataGridView).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            flowLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             tableLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ContentPictureBox).EndInit();
@@ -275,7 +236,7 @@
         private Button nextPageButton;
         private Button ContentButton;
         private Button previousPageButton;
-        private FlowLayoutPanel flowLayoutPanel;
+        private FlowLayoutPanel contentFlowLayoutPanel;
         private PictureBox pictureBox;
         private TableLayoutPanel tableLayoutPanel;
         private Panel subjectPanel;

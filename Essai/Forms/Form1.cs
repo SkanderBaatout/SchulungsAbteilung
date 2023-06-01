@@ -372,5 +372,10 @@ namespace Essai
         {
             openChildForm(new GalleryForm());
         }
+
+        private void btn_examResults_Click(object sender, EventArgs e)
+        {
+            openChildForm(new ExamResults());
+        }
     }
 }

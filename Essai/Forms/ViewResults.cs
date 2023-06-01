@@ -98,12 +98,7 @@ namespace Essai
             Con.Close();
         }
 
-        private void guna2CirclePictureBox2_Click(object sender, EventArgs e)
-        {
-            LoginForm log = new LoginForm();
-            log.Show();
-            this.Hide();
-        }
+     
 
         private void subjectcb_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -115,17 +110,8 @@ namespace Essai
             FilterByCandidate();
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            Form1 form = new Form1();
-            form.Show();
-            this.Hide();
-        }
-
-        private void ViewResults_Load(object sender, EventArgs e)
-        {
-
-        }
+     
+       
         private void ExportToExcel()
         {
             try

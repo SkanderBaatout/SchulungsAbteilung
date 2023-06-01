@@ -153,10 +153,7 @@ namespace Essai.Forms
             previousPageButton.Enabled = currentPage > 1;
             nextPageButton.Enabled = currentPage < totalPages;
         }
-        private void GalleryForm_Load(object sender, EventArgs e)
-        {
 
-        }
 
         private void applyFiltersButton_Click(object sender, EventArgs e)
         {
@@ -182,95 +179,14 @@ namespace Essai.Forms
             RefreshDataGridView();
         }
 
-        private void mediaContentDataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = mediaContentDataGridView.Rows[e.RowIndex];
-                string subjectName = row.Cells[0].Value.ToString();
-                string contentTitle = row.Cells[1].Value.ToString();
-                string contentType = row.Cells[2].Value.ToString();
-
-                Subject subject = subjectDataAccess.GetSubjectByName(subjectName);
-
-                if (subject != null && subject.Content != null)
-                {
-                    Content content = subject.Content.ContentList.SingleOrDefault(c => c.ContentTitle == contentTitle && c.ContentType == contentType);
-
-                    if (content != null)
-                    {
-                        if (contentType == "Images")
-                        {
-                            // Create a new PictureBox control to display the image
-                            PictureBox pictureBox = new PictureBox();
-                            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                            pictureBox.Image = Image.FromStream(new MemoryStream(content.ContentData));
-
-                            // Add the PictureBox to the TableLayoutPanel
-                            int rowIdx = tableLayoutPanel.RowCount - 1;
-                            int colIdx = tableLayoutPanel.Controls.Count % tableLayoutPanel.ColumnCount;
-                            tableLayoutPanel.Controls.Add(pictureBox, colIdx, rowIdx + 1);
-                            tableLayoutPanel.SetRow(pictureBox, rowIdx);
-                            tableLayoutPanel.SetColumn(pictureBox, colIdx);
-                        }
-                        else
-                        {
-                            // Open the content item in a new window
-                            string contentPath = content.ContentPath;
-
-                            switch (contentType)
-                            {
-                                case "Docs":
-                                    Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
-                                    Document doc = wordApp.Documents.Open(contentPath);
-                                    doc.Activate();
-                                    wordApp.Visible = true;
-                                    break;
-                                case "Videos":
-                                    Process.Start(contentPath);
-                                    break;
-                                default:
-                                    // Open the content using the default program for its file type
-                                    Process.Start(contentPath);
-                                    break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
         private void ContentButton_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
             Content content = button.Tag as Content;
 
-
             if (content != null)
             {
-                if (content.ContentType == "Images")
-                {
-                    // Create a new form to display the image
-                    Form imageForm = new Form();
-                    imageForm.StartPosition = FormStartPosition.CenterParent;
-                    imageForm.FormBorderStyle = FormBorderStyle.FixedDialog;
-                    imageForm.MaximizeBox = false;
-                    imageForm.MinimizeBox = false;
-                    imageForm.Text = "View Image";
-
-                    // Create a new PictureBox control to display the image
-                    PictureBox pictureBox = new PictureBox();
-                    pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                    pictureBox.Image = Image.FromStream(new MemoryStream(content.ContentData));
-                    pictureBox.Dock = DockStyle.Fill;
-                    imageForm.Controls.Add(pictureBox);
-
-                    // Set the size of the form based on the size of the image
-                    imageForm.ClientSize = new Size(pictureBox.Image.Width, pictureBox.Image.Height);
-
-                    // Show the form
-                    imageForm.ShowDialog();
-                }
-                else if (content.ContentType == "Videos")
+                if (vlcControl != null && content.ContentPath != null && content.ContentType == "Videos")
                 {
                     // Play the video using VLC
                     Form videoForm = new Form();
@@ -279,25 +195,27 @@ namespace Essai.Forms
 
                     // Create a new Vlc.DotNet.Forms.VlcControl instance
                     Vlc.DotNet.Forms.VlcControl vlcControl = new Vlc.DotNet.Forms.VlcControl();
+                    Debug.WriteLine("vlcControl: " + vlcControl);
+
                     vlcControl.Dock = DockStyle.Fill;
                     videoForm.Controls.Add(vlcControl);
 
                     // Set the VlcLibDirectory property to the directory where the VLC libraries are installed
                     vlcControl.VlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
 
-                    // Check if the content path is not null before trying to load the video file
-                    if (!string.IsNullOrEmpty(content.ContentPath))
+                    // Subscribe to the Playing event to start playing the video once it has been loaded
+                    vlcControl.Playing += (sender, args) =>
                     {
-                        // Load the video file and play it
-                        vlcControl.SetMedia(new Uri(content.ContentPath));
-                        vlcControl.Play();
-                    }
+                        // Set the size of the form based on the size of the video
+                        videoForm.ClientSize = new Size(640, 480);
 
-                    // Set the size of the form based on the size of the video
-                    videoForm.ClientSize = new Size(640, 480);
+                        // Show the form
+                        videoForm.ShowDialog();
+                    };
 
-                    // Show the form
-                    videoForm.ShowDialog();
+                    // Load the video file and prepare it for playback
+                    vlcControl.SetMedia(new Uri(content.ContentPath));
+                    vlcControl.Play();
                 }
                 else if (content.ContentType == "Docs")
                 {
@@ -314,7 +232,6 @@ namespace Essai.Forms
                 }
             }
         }
-
         private void ContentPictureBox_Click(object sender, EventArgs e)
         {
             PictureBox pictureBox = sender as PictureBox;

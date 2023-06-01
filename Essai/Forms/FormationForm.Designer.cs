@@ -31,20 +31,20 @@
             components = new System.ComponentModel.Container();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             bindingSource = new BindingSource(components);
             contentPathLabel = new Label();
             contentTypeCB = new ComboBox();
             label9 = new Label();
-            contentTB = new TextBox();
+            contentFilePathTb = new TextBox();
             loadBtn = new Button();
             deleteButton = new Guna.UI2.WinForms.Guna2Button();
             beginDate = new DateTimePicker();
@@ -52,7 +52,6 @@
             label7 = new Label();
             label6 = new Label();
             label5 = new Label();
-            formationGridView = new Guna.UI2.WinForms.Guna2DataGridView();
             label4 = new Label();
             editbtn = new Guna.UI2.WinForms.Guna2Button();
             resetbtn = new Guna.UI2.WinForms.Guna2Button();
@@ -64,6 +63,7 @@
             label2 = new Label();
             departmentCb = new ComboBox();
             label3 = new Label();
+            formationGridView = new Guna.UI2.WinForms.Guna2DataGridView();
             ((System.ComponentModel.ISupportInitialize)bindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)formationGridView).BeginInit();
             SuspendLayout();
@@ -96,12 +96,12 @@
             label9.TabIndex = 67;
             label9.Text = "Training Name";
             // 
-            // contentTB
+            // contentFilePathTb
             // 
-            contentTB.Location = new Point(543, 100);
-            contentTB.Name = "contentTB";
-            contentTB.Size = new Size(128, 27);
-            contentTB.TabIndex = 66;
+            contentFilePathTb.Location = new Point(543, 100);
+            contentFilePathTb.Name = "contentFilePathTb";
+            contentFilePathTb.Size = new Size(128, 27);
+            contentFilePathTb.TabIndex = 66;
             // 
             // loadBtn
             // 
@@ -185,59 +185,6 @@
             label5.Size = new Size(61, 19);
             label5.TabIndex = 58;
             label5.Text = "Trainer";
-            // 
-            // formationGridView
-            // 
-            dataGridViewCellStyle1.BackColor = Color.White;
-            formationGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            formationGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            formationGridView.ColumnHeadersHeight = 25;
-            formationGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            formationGridView.DefaultCellStyle = dataGridViewCellStyle3;
-            formationGridView.Dock = DockStyle.Bottom;
-            formationGridView.GridColor = Color.FromArgb(231, 229, 255);
-            formationGridView.Location = new Point(0, 328);
-            formationGridView.Name = "formationGridView";
-            formationGridView.RowHeadersVisible = false;
-            formationGridView.RowTemplate.Height = 24;
-            formationGridView.Size = new Size(950, 322);
-            formationGridView.TabIndex = 56;
-            formationGridView.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
-            formationGridView.ThemeStyle.AlternatingRowsStyle.Font = null;
-            formationGridView.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
-            formationGridView.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
-            formationGridView.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
-            formationGridView.ThemeStyle.BackColor = Color.White;
-            formationGridView.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
-            formationGridView.ThemeStyle.HeaderStyle.BackColor = Color.Black;
-            formationGridView.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
-            formationGridView.ThemeStyle.HeaderStyle.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            formationGridView.ThemeStyle.HeaderStyle.ForeColor = Color.White;
-            formationGridView.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            formationGridView.ThemeStyle.HeaderStyle.Height = 25;
-            formationGridView.ThemeStyle.ReadOnly = false;
-            formationGridView.ThemeStyle.RowsStyle.BackColor = Color.White;
-            formationGridView.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            formationGridView.ThemeStyle.RowsStyle.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            formationGridView.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(71, 69, 94);
-            formationGridView.ThemeStyle.RowsStyle.Height = 24;
-            formationGridView.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            formationGridView.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            formationGridView.CellClick += formationGridView_CellClick;
             // 
             // label4
             // 
@@ -366,6 +313,8 @@
             departmentCb.Name = "departmentCb";
             departmentCb.Size = new Size(167, 29);
             departmentCb.TabIndex = 74;
+            departmentCb.SelectedIndexChanged += departmentCb_SelectedIndexChanged;
+            departmentCb.SelectionChangeCommitted += departmentCb_SelectionChangeCommitted;
             // 
             // label3
             // 
@@ -378,12 +327,66 @@
             label3.TabIndex = 75;
             label3.Text = "Department";
             // 
+            // formationGridView
+            // 
+            dataGridViewCellStyle1.BackColor = Color.White;
+            formationGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            formationGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            formationGridView.ColumnHeadersHeight = 25;
+            formationGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            formationGridView.DefaultCellStyle = dataGridViewCellStyle3;
+            formationGridView.Dock = DockStyle.Bottom;
+            formationGridView.GridColor = Color.FromArgb(231, 229, 255);
+            formationGridView.Location = new Point(0, 328);
+            formationGridView.Name = "formationGridView";
+            formationGridView.RowHeadersVisible = false;
+            formationGridView.RowTemplate.Height = 24;
+            formationGridView.Size = new Size(950, 322);
+            formationGridView.TabIndex = 76;
+            formationGridView.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
+            formationGridView.ThemeStyle.AlternatingRowsStyle.Font = null;
+            formationGridView.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
+            formationGridView.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
+            formationGridView.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
+            formationGridView.ThemeStyle.BackColor = Color.White;
+            formationGridView.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
+            formationGridView.ThemeStyle.HeaderStyle.BackColor = Color.Black;
+            formationGridView.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
+            formationGridView.ThemeStyle.HeaderStyle.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            formationGridView.ThemeStyle.HeaderStyle.ForeColor = Color.White;
+            formationGridView.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            formationGridView.ThemeStyle.HeaderStyle.Height = 25;
+            formationGridView.ThemeStyle.ReadOnly = false;
+            formationGridView.ThemeStyle.RowsStyle.BackColor = Color.White;
+            formationGridView.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            formationGridView.ThemeStyle.RowsStyle.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            formationGridView.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(71, 69, 94);
+            formationGridView.ThemeStyle.RowsStyle.Height = 24;
+            formationGridView.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            formationGridView.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            formationGridView.CellClick += formationGridView_CellClick;
+            // 
             // FormationForm
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(formationGridView);
             Controls.Add(label3);
             Controls.Add(departmentCb);
             Controls.Add(endDate);
@@ -393,7 +396,7 @@
             Controls.Add(contentPathLabel);
             Controls.Add(contentTypeCB);
             Controls.Add(label9);
-            Controls.Add(contentTB);
+            Controls.Add(contentFilePathTb);
             Controls.Add(loadBtn);
             Controls.Add(deleteButton);
             Controls.Add(beginDate);
@@ -401,7 +404,6 @@
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
-            Controls.Add(formationGridView);
             Controls.Add(label4);
             Controls.Add(editbtn);
             Controls.Add(resetbtn);
@@ -426,7 +428,7 @@
         private Label contentPathLabel;
         private ComboBox contentTypeCB;
         private Label label9;
-        private TextBox contentTB;
+        private TextBox contentFilePathTb;
         private Button loadBtn;
         private Guna.UI2.WinForms.Guna2Button deleteButton;
         private DateTimePicker beginDate;
@@ -434,7 +436,6 @@
         private Label label7;
         private Label label6;
         private Label label5;
-        private Guna.UI2.WinForms.Guna2DataGridView formationGridView;
         private Label label4;
         private Guna.UI2.WinForms.Guna2Button editbtn;
         private Guna.UI2.WinForms.Guna2Button resetbtn;
@@ -446,5 +447,6 @@
         private Label label2;
         private ComboBox departmentCb;
         private Label label3;
+        private Guna.UI2.WinForms.Guna2DataGridView formationGridView;
     }
 }

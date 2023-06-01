@@ -30,7 +30,6 @@ namespace Essai
 {
     public partial class Quiz : Form
     {
-        private readonly Function _function = new Function();
         private readonly Random _random = new Random();
         private readonly string _connectionString = "data source=SKANDERBAATOUT;database=quiz;integrated security=True;TrustServerCertificate=True;";
         private string _query;
@@ -91,7 +90,6 @@ namespace Essai
                         DisplayQuestion(_currentIndex);
                         UpdateQuestionNumber(_currentIndex + 1, _totalQuestions);
                         ResetOptionSelection();
-                        ResetRemainingTime();
                     }
                     else
                     {
@@ -116,8 +114,14 @@ namespace Essai
             // Check if the time has run out
             if (_remainingTime == 0)
             {
-                // Move to the next question
-                btn_next.PerformClick();
+                // End the quiz
+                EndQuiz(label_set.Text);
+                InsertTest(label_set.Text);
+
+                // Redirect to login form
+                this.Hide();
+                LoginForm loginForm = new LoginForm();
+                loginForm.Show();
             }
         }
         private void SetUpQuiz(string testName)
@@ -145,7 +149,8 @@ namespace Essai
             _totalQuestions = _dataSet.Tables[0].Rows.Count;
             _currentIndex = 0;
             _score = 0;
-            _remainingTime = _totalQuestions * 30;
+            int totalQuizTime = _totalQuestions * 30; // Total quiz time in seconds
+            _remainingTime = totalQuizTime;
 
             // Start the timer
             _timer = new System.Windows.Forms.Timer();
@@ -156,7 +161,8 @@ namespace Essai
             // Display the first question
             DisplayQuestion(_currentIndex);
             UpdateQuestionNumber(1, _totalQuestions);
-            label_total_Time.Text = _remainingTime.ToString() + " seconds";
+            label_total_Time.Text = $"{totalQuizTime} seconds";
+            label_remainingTime.Text = $"{totalQuizTime} seconds";
         }
         private void DisplayQuestion(int index)
         {
@@ -236,10 +242,68 @@ namespace Essai
             radioButton3.Checked = false;
             radioButton4.Checked = false;
         }
-        private void ResetRemainingTime()
+      
+        private void InsertOrUpdateExamResult(string testName)
         {
-            _remainingTime = _totalQuestions * 30;
-            label_total_Time.Text = _remainingTime.ToString() + " seconds";
+            // Retrieve the number of times the user has taken the exam
+            int examCount;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM ExamResult WHERE TestName = @TestName AND Name = @Name AND CIN = @CIN", connection))
+                {
+                    command.Parameters.AddWithValue("@TestName", testName);
+                    command.Parameters.AddWithValue("@Name", label_nameEmp.Text);
+                    command.Parameters.AddWithValue("@CIN", label_cinEmp.Text);
+                    connection.Open();
+                    examCount = (int)command.ExecuteScalar();
+                    connection.Close();
+                }
+            }
+
+            // Check if the user has taken the exam twice
+            if (examCount < 2)
+            {
+                // Calculate the percentage score
+                int percentageScore = (_score * 100) / _totalQuestions;
+
+                // Determine the status (passed or rejected)
+                bool isPassed = percentageScore > 75;
+
+                // Insert or update the exam result in the database
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    string query;
+                    if (examCount == 0)
+                    {
+                        // The user has not taken the exam before, so insert a new record
+                        query = "INSERT INTO ExamResult(TestName, NumberOfQuestions, Date, Name, CIN, Score, Status) VALUES(@TestName, @NumberOfQuestions, @Date, @Name, @CIN, @Score, @Status)";
+                    }
+                    else
+                    {
+                        // The user has taken the exam once before, so update the existing record
+                        query = "UPDATE ExamResult SET NumberOfQuestions = @NumberOfQuestions, Date = @Date, Score = @Score, Status = @Status WHERE TestName = @TestName AND Name = @Name AND CIN = @CIN";
+                    }
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@TestName", testName);
+                        command.Parameters.AddWithValue("@NumberOfQuestions", _totalQuestions);
+                        command.Parameters.AddWithValue("@Date", DateTime.Now);
+                        command.Parameters.AddWithValue("@Name", label_nameEmp.Text);
+                        command.Parameters.AddWithValue("@CIN", label_cinEmp.Text);
+                        command.Parameters.AddWithValue("@Score", _score.ToString() + "/" + _totalQuestions.ToString());
+                        command.Parameters.AddWithValue("@Status", isPassed);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+            else
+            {
+                // The user has already taken the exam twice, so display an error message
+                MessageBox.Show("Vous avez déjà passé cet examen deux fois.", "Erreur");
+            }
         }
         private void EndQuiz(string testName)
         {
@@ -254,6 +318,7 @@ namespace Essai
             MessageBox.Show("Vous avez marqué " + _score.ToString() + " sur " + _totalQuestions.ToString() + ".", "Résultats");
 
             _quizEnded = true;
+            InsertOrUpdateExamResult(testName);
 
             var logoPath = "C:\\Users\\ASUS\\Desktop\\icons\\logo.png";
             var name = label_nameEmp.Text;

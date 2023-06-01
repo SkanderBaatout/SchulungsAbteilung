@@ -28,6 +28,22 @@ namespace Essai.DataAccess
             }
         }
 
+        public void LoadFormations(DataGridView formationGridView)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            using (var command = new SqlCommand("SELECT FId, FName, ContentType, Content, Trainer, BeginDate, EndDate, DeptName FROM Formation", connection))
+            {
+                connection.Open();
+                using (var adapter = new SqlDataAdapter(command))
+                {
+                    var dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    formationGridView.AutoGenerateColumns = false;
+                    formationGridView.DataSource = dataTable;
+                }
+            }
+        }
         public List<Formation> GetAllFormations()
         {
             var formations = new List<Formation>();
@@ -190,7 +206,28 @@ namespace Essai.DataAccess
                 return command.ExecuteNonQuery();
             }
         }
+        public async Task<List<Formation>> GetFormationsByDepartmentAsync(string departmentName)
+        {
+            var formations = new List<Formation>();
 
+            using (var connection = new SqlConnection(_connectionString))
+            using (var command = new SqlCommand("SELECT FId, FName, ContentType, Content, Trainer, BeginDate, EndDate, DeptName FROM Formation WHERE DeptName = @DeptName", connection))
+            {
+                command.Parameters.AddWithValue("@DeptName", departmentName);
+
+                await connection.OpenAsync();
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        var formation = MapFormation(reader);
+                        formations.Add(formation);
+                    }
+                }
+            }
+
+            return formations;
+        }
         public int DeleteFormation(int id)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -202,6 +239,7 @@ namespace Essai.DataAccess
                 return command.ExecuteNonQuery();
             }
         }
+
 
         private static Formation MapFormation(IDataRecord record)
         {

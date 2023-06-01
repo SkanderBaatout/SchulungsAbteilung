@@ -95,12 +95,32 @@ namespace Essai
             form.Show();
             this.Hide();
         }
+        private void Trainingscb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            trainingName = Trainingscb.SelectedValue.ToString();
 
+        }
         private void button_course_Click(object sender, EventArgs e)
         {
-            Exams ex = new Exams();
-            this.Hide();
-            ex.Show();
+            // Check if there are questions for the selected training
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM QuestionTbl WHERE QS=@trainingName", Con);
+            cmd.Parameters.AddWithValue("@trainingName", trainingName);
+            Con.Open();
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
+            Con.Close();
+
+            if (count > 0)
+            {
+                // Redirect to Exams form
+                Exams ex = new Exams();
+                this.Hide();
+                ex.Show();
+            }
+            else
+            {
+                // Display a message box
+                MessageBox.Show("There are no questions available for the selected training.");
+            }
         }
 
         private void button_score_Click(object sender, EventArgs e)
@@ -133,11 +153,7 @@ namespace Essai
 
       
 
-        private void Trainingscb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            trainingName = Trainingscb.SelectedValue.ToString();
-
-        }
+      
 
         private void comboBox_Tests_SelectedIndexChanged(object sender, EventArgs e)
         {

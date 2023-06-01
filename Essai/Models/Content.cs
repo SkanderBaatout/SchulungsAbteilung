@@ -15,6 +15,8 @@ namespace Essai.Models
         public string ContentTitle { get; set; }
         public byte[] ContentData { get; set; }
         public DateTime DateAdded { get; set; }
+        public Subject Subject { get; set; }
+
 
 
         public List<Content> ContentList { get; set; }
