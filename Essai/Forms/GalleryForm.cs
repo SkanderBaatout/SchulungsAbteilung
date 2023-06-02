@@ -17,6 +17,9 @@ using DocumentFormat.OpenXml.Math;
 using WMPLib;
 using Vlc.DotNet.Forms;
 using System.IO;
+using Vlc.DotNet.Core;
+
+
 
 
 namespace Essai.Forms
@@ -30,10 +33,14 @@ namespace Essai.Forms
         private int pageSize = 10;
         private int totalRecords = 0;
         private int totalPages = 0;
+
         public GalleryForm()
         {
             InitializeComponent();
             subjectDataAccess = new SubjectDataAccess("data source = SKANDERBAATOUT;database = quiz ;integrated security = True ; TrustServerCertificate=True");
+
+            // Initialize the VLC engine
+            var vlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
 
             // Populate the ContentType filter ComboBox with the available content types
             contentTypeCB.Items.Add("All");
@@ -75,9 +82,6 @@ namespace Essai.Forms
                     mediaContentList.AddRange(contentList);
                 }
             }
-
-            // Filter the media content list based on the current page and page sizeContinuing from the previous answer, here's the updated code to filter the media content list based on the current page and page size, and to update the paging controls:
-
             // Filter the media content list based on the current page and page size
             totalRecords = mediaContentList.Count;
             totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
@@ -148,10 +152,8 @@ namespace Essai.Forms
                 }
             }
             // Update the paging controls
-            currentPageLabel.Text = "Page " + currentPage + " of " + totalPages;
             totalRecordsLabel.Text = "Total records: " + totalRecords;
-            previousPageButton.Enabled = currentPage > 1;
-            nextPageButton.Enabled = currentPage < totalPages;
+
         }
 
 
@@ -163,22 +165,6 @@ namespace Essai.Forms
             RefreshDataGridView();
         }
 
-        private void nextPageButton_Click(object sender, EventArgs e)
-        {
-            // Moveto the next page
-            currentPage++;
-
-            RefreshDataGridView();
-        }
-
-        private void previousPageButton_Click(object sender, EventArgs e)
-        {
-            // Move to the previous page
-            currentPage--;
-
-            RefreshDataGridView();
-        }
-
         private void ContentButton_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
@@ -186,7 +172,7 @@ namespace Essai.Forms
 
             if (content != null)
             {
-                if (vlcControl != null && content.ContentPath != null && content.ContentType == "Videos")
+                if (videoPlayerControl != null && content.ContentPath != null && content.ContentType == "Videos")
                 {
                     // Play the video using VLC
                     Form videoForm = new Form();
@@ -194,19 +180,19 @@ namespace Essai.Forms
                     videoForm.FormBorderStyle = FormBorderStyle.FixedDialog;
 
                     // Create a new Vlc.DotNet.Forms.VlcControl instance
-                    Vlc.DotNet.Forms.VlcControl vlcControl = new Vlc.DotNet.Forms.VlcControl();
-                    Debug.WriteLine("vlcControl: " + vlcControl);
+                    Vlc.DotNet.Forms.VlcControl videoPlayerVlcControl = new Vlc.DotNet.Forms.VlcControl();
+                    Debug.WriteLine("vlcControl: " + videoPlayerVlcControl);
 
-                    vlcControl.Dock = DockStyle.Fill;
-                    videoForm.Controls.Add(vlcControl);
+                    videoPlayerVlcControl.Dock = DockStyle.Fill;
+                    videoForm.Controls.Add(videoPlayerVlcControl);
 
                     // Set the VlcLibDirectory property to the directory where the VLC libraries are installed
-                    vlcControl.VlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
+                    videoPlayerVlcControl.VlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
 
                     // Subscribe to the Playing event to start playing the video once it has been loaded
-                    vlcControl.Playing += (sender, args) =>
+                    videoPlayerVlcControl.Playing += (sender, args) =>
                     {
-                        // Set the size of the form based on the size of the video
+                        // Set the size of the form based onthe size of the video
                         videoForm.ClientSize = new Size(640, 480);
 
                         // Show the form
@@ -214,8 +200,8 @@ namespace Essai.Forms
                     };
 
                     // Load the video file and prepare it for playback
-                    vlcControl.SetMedia(new Uri(content.ContentPath));
-                    vlcControl.Play();
+                    videoPlayerVlcControl.SetMedia(new Uri(content.ContentPath));
+                    videoPlayerVlcControl.Play();
                 }
                 else if (content.ContentType == "Docs")
                 {

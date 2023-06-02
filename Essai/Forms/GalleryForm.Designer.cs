@@ -1,4 +1,6 @@
-﻿namespace Essai.Forms
+﻿using Vlc.DotNet.Forms;
+
+namespace Essai.Forms
 {
     partial class GalleryForm
     {
@@ -33,21 +35,20 @@
             subjectNameFilterTB = new TextBox();
             contentTypeCB = new ComboBox();
             totalRecordsLabel = new Label();
-            currentPageLabel = new Label();
             applyFiltersButton = new Button();
-            nextPageButton = new Button();
             ContentButton = new Button();
-            previousPageButton = new Button();
             contentFlowLayoutPanel = new FlowLayoutPanel();
             pictureBox = new PictureBox();
             tableLayoutPanel = new TableLayoutPanel();
             ContentPictureBox = new PictureBox();
-            vlcControl = new Vlc.DotNet.Forms.VlcControl();
+            videoPlayerControl = new VlcControl();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
+            flowLayout1 = new Syncfusion.Windows.Forms.Tools.FlowLayout(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ContentPictureBox).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)vlcControl).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)videoPlayerControl).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)flowLayout1).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -83,15 +84,6 @@
             totalRecordsLabel.TabIndex = 4;
             totalRecordsLabel.Text = "label2";
             // 
-            // currentPageLabel
-            // 
-            currentPageLabel.AutoSize = true;
-            currentPageLabel.Location = new Point(359, 497);
-            currentPageLabel.Name = "currentPageLabel";
-            currentPageLabel.Size = new Size(57, 21);
-            currentPageLabel.TabIndex = 5;
-            currentPageLabel.Text = "label3";
-            // 
             // applyFiltersButton
             // 
             applyFiltersButton.BackColor = Color.Teal;
@@ -104,16 +96,6 @@
             applyFiltersButton.UseVisualStyleBackColor = false;
             applyFiltersButton.Click += applyFiltersButton_Click;
             // 
-            // nextPageButton
-            // 
-            nextPageButton.Location = new Point(570, 530);
-            nextPageButton.Name = "nextPageButton";
-            nextPageButton.Size = new Size(75, 29);
-            nextPageButton.TabIndex = 8;
-            nextPageButton.Text = "Next";
-            nextPageButton.UseVisualStyleBackColor = true;
-            nextPageButton.Click += nextPageButton_Click;
-            // 
             // ContentButton
             // 
             ContentButton.Location = new Point(848, 10);
@@ -124,28 +106,18 @@
             ContentButton.UseVisualStyleBackColor = true;
             ContentButton.Click += ContentButton_Click;
             // 
-            // previousPageButton
-            // 
-            previousPageButton.Location = new Point(477, 530);
-            previousPageButton.Name = "previousPageButton";
-            previousPageButton.Size = new Size(75, 29);
-            previousPageButton.TabIndex = 10;
-            previousPageButton.Text = "Previous";
-            previousPageButton.UseVisualStyleBackColor = true;
-            previousPageButton.Click += previousPageButton_Click;
-            // 
             // contentFlowLayoutPanel
             // 
-            contentFlowLayoutPanel.Location = new Point(219, 346);
+            contentFlowLayoutPanel.Location = new Point(377, 431);
             contentFlowLayoutPanel.Name = "contentFlowLayoutPanel";
-            contentFlowLayoutPanel.Size = new Size(428, 148);
+            contentFlowLayoutPanel.Size = new Size(270, 63);
             contentFlowLayoutPanel.TabIndex = 11;
             // 
             // pictureBox
             // 
-            pictureBox.Location = new Point(653, 362);
+            pictureBox.Location = new Point(653, 431);
             pictureBox.Name = "pictureBox";
-            pictureBox.Size = new Size(274, 103);
+            pictureBox.Size = new Size(274, 63);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox.TabIndex = 0;
             pictureBox.TabStop = false;
@@ -156,13 +128,13 @@
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel.Controls.Add(ContentPictureBox, 1, 0);
-            tableLayoutPanel.Controls.Add(vlcControl, 0, 0);
+            tableLayoutPanel.Controls.Add(videoPlayerControl, 0, 0);
             tableLayoutPanel.Location = new Point(45, 93);
             tableLayoutPanel.Name = "tableLayoutPanel";
             tableLayoutPanel.RowCount = 2;
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel.Size = new Size(659, 242);
+            tableLayoutPanel.Size = new Size(659, 317);
             tableLayoutPanel.TabIndex = 12;
             // 
             // ContentPictureBox
@@ -174,17 +146,17 @@
             ContentPictureBox.TabStop = false;
             ContentPictureBox.Click += ContentPictureBox_Click;
             // 
-            // vlcControl
+            // videoPlayerControl
             // 
-            vlcControl.BackColor = Color.Black;
-            vlcControl.Location = new Point(3, 3);
-            vlcControl.Name = "vlcControl";
-            vlcControl.Size = new Size(242, 109);
-            vlcControl.Spu = -1;
-            vlcControl.TabIndex = 1;
-            vlcControl.Text = "vlcControl1";
-            vlcControl.VlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\"); ;
-            vlcControl.VlcMediaplayerOptions = null;
+            videoPlayerControl.BackColor = Color.Black;
+            videoPlayerControl.Location = new Point(3, 3);
+            videoPlayerControl.Name = "videoPlayerControl";
+            videoPlayerControl.VlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
+            videoPlayerControl.Size = new Size(323, 152);
+            videoPlayerControl.Spu = -1;
+            videoPlayerControl.TabIndex = 1;
+            videoPlayerControl.Text = "vlcControl1";
+            videoPlayerControl.VlcMediaplayerOptions = null;
             // 
             // guna2Elipse1
             // 
@@ -200,11 +172,8 @@
             Controls.Add(pictureBox);
             Controls.Add(contentFlowLayoutPanel);
             Controls.Add(tableLayoutPanel);
-            Controls.Add(previousPageButton);
             Controls.Add(ContentButton);
-            Controls.Add(nextPageButton);
             Controls.Add(applyFiltersButton);
-            Controls.Add(currentPageLabel);
             Controls.Add(totalRecordsLabel);
             Controls.Add(contentTypeCB);
             Controls.Add(subjectNameFilterTB);
@@ -218,7 +187,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             tableLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ContentPictureBox).EndInit();
-            ((System.ComponentModel.ISupportInitialize)vlcControl).EndInit();
+            ((System.ComponentModel.ISupportInitialize)videoPlayerControl).EndInit();
+            ((System.ComponentModel.ISupportInitialize)flowLayout1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -230,18 +200,16 @@
         private TextBox subjectNameFilterTB;
         private ComboBox contentTypeCB;
         private Label totalRecordsLabel;
-        private Label currentPageLabel;
         private NumericUpDown numericUpDown1;
         private Button applyFiltersButton;
-        private Button nextPageButton;
         private Button ContentButton;
-        private Button previousPageButton;
         private FlowLayoutPanel contentFlowLayoutPanel;
         private PictureBox pictureBox;
         private TableLayoutPanel tableLayoutPanel;
         private Panel subjectPanel;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
         private PictureBox ContentPictureBox;
-        private Vlc.DotNet.Forms.VlcControl vlcControl;
+        private Vlc.DotNet.Forms.VlcControl videoPlayerControl;
+        private Syncfusion.Windows.Forms.Tools.FlowLayout flowLayout1;
     }
 }

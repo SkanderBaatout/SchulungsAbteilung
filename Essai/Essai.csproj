@@ -133,6 +133,7 @@
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
     <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.4" />
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="LibVLCSharp.Forms" Version="3.7.0" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="13.1.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
@@ -149,6 +150,8 @@
     <PackageReference Include="Syncfusion.XlsIO.AspNet" Version="21.2.6" />
     <PackageReference Include="Syncfusion.XlsIO.NET" Version="21.2.6" />
     <PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="21.2.6" />
+    <PackageReference Include="Vlc.DotNet.Core" Version="3.1.0" />
+    <PackageReference Include="Vlc.DotNet.Core.Interops" Version="3.1.0" />
     <PackageReference Include="Vlc.DotNet.Forms" Version="3.1.0" />
   </ItemGroup>
 

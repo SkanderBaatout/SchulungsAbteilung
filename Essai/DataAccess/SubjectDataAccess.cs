@@ -63,23 +63,35 @@ namespace Essai.DataAccess
                             ContentData = (byte[])reader["ContentData"]
                         };
                     }
-                    Subject subject = new Subject
-                    {
-                        Id = id,
-                        Name = name,
-                        Description = description,
-                        ContentType = contentType,
-                        DateAdded = dateAdded,
-                        IsActive = isActive,
-                        Content = content
-                    };
 
-                    subjects.Add(subject);
+                    // Check if a subject with the same ID has already been added to the list
+                    Subject subject = subjects.FirstOrDefault(s => s.Id == id);
+                    if (subject == null)
+                    {
+                        subject = new Subject
+                        {
+                            Id = id,
+                            Name = name,
+                            Description = description,
+                            ContentType = contentType,
+                            DateAdded = dateAdded,
+                            IsActive = isActive,
+                            Content = content
+                        };
+
+                        subjects.Add(subject);
+                    }
+                    else
+                    {
+                        // If a subject with the same ID already exists, add the content to it
+                        subject.Content = content;
+                    }
                 }
 
                 return subjects;
             }
         }
+
         public Subject GetSubjectById(int id)
         {
             string query = @"SELECT S.SId, S.SName, S.Description, S.IsActive, C.ContentType, C.DateAdded, C.ContentTitle, C.ContentData
@@ -95,29 +107,43 @@ namespace Essai.DataAccess
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
 
-                if (reader.Read())
-                {
-                    Subject subject = new Subject
-                    {
-                        Id = (int)reader["SId"],
-                        Name = (string)reader["SName"],
-                        Description = (string)reader["Description"],
-                        IsActive = (bool)reader["IsActive"],
-                        Content = new Content
-                        {
-                            ContentType = reader["ContentType"] != DBNull.Value ? (string)reader["ContentType"] : null,
-                            DateAdded = reader["DateAdded"] != DBNull.Value ? (DateTime)reader["DateAdded"] : default,
-                            ContentTitle = reader["ContentTitle"] != DBNull.Value ? (string)reader["ContentTitle"] : null,
-                            ContentData = reader["ContentData"] != DBNull.Value ? (byte[])reader["ContentData"] : null
-                        }
-                    };
+                Subject subject = null;
 
-                    return subject;
-                }
-                else
+                while (reader.Read())
                 {
-                    return null;
+                    if (subject == null)
+                    {
+                        subject = new Subject
+                        {
+                            Id = (int)reader["SId"],
+                            Name = (string)reader["SName"],
+                            Description = (string)reader["Description"],
+                            IsActive = (bool)reader["IsActive"]
+                        };
+                    }
+
+                    if (!reader.IsDBNull(reader.GetOrdinal("ContentType")))
+                    {
+                        subject.ContentType = (string)reader["ContentType"];
+                    }
+
+                    if (!reader.IsDBNull(reader.GetOrdinal("DateAdded")))
+                    {
+                        subject.DateAdded = (DateTime)reader["DateAdded"];
+                    }
+
+                    if (!reader.IsDBNull(reader.GetOrdinal("ContentTitle")) && !reader.IsDBNull(reader.GetOrdinal("ContentData")))
+                    {
+                        subject.Content = new Content
+                        {
+                            ContentType = (string)reader["ContentType"],
+                            ContentTitle = (string)reader["ContentTitle"],
+                            ContentData = (byte[])reader["ContentData"]
+                        };
+                    }
                 }
+
+                return subject;
             }
         }
         public List<Subject> GetActiveSubjectList()
@@ -178,7 +204,8 @@ namespace Essai.DataAccess
         public int InsertSubject(Subject subject)
         {
             int subjectId = 0;
-                using (SqlConnection connection = new SqlConnection(_connectionString))
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
@@ -187,8 +214,8 @@ namespace Essai.DataAccess
                     try
                     {
                         // Insert the subject data
-                        string insertSubjectQuery = "INSERT INTO SubjectTbl (SName, Description, Content, ContentType, DateAdded, IsActive) " +
-                            "VALUES (@Name, @Description, @Content, @ContentType, @DateAdded, @IsActive); " +
+                        string insertSubjectQuery = "INSERT INTO SubjectTbl (SName, Description, ContentType, DateAdded, IsActive, Content) " +
+                            "VALUES (@Name, @Description, @ContentType, @DateAdded, @IsActive, @Content); " +
                             "SELECT CAST(scope_identity() AS int);";
                         SqlCommand insertSubjectCommand = new SqlCommand(insertSubjectQuery, connection, transaction);
                         insertSubjectCommand.Parameters.AddWithValue("@Name", subject.Name);
@@ -196,15 +223,17 @@ namespace Essai.DataAccess
                         insertSubjectCommand.Parameters.AddWithValue("@ContentType", subject.ContentType);
                         insertSubjectCommand.Parameters.AddWithValue("@DateAdded", subject.DateAdded);
                         insertSubjectCommand.Parameters.AddWithValue("@IsActive", subject.IsActive);
-                        // Save the ContentData to the`Content` column in the `Subject` table
+
+                        SqlParameter contentParam = new SqlParameter("@Content", SqlDbType.VarBinary, -1);
                         if (subject.Content != null && subject.Content.ContentData != null)
                         {
-                            insertSubjectCommand.Parameters.AddWithValue("@Content", subject.Content.ContentData);
+                            contentParam.Value = subject.Content.ContentData;
                         }
                         else
                         {
-                            insertSubjectCommand.Parameters.AddWithValue("@Content", DBNull.Value);
+                            contentParam.Value = DBNull.Value;
                         }
+                        insertSubjectCommand.Parameters.Add(contentParam);
 
                         subjectId = (int)insertSubjectCommand.ExecuteScalar();
 
@@ -233,6 +262,36 @@ namespace Essai.DataAccess
             }
 
             return subjectId;
+        }
+
+        public int InsertContent(Content content)
+        {
+            string query = "INSERT INTO ContentTbl(SubjectId, ContentType, ContentTitle, ContentData) VALUES(@SubjectId, @ContentType, @ContentTitle, @ContentData)";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@SubjectId", content.SubjectId);
+                command.Parameters.AddWithValue("@ContentType", content.ContentType);
+                command.Parameters.AddWithValue("@ContentTitle", content.ContentTitle);
+
+                SqlParameter contentParam = new SqlParameter("@ContentData", SqlDbType.VarBinary, -1);
+                if (content.ContentData != null)
+                {
+                    contentParam.Value = content.ContentData;
+                }
+                else
+                {
+                    contentParam.Value = DBNull.Value;
+                }
+                command.Parameters.Add(contentParam);
+
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+                connection.Close();
+
+                return rowsAffected;
+            }
         }
         public void UpdateSubject(Subject subject)
         {
@@ -548,25 +607,6 @@ namespace Essai.DataAccess
             }
 
             return null;
-        }
-        public int InsertContent(Content content)
-        {
-            string query = "INSERT INTO ContentTbl(SubjectId, ContentType, ContentTitle, ContentData) VALUES(@SubjectId, @ContentType, @ContentTitle, @ContentData)";
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@SubjectId", content.SubjectId);
-                command.Parameters.AddWithValue("@ContentType", content.ContentType);
-                command.Parameters.AddWithValue("@ContentTitle", content.ContentTitle);
-                command.Parameters.AddWithValue("@ContentData", content.ContentData);
-
-                connection.Open();
-                int rowsAffected = command.ExecuteNonQuery();
-                connection.Close();
-
-                return rowsAffected;
-            }
         }
         public void UpdateContent(Content content)
         {
