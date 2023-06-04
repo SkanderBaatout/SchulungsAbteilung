@@ -60,6 +60,8 @@
             contentTypeCB = new ComboBox();
             contentPathLabel = new Label();
             bindingSource = new BindingSource(components);
+            addContentBtn = new Button();
+            ContentListBoxx = new ListBox();
             ((System.ComponentModel.ISupportInitialize)subjectsList).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bindingSource).BeginInit();
             SuspendLayout();
@@ -205,7 +207,7 @@
             isActiveCheckBox.AutoSize = true;
             isActiveCheckBox.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             isActiveCheckBox.ForeColor = Color.Black;
-            isActiveCheckBox.Location = new Point(553, 120);
+            isActiveCheckBox.Location = new Point(827, 53);
             isActiveCheckBox.Name = "isActiveCheckBox";
             isActiveCheckBox.Size = new Size(91, 23);
             isActiveCheckBox.TabIndex = 35;
@@ -235,7 +237,7 @@
             // 
             label6.AutoSize = true;
             label6.ForeColor = Color.White;
-            label6.Location = new Point(517, 63);
+            label6.Location = new Point(457, 61);
             label6.Name = "label6";
             label6.Size = new Size(77, 21);
             label6.TabIndex = 38;
@@ -257,7 +259,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label8.ForeColor = Color.Black;
-            label8.Location = new Point(558, 33);
+            label8.Location = new Point(526, 31);
             label8.Name = "label8";
             label8.Size = new Size(104, 19);
             label8.TabIndex = 42;
@@ -265,9 +267,9 @@
             // 
             // dateTimePicker
             // 
-            dateTimePicker.Location = new Point(553, 57);
+            dateTimePicker.Location = new Point(526, 53);
             dateTimePicker.Name = "dateTimePicker";
-            dateTimePicker.Size = new Size(298, 27);
+            dateTimePicker.Size = new Size(289, 27);
             dateTimePicker.TabIndex = 43;
             // 
             // deleteButton
@@ -294,19 +296,20 @@
             // 
             // loadBtn
             // 
-            loadBtn.Location = new Point(705, 149);
+            loadBtn.BackColor = Color.Gainsboro;
+            loadBtn.Location = new Point(683, 147);
             loadBtn.Name = "loadBtn";
             loadBtn.Size = new Size(135, 30);
             loadBtn.TabIndex = 45;
             loadBtn.Text = "Load Content";
-            loadBtn.UseVisualStyleBackColor = true;
+            loadBtn.UseVisualStyleBackColor = false;
             loadBtn.Click += loadBtn_Click;
             // 
             // contentTB
             // 
-            contentTB.Location = new Point(681, 116);
+            contentTB.Location = new Point(526, 114);
             contentTB.Name = "contentTB";
-            contentTB.Size = new Size(170, 27);
+            contentTB.Size = new Size(289, 27);
             contentTB.TabIndex = 46;
             // 
             // label9
@@ -331,11 +334,31 @@
             // contentPathLabel
             // 
             contentPathLabel.AutoSize = true;
-            contentPathLabel.Location = new Point(553, 194);
+            contentPathLabel.Location = new Point(594, 185);
             contentPathLabel.Name = "contentPathLabel";
             contentPathLabel.Size = new Size(66, 21);
             contentPathLabel.TabIndex = 50;
             contentPathLabel.Text = "label10";
+            // 
+            // addContentBtn
+            // 
+            addContentBtn.BackColor = Color.Gainsboro;
+            addContentBtn.Location = new Point(526, 147);
+            addContentBtn.Name = "addContentBtn";
+            addContentBtn.Size = new Size(134, 31);
+            addContentBtn.TabIndex = 51;
+            addContentBtn.Text = "Add Content";
+            addContentBtn.UseVisualStyleBackColor = false;
+            addContentBtn.Click += addContentBtn_Click;
+            // 
+            // ContentListBoxx
+            // 
+            ContentListBoxx.FormattingEnabled = true;
+            ContentListBoxx.ItemHeight = 21;
+            ContentListBoxx.Location = new Point(824, 114);
+            ContentListBoxx.Name = "ContentListBoxx";
+            ContentListBoxx.Size = new Size(94, 88);
+            ContentListBoxx.TabIndex = 52;
             // 
             // Subjects
             // 
@@ -343,6 +366,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(ContentListBoxx);
+            Controls.Add(addContentBtn);
             Controls.Add(contentPathLabel);
             Controls.Add(contentTypeCB);
             Controls.Add(label9);
@@ -399,5 +424,7 @@
         private ComboBox contentTypeCB;
         private Label contentPathLabel;
         private BindingSource bindingSource;
+        private Button addContentBtn;
+        private ListBox ContentListBoxx;
     }
 }

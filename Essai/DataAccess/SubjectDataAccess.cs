@@ -4,6 +4,7 @@ using System.Data;
 using Essai.Models;
 using System.Text;
 using System.Transactions;
+using Newtonsoft.Json;
 
 namespace Essai.DataAccess
 {
@@ -76,28 +77,28 @@ namespace Essai.DataAccess
                             ContentType = contentType,
                             DateAdded = dateAdded,
                             IsActive = isActive,
-                            Content = content
+                            Content = new List<Content>()
                         };
 
                         subjects.Add(subject);
                     }
-                    else
+
+                    // Add the content to the subject's content list
+                    if (content != null)
                     {
-                        // If a subject with the same ID already exists, add the content to it
-                        subject.Content = content;
+                        subject.Content.Add(content);
                     }
                 }
 
                 return subjects;
             }
         }
-
         public Subject GetSubjectById(int id)
         {
             string query = @"SELECT S.SId, S.SName, S.Description, S.IsActive, C.ContentType, C.DateAdded, C.ContentTitle, C.ContentData
-                     FROM SubjectTbl S
-                     LEFT JOIN ContentTbl C ON S.SId = C.SubjectId
-                     WHERE S.SId = @Id";
+             FROM SubjectTbl S
+             LEFT JOIN ContentTbl C ON S.SId = C.SubjectId
+             WHERE S.SId = @Id";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -118,40 +119,37 @@ namespace Essai.DataAccess
                             Id = (int)reader["SId"],
                             Name = (string)reader["SName"],
                             Description = (string)reader["Description"],
-                            IsActive = (bool)reader["IsActive"]
+                            IsActive = (bool)reader["IsActive"],
+                            Content = new List<Content>()
                         };
                     }
 
                     if (!reader.IsDBNull(reader.GetOrdinal("ContentType")))
                     {
-                        subject.ContentType = (string)reader["ContentType"];
-                    }
+                        string contentType = (string)reader["ContentType"];
+                        string contentTitle = (string)reader["ContentTitle"];
+                        byte[] contentData = (byte[])reader["ContentData"];
 
-                    if (!reader.IsDBNull(reader.GetOrdinal("DateAdded")))
-                    {
-                        subject.DateAdded = (DateTime)reader["DateAdded"];
-                    }
-
-                    if (!reader.IsDBNull(reader.GetOrdinal("ContentTitle")) && !reader.IsDBNull(reader.GetOrdinal("ContentData")))
-                    {
-                        subject.Content = new Content
+                        Content content = new Content
                         {
-                            ContentType = (string)reader["ContentType"],
-                            ContentTitle = (string)reader["ContentTitle"],
-                            ContentData = (byte[])reader["ContentData"]
+                            ContentType = contentType,
+                            ContentTitle = contentTitle,
+                            ContentData = contentData
                         };
+
+                        subject.Content.Add(content);
                     }
                 }
 
                 return subject;
             }
         }
-        public List<Subject> GetActiveSubjectList()
+        public List<Subject> GetAllSubjectsWithContent()
         {
             string query = @"SELECT st.*, ct.ContentId, ct.ContentTitle, ct.ContentData
-                 FROM SubjectTbl st
-                 LEFT JOIN ContentTbl ct ON st.SId = ct.SubjectId
-                 WHERE st.IsActive = 1";
+             FROM SubjectTbl st
+             LEFT JOIN ContentTbl ct ON st.SId = ct.SubjectId";
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 SqlCommand command = new SqlCommand(query, connection);
@@ -184,6 +182,72 @@ namespace Essai.DataAccess
                         };
                     }
 
+                    Subject subject = subjects.FirstOrDefault(s => s.Id == id);
+                    if (subject == null)
+                    {
+                        subject = new Subject
+                        {
+                            Id = id,
+                            Name = name,
+                            Description = description,
+                            ContentType = contentType,
+                            DateAdded = dateAdded,
+                            IsActive = isActive,
+                            Content = new List<Content>()
+                        };
+
+                        subjects.Add(subject);
+                    }
+
+                    if (content != null)
+                    {
+                        subject.Content.Add(content);
+                    }
+                }
+
+                return subjects;
+            }
+        }
+        public List<Subject> GetActiveSubjectList()
+        {
+            string query = @"SELECT st.*, ct.ContentId, ct.ContentTitle, ct.ContentData, ct.FilePath, ct.FileName
+                     FROM SubjectTbl st
+                     LEFT JOIN ContentTbl ct ON st.SId = ct.SubjectId
+                     WHERE st.IsActive = 1";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                List<Subject> subjects = new List<Subject>();
+
+                while (reader.Read())
+                {
+                    int id = (int)reader["SId"];
+                    string name = (string)reader["SName"];
+                    string description = (string)reader["Description"];
+                    string contentType = (string)reader["ContentType"];
+                    DateTime dateAdded = (DateTime)reader["DateAdded"];
+                    bool isActive = (bool)reader["IsActive"];
+
+                    List<Content> contentList = new List<Content>();
+                    if (!reader.IsDBNull(reader.GetOrdinal("ContentId")))
+                    {
+                        Content content = new Content
+                        {
+                            ContentId = (int)reader["ContentId"],
+                            SubjectId = id,
+                            ContentType = (string)reader["ContentType"],
+                            ContentTitle = (string)reader["ContentTitle"],
+                            ContentData = (byte[])reader["ContentData"],
+                            DateAdded = (DateTime)reader["DateAdded"],
+                            FilePath = (string)reader["FilePath"],
+                            FileName = (string)reader["FileName"]
+                        };
+                        contentList.Add(content);
+                    }
                     Subject subject = new Subject
                     {
                         Id = id,
@@ -192,18 +256,58 @@ namespace Essai.DataAccess
                         ContentType = contentType,
                         DateAdded = dateAdded,
                         IsActive = isActive,
-                        Content = content
+                        Content = contentList
                     };
                     subjects.Add(subject);
-                
                 }
 
-            return subjects;
+                return subjects;
+            }
         }
-    }
-        public int InsertSubject(Subject subject)
+        public List<Content> GetAllContentList()
         {
-            int subjectId = 0;
+            string query = @"SELECT * FROM ContentTbl";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                List<Content> contentList = new List<Content>();
+
+                while (reader.Read())
+                {
+                    int contentId = (int)reader["ContentId"];
+                    int subjectId = (int)reader["SubjectId"];
+                    string contentType = (string)reader["ContentType"];
+                    string contentTitle = (string)reader["ContentTitle"];
+                    byte[] contentData = (byte[])reader["ContentData"];
+                    DateTime dateAdded = (DateTime)reader["DateAdded"];
+                    string filePath = (string)reader["FilePath"];
+                    string fileName = (string)reader["FileName"];
+
+                    Content content = new Content
+                    {
+                        ContentId = contentId,
+                        SubjectId = subjectId,
+                        ContentType = contentType,
+                        ContentTitle = contentTitle,
+                        ContentData = contentData,
+                        DateAdded = dateAdded,
+                        FilePath = filePath,
+                        FileName = fileName
+                    };
+
+                    contentList.Add(content);
+                }
+
+                return contentList;
+            }
+        }
+        public int InsertSubject(Subject subject, List<Content> contentList)
+        {
+            int subjectId = -1;
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -213,86 +317,70 @@ namespace Essai.DataAccess
                 {
                     try
                     {
+                        // Serialize the contentList parameter to a JSON string
+                        string contentJson = JsonConvert.SerializeObject(contentList);
+
+                        // Convert the contentJson string to binary data
+                        byte[] contentBytes = Encoding.Unicode.GetBytes(contentJson);
+
                         // Insert the subject data
                         string insertSubjectQuery = "INSERT INTO SubjectTbl (SName, Description, ContentType, DateAdded, IsActive, Content) " +
-                            "VALUES (@Name, @Description, @ContentType, @DateAdded, @IsActive, @Content); " +
-                            "SELECT CAST(scope_identity() AS int);";
+                            "OUTPUT INSERTED.SId " +
+                            "VALUES (@Name, @Description, @ContentType, @DateAdded, @IsActive, CONVERT(varbinary(max), @Content));";
                         SqlCommand insertSubjectCommand = new SqlCommand(insertSubjectQuery, connection, transaction);
                         insertSubjectCommand.Parameters.AddWithValue("@Name", subject.Name);
                         insertSubjectCommand.Parameters.AddWithValue("@Description", subject.Description);
                         insertSubjectCommand.Parameters.AddWithValue("@ContentType", subject.ContentType);
                         insertSubjectCommand.Parameters.AddWithValue("@DateAdded", subject.DateAdded);
                         insertSubjectCommand.Parameters.AddWithValue("@IsActive", subject.IsActive);
-
-                        SqlParameter contentParam = new SqlParameter("@Content", SqlDbType.VarBinary, -1);
-                        if (subject.Content != null && subject.Content.ContentData != null)
-                        {
-                            contentParam.Value = subject.Content.ContentData;
-                        }
-                        else
-                        {
-                            contentParam.Value = DBNull.Value;
-                        }
-                        insertSubjectCommand.Parameters.Add(contentParam);
-
+                        insertSubjectCommand.Parameters.AddWithValue("@Content", contentBytes);
                         subjectId = (int)insertSubjectCommand.ExecuteScalar();
 
-                        // If a content object was included, save the content data to the database
-                        if (subject.Content != null && subject.Content.ContentData != null)
+                        // Insert the content data
+                        foreach (Content content in contentList)
                         {
-                            // Insert the content data
-                            string insertContentQuery = "INSERT INTO ContentTbl (SubjectId, ContentType, ContentTitle, ContentData) " +
-                                "VALUES (@SubjectId, @ContentType, @ContentTitle, @ContentData);";
-                            SqlCommand insertContentCommand = new SqlCommand(insertContentQuery, connection, transaction);
-                            insertContentCommand.Parameters.AddWithValue("@SubjectId", subjectId);
-                            insertContentCommand.Parameters.AddWithValue("@ContentType", subject.Content.ContentType);
-                            insertContentCommand.Parameters.AddWithValue("@ContentTitle", subject.Content.ContentTitle);
-                            insertContentCommand.Parameters.AddWithValue("@ContentData", subject.Content.ContentData);
-                            insertContentCommand.ExecuteNonQuery();
+                            content.SubjectId = subjectId;
+                            InsertContent(content, connection, transaction);
                         }
 
                         transaction.Commit();
+
+                        return subjectId;
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
-                        throw;
+                        throw ex;
                     }
                 }
             }
-
-            return subjectId;
         }
 
-        public int InsertContent(Content content)
+        public int InsertContent(Content content, SqlConnection connection, SqlTransaction transaction)
         {
-            string query = "INSERT INTO ContentTbl(SubjectId, ContentType, ContentTitle, ContentData) VALUES(@SubjectId, @ContentType, @ContentTitle, @ContentData)";
+            string query = "INSERT INTO ContentTbl(SubjectId, ContentType, ContentTitle, ContentData) " +
+                           "VALUES(@SubjectId, @ContentType, @ContentTitle, CONVERT(varbinary(max), @ContentData));";
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+            command.Parameters.AddWithValue("@SubjectId", content.SubjectId);
+            command.Parameters.AddWithValue("@ContentType", content.ContentType);
+            command.Parameters.AddWithValue("@ContentTitle", content.ContentTitle);
+
+            if (content.ContentData != null)
             {
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@SubjectId", content.SubjectId);
-                command.Parameters.AddWithValue("@ContentType", content.ContentType);
-                command.Parameters.AddWithValue("@ContentTitle", content.ContentTitle);
-
-                SqlParameter contentParam = new SqlParameter("@ContentData", SqlDbType.VarBinary, -1);
-                if (content.ContentData != null)
-                {
-                    contentParam.Value = content.ContentData;
-                }
-                else
-                {
-                    contentParam.Value = DBNull.Value;
-                }
-                command.Parameters.Add(contentParam);
-
-                connection.Open();
-                int rowsAffected = command.ExecuteNonQuery();
-                connection.Close();
-
-                return rowsAffected;
+                string contentDataString = Encoding.Default.GetString(content.ContentData);
+                command.Parameters.AddWithValue("@ContentData", contentDataString);
             }
+            else
+            {
+                command.Parameters.AddWithValue("@ContentData", DBNull.Value);
+            }
+
+            int rowsAffected = command.ExecuteNonQuery();
+
+            return rowsAffected;
         }
+
         public void UpdateSubject(Subject subject)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -318,27 +406,29 @@ namespace Essai.DataAccess
                         updateSubjectCommand.ExecuteNonQuery();
 
                         // Update or delete the content data
-                        if (subject.Content != null && subject.Content.ContentData != null)
+                        if (subject.Content != null && subject.Content.Count > 0)
                         {
-                            // Update the existing content data or insert new content data
-                            string mergeContentQuery = @"MERGE INTO ContentTbl AS target
-                                                 USING (SELECT @SubjectId AS SubjectId, @ContentType AS ContentType, @ContentTitle AS ContentTitle, 
-                                                        @ContentData AS ContentData) AS source
-                                                 ON (target.SubjectId = source.SubjectId)
-                                                 WHEN MATCHED THEN
-                                                     UPDATE SET target.ContentType = source.ContentType, 
-                                                                target.ContentTitle = source.ContentTitle, 
-                                                                target.ContentData = source.ContentData
-                                                 WHEN NOT MATCHED THEN
-                                                     INSERT (SubjectId, ContentType, ContentTitle, ContentData)
-                                                     VALUES (source.SubjectId, source.ContentType, source.ContentTitle, source.ContentData);";
-                            SqlCommand mergeContentCommand = new SqlCommand(mergeContentQuery, connection, transaction);
-                            mergeContentCommand.Parameters.AddWithValue("@SubjectId", subject.Id);
-                            mergeContentCommand.Parameters.AddWithValue("@ContentType", subject.Content.ContentType);
-                            mergeContentCommand.Parameters.AddWithValue("@ContentTitle", subject.Content.ContentTitle);
-                            mergeContentCommand.Parameters.AddWithValue("@ContentData", subject.Content.ContentData);
+                            foreach (var content in subject.Content)
+                            {
+                                // Update the existing content data or insert new content data
+                                string mergeContentQuery = @"MERGE INTO ContentTbl AS target
+                             USING (SELECT @SubjectId AS SubjectId, @ContentType AS ContentType, @ContentTitle AS ContentTitle, 
+                                    @ContentData AS ContentData) AS source
+                             ON (target.SubjectId = source.SubjectId AND target.ContentTitle = source.ContentTitle)
+                             WHEN MATCHED THEN
+                                 UPDATE SET target.ContentType = source.ContentType, 
+                                            target.ContentData = source.ContentData
+                             WHEN NOT MATCHED THEN
+                                 INSERT (SubjectId, ContentType, ContentTitle, ContentData)
+                                 VALUES (source.SubjectId, source.ContentType, source.ContentTitle, source.ContentData);";
+                                SqlCommand mergeContentCommand = new SqlCommand(mergeContentQuery, connection, transaction);
+                                mergeContentCommand.Parameters.AddWithValue("@SubjectId", subject.Id);
+                                mergeContentCommand.Parameters.AddWithValue("@ContentType", content.ContentType);
+                                mergeContentCommand.Parameters.AddWithValue("@ContentTitle", content.ContentTitle);
+                                mergeContentCommand.Parameters.AddWithValue("@ContentData", content.ContentData);
 
-                            mergeContentCommand.ExecuteNonQuery();
+                                mergeContentCommand.ExecuteNonQuery();
+                            }
                         }
                         else
                         {
@@ -578,17 +668,21 @@ namespace Essai.DataAccess
                     DateTime dateAdded = (DateTime)reader["DateAdded"];
                     bool isActive = (bool)reader["IsActive"];
 
-                    Content content = null;
+                    List<Content> contentList = new List<Content>();
                     if (!reader.IsDBNull(reader.GetOrdinal("ContentTitle")))
                     {
-                        content = new Content
+                        do
                         {
-                            ContentId = reader["ContentId"] is DBNull ? 0 : (int)reader["ContentId"],
-                            SubjectId = reader["SubjectId"] is DBNull ? 0 : (int)reader["SubjectId"],
-                            ContentType = (string)reader["ContentType"],
-                            ContentTitle = (string)reader["ContentTitle"],
-                            ContentData = (byte[])reader["ContentData"]
-                        };
+                            Content content = new Content
+                            {
+                                ContentId = reader["ContentId"] is DBNull ? 0 : (int)reader["ContentId"],
+                                SubjectId = reader["SubjectId"] is DBNull ? 0 : (int)reader["SubjectId"],
+                                ContentType = (string)reader["ContentType"],
+                                ContentTitle = (string)reader["ContentTitle"],
+                                ContentData = (byte[])reader["ContentData"]
+                            };
+                            contentList.Add(content);
+                        } while (reader.Read());
                     }
 
                     Subject subject = new Subject
@@ -599,7 +693,7 @@ namespace Essai.DataAccess
                         ContentType = contentType,
                         DateAdded = dateAdded,
                         IsActive = isActive,
-                        Content = content
+                        Content = contentList
                     };
 
                     return subject;

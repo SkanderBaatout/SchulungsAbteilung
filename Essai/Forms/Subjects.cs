@@ -19,8 +19,8 @@ namespace Essai
 {
     public partial class Subjects : Form
     {
+        private List<Content> contentList = new List<Content>();
         private int currentSubjectId = 0;
-        private string contentFilePath = "";
 
         private readonly SubjectDataAccess subjectDataAccess;
 
@@ -35,12 +35,8 @@ namespace Essai
             contentTypeCB.Items.Add("Images");
             contentTypeCB.Items.Add("Videos");
             contentTypeCB.Items.Add("Other");
-
-            subjectsList.Columns[0].Visible = false;
-
-
             contentPathLabel.Visible = false;
-
+            subjectsList.Columns[0].Visible = false;
         }
 
         private void DisplaySubjects()
@@ -68,7 +64,12 @@ namespace Essai
 
                 if (subject.Content != null)
                 {
-                    row["ContentTitle"] = subject.Content.ContentTitle;
+                    List<string> contentTitles = new List<string>();
+                    foreach (Content content in subject.Content)
+                    {
+                        contentTitles.Add(content.ContentTitle);
+                    }
+                    row["ContentTitle"] = string.Join(", ", contentTitles);
                 }
 
                 dataTable.Rows.Add(row);
@@ -76,6 +77,7 @@ namespace Essai
 
             subjectsList.DataSource = dataTable;
         }
+
         private void ResetForm()
         {
             subjectTb.Clear();
@@ -83,13 +85,14 @@ namespace Essai
             contentTypeCB.SelectedIndex = -1;
             dateTimePicker.Value = DateTime.Now;
             isActiveCheckBox.Checked = true;
-            contentFilePath = "";
-            contentPathLabel.Text = "";
+            contentList.Clear();
+            ContentListBoxx.Items.Clear();
             currentSubjectId = 0;
 
             savebtn.Text = "Add";
             deleteButton.Enabled = false;
         }
+
         private void loadBtn_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -114,47 +117,8 @@ namespace Essai
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    contentFilePath = openFileDialog.FileName;
-                    contentPathLabel.Text = Path.GetFileName(contentFilePath);
-                    contentPathLabel.Visible = true;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select a content type first.");
-            }
-        }
-
-        private async void savebtn_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(subjectTb.Text) || string.IsNullOrWhiteSpace(descriptionTB.Text) ||
-                contentTypeCB.SelectedItem == null || string.IsNullOrWhiteSpace(contentTypeCB.SelectedItem.ToString()))
-            {
-                MessageBox.Show("Please enter a name, description, and content type.");
-                return;
-            }
-
-            // Disable the "Save" button to prevent multiple clicks
-            savebtn.Enabled = false;
-
-            try
-            {
-                // Create a new Subject object
-                Subject subject = new Subject
-                {
-                    Name = subjectTb.Text,
-                    Description = descriptionTB.Text,
-                    ContentType = contentTypeCB.SelectedItem.ToString(),
-                    DateAdded = dateTimePicker.Value,
-                    IsActive = isActiveCheckBox.Checked,
-                    Content = new Content() // Initialize Content to an empty Content object
-                };
-
-                // If a content file was selected, read its data and create a Content object
-                if (!string.IsNullOrWhiteSpace(contentFilePath))
-                {
-                    byte[] contentData = File.ReadAllBytes(contentFilePath);
-                    string contentTitle = Path.GetFileName(contentFilePath);
+                    byte[] contentData = File.ReadAllBytes(openFileDialog.FileName);
+                    string contentTitle = Path.GetFileName(openFileDialog.FileName);
 
                     Content content = new Content
                     {
@@ -165,75 +129,20 @@ namespace Essai
                         ContentData = contentData
                     };
 
-                    subject.Content = content;
-                }
-
-                // Save the subject and content data to the database
-                int subjectId = await Task.Run(() => subjectDataAccess.InsertSubject(subject));
-
-                if (subjectId > 0)
-                {
-                    if (subject.Content != null)
-                    {
-                        subject.Content.SubjectId = subjectId;
-                        await Task.Run(() => subjectDataAccess.InsertContent(subject.Content));
-                    }
-
-                    MessageBox.Show("Subject added successfully.");
-                    ResetForm();
-                    DisplaySubjects();
-                }
-                else
-                {
-                    MessageBox.Show("Failed to add subject.");
+                    contentList.Add(content);
+                    ContentListBoxx.Items.Add(contentTitle);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("An error occurred while adding the subject: " + ex.Message);
-            }
-            finally
-            {
-                // Re-enable the "Save" button
-                savebtn.Enabled = true;
-            }
-        }
-        private void deleteButton_Click(object sender, EventArgs e)
-        {
-            if (currentSubjectId == 0)
-            {
-                MessageBox.Show("Please select a subject to delete.");
-                return;
-            }
-
-            DialogResult result = MessageBox.Show("Are you sure you want to delete this subject?", "Confirm Deletion",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                // Retrieve the subject and its content data
-                Subject subject = subjectDataAccess.GetSubjectById(currentSubjectId);
-
-                if (subject != null)
-                {
-                    // Delete the subject and its content data
-                    subjectDataAccess.DeleteSubject(currentSubjectId);
-
-                    MessageBox.Show("Subject deleted successfully.");
-                    ResetForm();
-                    DisplaySubjects();
-                }
-                else
-                {
-                    MessageBox.Show("Failed to retrieve subject.");
-                }
+                MessageBox.Show("Please select a content type first.");
             }
         }
         private void resetbtn_Click(object sender, EventArgs e)
         {
             ResetForm();
         }
-
+        // Edit button click event handler
         private void editbtn_Click(object sender, EventArgs e)
         {
             if (currentSubjectId == 0)
@@ -246,39 +155,192 @@ namespace Essai
 
             if (subject != null)
             {
-                // Update the subject object with the new values from the form controls
                 subject.Name = subjectTb.Text;
                 subject.Description = descriptionTB.Text;
-                subject.ContentType = contentTypeCB.SelectedItem.ToString();
+                subject.ContentType = contentTypeCB.SelectedItem?.ToString();
                 subject.DateAdded = dateTimePicker.Value;
                 subject.IsActive = isActiveCheckBox.Checked;
+                subject.Content = contentList;
 
-                // Save the updated subject data to the database
-                subjectDataAccess.UpdateSubject(subject);
-
-                MessageBox.Show("Subject updated successfully.");
-                ResetForm();
-                DisplaySubjects();
+                try
+                {
+                    subjectDataAccess.UpdateSubject(subject);
+                    MessageBox.Show("Subject updated successfully.");
+                    ResetForm();
+                    DisplaySubjects();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to update subject: {ex.Message}");
+                }
             }
             else
             {
                 MessageBox.Show("Failed to retrieve subject.");
             }
         }
+        private async void savebtn_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(subjectTb.Text) || string.IsNullOrWhiteSpace(descriptionTB.Text) ||
+                contentTypeCB.SelectedItem == null || string.IsNullOrWhiteSpace(contentTypeCB.SelectedItem.ToString()))
+            {
+                MessageBox.Show("Please enter a name, description, and content type.");
+                return;
+            }
+
+            if (contentList.Count == 0)
+            {
+                MessageBox.Show("Please add at least one content item.");
+                return;
+            }
+
+            // Disable the "Save" button to prevent multiple clicks
+            savebtn.Enabled = false;
+
+            try
+            {
+                Subject subject = new Subject
+                {
+                    Id = currentSubjectId,
+                    Name = subjectTb.Text,
+                    Description = descriptionTB.Text,
+                    ContentType = contentTypeCB.SelectedItem.ToString(),
+                    DateAdded = dateTimePicker.Value,
+                    IsActive = isActiveCheckBox.Checked,
+                    Content = new List<Content>()
+                };
+
+                foreach (Content content in contentList)
+                {
+                    content.SubjectId = currentSubjectId;
+                    subject.Content.Add(content);
+                }
+
+                if (currentSubjectId == 0)
+                {
+                    subjectDataAccess.InsertSubject(subject, contentList);
+                }
+                else
+                {
+                    subjectDataAccess.UpdateSubject(subject);
+                }
+
+                MessageBox.Show("Subject saved successfully.");
+                ResetForm();
+                DisplaySubjects();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving subject: {ex.Message}");
+            }
+            finally
+            {
+                // Re-enable the "Save" button
+                savebtn.Enabled = true;
+            }
+        }
+        private async void deleteButton_Click(object sender, EventArgs e)
+        {
+            if (currentSubjectId == 0)
+            {
+                return;
+            }
+
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this subject?", "Confirm Deletion", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    subjectDataAccess.DeleteSubject(currentSubjectId);
+                    MessageBox.Show("Subject deleted successfully.");
+                    ResetForm();
+                    DisplaySubjects();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting subject: {ex.Message}");
+                }
+            }
+        }
+
         private void subjectsList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                DataGridViewRow row = subjectsList.Rows[e.RowIndex];
+                int subjectId = Convert.ToInt32(subjectsList.Rows[e.RowIndex].Cells["Id"].Value);
 
-                currentSubjectId = int.Parse(row.Cells[0].Value.ToString());
-                subjectTb.Text = row.Cells[1].Value.ToString();
-                descriptionTB.Text = row.Cells[2].Value.ToString();
-                contentTypeCB.SelectedItem = row.Cells[3].Value.ToString();
-                dateTimePicker.Value = DateTime.Parse(row.Cells[4].Value.ToString());
-                isActiveCheckBox.Checked = bool.Parse(row.Cells[5].Value.ToString());
+                Subject subject = subjectDataAccess.GetSubjectById(subjectId);
 
-                deleteButton.Enabled = true;
+                if (subject != null)
+                {
+                    subjectTb.Text = subject.Name;
+                    descriptionTB.Text = subject.Description;
+                    contentTypeCB.SelectedItem = subject.ContentType;
+
+                    // Check if subject.DateAdded is not equal to DateTime.MinValue
+                    dateTimePicker.Value = subject.DateAdded != DateTime.MinValue ? subject.DateAdded : DateTime.Now;
+
+                    isActiveCheckBox.Checked = subject.IsActive;
+
+                    contentList = subject.Content;
+                    ContentListBoxx.Items.Clear();
+                    foreach (Content content in contentList)
+                    {
+                        ContentListBoxx.Items.Add(content.ContentTitle);
+                    }
+
+                    currentSubjectId = subject.Id;
+
+                    //savebtn.Text = "Update";
+                    deleteButton.Enabled = true;
+                }
+            }
+        }
+
+        private void addContentBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            if (contentTypeCB.SelectedItem != null)
+            {
+                switch (contentTypeCB.SelectedItem.ToString())
+                {
+                    case "Docs":
+                        openFileDialog.Filter = "Word Documents|*.doc;*.docx|PDF Files|*.pdf";
+                        break;
+                    case "Images":
+                        openFileDialog.Filter = "ImageFiles|*.jpg;*.jpeg;*.png;*.gif";
+                        break;
+                    case "Videos":
+                        openFileDialog.Filter = "Video Files|*.mp4;*.avi;*.wmv;*.mov";
+                        break;
+                    default:
+                        openFileDialog.Filter = "All Files|*.*";
+                        break;
+                }
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    byte[] contentData = File.ReadAllBytes(openFileDialog.FileName);
+                    string contentTitle = Path.GetFileName(openFileDialog.FileName);
+
+                    Content content = new Content
+                    {
+                        ContentId = 0, // The ContentId will be automatically generated by the database
+                        SubjectId = currentSubjectId,
+                        ContentType = contentTypeCB.SelectedItem.ToString(),
+                        ContentTitle = contentTitle,
+                        ContentData = contentData
+                    };
+
+                    contentList.Add(content);
+                    ContentListBoxx.Items.Add(contentTitle);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a content type first.");
             }
         }
     }

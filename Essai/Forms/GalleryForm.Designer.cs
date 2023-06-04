@@ -41,13 +41,12 @@ namespace Essai.Forms
             pictureBox = new PictureBox();
             tableLayoutPanel = new TableLayoutPanel();
             ContentPictureBox = new PictureBox();
-            videoPlayerControl = new VlcControl();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
             flowLayout1 = new Syncfusion.Windows.Forms.Tools.FlowLayout(components);
+            SubjectButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ContentPictureBox).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)videoPlayerControl).BeginInit();
             ((System.ComponentModel.ISupportInitialize)flowLayout1).BeginInit();
             SuspendLayout();
             // 
@@ -128,40 +127,36 @@ namespace Essai.Forms
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel.Controls.Add(ContentPictureBox, 1, 0);
-            tableLayoutPanel.Controls.Add(videoPlayerControl, 0, 0);
-            tableLayoutPanel.Location = new Point(45, 93);
+            tableLayoutPanel.Location = new Point(40, 60);
             tableLayoutPanel.Name = "tableLayoutPanel";
             tableLayoutPanel.RowCount = 2;
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel.Size = new Size(659, 317);
+            tableLayoutPanel.Size = new Size(898, 353);
             tableLayoutPanel.TabIndex = 12;
             // 
             // ContentPictureBox
             // 
-            ContentPictureBox.Location = new Point(332, 3);
+            ContentPictureBox.Location = new Point(452, 3);
             ContentPictureBox.Name = "ContentPictureBox";
             ContentPictureBox.Size = new Size(100, 50);
             ContentPictureBox.TabIndex = 0;
             ContentPictureBox.TabStop = false;
             ContentPictureBox.Click += ContentPictureBox_Click;
             // 
-            // videoPlayerControl
-            // 
-            videoPlayerControl.BackColor = Color.Black;
-            videoPlayerControl.Location = new Point(3, 3);
-            videoPlayerControl.Name = "videoPlayerControl";
-            videoPlayerControl.VlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
-            videoPlayerControl.Size = new Size(323, 152);
-            videoPlayerControl.Spu = -1;
-            videoPlayerControl.TabIndex = 1;
-            videoPlayerControl.Text = "vlcControl1";
-            videoPlayerControl.VlcMediaplayerOptions = null;
-            // 
             // guna2Elipse1
             // 
             guna2Elipse1.BorderRadius = 15;
             guna2Elipse1.TargetControl = applyFiltersButton;
+            // 
+            // SubjectButton
+            // 
+            SubjectButton.Location = new Point(109, 444);
+            SubjectButton.Name = "SubjectButton";
+            SubjectButton.Size = new Size(75, 23);
+            SubjectButton.TabIndex = 13;
+            SubjectButton.Text = "button1";
+            SubjectButton.UseVisualStyleBackColor = true;
             // 
             // GalleryForm
             // 
@@ -169,6 +164,7 @@ namespace Essai.Forms
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(SubjectButton);
             Controls.Add(pictureBox);
             Controls.Add(contentFlowLayoutPanel);
             Controls.Add(tableLayoutPanel);
@@ -187,7 +183,6 @@ namespace Essai.Forms
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             tableLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ContentPictureBox).EndInit();
-            ((System.ComponentModel.ISupportInitialize)videoPlayerControl).EndInit();
             ((System.ComponentModel.ISupportInitialize)flowLayout1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -211,5 +206,6 @@ namespace Essai.Forms
         private PictureBox ContentPictureBox;
         private Vlc.DotNet.Forms.VlcControl videoPlayerControl;
         private Syncfusion.Windows.Forms.Tools.FlowLayout flowLayout1;
+        private Button SubjectButton;
     }
 }

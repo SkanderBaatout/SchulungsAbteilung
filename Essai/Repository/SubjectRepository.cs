@@ -48,10 +48,13 @@ namespace Essai.Repository
 
             if (await reader.ReadAsync())
             {
-                var content = new Content
+                var content = new List<Content>
                 {
-                    ContentData = (byte[])reader["ContentData"],
-                    ContentType = reader["ContentType"].ToString()
+                    new Content
+                      {
+                          ContentData = (byte[])reader["ContentData"],
+                          ContentType = reader["ContentType"].ToString()
+                      }
                 };
 
                 subject = new Subject

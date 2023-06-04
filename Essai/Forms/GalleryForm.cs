@@ -19,9 +19,6 @@ using Vlc.DotNet.Forms;
 using System.IO;
 using Vlc.DotNet.Core;
 
-
-
-
 namespace Essai.Forms
 {
     public partial class GalleryForm : Form
