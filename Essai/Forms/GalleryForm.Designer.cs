@@ -44,6 +44,7 @@ namespace Essai.Forms
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
             flowLayout1 = new Syncfusion.Windows.Forms.Tools.FlowLayout(components);
             SubjectButton = new Button();
+            UrlButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ContentPictureBox).BeginInit();
@@ -157,6 +158,17 @@ namespace Essai.Forms
             SubjectButton.TabIndex = 13;
             SubjectButton.Text = "button1";
             SubjectButton.UseVisualStyleBackColor = true;
+            SubjectButton.Click += SubjectButton_Click;
+            // 
+            // UrlButton
+            // 
+            UrlButton.Location = new Point(242, 448);
+            UrlButton.Name = "UrlButton";
+            UrlButton.Size = new Size(75, 23);
+            UrlButton.TabIndex = 14;
+            UrlButton.Text = "button1";
+            UrlButton.UseVisualStyleBackColor = true;
+            UrlButton.Click += UrlButton_Click;
             // 
             // GalleryForm
             // 
@@ -164,6 +176,7 @@ namespace Essai.Forms
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(UrlButton);
             Controls.Add(SubjectButton);
             Controls.Add(pictureBox);
             Controls.Add(contentFlowLayoutPanel);
@@ -207,5 +220,6 @@ namespace Essai.Forms
         private Vlc.DotNet.Forms.VlcControl videoPlayerControl;
         private Syncfusion.Windows.Forms.Tools.FlowLayout flowLayout1;
         private Button SubjectButton;
+        private Button UrlButton;
     }
 }

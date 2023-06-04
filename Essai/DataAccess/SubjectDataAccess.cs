@@ -412,15 +412,15 @@ namespace Essai.DataAccess
                             {
                                 // Update the existing content data or insert new content data
                                 string mergeContentQuery = @"MERGE INTO ContentTbl AS target
-                             USING (SELECT @SubjectId AS SubjectId, @ContentType AS ContentType, @ContentTitle AS ContentTitle, 
-                                    @ContentData AS ContentData) AS source
-                             ON (target.SubjectId = source.SubjectId AND target.ContentTitle = source.ContentTitle)
-                             WHEN MATCHED THEN
-                                 UPDATE SET target.ContentType = source.ContentType, 
-                                            target.ContentData = source.ContentData
-                             WHEN NOT MATCHED THEN
-                                 INSERT (SubjectId, ContentType, ContentTitle, ContentData)
-                                 VALUES (source.SubjectId, source.ContentType, source.ContentTitle, source.ContentData);";
+                         USING (SELECT @SubjectId AS SubjectId, @ContentType AS ContentType, @ContentTitle AS ContentTitle, 
+                                @ContentData AS ContentData) AS source
+                         ON (target.SubjectId = source.SubjectId AND target.ContentTitle = source.ContentTitle)
+                         WHEN MATCHED THEN
+                             UPDATE SET target.ContentType = source.ContentType, 
+                                        target.ContentData = source.ContentData
+                         WHEN NOT MATCHED THEN
+                             INSERT (SubjectId, ContentType, ContentTitle, ContentData)
+                             VALUES (source.SubjectId, source.ContentType, source.ContentTitle, source.ContentData);";
                                 SqlCommand mergeContentCommand = new SqlCommand(mergeContentQuery, connection, transaction);
                                 mergeContentCommand.Parameters.AddWithValue("@SubjectId", subject.Id);
                                 mergeContentCommand.Parameters.AddWithValue("@ContentType", content.ContentType);
@@ -450,7 +450,6 @@ namespace Essai.DataAccess
                 }
             }
         }
-
         public void DeleteSubject(int id)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

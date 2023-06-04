@@ -18,13 +18,14 @@ using WMPLib;
 using Vlc.DotNet.Forms;
 using System.IO;
 using Vlc.DotNet.Core;
+using Azure;
 
 namespace Essai.Forms
 {
     public partial class GalleryForm : Form
     {
-
         private readonly SubjectDataAccess subjectDataAccess;
+        private List<Subject> subjectList;
 
         private int currentPage = 1;
         private int pageSize = 10;
@@ -49,111 +50,72 @@ namespace Essai.Forms
 
             RefreshDataGridView();
         }
+
         private void RefreshDataGridView()
         {
             // Get the filter values from the controls
             string subjectNameFilter = subjectNameFilterTB.Text.Trim();
             string contentTypeFilter = contentTypeCB.SelectedItem.ToString();
 
-            // Retrieve the media content data from the database
-            List<Content> mediaContentList = new List<Content>();
-
-            if (!string.IsNullOrWhiteSpace(subjectNameFilter))
+            // Retrieve the subjects and their contents from the database
+            subjectList = subjectDataAccess.GetAllSubjects().Where(s => s.IsActive).ToList(); // Use GetAllSubjectList() instead of GetActiveSubjectList()
+            List<Subject> filteredSubjectList = new List<Subject>();
+            foreach (Subject subject in subjectList)
             {
-                // Retrieve the subject ID by name
-                Subject subject = subjectDataAccess.GetSubjectByName(subjectNameFilter);
-
-                if (subject != null && subject.IsActive)
-                {
-                    // Retrieve the media content for the subject and content type filter
-                    mediaContentList = subjectDataAccess.GetMediaContentList(subject.Id, contentTypeFilter);
-                }
-            }
-            else
-            {
-                // Retrieve all active subjects and their media content for the content type filter
-                List<Subject> subjectList = subjectDataAccess.GetActiveSubjectList();
-                foreach (Subject subject in subjectList)
+                if (string.IsNullOrWhiteSpace(subjectNameFilter) || subject.Name.Contains(subjectNameFilter))
                 {
                     List<Content> contentList = subjectDataAccess.GetMediaContentList(subject.Id, contentTypeFilter);
-                    mediaContentList.AddRange(contentList);
+                    if (contentList.Count > 0)
+                    {
+                        subject.Content = contentList; // Add the contents to the subject object
+                        filteredSubjectList.Add(subject);
+                    }
                 }
             }
-            // Filter the media content list based on the current page and page size
-            totalRecords = mediaContentList.Count;
+
+            // Filter the subject list based on the current page and page size
+            totalRecords = filteredSubjectList.Count;
             totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
             int startIndex = (currentPage - 1) * pageSize;
             int endIndex = Math.Min(startIndex + pageSize, totalRecords);
-            mediaContentList = mediaContentList.GetRange(startIndex, endIndex - startIndex);
+            filteredSubjectList = filteredSubjectList.GetRange(startIndex, endIndex - startIndex);
 
             // Clear the existing controls from the TableLayoutPanel
             tableLayoutPanel.Controls.Clear();
 
             // Set the number of rows and columns in the TableLayoutPanel
-            tableLayoutPanel.ColumnCount = 3;
-            tableLayoutPanel.RowCount = 2;
+            tableLayoutPanel.ColumnCount = 1;
+            tableLayoutPanel.RowCount = filteredSubjectList.Count;
 
             // Set the size of each cell in the TableLayoutPanel
             int cellWidth = (tableLayoutPanel.ClientSize.Width - tableLayoutPanel.Margin.Horizontal) / tableLayoutPanel.ColumnCount;
             int cellHeight = (tableLayoutPanel.ClientSize.Height - tableLayoutPanel.Margin.Vertical) / tableLayoutPanel.RowCount;
             tableLayoutPanel.ColumnStyles.Clear();
             tableLayoutPanel.RowStyles.Clear();
-            for (int i = 0; i < tableLayoutPanel.ColumnCount; i++)
-            {
-                tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, cellWidth));
-            }
-            for (int i = 0; i < tableLayoutPanel.RowCount; i++)
+            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, cellWidth));
+            for (int i = 0; i < filteredSubjectList.Count; i++)
             {
                 tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, cellHeight));
             }
 
-            // Add a new control for each content item
+            // Add a new control for each subject
             int row = 0;
-            int col = 0;
-            foreach (Content content in mediaContentList)
+            foreach (Subject subject in filteredSubjectList)
             {
-                if (content.ContentType == "Images")
-                {
-                    // Create a new PictureBox control to display the image
-                    PictureBox pictureBox = new PictureBox();
-                    pictureBox.Dock = DockStyle.Fill;
-                    pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                    pictureBox.Image = Image.FromStream(new MemoryStream(content.ContentData));
+                // Create a new Button control with the subject name as the text
+                Button subjectButton = new Button();
+                subjectButton.Text = subject.Name;
+                subjectButton.Tag = subject;
+                subjectButton.Click += SubjectButton_Click;
 
-                    // Add the subject name and added date to the PictureBox
-                    pictureBox.Tag = content;
-                    pictureBox.Click += ContentPictureBox_Click;
-                    tableLayoutPanel.Controls.Add(pictureBox, col, row);
-                }
-                else
-                {
-                    //Create a new Button control with the content title and subject name as the text
-                    Button button = new Button();
-                    button.Text = content.ContentTitle + " (" + content.SubjectId + ")";
-                    button.Tag = content;
-                    button.Click += ContentButton_Click;
-
-                    // Add the added date to the button as a tooltip
-                    ToolTip toolTip = new ToolTip();
-                    toolTip.SetToolTip(button, "Added on " + content.DateAdded.ToString("MMM d, yyyy"));
-
-                    tableLayoutPanel.Controls.Add(button, col, row);
-                }
-
-                // Increment the row andcolumn counters
-                col++;
-                if (col == tableLayoutPanel.ColumnCount)
-                {
-                    col = 0;
-                    row++;
-                }
+                tableLayoutPanel.Controls.Add(subjectButton, 0, row);
+                row++;
             }
-            // Update the paging controls
-            totalRecordsLabel.Text = "Total records: " + totalRecords;
 
+            // Update the page information labels
+            //  pageLabel.Text = $"Page {currentPage} of {totalPages}";
+            totalRecordsLabel.Text = $"{totalRecords} records found";
         }
-
-
         private void applyFiltersButton_Click(object sender, EventArgs e)
         {
             // Reset the current page to 1 when filters are applied
@@ -252,6 +214,34 @@ namespace Essai.Forms
                 // Show the form
                 imageForm.ShowDialog();
             }
+        }
+
+        private void SubjectButton_Click(object sender, EventArgs e)
+        {
+            // Get the selected subject from the Tag property of the button
+            Button subjectButton = (Button)sender;
+            Subject subject = (Subject)subjectButton.Tag;
+
+            
+            // Create a new ContentForm and pass the contents of the selected subject to it
+            ContentForm contentForm = new ContentForm(subject.Content, null);
+            contentForm.ShowDialog();
+        }
+        private void UrlButton_Click(object sender, EventArgs e)
+        {
+
+            // Get the selected content from the button tag
+            Content selectedContent = (Content)((Button)sender).Tag;
+
+            // Play the content using VLC
+            var vlcPlayer = new VlcControl();
+            vlcPlayer.VlcLibDirectoryNeeded += (sender, args) =>
+            {
+                args.VlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
+            };
+            Controls.Add(vlcPlayer);
+            vlcPlayer.SetMedia(new Uri(selectedContent.FilePath));
+            vlcPlayer.Play();
         }
     }
 }

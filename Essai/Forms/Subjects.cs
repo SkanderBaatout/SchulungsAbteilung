@@ -157,7 +157,14 @@ namespace Essai
             {
                 subject.Name = subjectTb.Text;
                 subject.Description = descriptionTB.Text;
-                subject.ContentType = contentTypeCB.SelectedItem?.ToString();
+
+                if (contentTypeCB.SelectedItem == null)
+                {
+                    MessageBox.Show("Please select a content type.");
+                    return;
+                }
+
+                subject.ContentType = contentTypeCB.SelectedItem.ToString();
                 subject.DateAdded = dateTimePicker.Value;
                 subject.IsActive = isActiveCheckBox.Checked;
                 subject.Content = contentList;
