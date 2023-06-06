@@ -41,6 +41,7 @@
             button_subjects = new Button();
             button_exit = new Button();
             panel_course_subMenu = new Panel();
+            btn_examResults = new Button();
             button_consultQuestions = new Button();
             button_updateQuestion = new Button();
             button_addQuestion = new Button();
@@ -71,7 +72,6 @@
             panel1 = new Panel();
             label12 = new Label();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
-            btn_examResults = new Button();
             panel_slide.SuspendLayout();
             panel_quiz_subMenu.SuspendLayout();
             panel_course_subMenu.SuspendLayout();
@@ -188,7 +188,7 @@
             button_galery.Padding = new Padding(35, 0, 0, 0);
             button_galery.Size = new Size(175, 53);
             button_galery.TabIndex = 15;
-            button_galery.Text = "Content Galery";
+            button_galery.Text = "Subjectt Galery";
             button_galery.TextAlign = ContentAlignment.MiddleLeft;
             button_galery.UseVisualStyleBackColor = true;
             button_galery.Click += button_galery_Click;
@@ -274,6 +274,23 @@
             panel_course_subMenu.Name = "panel_course_subMenu";
             panel_course_subMenu.Size = new Size(175, 194);
             panel_course_subMenu.TabIndex = 4;
+            // 
+            // btn_examResults
+            // 
+            btn_examResults.Dock = DockStyle.Top;
+            btn_examResults.FlatAppearance.BorderSize = 0;
+            btn_examResults.FlatStyle = FlatStyle.Flat;
+            btn_examResults.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btn_examResults.ForeColor = Color.White;
+            btn_examResults.Location = new Point(0, 141);
+            btn_examResults.Name = "btn_examResults";
+            btn_examResults.Padding = new Padding(35, 0, 0, 0);
+            btn_examResults.Size = new Size(175, 53);
+            btn_examResults.TabIndex = 15;
+            btn_examResults.Text = "View Exam Results";
+            btn_examResults.TextAlign = ContentAlignment.MiddleLeft;
+            btn_examResults.UseVisualStyleBackColor = true;
+            btn_examResults.Click += btn_examResults_Click;
             // 
             // button_consultQuestions
             // 
@@ -643,23 +660,6 @@
             // 
             guna2Elipse1.BorderRadius = 15;
             guna2Elipse1.TargetControl = panel4;
-            // 
-            // btn_examResults
-            // 
-            btn_examResults.Dock = DockStyle.Top;
-            btn_examResults.FlatAppearance.BorderSize = 0;
-            btn_examResults.FlatStyle = FlatStyle.Flat;
-            btn_examResults.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btn_examResults.ForeColor = Color.White;
-            btn_examResults.Location = new Point(0, 141);
-            btn_examResults.Name = "btn_examResults";
-            btn_examResults.Padding = new Padding(35, 0, 0, 0);
-            btn_examResults.Size = new Size(175, 53);
-            btn_examResults.TabIndex = 15;
-            btn_examResults.Text = "View Exam Results";
-            btn_examResults.TextAlign = ContentAlignment.MiddleLeft;
-            btn_examResults.UseVisualStyleBackColor = true;
-            btn_examResults.Click += btn_examResults_Click;
             // 
             // Form1
             // 

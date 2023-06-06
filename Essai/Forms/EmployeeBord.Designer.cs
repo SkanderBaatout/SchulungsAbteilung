@@ -54,6 +54,7 @@
             panel1 = new Panel();
             label12 = new Label();
             panel_slide = new Panel();
+            button_exit = new Button();
             button_planformation = new Button();
             button_dashboard = new Button();
             button_followTraining = new Button();
@@ -62,7 +63,6 @@
             button_questions = new Button();
             button_course = new Button();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
-            button_exit = new Button();
             panel_logo.SuspendLayout();
             panel_main.SuspendLayout();
             panel_cover.SuspendLayout();
@@ -350,6 +350,24 @@
             panel_slide.Size = new Size(200, 686);
             panel_slide.TabIndex = 2;
             // 
+            // button_exit
+            // 
+            button_exit.BackColor = Color.Teal;
+            button_exit.Dock = DockStyle.Top;
+            button_exit.FlatAppearance.BorderSize = 0;
+            button_exit.FlatStyle = FlatStyle.Flat;
+            button_exit.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button_exit.ForeColor = Color.White;
+            button_exit.Location = new Point(0, 327);
+            button_exit.Name = "button_exit";
+            button_exit.Padding = new Padding(10, 0, 0, 0);
+            button_exit.Size = new Size(200, 37);
+            button_exit.TabIndex = 16;
+            button_exit.Text = "Exit";
+            button_exit.TextAlign = ContentAlignment.MiddleLeft;
+            button_exit.UseVisualStyleBackColor = false;
+            button_exit.Click += button_exit_Click_3;
+            // 
             // button_planformation
             // 
             button_planformation.BackColor = Color.Teal;
@@ -402,6 +420,7 @@
             button_followTraining.Text = "Follow Training";
             button_followTraining.TextAlign = ContentAlignment.MiddleLeft;
             button_followTraining.UseVisualStyleBackColor = false;
+            button_followTraining.Click += button_followTraining_Click;
             // 
             // my_profile
             // 
@@ -471,24 +490,6 @@
             // 
             guna2Elipse1.BorderRadius = 15;
             guna2Elipse1.TargetControl = panel_ska;
-            // 
-            // button_exit
-            // 
-            button_exit.BackColor = Color.Teal;
-            button_exit.Dock = DockStyle.Top;
-            button_exit.FlatAppearance.BorderSize = 0;
-            button_exit.FlatStyle = FlatStyle.Flat;
-            button_exit.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            button_exit.ForeColor = Color.White;
-            button_exit.Location = new Point(0, 327);
-            button_exit.Name = "button_exit";
-            button_exit.Padding = new Padding(10, 0, 0, 0);
-            button_exit.Size = new Size(200, 37);
-            button_exit.TabIndex = 16;
-            button_exit.Text = "Exit";
-            button_exit.TextAlign = ContentAlignment.MiddleLeft;
-            button_exit.UseVisualStyleBackColor = false;
-            button_exit.Click += button_exit_Click_3;
             // 
             // EmployeeBord
             // 

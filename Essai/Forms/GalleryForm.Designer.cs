@@ -156,7 +156,7 @@ namespace Essai.Forms
             // 
             lblPageNumber.AutoSize = true;
             lblPageNumber.ForeColor = Color.Black;
-            lblPageNumber.Location = new Point(446, 622);
+            lblPageNumber.Location = new Point(429, 622);
             lblPageNumber.Name = "lblPageNumber";
             lblPageNumber.Size = new Size(57, 21);
             lblPageNumber.TabIndex = 77;

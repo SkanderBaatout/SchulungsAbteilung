@@ -135,7 +135,7 @@ namespace Essai
             openChildForm(new ProfileModificationForm(LoginForm.username, LoginForm.cin));
         }
 
-       
+
 
         private void button_dashboard_Click(object sender, EventArgs e)
         {
@@ -146,7 +146,7 @@ namespace Essai
             panel_main.Controls.Add(panel_cover);
         }
 
-       
+
         private void comboBox_Tests_SelectedIndexChanged(object sender, EventArgs e)
         {
             testName = comboBox_Tests.SelectedValue.ToString();
@@ -200,6 +200,11 @@ namespace Essai
             LoginForm login = new LoginForm();
             this.Hide();
             login.Show();
+        }
+
+        private void button_followTraining_Click(object sender, EventArgs e)
+        {
+            openChildForm(new GalleryForm("employee"));
         }
     }
 }

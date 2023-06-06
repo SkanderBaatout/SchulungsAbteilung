@@ -32,10 +32,20 @@ namespace Essai.Forms
         private int totalRecords = 0;
         private int totalPages = 0;
 
-        public GalleryForm()
+        public GalleryForm(string role)
         {
             InitializeComponent();
             subjectDataAccess = new SubjectDataAccess("data source = SKANDERBAATOUT;database = quiz ;integrated security = True ; TrustServerCertificate=True");
+            // Set the form title based on the user's role
+            if (role == "admin")
+            {
+                label1.Text = "Subject Gallery";
+            }
+            else if (role == "employee")
+            {
+                label1.Text = "Trainings List";
+            }
+
 
             // Initialize the VLC engine
             var vlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
@@ -118,7 +128,7 @@ namespace Essai.Forms
                 // Set the size and appearance of the button
                 subjectButton.Width = cellWidth - 10;
                 subjectButton.Height = cellHeight - 10;
-                subjectButton.BackColor = Color.FromArgb(0, 204, 204); // blue background color
+                subjectButton.BackColor = Color.FromArgb(110, 157, 152); // blue background color
                 subjectButton.ForeColor = Color.White; // white text color
                 subjectButton.Font = new System.Drawing.Font("Segoe UI", 14, FontStyle.Bold); // bold, larger font
                 subjectButton.FlatStyle = FlatStyle.Flat; // no 3D appearance
