@@ -78,9 +78,9 @@ namespace Essai.Forms
             // 
             applyFiltersButton.BackColor = Color.Teal;
             applyFiltersButton.ForeColor = Color.White;
-            applyFiltersButton.Location = new Point(339, 114);
+            applyFiltersButton.Location = new Point(339, 115);
             applyFiltersButton.Name = "applyFiltersButton";
-            applyFiltersButton.Size = new Size(111, 28);
+            applyFiltersButton.Size = new Size(105, 28);
             applyFiltersButton.TabIndex = 7;
             applyFiltersButton.Text = "Filter";
             applyFiltersButton.UseVisualStyleBackColor = false;

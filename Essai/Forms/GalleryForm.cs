@@ -48,29 +48,33 @@ namespace Essai.Forms
             contentTypeCB.Items.Add("Other");
             contentTypeCB.SelectedIndex = 0;
 
-            RefreshDataGridView();
+            RefreshDataGridView("");
 
         }
 
-        private void RefreshDataGridView()
+        private void RefreshDataGridView(string subjectNameFilter = "")
         {
             // Get the filter values from the controls
-            string subjectNameFilter = subjectNameFilterTB.Text.Trim();
             string contentTypeFilter = contentTypeCB.SelectedItem.ToString();
 
             // Retrieve the subjects and their contents from the database
-            subjectList = subjectDataAccess.GetAllSubjects().Where(s => s.IsActive).ToList(); // Use GetAllSubjectList() instead of GetActiveSubjectList()
+            subjectList = subjectDataAccess.GetAllSubjects().Where(s => s.IsActive).ToList();
+            if (!string.IsNullOrWhiteSpace(subjectNameFilter))
+            {
+                subjectList = subjectList.Where(s =>
+                    s.Name.StartsWith(subjectNameFilter, StringComparison.OrdinalIgnoreCase) ||
+                    s.Name.Contains(subjectNameFilter, StringComparison.OrdinalIgnoreCase)
+                ).ToList();
+            }
+
             List<Subject> filteredSubjectList = new List<Subject>();
             foreach (Subject subject in subjectList)
             {
-                if (string.IsNullOrWhiteSpace(subjectNameFilter) || subject.Name.Contains(subjectNameFilter))
+                List<Content> contentList = subjectDataAccess.GetMediaContentList(subject.Id, contentTypeFilter);
+                if (contentList.Count > 0)
                 {
-                    List<Content> contentList = subjectDataAccess.GetMediaContentList(subject.Id, contentTypeFilter);
-                    if (contentList.Count > 0)
-                    {
-                        subject.Content = contentList; // Add the contents to the subject object
-                        filteredSubjectList.Add(subject);
-                    }
+                    subject.Content = contentList; // Add the contents to the subject object
+                    filteredSubjectList.Add(subject);
                 }
             }
 
@@ -123,7 +127,6 @@ namespace Essai.Forms
                 row++;
             }
 
-
             // Update the page information labels
             //  pageLabel.Text = $"Page {currentPage} of {totalPages}";
             totalRecordsLabel.Text = $"{totalRecords} records found";
@@ -138,56 +141,20 @@ namespace Essai.Forms
 
         private void ContentButton_Click(object sender, EventArgs e)
         {
-            Button button = sender as Button;
-            Content content = button.Tag as Content;
+            // Get the search text from the subjectNameFilterTB text input
+            string subjectNameFilter = subjectNameFilterTB.Text.Trim();
 
-            if (content != null)
-            {
-                if (videoPlayerControl != null && content.ContentPath != null && content.ContentType == "Videos")
-                {
-                    // Play the video using VLC
-                    Form videoForm = new Form();
-                    videoForm.StartPosition = FormStartPosition.CenterParent;
-                    videoForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+            // Call the SearchSubjects method with the search text
+            SearchSubjects(subjectNameFilter);
+        }
 
-                    // Create a new Vlc.DotNet.Forms.VlcControl instance
-                    Vlc.DotNet.Forms.VlcControl videoPlayerVlcControl = new Vlc.DotNet.Forms.VlcControl();
-                    Debug.WriteLine("vlcControl: " + videoPlayerVlcControl);
+        private void SearchSubjects(string searchText)
+        {
+            // Reset the current page to 1 when filters are applied
+            currentPage = 1;
 
-                    videoPlayerVlcControl.Dock = DockStyle.Fill;
-                    videoForm.Controls.Add(videoPlayerVlcControl);
-
-                    // Set the VlcLibDirectory property to the directory where the VLC libraries are installed
-                    videoPlayerVlcControl.VlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
-
-                    // Subscribe to the Playing event to start playing the video once it has been loaded
-                    videoPlayerVlcControl.Playing += (sender, args) =>
-                    {
-                        // Set the size of the form based onthe size of the video
-                        videoForm.ClientSize = new Size(640, 480);
-
-                        // Show the form
-                        videoForm.ShowDialog();
-                    };
-
-                    // Load the video file and prepare it for playback
-                    videoPlayerVlcControl.SetMedia(new Uri(content.ContentPath));
-                    videoPlayerVlcControl.Play();
-                }
-                else if (content.ContentType == "Docs")
-                {
-                    // Open the document using Microsoft Word
-                    Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
-                    Document doc = wordApp.Documents.Open(content.ContentPath);
-                    doc.Activate();
-                    wordApp.Visible = true;
-                }
-                else
-                {
-                    // Open the content using the default program for its file type
-                    Process.Start(content.ContentPath);
-                }
-            }
+            // Refresh the DataGridView with the search text as a filter
+            RefreshDataGridView(searchText);
         }
         private void ContentPictureBox_Click(object sender, EventArgs e)
         {
