@@ -49,6 +49,7 @@ namespace Essai.Forms
             contentTypeCB.SelectedIndex = 0;
 
             RefreshDataGridView();
+
         }
 
         private void RefreshDataGridView()
@@ -108,9 +109,20 @@ namespace Essai.Forms
                 subjectButton.Tag = subject;
                 subjectButton.Click += SubjectButton_Click;
 
+                // Set the size and appearance of the button
+                subjectButton.Width = 250;
+                subjectButton.Height = 150;
+                subjectButton.BackColor = Color.FromArgb(0, 204, 204); // blue background color
+                subjectButton.ForeColor = Color.White; // white text color
+                subjectButton.Font = new System.Drawing.Font("Segoe UI", 14, FontStyle.Bold); // bold, larger font
+                subjectButton.FlatStyle = FlatStyle.Flat; // no 3D appearance
+                subjectButton.FlatAppearance.BorderSize = 1; // add a border
+                subjectButton.FlatAppearance.BorderColor = Color.White; // white border color
+
                 tableLayoutPanel.Controls.Add(subjectButton, 0, row);
                 row++;
             }
+
 
             // Update the page information labels
             //  pageLabel.Text = $"Page {currentPage} of {totalPages}";
@@ -243,5 +255,7 @@ namespace Essai.Forms
             vlcPlayer.SetMedia(new Uri(selectedContent.FilePath));
             vlcPlayer.Play();
         }
+
+
     }
 }
