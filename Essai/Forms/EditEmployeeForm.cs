@@ -44,7 +44,7 @@ namespace Essai
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Une erreur s'est produite: " + ex.Message, "Erreur");
+                    MessageBox.Show("An error has occured: " + ex.Message, "Error");
                 }
             }
         }
@@ -54,7 +54,7 @@ namespace Essai
             // Validate input fields
             if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
             {
-                MessageBox.Show("Le nom d'utilisateur et le mot de passe sont obligatoires.", "Erreur de saisie");
+                MessageBox.Show("Username and password are mandatory .", "Input Error");
                 return;
             }
 
@@ -82,18 +82,18 @@ namespace Essai
 
                     if (rowsAffected > 0)
                     {
-                        MessageBox.Show("Employé modifié avec succès.", "Succès");
+                        MessageBox.Show("Employee updated successfully.", "Success");
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
                     else
                     {
-                        MessageBox.Show("Aucun employé n'a été modifié.", "Avertissement");
+                        MessageBox.Show("No employee have been updated.", "Advertissment");
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Une erreur s'est produite: " + ex.Message, "Erreur");
+                    MessageBox.Show("An error has occured : " + ex.Message, "Error");
                 }
             }
         }

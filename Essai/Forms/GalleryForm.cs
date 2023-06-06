@@ -222,7 +222,7 @@ namespace Essai.Forms
             Button subjectButton = (Button)sender;
             Subject subject = (Subject)subjectButton.Tag;
 
-            
+
             // Create a new ContentForm and pass the contents of the selected subject to it
             ContentForm contentForm = new ContentForm(subject.Content, null);
             contentForm.ShowDialog();

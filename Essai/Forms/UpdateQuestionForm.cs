@@ -1,4 +1,4 @@
-﻿using Essai.Utils;
+﻿using Essai.Singleton;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace Essai
 {
     public partial class UpdateQuestionForm : Form
     {
-        Function fn = new Function();
+        Function fn = Function.Instance;
         string query;
         private readonly string _connectionString = "data source=SKANDERBAATOUT;database=quiz;integrated security=True;TrustServerCertificate=True;";
 
@@ -148,6 +148,7 @@ namespace Essai
                     if (result > 0)
                     {
                         MessageBox.Show("Question Updated Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        clearAll();
                     }
                     else
                     {
@@ -169,14 +170,6 @@ namespace Essai
             if (opf.ShowDialog() == DialogResult.OK)
             {
                 pictureBox.Image = Image.FromFile(opf.FileName);
-            }
-        }
-        byte[] ConvertImageToBytes(Image img)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                return ms.ToArray();
             }
         }
         public Image ConvertByteArrayToImage(byte[] data)

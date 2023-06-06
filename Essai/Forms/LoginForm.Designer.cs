@@ -213,12 +213,12 @@
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label5.ForeColor = Color.Teal;
-            label5.Location = new Point(640, 620);
+            label5.Location = new Point(652, 620);
             label5.Name = "label5";
             label5.RightToLeft = RightToLeft.No;
-            label5.Size = new Size(295, 21);
+            label5.Size = new Size(286, 21);
             label5.TabIndex = 8;
-            label5.Text = " @Copy Right Draxlmaier El Jem 2023";
+            label5.Text = " @Copyright Draxlmaier El Jem 2023";
             // 
             // label_title
             // 

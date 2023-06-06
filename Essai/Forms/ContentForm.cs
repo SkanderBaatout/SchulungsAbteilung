@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace Essai
 {
     public partial class ContentForm : Form
@@ -39,12 +38,12 @@ namespace Essai
         {
             // Define a dictionary to map ContentType values to open methods
             Dictionary<string, Action<string>> openMethods = new Dictionary<string, Action<string>>
-    {
-        { ContentType.Document.ToString(), OpenDocument },
-        { ContentType.Image.ToString(), OpenImage },
-        { ContentType.Video.ToString(), OpenVideo },
-        { ContentType.Other.ToString(), OpenFile }
-    };
+{
+    { ContentType.Document.ToString(), OpenDocument },
+    { ContentType.Image.ToString(), OpenImage },
+    { ContentType.Video.ToString(), OpenVideo },
+    { ContentType.Other.ToString(), OpenFile }
+};
 
             // Get the open method for the content type, or show an error message if it's invalid
             if (openMethods.TryGetValue(content.ContentType.ToString(), out Action<string> openMethod))

@@ -44,5 +44,10 @@ namespace Essai.Forms
 
             form.ShowDialog();
         }
+
+        private void button_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

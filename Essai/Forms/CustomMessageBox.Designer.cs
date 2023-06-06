@@ -52,6 +52,7 @@
             button.TabIndex = 1;
             button.Text = "OK";
             button.UseVisualStyleBackColor = true;
+            button.Click += button_Click;
             // 
             // CustomMessageBox
             // 

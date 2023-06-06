@@ -44,19 +44,19 @@ namespace Essai
 
                         if (rowsAffected > 0)
                         {
-                            MessageBox.Show("Employé ajouté avec succès.", "Succès");
+                            MessageBox.Show("Employee added successfully.", "Success");
                             this.DialogResult = DialogResult.OK;
                             this.Close();
                         }
                         else
                         {
-                            MessageBox.Show("Aucun employé n'a été ajouté.", "Avertissement");
+                            MessageBox.Show("No employees have been added.", "Advertissment");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Une erreur s'est produite: " + ex.Message, "Erreur");
+                    MessageBox.Show("An error has occured " + ex.Message, "Error");
                 }
             }
         }

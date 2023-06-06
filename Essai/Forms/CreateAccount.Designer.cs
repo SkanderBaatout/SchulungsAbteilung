@@ -315,11 +315,11 @@
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label5.ForeColor = Color.Teal;
-            label5.Location = new Point(640, 625);
+            label5.Location = new Point(664, 625);
             label5.Name = "label5";
-            label5.Size = new Size(295, 21);
+            label5.Size = new Size(286, 21);
             label5.TabIndex = 15;
-            label5.Text = " @Copy Right Draxlmaier El Jem 2023";
+            label5.Text = " @Copyright Draxlmaier El Jem 2023";
             // 
             // guna2Elipse3
             // 

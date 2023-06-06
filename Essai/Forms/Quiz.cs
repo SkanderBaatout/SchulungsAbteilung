@@ -93,7 +93,7 @@ namespace Essai
                     }
                     else
                     {
-                        MessageBox.Show("Aucune question sélectionnée ! Sélectionnez au moins une question.", "Erreur");
+                        MessageBox.Show("No question selected ! Select at least one.", "Error");
                     }
                 }
                 else
@@ -302,7 +302,7 @@ namespace Essai
             else
             {
                 // The user has already taken the exam twice, so display an error message
-                MessageBox.Show("Vous avez déjà passé cet examen deux fois.", "Erreur");
+                MessageBox.Show("You've passed this exam twice.", "Error");
             }
         }
         private void EndQuiz(string testName)
@@ -315,7 +315,7 @@ namespace Essai
             radioButton4.Enabled = false;
             btn_next.Text = "Submit";
 
-            MessageBox.Show("Vous avez marqué " + _score.ToString() + " sur " + _totalQuestions.ToString() + ".", "Résultats");
+            MessageBox.Show("You scored " + _score.ToString() + " Of " + _totalQuestions.ToString() + ".", "Result");
 
             _quizEnded = true;
             InsertOrUpdateExamResult(testName);
@@ -389,7 +389,7 @@ namespace Essai
         }
         private void InsertTest(string testName)
         {
-            Console.WriteLine("InsertTest called with testName = " + testName);
+            Console.WriteLine("Insert Test called with testName = " + testName);
             try
             {
                 int scoreInDatabase = ExecuteScalar<int>("SELECT ISNULL(MAX(score), 0) FROM scores WHERE cin = @cin AND qset = @qset",

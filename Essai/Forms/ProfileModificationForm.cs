@@ -62,7 +62,7 @@ namespace Essai
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Une erreur s'est produite: " + ex.Message, "Erreur");
+                    MessageBox.Show("An error has occured: " + ex.Message, "Error");
                 }
             }
         }
@@ -91,18 +91,18 @@ namespace Essai
 
                         if (rowsAffected > 0)
                         {
-                            MessageBox.Show("Profil mis à jour avec succès.", "Succès");
+                            MessageBox.Show("Profil updated successfully.", "Success");
                             this.Close();
                         }
                         else
                         {
-                            MessageBox.Show("Aucun profil n'a été mis à jour.", "Avertissement");
+                            MessageBox.Show("No profil have been updated.", "Advertissment");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Une erreur s'est produite: " + ex.Message, "Erreur");
+                    MessageBox.Show("An error has occured: " + ex.Message, "Error");
                 }
             }
         }

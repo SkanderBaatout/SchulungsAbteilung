@@ -133,14 +133,14 @@ namespace Essai.Forms
             tableLayoutPanel.RowCount = 2;
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel.Size = new Size(898, 353);
+            tableLayoutPanel.Size = new Size(898, 365);
             tableLayoutPanel.TabIndex = 12;
             // 
             // ContentPictureBox
             // 
             ContentPictureBox.Location = new Point(452, 3);
             ContentPictureBox.Name = "ContentPictureBox";
-            ContentPictureBox.Size = new Size(100, 50);
+            ContentPictureBox.Size = new Size(443, 176);
             ContentPictureBox.TabIndex = 0;
             ContentPictureBox.TabStop = false;
             ContentPictureBox.Click += ContentPictureBox_Click;

@@ -207,7 +207,7 @@ namespace Essai
 
         private void btn_finish_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Set Will be Changed.", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (MessageBox.Show("Test Will be Changed.", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 textBox_set.Text = (Int64.Parse(textBox_set.Text.ToString()) + 1).ToString();
                 questionLabel.Text = "1";

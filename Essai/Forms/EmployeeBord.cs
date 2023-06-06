@@ -146,15 +146,7 @@ namespace Essai
             panel_main.Controls.Add(panel_cover);
         }
 
-        private void button_followTraining_Click(object sender, EventArgs e)
-        {
-            openChildForm(new FollowSubjectForm());
-        }
-
-      
-
-      
-
+       
         private void comboBox_Tests_SelectedIndexChanged(object sender, EventArgs e)
         {
             testName = comboBox_Tests.SelectedValue.ToString();

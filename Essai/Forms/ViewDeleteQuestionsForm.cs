@@ -8,13 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Essai.Models;
-using Essai.Utils;
+using Essai.Singleton;
 
 namespace Essai
 {
     public partial class ViewDeleteQuestionsForm : Form
     {
-        Function fn = new Function();
+        Function fn = Function.Instance;
         string query;
         public ViewDeleteQuestionsForm()
         {

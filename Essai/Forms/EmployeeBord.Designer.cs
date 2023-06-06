@@ -402,7 +402,6 @@
             button_followTraining.Text = "Follow Training";
             button_followTraining.TextAlign = ContentAlignment.MiddleLeft;
             button_followTraining.UseVisualStyleBackColor = false;
-            button_followTraining.Click += button_followTraining_Click;
             // 
             // my_profile
             // 

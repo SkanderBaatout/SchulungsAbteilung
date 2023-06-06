@@ -86,17 +86,17 @@ namespace Essai
         private void btnDeleteEmployee_Click(object sender, EventArgs e)
         {
             int employeeId = (int)dgvEmployees.SelectedRows[0].Cells["id"].Value;
-            if (MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet employé ?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Are you sure you want to delete this employee ?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 try
                 {
                     _employeeDataAccess.DeleteEmployee(employeeId);
-                    MessageBox.Show("Employé supprimé avec succès.", "Succès");
+                    MessageBox.Show("Employee deleted successfully.", "Success");
                     dgvEmployees.DataSource = _employeeDataAccess.GetEmployees();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Une erreur s'est produite: " + ex.Message, "Erreur");
+                    MessageBox.Show("An error has occured : " + ex.Message, "Error");
                 }
             }
         }
