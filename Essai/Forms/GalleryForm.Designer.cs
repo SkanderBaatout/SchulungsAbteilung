@@ -31,28 +31,32 @@ namespace Essai.Forms
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GalleryForm));
             subjectNameFilterTB = new TextBox();
             contentTypeCB = new ComboBox();
             totalRecordsLabel = new Label();
             applyFiltersButton = new Button();
             ContentButton = new Button();
             tableLayoutPanel = new TableLayoutPanel();
-            UrlButton = new Button();
-            ContentPictureBox = new PictureBox();
             SubjectButton = new Button();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
             flowLayout1 = new Syncfusion.Windows.Forms.Tools.FlowLayout(components);
             guna2Elipse2 = new Guna.UI2.WinForms.Guna2Elipse(components);
             guna2Elipse3 = new Guna.UI2.WinForms.Guna2Elipse(components);
             label1 = new Label();
+            lblPageNumber = new Label();
+            btnNextPage = new Button();
+            btnPrevPage = new PictureBox();
+            btnFirstPage = new PictureBox();
             tableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)ContentPictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)flowLayout1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)btnPrevPage).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)btnFirstPage).BeginInit();
             SuspendLayout();
             // 
             // subjectNameFilterTB
             // 
-            subjectNameFilterTB.Location = new Point(670, 115);
+            subjectNameFilterTB.Location = new Point(652, 115);
             subjectNameFilterTB.Name = "subjectNameFilterTB";
             subjectNameFilterTB.Size = new Size(161, 27);
             subjectNameFilterTB.TabIndex = 2;
@@ -90,7 +94,7 @@ namespace Essai.Forms
             // 
             ContentButton.BackColor = Color.Teal;
             ContentButton.ForeColor = Color.White;
-            ContentButton.Location = new Point(837, 113);
+            ContentButton.Location = new Point(819, 113);
             ContentButton.Name = "ContentButton";
             ContentButton.Size = new Size(90, 29);
             ContentButton.TabIndex = 9;
@@ -103,39 +107,18 @@ namespace Essai.Forms
             tableLayoutPanel.ColumnCount = 2;
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel.Controls.Add(UrlButton, 0, 1);
-            tableLayoutPanel.Controls.Add(ContentPictureBox, 1, 0);
             tableLayoutPanel.Controls.Add(SubjectButton, 1, 1);
-            tableLayoutPanel.Location = new Point(22, 172);
+            tableLayoutPanel.Location = new Point(22, 159);
             tableLayoutPanel.Name = "tableLayoutPanel";
             tableLayoutPanel.RowCount = 2;
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel.Size = new Size(906, 457);
+            tableLayoutPanel.Size = new Size(906, 419);
             tableLayoutPanel.TabIndex = 12;
-            // 
-            // UrlButton
-            // 
-            UrlButton.Location = new Point(3, 231);
-            UrlButton.Name = "UrlButton";
-            UrlButton.Size = new Size(75, 23);
-            UrlButton.TabIndex = 14;
-            UrlButton.Text = "button1";
-            UrlButton.UseVisualStyleBackColor = true;
-            UrlButton.Click += UrlButton_Click;
-            // 
-            // ContentPictureBox
-            // 
-            ContentPictureBox.Location = new Point(456, 3);
-            ContentPictureBox.Name = "ContentPictureBox";
-            ContentPictureBox.Size = new Size(143, 57);
-            ContentPictureBox.TabIndex = 0;
-            ContentPictureBox.TabStop = false;
-            ContentPictureBox.Click += ContentPictureBox_Click;
             // 
             // SubjectButton
             // 
-            SubjectButton.Location = new Point(456, 231);
+            SubjectButton.Location = new Point(456, 212);
             SubjectButton.Name = "SubjectButton";
             SubjectButton.Size = new Size(133, 43);
             SubjectButton.TabIndex = 13;
@@ -169,12 +152,60 @@ namespace Essai.Forms
             label1.TabIndex = 13;
             label1.Text = "Subject Gallery";
             // 
+            // lblPageNumber
+            // 
+            lblPageNumber.AutoSize = true;
+            lblPageNumber.ForeColor = Color.Black;
+            lblPageNumber.Location = new Point(446, 622);
+            lblPageNumber.Name = "lblPageNumber";
+            lblPageNumber.Size = new Size(57, 21);
+            lblPageNumber.TabIndex = 77;
+            lblPageNumber.Text = "label1";
+            // 
+            // btnNextPage
+            // 
+            btnNextPage.BackColor = Color.Teal;
+            btnNextPage.ForeColor = Color.White;
+            btnNextPage.Location = new Point(429, 584);
+            btnNextPage.Name = "btnNextPage";
+            btnNextPage.Size = new Size(102, 35);
+            btnNextPage.TabIndex = 76;
+            btnNextPage.Text = "Next Page";
+            btnNextPage.UseVisualStyleBackColor = false;
+            btnNextPage.Click += btnNextPage_Click;
+            // 
+            // btnPrevPage
+            // 
+            btnPrevPage.Image = (Image)resources.GetObject("btnPrevPage.Image");
+            btnPrevPage.Location = new Point(360, 597);
+            btnPrevPage.Name = "btnPrevPage";
+            btnPrevPage.Size = new Size(50, 22);
+            btnPrevPage.SizeMode = PictureBoxSizeMode.Zoom;
+            btnPrevPage.TabIndex = 75;
+            btnPrevPage.TabStop = false;
+            btnPrevPage.Click += btnPrevPage_Click;
+            // 
+            // btnFirstPage
+            // 
+            btnFirstPage.Image = (Image)resources.GetObject("btnFirstPage.Image");
+            btnFirstPage.Location = new Point(547, 597);
+            btnFirstPage.Name = "btnFirstPage";
+            btnFirstPage.Size = new Size(50, 22);
+            btnFirstPage.SizeMode = PictureBoxSizeMode.Zoom;
+            btnFirstPage.TabIndex = 74;
+            btnFirstPage.TabStop = false;
+            btnFirstPage.Click += btnFirstPage_Click;
+            // 
             // GalleryForm
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(lblPageNumber);
+            Controls.Add(btnNextPage);
+            Controls.Add(btnPrevPage);
+            Controls.Add(btnFirstPage);
             Controls.Add(label1);
             Controls.Add(tableLayoutPanel);
             Controls.Add(ContentButton);
@@ -189,8 +220,9 @@ namespace Essai.Forms
             StartPosition = FormStartPosition.CenterScreen;
             Text = "GalleryForm";
             tableLayoutPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)ContentPictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)flowLayout1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)btnPrevPage).EndInit();
+            ((System.ComponentModel.ISupportInitialize)btnFirstPage).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -207,13 +239,15 @@ namespace Essai.Forms
         private TableLayoutPanel tableLayoutPanel;
         private Panel subjectPanel;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
-        private PictureBox ContentPictureBox;
         private Vlc.DotNet.Forms.VlcControl videoPlayerControl;
         private Syncfusion.Windows.Forms.Tools.FlowLayout flowLayout1;
         private Button SubjectButton;
-        private Button UrlButton;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse2;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse3;
         private Label label1;
+        private Label lblPageNumber;
+        private Button btnNextPage;
+        private PictureBox btnPrevPage;
+        private PictureBox btnFirstPage;
     }
 }

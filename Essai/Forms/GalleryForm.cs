@@ -85,26 +85,28 @@ namespace Essai.Forms
             int endIndex = Math.Min(startIndex + pageSize, totalRecords);
             filteredSubjectList = filteredSubjectList.GetRange(startIndex, endIndex - startIndex);
 
+            // Set the number of rows and columns in the TableLayoutPanel
+            tableLayoutPanel.ColumnCount = 2;
+            tableLayoutPanel.RowCount = (int)Math.Ceiling((double)filteredSubjectList.Count / 2);
+
             // Clear the existing controls from the TableLayoutPanel
             tableLayoutPanel.Controls.Clear();
 
-            // Set the number of rows and columns in the TableLayoutPanel
-            tableLayoutPanel.ColumnCount = 1;
-            tableLayoutPanel.RowCount = filteredSubjectList.Count;
-
             // Set the size of each cell in the TableLayoutPanel
-            int cellWidth = (tableLayoutPanel.ClientSize.Width - tableLayoutPanel.Margin.Horizontal) / tableLayoutPanel.ColumnCount;
+            int cellWidth = (tableLayoutPanel.ClientSize.Width - tableLayoutPanel.Margin.Horizontal) / 2;
             int cellHeight = (tableLayoutPanel.ClientSize.Height - tableLayoutPanel.Margin.Vertical) / tableLayoutPanel.RowCount;
             tableLayoutPanel.ColumnStyles.Clear();
             tableLayoutPanel.RowStyles.Clear();
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, cellWidth));
-            for (int i = 0; i < filteredSubjectList.Count; i++)
+            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, cellWidth));
+            for (int i = 0; i < tableLayoutPanel.ColumnCount; i++)
             {
                 tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, cellHeight));
             }
 
             // Add a new control for each subject
             int row = 0;
+            int col = 0;
             foreach (Subject subject in filteredSubjectList)
             {
                 // Create a new Button control with the subject name as the text
@@ -114,8 +116,8 @@ namespace Essai.Forms
                 subjectButton.Click += SubjectButton_Click;
 
                 // Set the size and appearance of the button
-                subjectButton.Width = 250;
-                subjectButton.Height = 150;
+                subjectButton.Width = cellWidth - 10;
+                subjectButton.Height = cellHeight - 10;
                 subjectButton.BackColor = Color.FromArgb(0, 204, 204); // blue background color
                 subjectButton.ForeColor = Color.White; // white text color
                 subjectButton.Font = new System.Drawing.Font("Segoe UI", 14, FontStyle.Bold); // bold, larger font
@@ -123,13 +125,22 @@ namespace Essai.Forms
                 subjectButton.FlatAppearance.BorderSize = 1; // add a border
                 subjectButton.FlatAppearance.BorderColor = Color.White; // white border color
 
-                tableLayoutPanel.Controls.Add(subjectButton, 0, row);
-                row++;
+                tableLayoutPanel.Controls.Add(subjectButton, col, row);
+
+                col++;
+                if (col == 2)
+                {
+                    col = 0;
+                    row++;
+                }
             }
 
             // Update the page information labels
             //  pageLabel.Text = $"Page {currentPage} of {totalPages}";
             totalRecordsLabel.Text = $"{totalRecords} records found";
+            totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+            lblPageNumber.Text = $"Page {currentPage} of {totalPages}";
+
         }
         private void applyFiltersButton_Click(object sender, EventArgs e)
         {
@@ -156,44 +167,6 @@ namespace Essai.Forms
             // Refresh the DataGridView with the search text as a filter
             RefreshDataGridView(searchText);
         }
-        private void ContentPictureBox_Click(object sender, EventArgs e)
-        {
-            PictureBox pictureBox = sender as PictureBox;
-            Content content = pictureBox.Tag as Content;
-
-            if (content != null)
-            {
-                // Create a new form to display the image
-                Form imageForm = new Form();
-                imageForm.StartPosition = FormStartPosition.CenterParent;
-                imageForm.FormBorderStyle = FormBorderStyle.FixedDialog;
-                imageForm.MaximizeBox = false;
-                imageForm.MinimizeBox = false;
-                imageForm.Text = content.ContentTitle;
-
-                // Create a new PictureBox control to display the image
-                PictureBox bigPictureBox = new PictureBox();
-                bigPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                bigPictureBox.Image = Image.FromStream(new MemoryStream(content.ContentData));
-                bigPictureBox.Dock = DockStyle.Fill;
-                imageForm.Controls.Add(bigPictureBox);
-
-                // Create a new Label control to display the subject name and added date
-                Label infoLabel = new Label();
-                infoLabel.Text = "Subject: " + content.SubjectId + "\r\nAdded on: " + content.DateAdded.ToString("MMM d, yyyy");
-                infoLabel.Dock = DockStyle.Bottom;
-                infoLabel.TextAlign = ContentAlignment.MiddleCenter;
-                infoLabel.BackColor = Color.LightGray;
-                infoLabel.Height = 50;
-                imageForm.Controls.Add(infoLabel);
-
-                // Set the size of the form based on the size of the image
-                imageForm.ClientSize = new Size(bigPictureBox.Image.Width, bigPictureBox.Image.Height + infoLabel.Height);
-
-                // Show the form
-                imageForm.ShowDialog();
-            }
-        }
 
         private void SubjectButton_Click(object sender, EventArgs e)
         {
@@ -206,23 +179,36 @@ namespace Essai.Forms
             ContentForm contentForm = new ContentForm(subject.Content, null);
             contentForm.ShowDialog();
         }
-        private void UrlButton_Click(object sender, EventArgs e)
+
+        private void btnNextPage_Click(object sender, EventArgs e)
         {
-
-            // Get the selected content from the button tag
-            Content selectedContent = (Content)((Button)sender).Tag;
-
-            // Play the content using VLC
-            var vlcPlayer = new VlcControl();
-            vlcPlayer.VlcLibDirectoryNeeded += (sender, args) =>
+            if (currentPage < totalPages)
             {
-                args.VlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
-            };
-            Controls.Add(vlcPlayer);
-            vlcPlayer.SetMedia(new Uri(selectedContent.FilePath));
-            vlcPlayer.Play();
+                currentPage++;
+                RefreshDataGridView();
+                lblPageNumber.Text = $"Page {currentPage} of {totalPages}";
+            }
+
         }
 
+        private void btnFirstPage_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage = 1;
+                RefreshDataGridView();
+                lblPageNumber.Text = $"Page {currentPage} of {totalPages}";
+            }
+        }
 
+        private void btnPrevPage_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                RefreshDataGridView();
+                lblPageNumber.Text = $"Page {currentPage} of {totalPages}";
+            }
+        }
     }
 }
