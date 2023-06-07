@@ -64,10 +64,8 @@ namespace Essai.Forms
 
         private void RefreshDataGridView(string subjectNameFilter = "")
         {
-            // Get the filter values from the controls
             string contentTypeFilter = contentTypeCB.SelectedItem.ToString();
 
-            // Retrieve the subjects and their contents from the database
             subjectList = subjectDataAccess.GetAllSubjects().Where(s => s.IsActive).ToList();
             if (!string.IsNullOrWhiteSpace(subjectNameFilter))
             {
@@ -83,12 +81,11 @@ namespace Essai.Forms
                 List<Content> contentList = subjectDataAccess.GetMediaContentList(subject.Id, contentTypeFilter);
                 if (contentList.Count > 0)
                 {
-                    subject.Content = contentList; // Add the contents to the subject object
+                    subject.Content = contentList; 
                     filteredSubjectList.Add(subject);
                 }
             }
 
-            // Filter the subject list based on the current page and page size
             totalRecords = filteredSubjectList.Count;
             totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
             int startIndex = (currentPage - 1) * pageSize;
@@ -114,26 +111,23 @@ namespace Essai.Forms
                 tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, cellHeight));
             }
 
-            // Add a new control for each subject
             int row = 0;
             int col = 0;
             foreach (Subject subject in filteredSubjectList)
             {
-                // Create a new Button control with the subject name as the text
                 Button subjectButton = new Button();
                 subjectButton.Text = subject.Name;
                 subjectButton.Tag = subject;
                 subjectButton.Click += SubjectButton_Click;
 
-                // Set the size and appearance of the button
                 subjectButton.Width = cellWidth - 10;
                 subjectButton.Height = cellHeight - 10;
-                subjectButton.BackColor = Color.FromArgb(110, 157, 152); // blue background color
-                subjectButton.ForeColor = Color.White; // white text color
-                subjectButton.Font = new System.Drawing.Font("Segoe UI", 14, FontStyle.Bold); // bold, larger font
-                subjectButton.FlatStyle = FlatStyle.Flat; // no 3D appearance
-                subjectButton.FlatAppearance.BorderSize = 1; // add a border
-                subjectButton.FlatAppearance.BorderColor = Color.White; // white border color
+                subjectButton.BackColor = Color.FromArgb(110, 157, 152); 
+                subjectButton.ForeColor = Color.White;
+                subjectButton.Font = new System.Drawing.Font("Segoe UI", 14, FontStyle.Bold); 
+                subjectButton.FlatStyle = FlatStyle.Flat; 
+                subjectButton.FlatAppearance.BorderSize = 1; 
+                subjectButton.FlatAppearance.BorderColor = Color.White; 
 
                 tableLayoutPanel.Controls.Add(subjectButton, col, row);
 
@@ -145,8 +139,6 @@ namespace Essai.Forms
                 }
             }
 
-            // Update the page information labels
-            //  pageLabel.Text = $"Page {currentPage} of {totalPages}";
             totalRecordsLabel.Text = $"{totalRecords} records found";
             totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
             lblPageNumber.Text = $"Page {currentPage} of {totalPages}";
@@ -154,7 +146,7 @@ namespace Essai.Forms
         }
         private void applyFiltersButton_Click(object sender, EventArgs e)
         {
-            // Reset the current page to 1 when filters are applied
+           
             currentPage = 1;
 
             RefreshDataGridView();
@@ -162,32 +154,25 @@ namespace Essai.Forms
 
         private void ContentButton_Click(object sender, EventArgs e)
         {
-            // Get the search text from the subjectNameFilterTB text input
             string subjectNameFilter = subjectNameFilterTB.Text.Trim();
-
-            // Call the SearchSubjects method with the search text
             SearchSubjects(subjectNameFilter);
         }
 
         private void SearchSubjects(string searchText)
         {
             // Reset the current page to 1 when filters are applied
-            currentPage = 1;
-
-            // Refresh the DataGridView with the search text as a filter
+            currentPage = 1;           
             RefreshDataGridView(searchText);
         }
 
         private void SubjectButton_Click(object sender, EventArgs e)
         {
-            // Get the selected subject from the Tag property of the button
             Button subjectButton = (Button)sender;
             Subject subject = (Subject)subjectButton.Tag;
 
-
-            // Create a new ContentForm and pass the contents of the selected subject to it
-            ContentForm contentForm = new ContentForm(subject.Content, null);
+            ContentForm contentForm = new ContentForm(subject);
             contentForm.ShowDialog();
+            
         }
 
         private void btnNextPage_Click(object sender, EventArgs e)

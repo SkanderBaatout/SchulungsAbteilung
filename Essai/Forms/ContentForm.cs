@@ -1,110 +1,87 @@
-﻿using Essai.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
+using Essai.Models;
 
 namespace Essai
 {
     public partial class ContentForm : Form
     {
-        private List<Content> contentList;
+        private readonly int _subjectId;
+        private readonly List<Content> _contentList;
+        private Subject _selectedSubject;
 
-        public ContentForm(List<Content> contentList, Content selectedContent)
+
+        public ContentForm(Subject selectedSubject)
         {
             InitializeComponent();
 
-            // Set the DataSource of the contentDataGridView to the contentList
-            this.contentList = contentList;
-            contentDataGridView.DataSource = contentList;
+            // Set the selectedSubject field
+            _selectedSubject = selectedSubject;
 
-            // Select the specified content item by default, or the first item if none was specified
-            if (selectedContent != null && contentList.Contains(selectedContent))
-            {
-                contentDataGridView.CurrentCell = contentDataGridView.Rows[contentList.IndexOf(selectedContent)].Cells[0];
-            }
-            else if (contentList.Count > 0)
-            {
-                contentDataGridView.CurrentCell = contentDataGridView.Rows[0].Cells[0];
-            }
-        }
-        private void OpenContent(Content content)
-        {
-            // Define a dictionary to map ContentType values to open methods
-            Dictionary<string, Action<string>> openMethods = new Dictionary<string, Action<string>>
-{
-    { ContentType.Document.ToString(), OpenDocument },
-    { ContentType.Image.ToString(), OpenImage },
-    { ContentType.Video.ToString(), OpenVideo },
-    { ContentType.Other.ToString(), OpenFile }
-};
+            // Create the tablePanel layout
+            tableLayoutPanel.ColumnCount = 4;
+            tableLayoutPanel.ColumnStyles.Clear();
+            tableLayoutPanel.RowStyles.Clear();
+            tableLayoutPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+            tableLayoutPanel.AutoSize = true;
 
-            // Get the open method for the content type, or show an error message if it's invalid
-            if (openMethods.TryGetValue(content.ContentType.ToString(), out Action<string> openMethod))
+            // Add the content items to the tablePanel layout
+            int row = 0;
+            foreach (Content content in selectedSubject.Content)
             {
-                openMethod(content.FilePath);
+                // Create the PictureBox control for the content item
+                PictureBox pictureBox = new PictureBox();
+                pictureBox.Dock = DockStyle.Fill;
+                pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+
+                // Check if the content data is a valid image format
+                Image image = null;
+                try
+                {
+                    image = Image.FromStream(new MemoryStream(content.ContentData));
+                }
+                catch (ArgumentException)
+                {
+                    // The content data is not a valid image format, do nothing
+                }
+
+                if (image != null)
+                {
+                    pictureBox.Image = image;
+                    pictureBox.Tag = content;
+
+                    // Create the Label control for the content title
+                    Label titleLabel = new Label();
+                    titleLabel.Dock = DockStyle.Fill;
+                    titleLabel.TextAlign = ContentAlignment.MiddleCenter;
+                    titleLabel.Text = content.ContentTitle;
+
+                    // Add the controls to the tablePanel layout
+                    tableLayoutPanel.RowCount++;
+                    tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+                    tableLayoutPanel.Controls.Add(pictureBox, 0, row);
+                    tableLayoutPanel.Controls.Add(titleLabel, 1, row);
+
+                    // Add the click event handler to display the content item details
+                    pictureBox.Click += PictureBox_Click;
+
+                    row++;
+                }
             }
-            else
-            {
-                MessageBox.Show("Invalid content type.");
-            }
+            // Set the size of the form to fit the tablePanel layout
+            Size = new Size(tableLayoutPanel.Width + 50, tableLayoutPanel.Height + 100);
         }
-        private void OpenDocument(string path)
+
+        private void FilePathLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // Open the document in Microsoft Word
+            // Open the content file in its default associated application when the LinkLabel is clicked
+            LinkLabel linkLabel = (LinkLabel)sender;
             try
             {
-                Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
-                word.Documents.Open(path);
-                word.Visible = true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error opening document: " + ex.Message);
-            }
-        }
-
-        private void OpenImage(string path)
-        {
-            // Open the image in Windows Photo Viewer
-            try
-            {
-                Process.Start("rundll32.exe", $"\"{Environment.GetEnvironmentVariable("SystemRoot")}\\System32\\shimgvw.dll\",ImageView_Fullscreen {path}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error opening image: " + ex.Message);
-            }
-        }
-
-        private void OpenVideo(string path)
-        {
-            // Open the video in VLC player
-            try
-            {
-                Vlc.DotNet.Forms.VlcControl vlcControl = new Vlc.DotNet.Forms.VlcControl();
-                vlcControl.Dock = DockStyle.Fill;
-                Controls.Add(vlcControl);
-                vlcControl.Play(new Uri(path));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error opening video: " + ex.Message);
-            }
-        }
-
-        private void OpenFile(string path)
-        {
-            // Open the file in its default associated application
-            try
-            {
-                Process.Start(path);
+                System.Diagnostics.Process.Start(linkLabel.Text);
             }
             catch (Exception ex)
             {
@@ -112,19 +89,62 @@ namespace Essai
             }
         }
 
-        private void OkButton_Click(object sender, EventArgs e)
+        private void PictureBox_Click(object sender, EventArgs e)
         {
-            Close();
+            // Get the selected content item from the PictureBox control and display its details
+            PictureBox pictureBox = (PictureBox)sender;
+            Content selectedContent = (Content)pictureBox.Tag;
+
+            // Clear the existing controls from the detailsPanel
+            detailsPanel.Controls.Clear();
+
+            // Create the PictureBox control for the content item
+            PictureBox contentPictureBox = new PictureBox();
+            contentPictureBox.Dock = DockStyle.Top;
+            contentPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            contentPictureBox.Image = Image.FromStream(new MemoryStream(selectedContent.ContentData));
+            contentPictureBox.Height = 300;
+
+            // Create the Label control for the content title
+            Label titleLabel = new Label();
+            titleLabel.Dock = DockStyle.Top;
+            titleLabel.TextAlign = ContentAlignment.MiddleCenter;
+            titleLabel.Font = new Font(FontFamily.GenericSansSerif, 20, FontStyle.Bold);
+            titleLabel.Text = selectedContent.ContentTitle;
+
+            // Create the Label control for the content description
+            Label descriptionLabel = new Label();
+            descriptionLabel.Dock = DockStyle.Top;
+            descriptionLabel.TextAlign = ContentAlignment.MiddleLeft;
+            descriptionLabel.Font = new Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular);
+            descriptionLabel.Text = _selectedSubject.Description;
+
+            // Create the Label control for the subject title
+            Label subjectTitleLabel = new Label();
+            subjectTitleLabel.Dock = DockStyle.Top;
+            subjectTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
+            subjectTitleLabel.Font = new Font(FontFamily.GenericSansSerif, 16, FontStyle.Bold);
+            subjectTitleLabel.Text = _selectedSubject.Name;
+
+            // Create the LinkLabel control for the content file path
+            LinkLabel filePathLinkLabel = new LinkLabel();
+            filePathLinkLabel.Dock = DockStyle.Top;
+            filePathLinkLabel.TextAlign = ContentAlignment.MiddleLeft;
+            filePathLinkLabel.Font = new Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular);
+            filePathLinkLabel.Text = selectedContent.FilePath;
+            filePathLinkLabel.LinkClicked += FilePathLinkLabel_LinkClicked;
+
+            // Add the controls to the detailsPanel
+            detailsPanel.Controls.Add(contentPictureBox);
+            detailsPanel.Controls.Add(titleLabel);
+            detailsPanel.Controls.Add(descriptionLabel);
+            detailsPanel.Controls.Add(subjectTitleLabel);
+            detailsPanel.Controls.Add(filePathLinkLabel);
         }
 
-        private void contentDataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void OkButton_Click(object sender, EventArgs e)
         {
-            // Get the selected content item from the DataGridView and open it
-            if (e.RowIndex >= 0 && e.RowIndex < contentList.Count)
-            {
-                Content selectedContent = contentList[e.RowIndex];
-                OpenContent(selectedContent);
-            }
+            this.Close();
         }
     }
 }
