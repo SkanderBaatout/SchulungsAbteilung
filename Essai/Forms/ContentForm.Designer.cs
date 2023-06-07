@@ -31,18 +31,19 @@
             OkButton = new Button();
             tableLayoutPanel = new TableLayoutPanel();
             detailsPanel = new Panel();
+            label1 = new Label();
             SuspendLayout();
             // 
             // OkButton
             // 
             OkButton.BackColor = Color.Teal;
             OkButton.ForeColor = Color.White;
-            OkButton.Location = new Point(628, 38);
+            OkButton.Location = new Point(832, 13);
             OkButton.Margin = new Padding(4);
             OkButton.Name = "OkButton";
             OkButton.Size = new Size(88, 41);
             OkButton.TabIndex = 1;
-            OkButton.Text = "OK";
+            OkButton.Text = "Close";
             OkButton.UseVisualStyleBackColor = false;
             OkButton.Click += OkButton_Click;
             // 
@@ -52,7 +53,7 @@
             tableLayoutPanel.ColumnCount = 2;
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel.Location = new Point(479, 109);
+            tableLayoutPanel.Location = new Point(576, 99);
             tableLayoutPanel.Name = "tableLayoutPanel";
             tableLayoutPanel.RowCount = 2;
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -62,10 +63,21 @@
             // 
             // detailsPanel
             // 
-            detailsPanel.Location = new Point(46, 38);
+            detailsPanel.Location = new Point(46, 99);
             detailsPanel.Name = "detailsPanel";
-            detailsPanel.Size = new Size(396, 499);
+            detailsPanel.Size = new Size(511, 438);
             detailsPanel.TabIndex = 3;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Century Gothic", 36F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.Teal;
+            label1.Location = new Point(67, 18);
+            label1.Name = "label1";
+            label1.Size = new Size(374, 56);
+            label1.TabIndex = 4;
+            label1.Text = "Training Details";
             // 
             // ContentForm
             // 
@@ -74,6 +86,7 @@
             AutoSize = true;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(label1);
             Controls.Add(detailsPanel);
             Controls.Add(tableLayoutPanel);
             Controls.Add(OkButton);
@@ -91,5 +104,6 @@
         private Button OkButton;
         private TableLayoutPanel tableLayoutPanel;
         private Panel detailsPanel;
+        private Label label1;
     }
 }
