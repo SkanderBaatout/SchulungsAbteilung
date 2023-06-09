@@ -17,11 +17,9 @@ namespace Essai
         public LoginForm()
         {
             InitializeComponent();
-            //label_title.Font = new Font("Roboto", 24, FontStyle.Bold);
+           
             label_username.Font = new Font("Roboto", 12, FontStyle.Regular);
             label_password.Font = new Font("Roboto", 12, FontStyle.Regular);
-            //label_username_error.Font = new Font("Roboto", 10, FontStyle.Regular);
-            // label_password_error.Font = new Font("Roboto", 10, FontStyle.Regular);
             button_login.Font = new Font("Roboto", 12, FontStyle.Bold);
             checkBox_showPass.Font = new Font("Roboto", 10, FontStyle.Regular);
             comboBox_selectUser.Font = new Font("Roboto", 12, FontStyle.Regular);
@@ -30,9 +28,7 @@ namespace Essai
             label_emp_username.Font = new Font("Roboto", 12, FontStyle.Regular);
             label_emp_pass.Font = new Font("Roboto", 12, FontStyle.Regular);
             label_cin.Font = new Font("Roboto", 12, FontStyle.Regular);
-            // label_emp_username_error.Font = new Font("Roboto", 10, FontStyle.Regular);
-            // label_emp_pass_error.Font = new Font("Roboto", 10, FontStyle.Regular);
-            // label_cin_error.Font = new Font("Roboto", 10, FontStyle.Regular);
+           
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -55,13 +51,10 @@ namespace Essai
             if (string.IsNullOrWhiteSpace(textBox_username.Text))
             {
                 MessageBox.Show("Username is required");
-                // label_username_error.Text = "Username is required";
-                // label_username_error.ForeColor = Color.Red;
                 textBox_username.BackColor = Color.LightSalmon;
             }
             else
             {
-                //label_username_error.Text = "";
                 textBox_username.BackColor = Color.White;
             }
         }
@@ -71,37 +64,32 @@ namespace Essai
             if (string.IsNullOrWhiteSpace(textBox_password.Text))
             {
                 MessageBox.Show("Password is required");
-                // label_password_error.Text = "Password is required";
-                // label_password_error.ForeColor = Color.Red;
                 textBox_password.BackColor = Color.LightSalmon;
             }
             else
             {
-                //label_password_error.Text = "";
                 textBox_password.BackColor = Color.White;
             }
         }
 
         private void button_login_MouseEnter(object sender, EventArgs e)
         {
-            button_login.BackColor = Color.FromArgb(56, 142, 60); // change to a darker shade of green
+            button_login.BackColor = Color.FromArgb(56, 142, 60); 
         }
 
         private void button_login_MouseLeave(object sender, EventArgs e)
         {
-            button_login.BackColor = Color.FromArgb(76, 175, 80); // change back to the original shade of green
+            button_login.BackColor = Color.FromArgb(76, 175, 80); 
         }
 
         private async void button_login_Click(object sender, EventArgs e)
         {
-            // start the loading indicator
             button_login.Image = Properties.Resources.spinner;
             button_login.ImageAlign = ContentAlignment.MiddleRight;
             button_login.Text = "Logging in...";
 
             if (string.IsNullOrWhiteSpace(textBox_username.Text) || string.IsNullOrWhiteSpace(textBox_password.Text))
             {
-                // show error message and stop the loading indicator
                 MessageBox.Show("Need Login Data!!", "Wrong Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 button_login.Image = null;
                 button_login.ImageAlign = ContentAlignment.MiddleCenter;
@@ -128,7 +116,7 @@ namespace Essai
 
                         if (table.Rows.Count > 0)
                         {
-                            // stop the loading indicator and navigate to the main form
+                           
                             button_login.Image = null;
                             button_login.ImageAlign = ContentAlignment.MiddleCenter;
                             button_login.Text = "Login";
@@ -138,7 +126,6 @@ namespace Essai
                         }
                         else
                         {
-                            // show error message and stop the loading indicator
                             MessageBox.Show("Username and password do not exist", "Wrong Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             button_login.Image = null;
                             button_login.ImageAlign = ContentAlignment.MiddleCenter;
@@ -188,14 +175,12 @@ namespace Essai
 
         private async void button_employee_login_Click(object sender, EventArgs e)
         {
-            // start the loading indicator
             button_employee_login.Image = Properties.Resources.spinner;
             button_employee_login.ImageAlign = ContentAlignment.MiddleRight;
             button_employee_login.Text = "Logging in...";
 
             if (string.IsNullOrWhiteSpace(textBox_emp_username.Text) || string.IsNullOrWhiteSpace(textBox_emp_pass.Text) || string.IsNullOrWhiteSpace(textBox_cin.Text))
             {
-                // show error message and stop the loading indicator
                 MessageBox.Show("Need Login Data!!", "Wrong Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 button_employee_login.Image = null;
                 button_employee_login.ImageAlign = ContentAlignment.MiddleCenter;
@@ -224,7 +209,6 @@ namespace Essai
 
                         if (table.Rows.Count > 0)
                         {
-                            // stop the loading indicator and set the global username and cin variables, then navigate to the employee form
                             button_employee_login.Image = null;
                             button_employee_login.ImageAlign = ContentAlignment.MiddleCenter;
                             button_employee_login.Text = "Login";
@@ -236,7 +220,6 @@ namespace Essai
                         }
                         else
                         {
-                            // show error message and stop the loading indicator
                             MessageBox.Show("Username, password, or CIN do not exist", "Wrong Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             button_employee_login.Image = null;
                             button_employee_login.ImageAlign = ContentAlignment.MiddleCenter;
@@ -268,13 +251,10 @@ namespace Essai
             if (string.IsNullOrWhiteSpace(textBox_emp_username.Text))
             {
                 MessageBox.Show("Username is required");
-                // label_emp_username_error.Text = "Username is required";
-                // label_emp_username_error.ForeColor = Color.Red;
                 textBox_emp_username.BackColor = Color.LightSalmon;
             }
             else
             {
-                // label_emp_username_error.Text = "";
                 textBox_emp_username.BackColor = Color.White;
             }
         }
@@ -284,13 +264,10 @@ namespace Essai
             if (string.IsNullOrWhiteSpace(textBox_emp_pass.Text))
             {
                 MessageBox.Show("Password is required");
-                // label_emp_pass_error.Text = "Password is required";
-                // label_emp_pass_error.ForeColor = Color.Red;
                 textBox_emp_pass.BackColor = Color.LightSalmon;
             }
             else
             {
-                //label_emp_pass_error.Text = "";
                 textBox_emp_pass.BackColor = Color.White;
             }
         }
@@ -299,14 +276,11 @@ namespace Essai
         {
             if (string.IsNullOrWhiteSpace(textBox_cin.Text))
             {
-                MessageBox.Show("CIN is required");
-                // label_cin_error.Text = "CIN is required";
-                // label_cin_error.ForeColor = Color.Red;
+                MessageBox.Show("CIN is required");            
                 textBox_cin.BackColor = Color.LightSalmon;
             }
             else
             {
-                //label_cin_error.Text = "";
                 textBox_cin.BackColor = Color.White;
             }
         }

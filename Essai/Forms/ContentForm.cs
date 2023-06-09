@@ -5,6 +5,8 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Essai.Models;
+using Essai.Utils;
+using Syncfusion.Windows.Forms.PdfViewer;
 using Vlc.DotNet.Forms;
 
 namespace Essai
@@ -39,8 +41,22 @@ namespace Essai
 
                 if (content.ContentType == "Images")
                 {
-                    Image image = Image.FromStream(new MemoryStream(content.ContentData));
-                    pictureBox.Image = image;
+                    if (content.ContentData?.Length > 0)
+                    {
+                        try
+                        {
+                            using (MemoryStream ms = new MemoryStream(content.ContentData))
+                            {
+                                SerializableImage serializableImage = new SerializableImage(System.Drawing.Image.FromStream(ms));
+                                pictureBox.Image = serializableImage.GetImage(pictureBox.Width, pictureBox.Height);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // Log the error or display an error message
+                            Console.WriteLine("Error loading image: " + ex.Message);
+                        }
+                    }
                 }
                 else
                 {
@@ -88,12 +104,27 @@ namespace Essai
 
             if (selectedContent.ContentType == "Images")
             {
-                PictureBox imagePictureBox = new PictureBox();
-                imagePictureBox.Dock = DockStyle.Top;
-                imagePictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                imagePictureBox.Image = Image.FromStream(new MemoryStream(selectedContent.ContentData));
-                imagePictureBox.Height = 300;
-                contentControl = imagePictureBox;
+                if (selectedContent.ContentData?.Length > 0)
+                {
+                    try
+                    {
+                        using (MemoryStream ms = new MemoryStream(selectedContent.ContentData))
+                        {
+                            SerializableImage serializableImage = new SerializableImage(Image.FromStream(ms));
+                            PictureBox imagePictureBox = new PictureBox();
+                            imagePictureBox.Dock = DockStyle.Top;
+                            imagePictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                            imagePictureBox.Image = serializableImage.GetImage(detailsPanel.Width, 300);
+                            imagePictureBox.Height = 300;
+                            contentControl = imagePictureBox;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the error or display an error message
+                        Console.WriteLine("Error loading image: " + ex.Message);
+                    }
+                }
             }
             else if (selectedContent.ContentType == "Videos")
             {
@@ -110,6 +141,24 @@ namespace Essai
                 webBrowser.Dock = DockStyle.Top;
                 webBrowser.DocumentStream = new MemoryStream(selectedContent.ContentData);
                 contentControl = webBrowser;
+            }
+            else if (selectedContent.ContentType == "Other")
+            {
+                PdfViewerControl pdfViewerControl = new PdfViewerControl();
+                pdfViewerControl.Dock = DockStyle.Top;
+                MemoryStream pdfStream = new MemoryStream(selectedContent.ContentData);
+                pdfViewerControl.Load(pdfStream);
+                pdfViewerControl.Height = 300;
+
+                Panel scrollPanel = new Panel();
+                scrollPanel.Dock = DockStyle.Top;
+                scrollPanel.AutoScroll = true;
+                scrollPanel.Height = 300;
+                scrollPanel.Controls.Add(pdfViewerControl);
+                pdfViewerControl.Dock = DockStyle.Top;
+                pdfViewerControl.Width = scrollPanel.Width - SystemInformation.VerticalScrollBarWidth;
+
+                contentControl = scrollPanel;
             }
             else
             {
