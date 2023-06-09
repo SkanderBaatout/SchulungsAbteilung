@@ -32,12 +32,14 @@ namespace Essai.Forms
         private int totalRecords = 0;
         private int totalPages = 0;
         private readonly int _employeeId;
+        private readonly bool _isAdmin;
 
 
-        public GalleryForm(string role, int employeeId)
+        public GalleryForm(string role, int employeeId, bool isAdmin)
         {
             InitializeComponent();
             _employeeId = employeeId;
+            _isAdmin = isAdmin;
 
             subjectDataAccess = new SubjectDataAccess("data source = SKANDERBAATOUT;database = quiz ;integrated security = True ; TrustServerCertificate=True");
             // Set the form title based on the user's role
@@ -63,7 +65,7 @@ namespace Essai.Forms
             contentTypeCB.SelectedIndex = 0;
 
             RefreshDataGridView("");
-
+            _isAdmin = isAdmin;
         }
 
         private void RefreshDataGridView(string subjectNameFilter = "")
@@ -174,7 +176,7 @@ namespace Essai.Forms
             Button subjectButton = (Button)sender;
             Subject subject = (Subject)subjectButton.Tag;
 
-            ContentForm contentForm = new ContentForm(_employeeId, subject.Id,subject);
+            ContentForm contentForm = new ContentForm(_employeeId, subject.Id,subject,_isAdmin);
             contentForm.ShowDialog();
             
         }

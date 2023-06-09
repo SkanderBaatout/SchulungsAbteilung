@@ -206,7 +206,7 @@ namespace Essai
 
         private void button_followTraining_Click(object sender, EventArgs e)
         {
-            openChildForm(new GalleryForm("employee",this.EmployeeId));
+            openChildForm(new GalleryForm("employee",this.EmployeeId,false));
         }
     }
 }

@@ -83,17 +83,21 @@
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(680, 381);
+            progressBar.BackColor = Color.Teal;
+            progressBar.ForeColor = Color.White;
+            progressBar.Location = new Point(653, 381);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(100, 23);
+            progressBar.Size = new Size(231, 33);
             progressBar.TabIndex = 5;
             // 
             // progressBarLabel
             // 
             progressBarLabel.AutoSize = true;
-            progressBarLabel.Location = new Point(698, 417);
+            progressBarLabel.Font = new Font("Century Gothic", 15.75F, FontStyle.Italic, GraphicsUnit.Point);
+            progressBarLabel.ForeColor = Color.Teal;
+            progressBarLabel.Location = new Point(653, 430);
             progressBarLabel.Name = "progressBarLabel";
-            progressBarLabel.Size = new Size(57, 21);
+            progressBarLabel.Size = new Size(74, 24);
             progressBarLabel.TabIndex = 6;
             progressBarLabel.Text = "label2";
             // 

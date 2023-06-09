@@ -371,7 +371,7 @@ namespace Essai
 
         private void button_galery_Click(object sender, EventArgs e)
         {
-            openChildForm(new GalleryForm("admin",this.AdminId));
+            openChildForm(new GalleryForm("admin",this.AdminId,true));
         }
 
         private void btn_examResults_Click(object sender, EventArgs e)

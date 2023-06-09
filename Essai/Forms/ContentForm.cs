@@ -19,10 +19,11 @@ namespace Essai
 
         private readonly List<Content> _contentList;
         private Subject _selectedSubject;
+        private readonly bool _isAdmin;
 
         private readonly string _connectionString = "data source=SKANDERBAATOUT;database=quiz;integrated security=True;TrustServerCertificate=True;";
 
-        public ContentForm(int employeeId, int subjectId, Subject selectedSubject)
+        public ContentForm(int employeeId, int subjectId, Subject selectedSubject, bool isAdmin)
         {
             InitializeComponent();
 
@@ -30,18 +31,32 @@ namespace Essai
             _employeeId = employeeId;
 
             _subjectId = subjectId;
+            _isAdmin = isAdmin;
 
             // Load the content list for the selected subject
             _contentList = selectedSubject.Content;
 
-            // Calculate the progress percentage for the current employee and subject
-            int numViewedContents = GetNumViewedContents(employeeId, subjectId);
-            int totalNumContents = _contentList.Count;
-            int progressPercentage = (int)Math.Round(((double)numViewedContents / totalNumContents) * 100);
+            if (isAdmin)
+            {
+                // Disable the progress bar and any other progression-related UI elements
+                progressBar.Visible = false;
+                progressBarLabel.Visible = false;
 
-            // Display the progress percentage using a progress bar
-            progressBar.Value = progressPercentage;
-            progressBarLabel.Text = numViewedContents + " out of " + totalNumContents + " contents viewed (" + progressPercentage + "%)";
+                // Hide any other progression-related UI elements as needed
+            }
+            else
+            {
+                // Calculate the progress percentage for the current employee and subject
+                List<Content> viewedContents = GetViewedContents(employeeId, subjectId);
+                int numViewedContents = viewedContents.Count;
+                int totalNumContents = _contentList.Count;
+                int progressPercentage = (int)Math.Round(((double)numViewedContents / totalNumContents) * 100);
+
+                // Display the progress percentage using a progress bar
+                progressBar.Value = progressPercentage;
+                progressBarLabel.Text = numViewedContents + " out of " + totalNumContents + " contents viewed (" + progressPercentage + "%)";
+            }
+
 
             tableLayoutPanel.ColumnCount = 4;
             tableLayoutPanel.ColumnStyles.Clear();
@@ -120,30 +135,14 @@ namespace Essai
             detailsPanel.Controls.Clear();
 
             // Update viewed contents in database
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            List<Content> viewedContents = GetViewedContents(_employeeId, _subjectId);
+            viewedContents.Add(selectedContent);
+            string viewedContentsStr = string.Join(",", viewedContents.Select(c => c.ContentId));
+            if (!_isAdmin)
             {
-                connection.Open();
-
-                // Check if the employee progression record exists
-                SqlCommand selectCommand = new SqlCommand("SELECT ViewedContents FROM EmployeeProgression WHERE EmployeeId = @employeeId AND SubjectId = @subjectId", connection);
-                selectCommand.Parameters.AddWithValue("@employeeId", _employeeId);
-                selectCommand.Parameters.AddWithValue("@subjectId", _subjectId);
-                SqlDataReader reader = selectCommand.ExecuteReader();
-
-                string viewedContents = null;
-                if (reader.Read())
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    viewedContents = reader.GetString(0);
-                }
-                reader.Close();
-
-                // Update the viewed contents list
-                List<int> viewedContentIds = viewedContents?.Split(',').Select(int.Parse).ToList() ?? new List<int>();
-                if (!viewedContentIds.Contains(selectedContent.ContentId))
-                {
-                    viewedContentIds.Add(selectedContent.ContentId);
-
-                    string viewedContentsStr = string.Join(",", viewedContentIds);
+                    connection.Open();
                     SqlCommand updateCommand = new SqlCommand("IF EXISTS(SELECT 1 FROM EmployeeProgression WHERE EmployeeId = @employeeId AND SubjectId = @subjectId) " +
                                                                 "UPDATE EmployeeProgression SET ViewedContents = @viewedContents WHERE EmployeeId = @employeeId AND SubjectId = @subjectId " +
                                                                 "ELSE " +
@@ -242,9 +241,9 @@ namespace Essai
             detailsPanel.Controls.Add(new Label() { Dock = DockStyle.Top, Height = 20 });
             detailsPanel.Controls.Add(subjectTitleLabel);
         }
-        private int GetNumViewedContents(int employeeId, int subjectId)
+        private List<Content> GetViewedContents(int employeeId, int subjectId)
         {
-            int numViewedContents = 0;
+            List<Content> viewedContents = new List<Content>();
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -256,13 +255,26 @@ namespace Essai
                 if (reader.Read())
                 {
                     string viewedContentIdsStr = reader.GetString(0);
-                    List<int> viewedContentIds = viewedContentIdsStr.Split(',').Select(int.Parse).ToList();
-                    numViewedContents = _contentList.Count(c => viewedContentIds.Contains(c.ContentId));
+                    List<int> viewedContentIds = new List<int>();
+                    foreach (string contentIdStr in viewedContentIdsStr.Split(','))
+                    {
+                        int contentId;
+                        if (int.TryParse(contentIdStr, out contentId))
+                        {
+                            viewedContentIds.Add(contentId);
+                        }
+                        else
+                        {
+                            // Log the error or display an error message
+                            Console.WriteLine($"Error parsing viewed content ID '{contentIdStr}'");
+                        }
+                    }
+                    viewedContents = _contentList.Where(c => viewedContentIds.Contains(c.ContentId)).ToList();
                 }
                 reader.Close();
             }
 
-            return numViewedContents;
+            return viewedContents;
         }
         private void OkButton_Click(object sender, EventArgs e)
         {
