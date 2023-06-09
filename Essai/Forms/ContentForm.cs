@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using Essai.Models;
 using Essai.Utils;
+using Microsoft.Data.SqlClient;
 using Syncfusion.Windows.Forms.PdfViewer;
 using Vlc.DotNet.Forms;
 
@@ -14,15 +15,33 @@ namespace Essai
     public partial class ContentForm : Form
     {
         private readonly int _subjectId;
+        private int _employeeId;
+
         private readonly List<Content> _contentList;
         private Subject _selectedSubject;
 
+        private readonly string _connectionString = "data source=SKANDERBAATOUT;database=quiz;integrated security=True;TrustServerCertificate=True;";
 
-        public ContentForm(Subject selectedSubject)
+        public ContentForm(int employeeId, int subjectId, Subject selectedSubject)
         {
             InitializeComponent();
 
             _selectedSubject = selectedSubject;
+            _employeeId = employeeId;
+
+            _subjectId = subjectId;
+
+            // Load the content list for the selected subject
+            _contentList = selectedSubject.Content;
+
+            // Calculate the progress percentage for the current employee and subject
+            int numViewedContents = GetNumViewedContents(employeeId, subjectId);
+            int totalNumContents = _contentList.Count;
+            int progressPercentage = (int)Math.Round(((double)numViewedContents / totalNumContents) * 100);
+
+            // Display the progress percentage using a progress bar
+            progressBar.Value = progressPercentage;
+            progressBarLabel.Text = numViewedContents + " out of " + totalNumContents + " contents viewed (" + progressPercentage + "%)";
 
             tableLayoutPanel.ColumnCount = 4;
             tableLayoutPanel.ColumnStyles.Clear();
@@ -100,6 +119,41 @@ namespace Essai
 
             detailsPanel.Controls.Clear();
 
+            // Update viewed contents in database
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                // Check if the employee progression record exists
+                SqlCommand selectCommand = new SqlCommand("SELECT ViewedContents FROM EmployeeProgression WHERE EmployeeId = @employeeId AND SubjectId = @subjectId", connection);
+                selectCommand.Parameters.AddWithValue("@employeeId", _employeeId);
+                selectCommand.Parameters.AddWithValue("@subjectId", _subjectId);
+                SqlDataReader reader = selectCommand.ExecuteReader();
+
+                string viewedContents = null;
+                if (reader.Read())
+                {
+                    viewedContents = reader.GetString(0);
+                }
+                reader.Close();
+
+                // Update the viewed contents list
+                List<int> viewedContentIds = viewedContents?.Split(',').Select(int.Parse).ToList() ?? new List<int>();
+                if (!viewedContentIds.Contains(selectedContent.ContentId))
+                {
+                    viewedContentIds.Add(selectedContent.ContentId);
+
+                    string viewedContentsStr = string.Join(",", viewedContentIds);
+                    SqlCommand updateCommand = new SqlCommand("IF EXISTS(SELECT 1 FROM EmployeeProgression WHERE EmployeeId = @employeeId AND SubjectId = @subjectId) " +
+                                                                "UPDATE EmployeeProgression SET ViewedContents = @viewedContents WHERE EmployeeId = @employeeId AND SubjectId = @subjectId " +
+                                                                "ELSE " +
+                                                                "INSERT INTO EmployeeProgression (EmployeeId, SubjectId, ViewedContents) VALUES (@employeeId, @subjectId, @viewedContents)", connection);
+                    updateCommand.Parameters.AddWithValue("@employeeId", _employeeId);
+                    updateCommand.Parameters.AddWithValue("@subjectId", _subjectId);
+                    updateCommand.Parameters.AddWithValue("@viewedContents", viewedContentsStr);
+                    updateCommand.ExecuteNonQuery();
+                }
+            }
             Control contentControl = null;
 
             if (selectedContent.ContentType == "Images")
@@ -187,6 +241,28 @@ namespace Essai
             detailsPanel.Controls.Add(descriptionLabel);
             detailsPanel.Controls.Add(new Label() { Dock = DockStyle.Top, Height = 20 });
             detailsPanel.Controls.Add(subjectTitleLabel);
+        }
+        private int GetNumViewedContents(int employeeId, int subjectId)
+        {
+            int numViewedContents = 0;
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT ViewedContents FROM EmployeeProgression WHERE EmployeeId = @employeeId AND SubjectId = @subjectId", connection);
+                command.Parameters.AddWithValue("@employeeId", employeeId);
+                command.Parameters.AddWithValue("@subjectId", subjectId);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    string viewedContentIdsStr = reader.GetString(0);
+                    List<int> viewedContentIds = viewedContentIdsStr.Split(',').Select(int.Parse).ToList();
+                    numViewedContents = _contentList.Count(c => viewedContentIds.Contains(c.ContentId));
+                }
+                reader.Close();
+            }
+
+            return numViewedContents;
         }
         private void OkButton_Click(object sender, EventArgs e)
         {

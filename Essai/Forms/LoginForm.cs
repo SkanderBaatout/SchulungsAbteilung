@@ -12,6 +12,8 @@ namespace Essai
     {
         public static string username;
         public static string cin;
+        public int EmployeeId { get; set; }
+
         private readonly string _connectionString = "data source=SKANDERBAATOUT;database=quiz;integrated security=True;TrustServerCertificate=True;";
 
         public LoginForm()
@@ -209,14 +211,16 @@ namespace Essai
 
                         if (table.Rows.Count > 0)
                         {
+                            int employeeId = (int)table.Rows[0]["id"];
                             button_employee_login.Image = null;
                             button_employee_login.ImageAlign = ContentAlignment.MiddleCenter;
                             button_employee_login.Text = "Login";
                             username = emp_uname;
                             cin = emp_cin;
-                            EmployeeBord emp = new EmployeeBord();
+                            EmployeeBord empBord = new EmployeeBord();
+                            empBord.EmployeeId = employeeId;
                             this.Hide();
-                            emp.Show();
+                            empBord.Show();
                         }
                         else
                         {
@@ -229,7 +233,6 @@ namespace Essai
                 }
             }
         }
-
         private void button_employee_register_MouseEnter(object sender, EventArgs e)
         {
             button_employee_register.BackColor = Color.FromArgb(56, 142, 60); // change to a darker shade of green

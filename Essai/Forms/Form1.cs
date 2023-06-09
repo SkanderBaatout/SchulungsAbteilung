@@ -13,6 +13,7 @@ namespace Essai
         private UserDataAccess _userDataAccess;
         private SubjectDataAccess _subjectDataAccess;
 
+        public int AdminId { get; set; }
 
         public Form1()
         {
@@ -370,7 +371,7 @@ namespace Essai
 
         private void button_galery_Click(object sender, EventArgs e)
         {
-            openChildForm(new GalleryForm("admin"));
+            openChildForm(new GalleryForm("admin",this.AdminId));
         }
 
         private void btn_examResults_Click(object sender, EventArgs e)

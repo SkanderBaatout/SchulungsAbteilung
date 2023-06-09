@@ -32,6 +32,8 @@
             tableLayoutPanel = new TableLayoutPanel();
             detailsPanel = new Panel();
             label1 = new Label();
+            progressBar = new ProgressBar();
+            progressBarLabel = new Label();
             SuspendLayout();
             // 
             // OkButton
@@ -79,6 +81,22 @@
             label1.TabIndex = 4;
             label1.Text = "Training Details";
             // 
+            // progressBar
+            // 
+            progressBar.Location = new Point(680, 381);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(100, 23);
+            progressBar.TabIndex = 5;
+            // 
+            // progressBarLabel
+            // 
+            progressBarLabel.AutoSize = true;
+            progressBarLabel.Location = new Point(698, 417);
+            progressBarLabel.Name = "progressBarLabel";
+            progressBarLabel.Size = new Size(57, 21);
+            progressBarLabel.TabIndex = 6;
+            progressBarLabel.Text = "label2";
+            // 
             // ContentForm
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
@@ -86,6 +104,8 @@
             AutoSize = true;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(progressBarLabel);
+            Controls.Add(progressBar);
             Controls.Add(label1);
             Controls.Add(detailsPanel);
             Controls.Add(tableLayoutPanel);
@@ -105,5 +125,7 @@
         private TableLayoutPanel tableLayoutPanel;
         private Panel detailsPanel;
         private Label label1;
+        private ProgressBar progressBar;
+        private Label progressBarLabel;
     }
 }
