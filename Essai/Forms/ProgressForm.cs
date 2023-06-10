@@ -35,6 +35,7 @@ namespace Essai.Forms
             rdr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Columns.Add("SName", typeof(string));
+            dt.Rows.Add("All"); // add "All" option
             dt.Load(rdr);
             subjectcb.ValueMember = "SName";
             subjectcb.DataSource = dt;
@@ -49,6 +50,7 @@ namespace Essai.Forms
             rdr = cmd.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Columns.Add("username", typeof(string));
+            dt.Rows.Add("All"); // add "All" option
             dt.Load(rdr);
             candidatecb.ValueMember = "username";
             candidatecb.DataSource = dt;
@@ -88,7 +90,19 @@ namespace Essai.Forms
             }
 
             DataView dv = progressionTable.DefaultView;
-            dv.RowFilter = string.Format("SName LIKE '%{0}%'", subjectcb.Text);
+            string subjectFilter = subjectcb.Text;
+            string candidateFilter = candidatecb.Text;
+
+            if (subjectFilter != "All")
+            {
+                dv.RowFilter = string.Format("SName LIKE '%{0}%'", subjectFilter);
+            }
+
+            if (candidateFilter != "All")
+            {
+                dv.RowFilter += (dv.RowFilter == "" ? "" : " AND ") + string.Format("username LIKE '%{0}%'", candidateFilter);
+            }
+
             progressionDGV.DataSource = dv.ToTable();
         }
 
@@ -101,7 +115,19 @@ namespace Essai.Forms
             }
 
             DataView dv = progressionTable.DefaultView;
-            dv.RowFilter = string.Format("username LIKE '%{0}%'", candidatecb.Text);
+            string subjectFilter = subjectcb.Text;
+            string candidateFilter = candidatecb.Text;
+
+            if (candidateFilter != "All")
+            {
+                dv.RowFilter = string.Format("username LIKE '%{0}%'", candidateFilter);
+            }
+
+            if (subjectFilter != "All")
+            {
+                dv.RowFilter += (dv.RowFilter == "" ? "" : " AND ") + string.Format("SName LIKE '%{0}%'", subjectFilter);
+            }
+
             progressionDGV.DataSource = dv.ToTable();
         }
 

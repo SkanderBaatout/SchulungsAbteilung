@@ -72,6 +72,7 @@
             panel1 = new Panel();
             label12 = new Label();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
+            trainingProgressionbtn = new Button();
             panel_slide.SuspendLayout();
             panel_quiz_subMenu.SuspendLayout();
             panel_course_subMenu.SuspendLayout();
@@ -117,7 +118,7 @@
             buttonExit.FlatStyle = FlatStyle.Flat;
             buttonExit.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             buttonExit.ForeColor = Color.White;
-            buttonExit.Location = new Point(0, 802);
+            buttonExit.Location = new Point(0, 858);
             buttonExit.Name = "buttonExit";
             buttonExit.Padding = new Padding(10, 0, 0, 0);
             buttonExit.Size = new Size(175, 41);
@@ -135,7 +136,7 @@
             dashboardbtn.FlatStyle = FlatStyle.Flat;
             dashboardbtn.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             dashboardbtn.ForeColor = Color.White;
-            dashboardbtn.Location = new Point(0, 761);
+            dashboardbtn.Location = new Point(0, 817);
             dashboardbtn.Name = "dashboardbtn";
             dashboardbtn.Padding = new Padding(10, 0, 0, 0);
             dashboardbtn.Size = new Size(175, 41);
@@ -153,7 +154,7 @@
             button_plan.FlatStyle = FlatStyle.Flat;
             button_plan.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button_plan.ForeColor = Color.White;
-            button_plan.Location = new Point(0, 710);
+            button_plan.Location = new Point(0, 766);
             button_plan.Name = "button_plan";
             button_plan.Padding = new Padding(10, 0, 0, 0);
             button_plan.Size = new Size(175, 51);
@@ -166,6 +167,7 @@
             // panel_quiz_subMenu
             // 
             panel_quiz_subMenu.BackColor = Color.DarkCyan;
+            panel_quiz_subMenu.Controls.Add(trainingProgressionbtn);
             panel_quiz_subMenu.Controls.Add(button_galery);
             panel_quiz_subMenu.Controls.Add(button_results);
             panel_quiz_subMenu.Controls.Add(button_quizquestions);
@@ -173,7 +175,7 @@
             panel_quiz_subMenu.Dock = DockStyle.Top;
             panel_quiz_subMenu.Location = new Point(0, 515);
             panel_quiz_subMenu.Name = "panel_quiz_subMenu";
-            panel_quiz_subMenu.Size = new Size(175, 195);
+            panel_quiz_subMenu.Size = new Size(175, 251);
             panel_quiz_subMenu.TabIndex = 18;
             // 
             // button_galery
@@ -661,6 +663,23 @@
             guna2Elipse1.BorderRadius = 15;
             guna2Elipse1.TargetControl = panel4;
             // 
+            // trainingProgressionbtn
+            // 
+            trainingProgressionbtn.Dock = DockStyle.Top;
+            trainingProgressionbtn.FlatAppearance.BorderSize = 0;
+            trainingProgressionbtn.FlatStyle = FlatStyle.Flat;
+            trainingProgressionbtn.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            trainingProgressionbtn.ForeColor = Color.White;
+            trainingProgressionbtn.Location = new Point(0, 194);
+            trainingProgressionbtn.Name = "trainingProgressionbtn";
+            trainingProgressionbtn.Padding = new Padding(35, 0, 0, 0);
+            trainingProgressionbtn.Size = new Size(175, 53);
+            trainingProgressionbtn.TabIndex = 16;
+            trainingProgressionbtn.Text = "Training Progression";
+            trainingProgressionbtn.TextAlign = ContentAlignment.MiddleLeft;
+            trainingProgressionbtn.UseVisualStyleBackColor = true;
+            trainingProgressionbtn.Click += trainingProgressionbtn_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -742,5 +761,6 @@
         private Button button_galery;
         private Label label13;
         private Button btn_examResults;
+        private Button trainingProgressionbtn;
     }
 }
