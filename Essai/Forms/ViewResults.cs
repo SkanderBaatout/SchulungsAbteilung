@@ -98,7 +98,7 @@ namespace Essai
             Con.Close();
         }
 
-     
+
 
         private void subjectcb_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -110,8 +110,8 @@ namespace Essai
             FilterByCandidate();
         }
 
-     
-       
+
+
         private void ExportToExcel()
         {
             try
@@ -173,6 +173,19 @@ namespace Essai
         private void btnExport_Click(object sender, EventArgs e)
         {
             ExportToExcel();
+        }
+
+        private void candidatecb_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void subjectcb_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
         }
     }
 }

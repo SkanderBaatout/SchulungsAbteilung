@@ -102,6 +102,7 @@
             candidatecb.Size = new Size(174, 29);
             candidatecb.TabIndex = 61;
             candidatecb.Text = "Candidate";
+            candidatecb.SelectedIndexChanged += candidatecb_SelectedIndexChanged_1;
             // 
             // subjectcb
             // 
@@ -112,6 +113,7 @@
             subjectcb.Size = new Size(174, 29);
             subjectcb.TabIndex = 60;
             subjectcb.Text = "Subject";
+            subjectcb.SelectedIndexChanged += subjectcb_SelectedIndexChanged_1;
             // 
             // label4
             // 
@@ -124,6 +126,7 @@
             label4.Size = new Size(90, 28);
             label4.TabIndex = 58;
             label4.Text = "Results";
+            label4.Click += label4_Click;
             // 
             // btnExport
             // 
