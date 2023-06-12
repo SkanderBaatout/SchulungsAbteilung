@@ -147,6 +147,7 @@ namespace Essai
 
         private void EmployeeManagementForm_Load(object sender, EventArgs e)
         {
+            dgvEmployees.Columns["id"].Visible = false;
 
         }
     }

@@ -187,5 +187,10 @@ namespace Essai
         private void label4_Click(object sender, EventArgs e)
         {
         }
+
+        private void ViewResults_Load(object sender, EventArgs e)
+        {
+            resultDGV.Columns["RId"].Visible = false;
+        }
     }
 }

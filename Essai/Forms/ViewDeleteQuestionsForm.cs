@@ -20,6 +20,7 @@ namespace Essai
         {
             InitializeComponent();
 
+
         }
 
         private void ViewDeleteQuestionsForm_Load(object sender, EventArgs e)
@@ -33,6 +34,7 @@ namespace Essai
             {
                 comboSet.Items.Add(ds.Tables[0].Rows[i][0].ToString());
             }
+
         }
 
         private void comboSet_SelectedIndexChanged(object sender, EventArgs e)

@@ -166,6 +166,7 @@
             Name = "ViewResults";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ViewResults";
+            Load += ViewResults_Load;
             ((System.ComponentModel.ISupportInitialize)resultDGV).EndInit();
             ResumeLayout(false);
             PerformLayout();

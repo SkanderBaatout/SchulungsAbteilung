@@ -115,6 +115,7 @@
             SubjectcomboBox.Size = new Size(256, 27);
             SubjectcomboBox.TabIndex = 10;
             SubjectcomboBox.Text = "Subject";
+            SubjectcomboBox.SelectedIndexChanged += SubjectcomboBox_SelectedIndexChanged;
             // 
             // savebtn
             // 
@@ -340,6 +341,7 @@
             Name = "Questions";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Questions";
+            Load += Questions_Load;
             ((System.ComponentModel.ISupportInitialize)questionListDGV).EndInit();
             ResumeLayout(false);
             PerformLayout();
