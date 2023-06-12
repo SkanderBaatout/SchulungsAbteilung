@@ -57,10 +57,10 @@ namespace Essai
             tableLayoutPanel.RowStyles.Clear();
             tableLayoutPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             tableLayoutPanel.AutoSize = true;
-            tableLayoutPanel.AutoScroll = true; 
+            tableLayoutPanel.AutoScroll = true;
 
             int row = 0;
-            tableLayoutPanel.RowCount = 1; 
+            tableLayoutPanel.RowCount = 1;
             foreach (Content content in selectedSubject.Content)
             {
                 PictureBox pictureBox = new PictureBox();

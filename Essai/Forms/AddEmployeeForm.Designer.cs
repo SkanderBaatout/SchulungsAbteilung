@@ -39,6 +39,8 @@
             dtpBirthday = new DateTimePicker();
             label4 = new Label();
             panel_admin = new Panel();
+            cbGender = new ComboBox();
+            label1 = new Label();
             btnDeleteEmployee = new Guna.UI2.WinForms.Guna2Button();
             btnAdd = new Guna.UI2.WinForms.Guna2Button();
             txtCin = new TextBox();
@@ -89,6 +91,8 @@
             // 
             // panel_admin
             // 
+            panel_admin.Controls.Add(cbGender);
+            panel_admin.Controls.Add(label1);
             panel_admin.Controls.Add(btnDeleteEmployee);
             panel_admin.Controls.Add(btnAdd);
             panel_admin.Controls.Add(dtpBirthday);
@@ -109,6 +113,26 @@
             panel_admin.Size = new Size(649, 507);
             panel_admin.TabIndex = 45;
             // 
+            // cbGender
+            // 
+            cbGender.FormattingEnabled = true;
+            cbGender.Items.AddRange(new object[] { "Male", "Female" });
+            cbGender.Location = new Point(208, 392);
+            cbGender.Name = "cbGender";
+            cbGender.Size = new Size(289, 29);
+            cbGender.TabIndex = 71;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.ForeColor = Color.Teal;
+            label1.Location = new Point(111, 400);
+            label1.Name = "label1";
+            label1.Size = new Size(78, 21);
+            label1.TabIndex = 70;
+            label1.Text = "Gender :";
+            // 
             // btnDeleteEmployee
             // 
             btnDeleteEmployee.BorderRadius = 15;
@@ -122,7 +146,7 @@
             btnDeleteEmployee.FillColor = Color.OrangeRed;
             btnDeleteEmployee.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnDeleteEmployee.ForeColor = Color.White;
-            btnDeleteEmployee.Location = new Point(363, 406);
+            btnDeleteEmployee.Location = new Point(356, 445);
             btnDeleteEmployee.Name = "btnDeleteEmployee";
             btnDeleteEmployee.PressedColor = Color.AntiqueWhite;
             btnDeleteEmployee.ShadowDecoration.BorderRadius = 15;
@@ -144,7 +168,7 @@
             btnAdd.FillColor = Color.Teal;
             btnAdd.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnAdd.ForeColor = Color.White;
-            btnAdd.Location = new Point(162, 406);
+            btnAdd.Location = new Point(155, 445);
             btnAdd.Name = "btnAdd";
             btnAdd.ShadowDecoration.BorderRadius = 15;
             btnAdd.ShadowDecoration.Color = Color.Transparent;
@@ -352,5 +376,7 @@
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse2;
         private Guna.UI2.WinForms.Guna2Button btnDeleteEmployee;
         private Guna.UI2.WinForms.Guna2Button btnAdd;
+        private ComboBox cbGender;
+        private Label label1;
     }
 }

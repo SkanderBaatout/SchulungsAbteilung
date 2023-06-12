@@ -85,7 +85,7 @@
             // 
             progressBar.BackColor = Color.Teal;
             progressBar.ForeColor = Color.White;
-            progressBar.Location = new Point(653, 381);
+            progressBar.Location = new Point(623, 455);
             progressBar.Name = "progressBar";
             progressBar.Size = new Size(231, 33);
             progressBar.TabIndex = 5;
@@ -95,7 +95,7 @@
             progressBarLabel.AutoSize = true;
             progressBarLabel.Font = new Font("Century Gothic", 15.75F, FontStyle.Italic, GraphicsUnit.Point);
             progressBarLabel.ForeColor = Color.Teal;
-            progressBarLabel.Location = new Point(653, 430);
+            progressBarLabel.Location = new Point(623, 414);
             progressBarLabel.Name = "progressBarLabel";
             progressBarLabel.Size = new Size(74, 24);
             progressBarLabel.TabIndex = 6;

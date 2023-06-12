@@ -8,16 +8,20 @@ using System.Threading.Tasks;
 
 namespace Essai.DataAccess
 {
-    public class DataAccessLayer : IDisposable
+    public sealed class DataAccessLayer : IDisposable
     {
+        private static readonly Lazy<DataAccessLayer> lazyInstance = new Lazy<DataAccessLayer>(() => new DataAccessLayer());
         private readonly string _connectionString;
         private readonly SqlConnection _connection;
 
-        public DataAccessLayer()
+        private DataAccessLayer()
         {
-            _connectionString = @"datasource=SKANDERBAATOUT;database=quiz;integrated security=True;TrustServerCertificate=True;"; _connection = new SqlConnection(_connectionString);
+            _connectionString = @"datasource=SKANDERBAATOUT;database=quiz;integrated security=True;TrustServerCertificate=True;";
+            _connection = new SqlConnection(_connectionString);
             _connection.Open();
         }
+
+        public static DataAccessLayer Instance { get { return lazyInstance.Value; } }
 
         public DataTable ExecuteDataTable(string query, Dictionary<string, object> parameters = null)
         {

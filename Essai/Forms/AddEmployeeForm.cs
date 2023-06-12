@@ -21,7 +21,7 @@ namespace Essai
         private void btnAdd_Click(object sender, EventArgs e)
         {
             string connectionString = "data source=SKANDERBAATOUT;database=quiz;integrated security=True;TrustServerCertificate=True;";
-            string insertQuery = "INSERT INTO employees (username, password, email, mobile, cin, birthday) VALUES (@username, @password, @email, @mobile, @cin, @birthday)";
+            string insertQuery = "INSERT INTO employees (username, password, email, mobile, cin, birthday, gender) VALUES (@username, @password, @email, @mobile, @cin, @birthday, @gender)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -38,6 +38,7 @@ namespace Essai
                         command.Parameters.AddWithValue("@mobile", txtMobile.Text);
                         command.Parameters.AddWithValue("@cin", txtCin.Text);
                         command.Parameters.AddWithValue("@birthday", dtpBirthday.Value);
+                        command.Parameters.AddWithValue("@gender", cbGender.Text);
 
                         // Execute the command
                         int rowsAffected = command.ExecuteNonQuery();
