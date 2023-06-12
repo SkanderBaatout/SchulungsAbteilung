@@ -36,8 +36,10 @@
             viewProgressButton = new Guna.UI2.WinForms.Guna2Button();
             candidatecb = new ComboBox();
             subjectcb = new ComboBox();
-            label4 = new Label();
+            progressLabel = new Label();
             progressionDGV = new Guna.UI2.WinForms.Guna2DataGridView();
+            progressBar = new ProgressBar();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)progressionDGV).BeginInit();
             SuspendLayout();
             // 
@@ -84,17 +86,16 @@
             subjectcb.Text = "Subject";
             subjectcb.SelectedIndexChanged += subjectcb_SelectedIndexChanged;
             // 
-            // label4
+            // progressLabel
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Century Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.ForeColor = Color.Teal;
-            label4.Location = new Point(357, 135);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(241, 28);
-            label4.TabIndex = 64;
-            label4.Text = "Training Progression";
+            progressLabel.AutoSize = true;
+            progressLabel.Font = new Font("Century Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            progressLabel.ForeColor = Color.Teal;
+            progressLabel.Location = new Point(447, 119);
+            progressLabel.Margin = new Padding(4, 0, 4, 0);
+            progressLabel.Name = "progressLabel";
+            progressLabel.Size = new Size(0, 28);
+            progressLabel.TabIndex = 64;
             // 
             // progressionDGV
             // 
@@ -120,11 +121,11 @@
             progressionDGV.DefaultCellStyle = dataGridViewCellStyle3;
             progressionDGV.Dock = DockStyle.Bottom;
             progressionDGV.GridColor = Color.FromArgb(231, 229, 255);
-            progressionDGV.Location = new Point(0, 217);
+            progressionDGV.Location = new Point(0, 256);
             progressionDGV.Name = "progressionDGV";
             progressionDGV.RowHeadersVisible = false;
             progressionDGV.RowTemplate.Height = 24;
-            progressionDGV.Size = new Size(950, 433);
+            progressionDGV.Size = new Size(950, 394);
             progressionDGV.TabIndex = 72;
             progressionDGV.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             progressionDGV.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -148,17 +149,37 @@
             progressionDGV.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
             progressionDGV.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
             // 
+            // progressBar
+            // 
+            progressBar.Location = new Point(421, 150);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(100, 23);
+            progressBar.TabIndex = 73;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Century Gothic", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.Teal;
+            label1.Location = new Point(335, 192);
+            label1.Name = "label1";
+            label1.Size = new Size(290, 36);
+            label1.TabIndex = 74;
+            label1.Text = "Training Progression";
+            // 
             // ProgressForm
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(label1);
+            Controls.Add(progressBar);
             Controls.Add(progressionDGV);
             Controls.Add(viewProgressButton);
             Controls.Add(candidatecb);
             Controls.Add(subjectcb);
-            Controls.Add(label4);
+            Controls.Add(progressLabel);
             Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
@@ -175,7 +196,9 @@
         private Guna.UI2.WinForms.Guna2Button viewProgressButton;
         private ComboBox candidatecb;
         private ComboBox subjectcb;
-        private Label label4;
+        private Label progressLabel;
         private Guna.UI2.WinForms.Guna2DataGridView progressionDGV;
+        private ProgressBar progressBar;
+        private Label label1;
     }
 }

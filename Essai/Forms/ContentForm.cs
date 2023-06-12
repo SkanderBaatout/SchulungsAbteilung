@@ -32,27 +32,21 @@ namespace Essai
 
             _subjectId = subjectId;
             _isAdmin = isAdmin;
-
-            // Load the content list for the selected subject
             _contentList = selectedSubject.Content;
 
             if (isAdmin)
             {
-                // Disable the progress bar and any other progression-related UI elements
                 progressBar.Visible = false;
                 progressBarLabel.Visible = false;
 
-                // Hide any other progression-related UI elements as needed
             }
             else
             {
-                // Calculate the progress percentage for the current employee and subject
                 List<Content> viewedContents = GetViewedContents(employeeId, subjectId);
                 int numViewedContents = viewedContents.Count;
                 int totalNumContents = _contentList.Count;
                 int progressPercentage = (int)Math.Round(((double)numViewedContents / totalNumContents) * 100);
 
-                // Display the progress percentage using a progress bar
                 progressBar.Value = progressPercentage;
                 progressBarLabel.Text = numViewedContents + " out of " + totalNumContents + " contents viewed (" + progressPercentage + "%)";
             }
@@ -63,10 +57,10 @@ namespace Essai
             tableLayoutPanel.RowStyles.Clear();
             tableLayoutPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             tableLayoutPanel.AutoSize = true;
-            tableLayoutPanel.AutoScroll = true; // add scroll bar to the table layout panel
+            tableLayoutPanel.AutoScroll = true; 
 
             int row = 0;
-            tableLayoutPanel.RowCount = 1; // initialize to 1 row
+            tableLayoutPanel.RowCount = 1; 
             foreach (Content content in selectedSubject.Content)
             {
                 PictureBox pictureBox = new PictureBox();

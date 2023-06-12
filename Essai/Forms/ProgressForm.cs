@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -142,7 +143,51 @@ namespace Essai.Forms
         }
         private void viewProgressButton_Click(object sender, EventArgs e)
         {
+            string selectedCandidate = candidatecb.Text;
+            string selectedSubject = subjectcb.Text;
 
+            if (string.IsNullOrEmpty(selectedCandidate) || string.IsNullOrEmpty(selectedSubject))
+            {
+                return;
+            }
+
+            int numViewedContents = 0;
+            int totalNumContents = 0;
+
+            using (SqlConnection con = new SqlConnection("data source=SKANDERBAATOUT;database=quiz;integrated security=True;TrustServerCertificate=True"))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT COUNT(ep.ViewedContents) AS NumViewedContents, (SELECT COUNT(*) FROM ContentTbl WHERE SubjectId = (SELECT SId FROM SubjectTbl WHERE SName = @SubjectName)) AS TotalNumContents FROM EmployeeProgression ep INNER JOIN employees e ON ep.EmployeeId = e.id INNER JOIN SubjectTbl s ON ep.SubjectId = s.SId LEFT JOIN ContentTbl c ON c.SubjectId = ep.SubjectId AND CHARINDEX(',' + CAST(c.ContentId AS VARCHAR(10)) + ',', ',' + ep.ViewedContents + ',') > 0 WHERE e.username = @Username AND s.SName = @SubjectName GROUP BY e.username, ep.SubjectId, s.SName", con))
+                {
+                    cmd.Parameters.AddWithValue("@Username", selectedCandidate);
+                    cmd.Parameters.AddWithValue("@SubjectName", selectedSubject);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            if (int.TryParse(reader["NumViewedContents"].ToString(), out numViewedContents) &&
+                                int.TryParse(reader["TotalNumContents"].ToString(), out totalNumContents))
+                            {
+                                Debug.WriteLine("NumViewedContents: " + numViewedContents);
+                                Debug.WriteLine("TotalNumContents: " + totalNumContents);
+                                int progressPercentage = (int)Math.Round(((double)numViewedContents / totalNumContents) * 100);
+                                progressLabel.Text = progressPercentage + "%";
+                                progressBar.Value = progressPercentage;
+                            }
+                            else
+                            {
+                                progressLabel.Text = "0%";
+                                progressBar.Value = 0;
+                            }
+                        }
+                        else
+                        {
+                            progressLabel.Text = "0%";
+                            progressBar.Value = 0;
+                        }
+                    }
+                }
+            }
         }
     }
 }
