@@ -51,7 +51,6 @@ namespace Essai
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            // Validate input fields
             if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
             {
                 MessageBox.Show("Username and password are mandatory .", "Input Error");
@@ -67,8 +66,6 @@ namespace Essai
                 try
                 {
                     connection.Open();
-
-                    // Add parameters to the command
                     command.Parameters.AddWithValue("@username", txtUsername.Text);
                     command.Parameters.AddWithValue("@password", txtPassword.Text);
                     command.Parameters.AddWithValue("@email", txtEmail.Text);
@@ -77,7 +74,6 @@ namespace Essai
                     command.Parameters.AddWithValue("@birthday", dtpBirthday.Value);
                     command.Parameters.AddWithValue("@id", _employeeId);
 
-                    // Execute the command
                     int rowsAffected = command.ExecuteNonQuery();
 
                     if (rowsAffected > 0)

@@ -42,7 +42,6 @@ namespace Essai.Forms
             _isAdmin = isAdmin;
 
             subjectDataAccess = new SubjectDataAccess("data source = SKANDERBAATOUT;database = quiz ;integrated security = True ; TrustServerCertificate=True");
-            // Set the form title based on the user's role
             if (role == "admin")
             {
                 label1.Text = "Subject Gallery";
@@ -53,10 +52,8 @@ namespace Essai.Forms
             }
 
 
-            // Initialize the VLC engine
             var vlcLibDirectory = new DirectoryInfo(@"C:\Program Files\VideoLAN\VLC\");
 
-            // Populate the ContentType filter ComboBox with the available content types
             contentTypeCB.Items.Add("All");
             contentTypeCB.Items.Add("Docs");
             contentTypeCB.Items.Add("Images");
@@ -98,14 +95,11 @@ namespace Essai.Forms
             int endIndex = Math.Min(startIndex + pageSize, totalRecords);
             filteredSubjectList = filteredSubjectList.GetRange(startIndex, endIndex - startIndex);
 
-            // Set the number of rows and columns in the TableLayoutPanel
             tableLayoutPanel.ColumnCount = 2;
             tableLayoutPanel.RowCount = (int)Math.Ceiling((double)filteredSubjectList.Count / 2);
 
-            // Clear the existing controls from the TableLayoutPanel
             tableLayoutPanel.Controls.Clear();
 
-            // Set the size of each cell in the TableLayoutPanel
             int cellWidth = (tableLayoutPanel.ClientSize.Width - tableLayoutPanel.Margin.Horizontal) / 2;
             int cellHeight = (tableLayoutPanel.ClientSize.Height - tableLayoutPanel.Margin.Vertical) / tableLayoutPanel.RowCount;
             tableLayoutPanel.ColumnStyles.Clear();
@@ -166,7 +160,6 @@ namespace Essai.Forms
 
         private void SearchSubjects(string searchText)
         {
-            // Reset the current page to 1 when filters are applied
             currentPage = 1;           
             RefreshDataGridView(searchText);
         }

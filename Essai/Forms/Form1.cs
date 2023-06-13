@@ -173,7 +173,6 @@ namespace Essai
         }
         #endregion ScoreSubMenu
 
-        //to show register form in mainForm
         private Form activeForm = null;
         private void openChildForm(Form childForm)
         {

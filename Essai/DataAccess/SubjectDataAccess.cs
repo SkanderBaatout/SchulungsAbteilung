@@ -23,7 +23,6 @@ namespace Essai.DataAccess
             {
                 connection.Open();
 
-                // Count the total number of subjects in the SubjectTbl table
                 using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM SubjectTbl", connection))
                 {
                     return (int)command.ExecuteScalar();
@@ -82,8 +81,6 @@ namespace Essai.DataAccess
 
                         subjects.Add(subject);
                     }
-
-                    // Add the content to the subject's content list
                     if (content != null)
                     {
                         subject.Content.Add(content);
@@ -323,7 +320,6 @@ namespace Essai.DataAccess
                         // Convert the contentJson string to binary data
                         byte[] contentBytes = Encoding.Unicode.GetBytes(contentJson);
 
-                        // Insert the subject data
                         string insertSubjectQuery = "INSERT INTO SubjectTbl (SName, Description, ContentType, DateAdded, IsActive, Content) " +
                             "OUTPUT INSERTED.SId " +
                             "VALUES (@Name, @Description, @ContentType, @DateAdded, @IsActive, CONVERT(varbinary(max), @Content));";
@@ -336,7 +332,6 @@ namespace Essai.DataAccess
                         insertSubjectCommand.Parameters.AddWithValue("@Content", contentBytes);
                         subjectId = (int)insertSubjectCommand.ExecuteScalar();
 
-                        // Insert the content data
                         foreach (Content content in contentList)
                         {
                             content.SubjectId = subjectId;
@@ -391,7 +386,6 @@ namespace Essai.DataAccess
                 {
                     try
                     {
-                        // Update the subject data
                         string updateSubjectQuery = "UPDATE SubjectTbl SET SName = @Name, Description = @Description, " +
                             "ContentType = @ContentType, DateAdded = @DateAdded, IsActive = @IsActive " +
                             "WHERE SId = @Id";
@@ -405,12 +399,10 @@ namespace Essai.DataAccess
 
                         updateSubjectCommand.ExecuteNonQuery();
 
-                        // Update or delete the content data
                         if (subject.Content != null && subject.Content.Count > 0)
                         {
                             foreach (var content in subject.Content)
                             {
-                                // Update the existing content data or insert new content data
                                 string mergeContentQuery = @"MERGE INTO ContentTbl AS target
                          USING (SELECT @SubjectId AS SubjectId, @ContentType AS ContentType, @ContentTitle AS ContentTitle, 
                                 @ContentData AS ContentData) AS source
@@ -432,7 +424,6 @@ namespace Essai.DataAccess
                         }
                         else
                         {
-                            // Delete any existing content data for the subject
                             string deleteContentQuery = "DELETE FROM ContentTbl WHERE SubjectId = @SubjectId";
                             SqlCommand deleteContentCommand = new SqlCommand(deleteContentQuery, connection, transaction);
                             deleteContentCommand.Parameters.AddWithValue("@SubjectId", subject.Id);
@@ -460,7 +451,6 @@ namespace Essai.DataAccess
                 {
                     try
                     {
-                        // Retrieve the ContentIds for the given SubjectId
                         string selectContentIdsQuery = "SELECT ContentId FROM ContentTbl WHERE SubjectId = @SubjectId";
                         SqlCommand selectContentIdsCommand = new SqlCommand(selectContentIdsQuery, connection, transaction);
                         selectContentIdsCommand.Parameters.AddWithValue("@SubjectId", id);
@@ -474,7 +464,6 @@ namespace Essai.DataAccess
                             }
                         }
 
-                        // Delete the content data for the subject
                         string deleteContentQuery = "DELETE FROM ContentTbl WHERE ContentId = @ContentId";
                         SqlCommand deleteContentCommand = new SqlCommand(deleteContentQuery, connection, transaction);
 
@@ -485,7 +474,6 @@ namespace Essai.DataAccess
                             deleteContentCommand.ExecuteNonQuery();
                         }
 
-                        // Delete the subject data
                         string deleteSubjectQuery = "DELETE FROM SubjectTbl WHERE SId = @Id";
                         SqlCommand deleteSubjectCommand = new SqlCommand(deleteSubjectQuery, connection, transaction);
                         deleteSubjectCommand.Parameters.AddWithValue("@Id", id);
@@ -532,7 +520,7 @@ namespace Essai.DataAccess
                         ContentType = contentType,
                         ContentTitle = contentTitle,
                         ContentData = contentData,
-                        DateAdded = dateAdded // Set the DateAdded property
+                        DateAdded = dateAdded 
                     };
 
                     contents.Add(content);
@@ -586,7 +574,6 @@ namespace Essai.DataAccess
             {
                 connection.Open();
 
-                // Construct the SQL query with a JOIN on the Subject table
                 string query = "SELECT c.ContentId, c.SubjectId, c.ContentType, c.ContentTitle, c.ContentData, c.DateAdded," +
                     " s.SId, s.SName, s.Description, s.ContentType, s.DateAdded AS SubjectDateAdded, s.IsActive FROM ContentTbl " +
                     "AS c JOIN SubjectTbl AS s ON c.SubjectId = s.SId WHERE c.SubjectId = @SubjectId AND " +
@@ -600,7 +587,6 @@ namespace Essai.DataAccess
                 {
                     while (reader.Read())
                     {
-                        // Create a new Content object with its corresponding Subject object
                         Content content = new Content();
                         content.ContentId = reader.GetInt32(0);
                         content.SubjectId = reader.GetInt32(1);

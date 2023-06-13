@@ -15,7 +15,6 @@ namespace Essai.Models
         public DateTime DateAdded { get; set; }
         public bool IsActive { get; set; }
         public List<Content> Content { get; set; }
-        // New properties for file path and file name
         public string FilePath { get; set; }
         public string FileName { get; set; }
     }

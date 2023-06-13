@@ -36,7 +36,7 @@ namespace Essai.Forms
             var ds = new DataSet();
             sda.Fill(ds);
             resultDGV.DataSource = ds.Tables[0];
-            resultDGV.Columns[0].Visible = false; // masquer la colonne ID
+            resultDGV.Columns[0].Visible = false; 
             resultDGV.Columns[1].HeaderText = "Test Name";
             resultDGV.Columns[2].HeaderText = "Number of questions";
             resultDGV.Columns[3].HeaderText = "Date";
@@ -103,19 +103,16 @@ namespace Essai.Forms
             {
                 Con.Open();
 
-                // Create a new Excel workbook and worksheet
                 Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
                 excel.Visible = false;
                 Workbook workbook = excel.Workbooks.Add(Type.Missing);
                 Worksheet worksheet = (Worksheet)workbook.ActiveSheet;
 
-                // Retrieve the data from the ExamResult table
                 SqlCommand cmd = new SqlCommand("SELECT TestName, NumberOfQuestions, Date, Name, CIN, Score, Status FROM ExamResult", Con);
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
 
-                // Write the data to the Excel worksheet
                 int row = 1;
                 int col = 1;
                 foreach (DataColumn column in dataTable.Columns)
@@ -134,8 +131,6 @@ namespace Essai.Forms
                     }
                     row++;
                 }
-
-                // Save the Excel workbook
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
                 saveFileDialog.FileName = "ExamResult.xlsx";

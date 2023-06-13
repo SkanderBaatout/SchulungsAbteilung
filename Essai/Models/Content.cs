@@ -18,7 +18,6 @@ namespace Essai.Models
         public Subject Subject { get; set; }
 
         public List<Content> ContentList { get; set; }
-        // New properties for file path and file name
         public string FilePath { get; set; }
         public string FileName { get; set; }
 

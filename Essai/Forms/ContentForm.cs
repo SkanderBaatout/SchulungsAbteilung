@@ -128,7 +128,6 @@ namespace Essai
 
             detailsPanel.Controls.Clear();
 
-            // Update viewed contents in database
             List<Content> viewedContents = GetViewedContents(_employeeId, _subjectId);
             viewedContents.Add(selectedContent);
             string viewedContentsStr = string.Join(",", viewedContents.Select(c => c.ContentId));
@@ -168,7 +167,6 @@ namespace Essai
                     }
                     catch (Exception ex)
                     {
-                        // Log the error or display an error message
                         Console.WriteLine("Error loading image: " + ex.Message);
                     }
                 }

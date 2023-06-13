@@ -53,10 +53,8 @@ namespace Essai
         {
             try
             {
-                // Get the selected subject name from the EmployeeBord form
                 string subjectName = EmployeeBord.trainingName;
 
-                // Fetch all questions where the subject matches the selected subject name
                 Con.Open();
                 string query = "SELECT * FROM QuestionTbl WHERE QS = @subjectName";
                 SqlCommand cmd = new SqlCommand(query, Con);
@@ -65,28 +63,22 @@ namespace Essai
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 sda.Fill(dt);
 
-                // Check if there are any questions for the selected subject
                 if (dt.Rows.Count == 0)
                 {
-                    // Display a message box indicating that there are no questions for the selected subject
                     MessageBox.Show("There are no questions for this subject. Please contact the administrator to add questions");
                     return;
                 }
-
-                // Create an array of groupboxes
                 GroupBox[] questionGroupBoxes = { Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10 };
 
-                // Shuffle the rows in the DataTable to get a random selection of questions
                 Random rnd = new Random();
                 var randomRows = dt.AsEnumerable().OrderBy(r => rnd.Next()).Take(10).ToList();
 
-                // Iterate through the randomly selected rows and assign the questions to their respective groupboxes
                 int i = 0;
                 foreach (DataRow dr in randomRows)
                 {
                     if (i >= questionGroupBoxes.Length)
                     {
-                        break; // Stop adding questions if we have more rows than groupboxes
+                        break; 
                     }
 
                     // Assign the question and answer choices to the corresponding controls in the groupbox
@@ -96,7 +88,6 @@ namespace Essai
                     ((RadioButton)questionGroupBoxes[i].Controls["Q" + (i + 1) + "o3"]).Text = dr["QQ3"].ToString();
                     ((RadioButton)questionGroupBoxes[i].Controls["Q" + (i + 1) + "o4"]).Text = dr["QQ4"].ToString();
 
-                    // Store the correct answer for this question
                     Ua[i] = dr["QA"].ToString();
 
                     i++;
@@ -164,12 +155,14 @@ namespace Essai
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            chrono -= 1;
-            count += 1;
-            TimingBar.Value = count;
-            TimeLabel.Text = "" + chrono;
-
-            if (TimingBar.Value == 350 && !submitbtn.Enabled && !isTimeOver)
+            if (chrono > 0)
+            {
+                chrono -= 1;
+                count += 1;
+                TimingBar.Value = count;
+                TimeLabel.Text = "" + chrono;
+            }
+            else if (!isTimeOver)
             {
                 isTimeOver = true;
 
@@ -177,18 +170,7 @@ namespace Essai
 
                 MessageBox.Show("Time Over");
 
-                EmployeeBord empbord = new EmployeeBord();
-                empbord.Show();
-                this.Hide();
-            }
-            else if (TimingBar.Value == 350 && submitbtn.Enabled && !isTimeOver)
-            {
-                isTimeOver = true;
-                submitbtn.Enabled = false;
-                MessageBox.Show("Time Over");
-                EmployeeBord empbord = new EmployeeBord();
-                empbord.Show();
-                this.Hide();
+                submitbtn_Click_1(sender, e);
             }
         }
         private void Exams_Load(object sender, EventArgs e)

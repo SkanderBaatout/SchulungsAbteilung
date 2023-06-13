@@ -55,19 +55,19 @@
             tableLayoutPanel.ColumnCount = 2;
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel.Location = new Point(576, 99);
+            tableLayoutPanel.Location = new Point(623, 99);
             tableLayoutPanel.Name = "tableLayoutPanel";
             tableLayoutPanel.RowCount = 2;
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel.Size = new Size(362, 221);
+            tableLayoutPanel.Size = new Size(315, 221);
             tableLayoutPanel.TabIndex = 2;
             // 
             // detailsPanel
             // 
             detailsPanel.Location = new Point(46, 99);
             detailsPanel.Name = "detailsPanel";
-            detailsPanel.Size = new Size(511, 438);
+            detailsPanel.Size = new Size(549, 539);
             detailsPanel.TabIndex = 3;
             // 
             // label1

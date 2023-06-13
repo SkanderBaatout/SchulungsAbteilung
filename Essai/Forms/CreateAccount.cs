@@ -36,7 +36,6 @@ namespace Essai
 
         private void button_login_Click(object sender, EventArgs e)
         {
-            // Check if the username already exists in the database
             if (CheckExistingUser())
             {
                 MessageBox.Show("Username already exists with the same CIN. Please choose a different username or CIN.", "Error");
@@ -67,7 +66,6 @@ namespace Essai
 
         private void ResetFields()
         {
-            // Reset all fields to their default values
             textBox_username.Text = "";
             textBox_password.Text = "";
             textBox_confirmPass.Text = "";
@@ -80,7 +78,6 @@ namespace Essai
 
         private bool CheckExistingUser()
         {
-            // Check if a user already exists with the same username and CIN
             query = "SELECT * FROM employees WHERE username='" + textBox_username.Text + "' AND cin='" + textBox_cin.Text + "'";
             ds = fn.getData(query);
 

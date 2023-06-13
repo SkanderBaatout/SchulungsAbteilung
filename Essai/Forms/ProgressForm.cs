@@ -171,23 +171,33 @@ namespace Essai.Forms
                                 Debug.WriteLine("NumViewedContents: " + numViewedContents);
                                 Debug.WriteLine("TotalNumContents: " + totalNumContents);
                                 int progressPercentage = (int)Math.Round(((double)numViewedContents / totalNumContents) * 100);
-                                progressLabel.Text = progressPercentage + "%";
-                                progressBar.Value = progressPercentage;
+                                //  progressLabel.Text = progressPercentage + "%";
+                                circularProgressBar1.Value = progressPercentage;
+                                circularProgressBar1.Text = progressPercentage + "%";
                             }
                             else
                             {
-                                progressLabel.Text = "0%";
-                                progressBar.Value = 0;
+                                //  progressLabel.Text = "0%";
+                                circularProgressBar1.Value = 0;
+                                circularProgressBar1.Text = "0%";
                             }
                         }
                         else
                         {
-                            progressLabel.Text = "0%";
-                            progressBar.Value = 0;
+                            //progressLabel.Text = "0%";
+                            circularProgressBar1.Value = 0;
+                            circularProgressBar1.Text = "0%";
                         }
                     }
                 }
             }
+            circularProgressBar1.Visible = true;
+
+        }
+
+        private void ProgressForm_Load(object sender, EventArgs e)
+        {
+            circularProgressBar1.Visible = false;
         }
     }
 }

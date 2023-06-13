@@ -19,7 +19,6 @@ namespace Essai.DataAccess
             {
                 connection.Open();
 
-                // Count the total number of employees in the employees table
                 using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM employees", connection))
                 {
                     return (int)command.ExecuteScalar();
@@ -33,7 +32,6 @@ namespace Essai.DataAccess
             {
                 connection.Open();
 
-                // Count the total number of admins in the Admin table
                 using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Admin", connection))
                 {
                     return (int)command.ExecuteScalar();
@@ -43,7 +41,6 @@ namespace Essai.DataAccess
 
         public int CountUsers()
         {
-            // Count the total number of users by adding up the number of employees and admins
             return CountEmployees() + CountAdmins();
         }
     }

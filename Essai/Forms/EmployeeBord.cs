@@ -36,7 +36,6 @@ namespace Essai
 
 
         }
-        //to show register form in mainForm
         private Form activeForm = null;
         private void openChildForm(Form childForm)
         {
@@ -113,14 +112,12 @@ namespace Essai
 
             if (count > 0)
             {
-                // Redirect to Exams form
                 Exams ex = new Exams();
                 this.Hide();
                 ex.Show();
             }
             else
             {
-                // Display a message box
                 MessageBox.Show("There are no questions available for the selected training.");
             }
         }
@@ -173,26 +170,21 @@ namespace Essai
 
             if (planList.Any())
             {
-                // Filter the plan list based on the selected plan name
                 string selectedPlanName = "Plan de formation " + selectedTestType;
                 var matchingPlans = planList.Where(p => p.Item2 == selectedPlanName).ToList();
                 if (matchingPlans.Any())
                 {
-                    // Debugging statement to check if the correct plan data is retrieved
                     Console.WriteLine("Plan data retrieved for test type {0} and plan name {1}", selectedTestType, selectedPlanName);
 
-                    // A matching record was found, so open the SuivrePlanFormation form
                     openChildForm(new SuivrePlanFormation(matchingPlans.First().Item1));
                 }
                 else
                 {
-                    // No matching record was found, so display a message box
                     MessageBox.Show("There is no plan available with the selected plan name for the selected test type.", "No PlanFound", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
             {
-                // No matching record was found, so display a message box
                 MessageBox.Show("There is no plan available for the selected test type.", "No PlanFound", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }

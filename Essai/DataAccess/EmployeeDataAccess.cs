@@ -25,7 +25,6 @@ namespace Essai.DataAccess
 
                     using (SqlCommand command = new SqlCommand(selectQuery, connection))
                     {
-                        // Execute the command and get the data
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -66,10 +65,7 @@ namespace Essai.DataAccess
 
                     using (SqlCommand command = new SqlCommand(selectQuery, connection))
                     {
-                        // Add parameters to the command
                         command.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
-
-                        // Execute the command and get the data
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -109,10 +105,8 @@ namespace Essai.DataAccess
 
                     using (SqlCommand command = new SqlCommand(deleteQuery, connection))
                     {
-                        // Add parameters to the command
                         command.Parameters.AddWithValue("@id", employeeId);
 
-                        // Execute the command
                         int rowsAffected = command.ExecuteNonQuery();
 
                         if (rowsAffected == 0)

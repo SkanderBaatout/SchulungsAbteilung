@@ -28,25 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             viewProgressButton = new Guna.UI2.WinForms.Guna2Button();
             candidatecb = new ComboBox();
             subjectcb = new ComboBox();
-            progressLabel = new Label();
             progressionDGV = new Guna.UI2.WinForms.Guna2DataGridView();
-            progressBar = new ProgressBar();
             label1 = new Label();
+            circularProgressBar1 = new CircularProgressBar.CircularProgressBar();
             ((System.ComponentModel.ISupportInitialize)progressionDGV).BeginInit();
             SuspendLayout();
             // 
             // viewProgressButton
             // 
             viewProgressButton.BorderRadius = 15;
-            viewProgressButton.CustomizableEdges = customizableEdges1;
+            viewProgressButton.CustomizableEdges = customizableEdges5;
             viewProgressButton.DisabledState.BorderColor = Color.DarkGray;
             viewProgressButton.DisabledState.CustomBorderColor = Color.DarkGray;
             viewProgressButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -54,11 +53,11 @@
             viewProgressButton.FillColor = Color.Teal;
             viewProgressButton.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             viewProgressButton.ForeColor = Color.White;
-            viewProgressButton.Location = new Point(366, 58);
+            viewProgressButton.Location = new Point(359, 76);
             viewProgressButton.Name = "viewProgressButton";
             viewProgressButton.ShadowDecoration.BorderRadius = 15;
             viewProgressButton.ShadowDecoration.Color = Color.Transparent;
-            viewProgressButton.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            viewProgressButton.ShadowDecoration.CustomizableEdges = customizableEdges6;
             viewProgressButton.Size = new Size(220, 45);
             viewProgressButton.TabIndex = 67;
             viewProgressButton.Text = "View Progression";
@@ -68,9 +67,9 @@
             // 
             candidatecb.ForeColor = Color.Teal;
             candidatecb.FormattingEnabled = true;
-            candidatecb.Location = new Point(527, 12);
+            candidatecb.Location = new Point(520, 30);
             candidatecb.Name = "candidatecb";
-            candidatecb.Size = new Size(174, 29);
+            candidatecb.Size = new Size(215, 29);
             candidatecb.TabIndex = 66;
             candidatecb.Text = "Candidate";
             candidatecb.SelectedIndexChanged += candidatecb_SelectedIndexChanged;
@@ -79,53 +78,42 @@
             // 
             subjectcb.ForeColor = Color.Teal;
             subjectcb.FormattingEnabled = true;
-            subjectcb.Location = new Point(259, 12);
+            subjectcb.Location = new Point(190, 30);
             subjectcb.Name = "subjectcb";
-            subjectcb.Size = new Size(174, 29);
+            subjectcb.Size = new Size(236, 29);
             subjectcb.TabIndex = 65;
             subjectcb.Text = "Subject";
             subjectcb.SelectedIndexChanged += subjectcb_SelectedIndexChanged;
             // 
-            // progressLabel
-            // 
-            progressLabel.AutoSize = true;
-            progressLabel.Font = new Font("Century Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            progressLabel.ForeColor = Color.Teal;
-            progressLabel.Location = new Point(447, 119);
-            progressLabel.Margin = new Padding(4, 0, 4, 0);
-            progressLabel.Name = "progressLabel";
-            progressLabel.Size = new Size(0, 28);
-            progressLabel.TabIndex = 64;
-            // 
             // progressionDGV
             // 
-            dataGridViewCellStyle1.BackColor = Color.White;
-            progressionDGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            progressionDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.BackColor = Color.White;
+            progressionDGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle8.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            progressionDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             progressionDGV.ColumnHeadersHeight = 25;
             progressionDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            progressionDGV.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = Color.White;
+            dataGridViewCellStyle9.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle9.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle9.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
+            progressionDGV.DefaultCellStyle = dataGridViewCellStyle9;
             progressionDGV.Dock = DockStyle.Bottom;
             progressionDGV.GridColor = Color.FromArgb(231, 229, 255);
-            progressionDGV.Location = new Point(0, 256);
+            progressionDGV.Location = new Point(0, 254);
             progressionDGV.Name = "progressionDGV";
             progressionDGV.RowHeadersVisible = false;
             progressionDGV.RowTemplate.Height = 24;
-            progressionDGV.Size = new Size(950, 394);
+            progressionDGV.Size = new Size(950, 396);
             progressionDGV.TabIndex = 72;
             progressionDGV.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             progressionDGV.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -149,23 +137,48 @@
             progressionDGV.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
             progressionDGV.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
             // 
-            // progressBar
-            // 
-            progressBar.Location = new Point(421, 150);
-            progressBar.Name = "progressBar";
-            progressBar.Size = new Size(100, 23);
-            progressBar.TabIndex = 73;
-            // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.Teal;
-            label1.Location = new Point(335, 192);
+            label1.Location = new Point(337, 204);
             label1.Name = "label1";
             label1.Size = new Size(290, 36);
             label1.TabIndex = 74;
             label1.Text = "Training Progression";
+            // 
+            // circularProgressBar1
+            // 
+            circularProgressBar1.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
+            circularProgressBar1.AnimationSpeed = 500;
+            circularProgressBar1.BackColor = Color.Transparent;
+            circularProgressBar1.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            circularProgressBar1.ForeColor = Color.FromArgb(64, 64, 64);
+            circularProgressBar1.InnerColor = Color.White;
+            circularProgressBar1.InnerMargin = 2;
+            circularProgressBar1.InnerWidth = -1;
+            circularProgressBar1.Location = new Point(741, 30);
+            circularProgressBar1.MarqueeAnimationSpeed = 2000;
+            circularProgressBar1.Name = "circularProgressBar1";
+            circularProgressBar1.OuterColor = Color.MediumTurquoise;
+            circularProgressBar1.OuterMargin = -25;
+            circularProgressBar1.OuterWidth = 26;
+            circularProgressBar1.ProgressColor = Color.Teal;
+            circularProgressBar1.ProgressWidth = 25;
+            circularProgressBar1.SecondaryFont = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            circularProgressBar1.Size = new Size(179, 146);
+            circularProgressBar1.StartAngle = 270;
+            circularProgressBar1.SubscriptColor = Color.FromArgb(166, 166, 166);
+            circularProgressBar1.SubscriptMargin = new Padding(10, -35, 0, 0);
+            circularProgressBar1.SubscriptText = "";
+            circularProgressBar1.SuperscriptColor = Color.FromArgb(166, 166, 166);
+            circularProgressBar1.SuperscriptMargin = new Padding(10, 35, 0, 0);
+            circularProgressBar1.SuperscriptText = "";
+            circularProgressBar1.TabIndex = 75;
+            circularProgressBar1.Text = "%";
+            circularProgressBar1.TextMargin = new Padding(8, 8, 0, 0);
+            circularProgressBar1.Value = 68;
             // 
             // ProgressForm
             // 
@@ -173,19 +186,19 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(circularProgressBar1);
             Controls.Add(label1);
-            Controls.Add(progressBar);
             Controls.Add(progressionDGV);
             Controls.Add(viewProgressButton);
             Controls.Add(candidatecb);
             Controls.Add(subjectcb);
-            Controls.Add(progressLabel);
             Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
             Name = "ProgressForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ProgressForm";
+            Load += ProgressForm_Load;
             ((System.ComponentModel.ISupportInitialize)progressionDGV).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -196,9 +209,8 @@
         private Guna.UI2.WinForms.Guna2Button viewProgressButton;
         private ComboBox candidatecb;
         private ComboBox subjectcb;
-        private Label progressLabel;
         private Guna.UI2.WinForms.Guna2DataGridView progressionDGV;
-        private ProgressBar progressBar;
         private Label label1;
+        private CircularProgressBar.CircularProgressBar circularProgressBar1;
     }
 }

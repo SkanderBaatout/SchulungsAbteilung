@@ -60,7 +60,6 @@ namespace Essai
 
             if (result == DialogResult.OK)
             {
-                // Refresh the data grid view to show the new employee
                 dgvEmployees.DataSource = _employeeDataAccess.GetEmployees();
             }
         }
@@ -71,14 +70,12 @@ namespace Essai
                 int employeeId = (int)dgvEmployees.SelectedRows[0].Cells["id"].Value;
                 EditEmployeeForm editEmployeeForm = new EditEmployeeForm(employeeId);
 
-                // Fill the edit form with the data of the selected employee
                 editEmployeeForm.FillForm();
 
                 DialogResult result = editEmployeeForm.ShowDialog();
 
                 if (result == DialogResult.OK)
                 {
-                    // Refresh the data grid view to show the updated employee
                     dgvEmployees.DataSource = _employeeDataAccess.GetEmployees();
                 }
             }
@@ -106,12 +103,10 @@ namespace Essai
             string searchKeyword = tbSearchKeyword.Text.Trim();
             if (string.IsNullOrEmpty(searchKeyword))
             {
-                // If the search box is empty, show all employees
                 dgvEmployees.DataSource = _employeeDataAccess.GetEmployees();
             }
             else
             {
-                // Perform the search and show the results
                 dgvEmployees.DataSource = _employeeDataAccess.SearchEmployees(searchKeyword);
             }
         }

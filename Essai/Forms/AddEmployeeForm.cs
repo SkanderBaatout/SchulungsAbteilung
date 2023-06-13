@@ -31,7 +31,6 @@ namespace Essai
 
                     using (SqlCommand command = new SqlCommand(insertQuery, connection))
                     {
-                        // Add parameters to the command
                         command.Parameters.AddWithValue("@username", txtUsername.Text);
                         command.Parameters.AddWithValue("@password", txtPassword.Text);
                         command.Parameters.AddWithValue("@email", txtEmail.Text);
@@ -40,7 +39,6 @@ namespace Essai
                         command.Parameters.AddWithValue("@birthday", dtpBirthday.Value);
                         command.Parameters.AddWithValue("@gender", cbGender.Text);
 
-                        // Execute the command
                         int rowsAffected = command.ExecuteNonQuery();
 
                         if (rowsAffected > 0)

@@ -26,18 +26,10 @@ namespace Essai
             textBox_set.Visible = false; 
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            Form1 form = new Form1();
-            form.Show();
-            this.Hide();
-        }
-
         private void AddQuestionForm_Load(object sender, EventArgs e)
         {
-            btn_next.Enabled = true; // Enable the "Next" button
+            btn_next.Enabled = true; 
 
-            // Load the available TestsType names into the ComboBox
             string query = "SELECT name FROM TestsType;";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -55,7 +47,6 @@ namespace Essai
                 reader.Close();
             }
 
-            // Set the default value of the ComboBox to the first item
             if (testsCB.Items.Count > 0)
             {
                 testsCB.SelectedIndex = 0;
@@ -124,13 +115,11 @@ namespace Essai
                     {
                         connection.Open();
 
-                        // Get the name for the selected name from the TestsType table
                         using (SqlCommand getIdCommand = new SqlCommand("SELECT name FROM TestsType WHERE name = @name", connection))
                         {
                             getIdCommand.Parameters.AddWithValue("@name", testsCB.SelectedItem.ToString());
                             string qSet = (string)getIdCommand.ExecuteScalar();
 
-                            // Insert the question into the questions table
                             using (SqlCommand command = new SqlCommand("INSERT INTO questions (qset, qNo, question, optionA, optionB, optionC, optionD, ans" +
                                 (imageBytes != null ? ", PhotoData" : "") + ") " +
                                 "VALUES (@qset, @qno, @question, @option1, @option2, @option3, @option4, @ans" +
