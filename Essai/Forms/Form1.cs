@@ -26,19 +26,7 @@ namespace Essai
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            employeeCount();
-            // Count and display the total number of questions
-            int totalQuestions = _questionDataAccess.CountQuestions();
-            label_questions.Text = $" {totalQuestions} Questions";
-            // Count and display the total number of users
-            int totalUsers = _userDataAccess.CountUsers();
-            label_users.Text = $" {totalUsers} Users";
-            int totalSubjects = _subjectDataAccess.CountSubjects();
-            label_subjects.Text = $" {totalSubjects} Trainings";
-        }
-
+      
         private void employeeCount()
         {
             // Count and display the total number of employees
@@ -53,6 +41,26 @@ namespace Essai
             // Count and display the number of female employees
             int femaleEmployees = _employeeDataAccess.CountFemaleEmployees();
             label_femaleEmp.Text = $"Female Employees: {femaleEmployees}";
+        }
+        private void UpdateCounts()
+        {
+            // Update the count of questions
+            int totalQuestions = _questionDataAccess.CountQuestions();
+            label_questions.Text = $" {totalQuestions} Questions";
+
+            // Update the count of users
+            int totalUsers = _userDataAccess.CountUsers();
+            label_users.Text = $" {totalUsers} Users";
+
+            // Update the count of subjects
+            int totalSubjects = _subjectDataAccess.CountSubjects();
+            label_subjects.Text = $" {totalSubjects} Trainings";
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            employeeCount();
+            UpdateCounts();
+
         }
         private void customizeDesign()
         {
@@ -205,11 +213,6 @@ namespace Essai
             employeeCount();
         }
 
-        private void button4_Click_1(object sender, EventArgs e)
-        {
-            hideSubMenu();
-        }
-
         private void button_addQuestion_Click(object sender, EventArgs e)
         {
             openChildForm(new AddQuestionForm());
@@ -227,7 +230,6 @@ namespace Essai
         private void button_consultQuestions_Click(object sender, EventArgs e)
         {
             openChildForm(new ViewDeleteQuestionsForm());
-
             hideSubMenu();
         }
 
@@ -237,7 +239,6 @@ namespace Essai
             PlanFormation form = new PlanFormation();
             form.Show();
             this.Hide();
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -250,43 +251,12 @@ namespace Essai
         private void button1_Click_1(object sender, EventArgs e)
         {
             openChildForm(new Candidats());
-
             hideSubMenu();
         }
-
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-            openChildForm(new Subjects());
-
-
-        }
-
-        private void button_plan_Click_1(object sender, EventArgs e)
-        {
-        }
-
-        private void button3_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
         private void button_plan_formation_Click(object sender, EventArgs e)
         {
             openChildForm(new PlanFormation());
-
         }
-
-        private void button_manage_trainings_Click(object sender, EventArgs e)
-        {
-            openChildForm(new Subjects());
-
-        }
-
-        private void Results_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button_plan_formation_Click_1(object sender, EventArgs e)
         {
             openChildForm(new PlanFormation());
@@ -318,12 +288,6 @@ namespace Essai
         {
             showSubMenu(panel_quiz_subMenu);
         }
-
-        private void button2_Click_2(object sender, EventArgs e)
-        {
-            openChildForm(new Subjects());
-        }
-
         private void button_quizquestions_Click(object sender, EventArgs e)
         {
             openChildForm(new Questions());

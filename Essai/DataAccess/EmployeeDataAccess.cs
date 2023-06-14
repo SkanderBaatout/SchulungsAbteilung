@@ -95,7 +95,8 @@ namespace Essai.DataAccess
 
         public void DeleteEmployee(int employeeId)
         {
-            string deleteQuery = "DELETE FROM employees WHERE id = @id";
+            string deleteProgressionQuery = "DELETE FROM EmployeeProgression WHERE EmployeeId = @id";
+            string deleteEmployeeQuery = "DELETE FROM employees WHERE id = @id";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -103,25 +104,39 @@ namespace Essai.DataAccess
                 {
                     connection.Open();
 
-                    using (SqlCommand command = new SqlCommand(deleteQuery, connection))
+                    // Delete the employee's progression records, if they exist
+                    using (SqlCommand command = new SqlCommand(deleteProgressionQuery, connection))
                     {
                         command.Parameters.AddWithValue("@id", employeeId);
 
-                        int rowsAffected = command.ExecuteNonQuery();
+                        int progressionRowsAffected = command.ExecuteNonQuery();
 
-                        if (rowsAffected == 0)
+                        if (progressionRowsAffected == 0)
                         {
-                            throw new Exception("Aucun employé n'a été supprimé.");
+                            // If there are no progression records, simply log a message
+                            Console.WriteLine($"No progression records found for employee {employeeId}.");
+                        }
+                    }
+
+                    // Delete the employee record
+                    using (SqlCommand command = new SqlCommand(deleteEmployeeQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", employeeId);
+
+                        int employeeRowsAffected = command.ExecuteNonQuery();
+
+                        if (employeeRowsAffected == 0)
+                        {
+                            throw new Exception("Employee record not found.");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Une erreur s'est produite lors de la suppression de l'employé.", ex);
+                    throw new Exception("An error occurred while deleting the employee.", ex);
                 }
             }
         }
-
         public int CountEmployees()
         {
             string countQuery = "SELECT COUNT(*) FROM employees";

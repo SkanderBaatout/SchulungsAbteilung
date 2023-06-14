@@ -43,6 +43,7 @@
             // 
             // resultDGV
             // 
+            resultDGV.AllowUserToAddRows = false;
             dataGridViewCellStyle1.BackColor = Color.White;
             resultDGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -53,7 +54,7 @@
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             resultDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            resultDGV.ColumnHeadersHeight = 25;
+            resultDGV.ColumnHeadersHeight = 30;
             resultDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.White;
@@ -64,7 +65,8 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             resultDGV.DefaultCellStyle = dataGridViewCellStyle3;
             resultDGV.Dock = DockStyle.Bottom;
-            resultDGV.GridColor = Color.FromArgb(231, 229, 255);
+            resultDGV.EnableHeadersVisualStyles = true;
+            resultDGV.GridColor = Color.White;
             resultDGV.Location = new Point(0, 211);
             resultDGV.Name = "resultDGV";
             resultDGV.RowHeadersVisible = false;
@@ -77,13 +79,13 @@
             resultDGV.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
             resultDGV.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
             resultDGV.ThemeStyle.BackColor = Color.White;
-            resultDGV.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
+            resultDGV.ThemeStyle.GridColor = Color.White;
             resultDGV.ThemeStyle.HeaderStyle.BackColor = Color.Black;
             resultDGV.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
             resultDGV.ThemeStyle.HeaderStyle.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             resultDGV.ThemeStyle.HeaderStyle.ForeColor = Color.White;
             resultDGV.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            resultDGV.ThemeStyle.HeaderStyle.Height = 25;
+            resultDGV.ThemeStyle.HeaderStyle.Height = 30;
             resultDGV.ThemeStyle.ReadOnly = false;
             resultDGV.ThemeStyle.RowsStyle.BackColor = Color.White;
             resultDGV.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -120,12 +122,12 @@
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.Teal;
-            label4.Location = new Point(410, 152);
+            label4.Location = new Point(386, 164);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new Size(90, 28);
+            label4.Size = new Size(148, 28);
             label4.TabIndex = 58;
-            label4.Text = "Results";
+            label4.Text = "Quiz Results";
             label4.Click += label4_Click;
             // 
             // btnExport

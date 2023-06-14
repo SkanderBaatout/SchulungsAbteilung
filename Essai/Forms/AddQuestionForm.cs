@@ -22,13 +22,14 @@ namespace Essai
         public AddQuestionForm()
         {
             InitializeComponent();
-            label_NoSet.Visible = false;
-            textBox_set.Visible = false; 
+           // label_NoSet.Visible = false;
+            textBox_set.Visible = false;
         }
 
         private void AddQuestionForm_Load(object sender, EventArgs e)
         {
-            btn_next.Enabled = true; 
+            textBox_set.Visible = false;
+            btn_next.Enabled = true;
 
             string query = "SELECT name FROM TestsType;";
 
@@ -53,7 +54,7 @@ namespace Essai
             }
 
             questionLabel.Text = _currentQuestionNumber.ToString();
-            label_NoSet.Visible = false;
+           // label_NoSet.Visible = false;
         }
         private void textBox_set_TextChanged(object sender, EventArgs e)
         {
@@ -191,7 +192,7 @@ namespace Essai
             _currentQuestionSet = 1;
             textBox_set.Text = _currentQuestionSet.ToString();
             questionLabel.Text = _currentQuestionNumber.ToString();
-            label_NoSet.Visible = false;
+           // label_NoSet.Visible = false;
         }
 
         private void btn_finish_Click(object sender, EventArgs e)
@@ -262,7 +263,7 @@ namespace Essai
                     {
                         _currentQuestionNumber = 1;
                         questionLabel.Text = _currentQuestionNumber.ToString();
-                        label_NoSet.Visible = true;
+                       // label_NoSet.Visible = true;
                     }
                 }
             }

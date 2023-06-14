@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             btnExport = new Guna.UI2.WinForms.Guna2Button();
             resultDGV = new Guna.UI2.WinForms.Guna2DataGridView();
             candidatecb = new ComboBox();
@@ -44,7 +44,7 @@
             // btnExport
             // 
             btnExport.BorderRadius = 15;
-            btnExport.CustomizableEdges = customizableEdges3;
+            btnExport.CustomizableEdges = customizableEdges1;
             btnExport.DisabledState.BorderColor = Color.DarkGray;
             btnExport.DisabledState.CustomBorderColor = Color.DarkGray;
             btnExport.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -52,11 +52,11 @@
             btnExport.FillColor = Color.Teal;
             btnExport.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnExport.ForeColor = Color.White;
-            btnExport.Location = new Point(364, 67);
+            btnExport.Location = new Point(364, 94);
             btnExport.Name = "btnExport";
             btnExport.ShadowDecoration.BorderRadius = 15;
             btnExport.ShadowDecoration.Color = Color.Transparent;
-            btnExport.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnExport.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnExport.Size = new Size(200, 45);
             btnExport.TabIndex = 68;
             btnExport.Text = "Export to Excell";
@@ -64,28 +64,30 @@
             // 
             // resultDGV
             // 
-            dataGridViewCellStyle4.BackColor = Color.White;
-            resultDGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle5.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            resultDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            resultDGV.ColumnHeadersHeight = 25;
+            resultDGV.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.BackColor = Color.White;
+            resultDGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            resultDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            resultDGV.ColumnHeadersHeight = 30;
             resultDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = Color.White;
-            dataGridViewCellStyle6.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            resultDGV.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            resultDGV.DefaultCellStyle = dataGridViewCellStyle3;
             resultDGV.Dock = DockStyle.Bottom;
-            resultDGV.GridColor = Color.FromArgb(231, 229, 255);
+            resultDGV.EnableHeadersVisualStyles = true;
+            resultDGV.GridColor = Color.White;
             resultDGV.Location = new Point(0, 236);
             resultDGV.Name = "resultDGV";
             resultDGV.RowHeadersVisible = false;
@@ -98,27 +100,28 @@
             resultDGV.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
             resultDGV.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
             resultDGV.ThemeStyle.BackColor = Color.White;
-            resultDGV.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
+            resultDGV.ThemeStyle.GridColor = Color.White;
             resultDGV.ThemeStyle.HeaderStyle.BackColor = Color.Black;
             resultDGV.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
             resultDGV.ThemeStyle.HeaderStyle.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             resultDGV.ThemeStyle.HeaderStyle.ForeColor = Color.White;
             resultDGV.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            resultDGV.ThemeStyle.HeaderStyle.Height = 25;
+            resultDGV.ThemeStyle.HeaderStyle.Height = 30;
             resultDGV.ThemeStyle.ReadOnly = false;
             resultDGV.ThemeStyle.RowsStyle.BackColor = Color.White;
             resultDGV.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             resultDGV.ThemeStyle.RowsStyle.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            resultDGV.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(71, 69, 94);
+            resultDGV.ThemeStyle.RowsStyle.ForeColor = Color.Teal;
             resultDGV.ThemeStyle.RowsStyle.Height = 24;
             resultDGV.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            resultDGV.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            resultDGV.ThemeStyle.RowsStyle.SelectionForeColor = Color.Teal;
+            resultDGV.CellFormatting += resultDGV_CellFormatting;
             // 
             // candidatecb
             // 
             candidatecb.ForeColor = Color.Teal;
             candidatecb.FormattingEnabled = true;
-            candidatecb.Location = new Point(507, 12);
+            candidatecb.Location = new Point(507, 39);
             candidatecb.Name = "candidatecb";
             candidatecb.Size = new Size(174, 29);
             candidatecb.TabIndex = 66;
@@ -129,7 +132,7 @@
             // 
             TestTypecb.ForeColor = Color.Teal;
             TestTypecb.FormattingEnabled = true;
-            TestTypecb.Location = new Point(239, 12);
+            TestTypecb.Location = new Point(239, 39);
             TestTypecb.Name = "TestTypecb";
             TestTypecb.Size = new Size(174, 29);
             TestTypecb.TabIndex = 65;
@@ -141,7 +144,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 24F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.Teal;
-            label4.Location = new Point(364, 126);
+            label4.Location = new Point(364, 182);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(216, 38);

@@ -36,7 +36,6 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             label1 = new Label();
             Set = new Label();
-            textBox_set = new TextBox();
             textBox_question = new TextBox();
             label2 = new Label();
             textBox_option1 = new TextBox();
@@ -51,12 +50,12 @@
             textBox_answer = new TextBox();
             label8 = new Label();
             questionLabel = new Label();
-            label_NoSet = new Label();
             btn_next = new Guna.UI2.WinForms.Guna2Button();
             btn_reset = new Guna.UI2.WinForms.Guna2Button();
             btn_finish = new Guna.UI2.WinForms.Guna2Button();
             pictureBox2 = new PictureBox();
             testsCB = new ComboBox();
+            textBox_set = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
@@ -80,15 +79,6 @@
             Set.Size = new Size(186, 23);
             Set.TabIndex = 1;
             Set.Text = "Choose a Test Type";
-            // 
-            // textBox_set
-            // 
-            textBox_set.Location = new Point(116, 175);
-            textBox_set.Name = "textBox_set";
-            textBox_set.Size = new Size(316, 27);
-            textBox_set.TabIndex = 2;
-            textBox_set.TextAlign = HorizontalAlignment.Center;
-            textBox_set.TextChanged += textBox_set_TextChanged;
             // 
             // textBox_question
             // 
@@ -214,17 +204,6 @@
             questionLabel.TabIndex = 16;
             questionLabel.Text = "11";
             // 
-            // label_NoSet
-            // 
-            label_NoSet.AutoSize = true;
-            label_NoSet.Font = new Font("Century Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point);
-            label_NoSet.ForeColor = Color.Red;
-            label_NoSet.Location = new Point(128, 205);
-            label_NoSet.Name = "label_NoSet";
-            label_NoSet.Size = new Size(264, 19);
-            label_NoSet.TabIndex = 17;
-            label_NoSet.Text = "No set exist with this set number";
-            // 
             // btn_next
             // 
             btn_next.BorderRadius = 15;
@@ -302,18 +281,25 @@
             testsCB.TabIndex = 23;
             testsCB.SelectedIndexChanged += testsCB_SelectedIndexChanged;
             // 
+            // textBox_set
+            // 
+            textBox_set.Location = new Point(119, 165);
+            textBox_set.Name = "textBox_set";
+            textBox_set.Size = new Size(313, 27);
+            textBox_set.TabIndex = 24;
+            // 
             // AddQuestionForm
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(950, 650);
+            Controls.Add(textBox_set);
             Controls.Add(testsCB);
             Controls.Add(pictureBox2);
             Controls.Add(btn_finish);
             Controls.Add(btn_reset);
             Controls.Add(btn_next);
-            Controls.Add(label_NoSet);
             Controls.Add(questionLabel);
             Controls.Add(textBox_answer);
             Controls.Add(label8);
@@ -328,7 +314,6 @@
             Controls.Add(label3);
             Controls.Add(textBox_question);
             Controls.Add(label2);
-            Controls.Add(textBox_set);
             Controls.Add(Set);
             Controls.Add(label1);
             Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -347,7 +332,6 @@
 
         private Label label1;
         private Label Set;
-        private TextBox textBox_set;
         private TextBox textBox_question;
         private Label label2;
         private TextBox textBox_option1;
@@ -362,11 +346,11 @@
         private TextBox textBox_answer;
         private Label label8;
         private Label questionLabel;
-        private Label label_NoSet;
         private Guna.UI2.WinForms.Guna2Button btn_next;
         private Guna.UI2.WinForms.Guna2Button btn_reset;
         private Guna.UI2.WinForms.Guna2Button btn_finish;
         private PictureBox pictureBox2;
         private ComboBox testsCB;
+        private TextBox textBox_set;
     }
 }

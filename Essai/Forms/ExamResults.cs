@@ -23,6 +23,8 @@ namespace Essai.Forms
             DisplayResults();
             candidatecb.SelectedIndexChanged += new EventHandler(candidatecb_SelectedIndexChanged);
             TestTypecb.SelectedIndexChanged += new EventHandler(TestTypecb_SelectedIndexChanged);
+            // Set CurrentCell to null to avoid selecting the first row by default
+            resultDGV.CurrentCell = null;
         }
 
         SqlConnection Con = new SqlConnection("data source = SKANDERBAATOUT;database = quiz ; integrated security = True ; TrustServerCertificate=True");
@@ -36,7 +38,7 @@ namespace Essai.Forms
             var ds = new DataSet();
             sda.Fill(ds);
             resultDGV.DataSource = ds.Tables[0];
-            resultDGV.Columns[0].Visible = false; 
+            resultDGV.Columns[0].Visible = false;
             resultDGV.Columns[1].HeaderText = "Test Name";
             resultDGV.Columns[2].HeaderText = "Number of questions";
             resultDGV.Columns[3].HeaderText = "Date";
@@ -201,6 +203,33 @@ namespace Essai.Forms
         private void TestTypecb_SelectedIndexChanged(object sender, EventArgs e)
         {
             FilterByTest();
+        }
+
+        private void resultDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            foreach (DataGridViewRow row in resultDGV.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    object cellValue = row.Cells[7].Value;
+                    if (cellValue != DBNull.Value)
+                    {
+                        bool isApproved = Convert.ToBoolean(cellValue);
+                        if (isApproved == false)
+                        {
+                            row.DefaultCellStyle.BackColor = Color.Red;
+                            row.DefaultCellStyle.ForeColor = Color.White;
+                        }
+                        else if (isApproved == true)
+                        {
+                            row.DefaultCellStyle.BackColor = Color.Green;
+                            row.DefaultCellStyle.ForeColor = Color.Yellow;
+                        }
+                    }
+
+                }
+            }
+
         }
     }
 }

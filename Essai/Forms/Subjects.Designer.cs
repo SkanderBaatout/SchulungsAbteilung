@@ -143,7 +143,7 @@
             // 
             // subjectTb
             // 
-            subjectTb.Location = new Point(117, 55);
+            subjectTb.Location = new Point(81, 55);
             subjectTb.Name = "subjectTb";
             subjectTb.Size = new Size(158, 27);
             subjectTb.TabIndex = 21;
@@ -151,6 +151,7 @@
             // 
             // subjectsList
             // 
+            subjectsList.AllowUserToAddRows = false;
             dataGridViewCellStyle1.BackColor = Color.White;
             subjectsList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -161,7 +162,7 @@
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             subjectsList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            subjectsList.ColumnHeadersHeight = 25;
+            subjectsList.ColumnHeadersHeight = 30;
             subjectsList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.White;
@@ -172,7 +173,8 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             subjectsList.DefaultCellStyle = dataGridViewCellStyle3;
             subjectsList.Dock = DockStyle.Bottom;
-            subjectsList.GridColor = Color.FromArgb(231, 229, 255);
+            subjectsList.EnableHeadersVisualStyles = true;
+            subjectsList.GridColor = Color.Teal;
             subjectsList.Location = new Point(0, 328);
             subjectsList.Name = "subjectsList";
             subjectsList.RowHeadersVisible = false;
@@ -185,13 +187,13 @@
             subjectsList.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
             subjectsList.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
             subjectsList.ThemeStyle.BackColor = Color.White;
-            subjectsList.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
+            subjectsList.ThemeStyle.GridColor = Color.Teal;
             subjectsList.ThemeStyle.HeaderStyle.BackColor = Color.Black;
             subjectsList.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
             subjectsList.ThemeStyle.HeaderStyle.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             subjectsList.ThemeStyle.HeaderStyle.ForeColor = Color.White;
             subjectsList.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            subjectsList.ThemeStyle.HeaderStyle.Height = 25;
+            subjectsList.ThemeStyle.HeaderStyle.Height = 30;
             subjectsList.ThemeStyle.ReadOnly = false;
             subjectsList.ThemeStyle.RowsStyle.BackColor = Color.White;
             subjectsList.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -207,7 +209,7 @@
             isActiveCheckBox.AutoSize = true;
             isActiveCheckBox.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             isActiveCheckBox.ForeColor = Color.Black;
-            isActiveCheckBox.Location = new Point(827, 53);
+            isActiveCheckBox.Location = new Point(791, 53);
             isActiveCheckBox.Name = "isActiveCheckBox";
             isActiveCheckBox.Size = new Size(91, 23);
             isActiveCheckBox.TabIndex = 35;
@@ -219,7 +221,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label5.ForeColor = Color.Black;
-            label5.Location = new Point(127, 95);
+            label5.Location = new Point(91, 95);
             label5.Name = "label5";
             label5.Size = new Size(94, 19);
             label5.TabIndex = 36;
@@ -227,7 +229,7 @@
             // 
             // descriptionTB
             // 
-            descriptionTB.Location = new Point(117, 117);
+            descriptionTB.Location = new Point(81, 117);
             descriptionTB.Multiline = true;
             descriptionTB.Name = "descriptionTB";
             descriptionTB.Size = new Size(358, 89);
@@ -237,7 +239,7 @@
             // 
             label6.AutoSize = true;
             label6.ForeColor = Color.White;
-            label6.Location = new Point(457, 61);
+            label6.Location = new Point(421, 61);
             label6.Name = "label6";
             label6.Size = new Size(77, 21);
             label6.TabIndex = 38;
@@ -248,7 +250,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label7.ForeColor = Color.Black;
-            label7.Location = new Point(305, 33);
+            label7.Location = new Point(269, 33);
             label7.Name = "label7";
             label7.Size = new Size(110, 19);
             label7.TabIndex = 40;
@@ -259,7 +261,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label8.ForeColor = Color.Black;
-            label8.Location = new Point(526, 31);
+            label8.Location = new Point(490, 31);
             label8.Name = "label8";
             label8.Size = new Size(104, 19);
             label8.TabIndex = 42;
@@ -267,7 +269,7 @@
             // 
             // dateTimePicker
             // 
-            dateTimePicker.Location = new Point(526, 53);
+            dateTimePicker.Location = new Point(490, 53);
             dateTimePicker.Name = "dateTimePicker";
             dateTimePicker.Size = new Size(289, 27);
             dateTimePicker.TabIndex = 43;
@@ -297,7 +299,7 @@
             // loadBtn
             // 
             loadBtn.BackColor = Color.Gainsboro;
-            loadBtn.Location = new Point(683, 147);
+            loadBtn.Location = new Point(647, 147);
             loadBtn.Name = "loadBtn";
             loadBtn.Size = new Size(135, 30);
             loadBtn.TabIndex = 45;
@@ -307,7 +309,7 @@
             // 
             // contentTB
             // 
-            contentTB.Location = new Point(526, 114);
+            contentTB.Location = new Point(490, 114);
             contentTB.Name = "contentTB";
             contentTB.Size = new Size(289, 27);
             contentTB.TabIndex = 46;
@@ -317,7 +319,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label9.ForeColor = Color.Black;
-            label9.Location = new Point(127, 33);
+            label9.Location = new Point(91, 33);
             label9.Name = "label9";
             label9.Size = new Size(124, 19);
             label9.TabIndex = 48;
@@ -326,7 +328,7 @@
             // contentTypeCB
             // 
             contentTypeCB.FormattingEnabled = true;
-            contentTypeCB.Location = new Point(308, 57);
+            contentTypeCB.Location = new Point(272, 57);
             contentTypeCB.Name = "contentTypeCB";
             contentTypeCB.Size = new Size(167, 29);
             contentTypeCB.TabIndex = 49;
@@ -334,7 +336,7 @@
             // contentPathLabel
             // 
             contentPathLabel.AutoSize = true;
-            contentPathLabel.Location = new Point(594, 185);
+            contentPathLabel.Location = new Point(558, 185);
             contentPathLabel.Name = "contentPathLabel";
             contentPathLabel.Size = new Size(66, 21);
             contentPathLabel.TabIndex = 50;
@@ -343,7 +345,7 @@
             // addContentBtn
             // 
             addContentBtn.BackColor = Color.Gainsboro;
-            addContentBtn.Location = new Point(526, 147);
+            addContentBtn.Location = new Point(490, 147);
             addContentBtn.Name = "addContentBtn";
             addContentBtn.Size = new Size(134, 31);
             addContentBtn.TabIndex = 51;
@@ -355,7 +357,7 @@
             // 
             ContentListBoxx.FormattingEnabled = true;
             ContentListBoxx.ItemHeight = 21;
-            ContentListBoxx.Location = new Point(824, 114);
+            ContentListBoxx.Location = new Point(788, 114);
             ContentListBoxx.Name = "ContentListBoxx";
             ContentListBoxx.Size = new Size(94, 88);
             ContentListBoxx.TabIndex = 52;

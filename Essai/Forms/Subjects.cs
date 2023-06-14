@@ -287,7 +287,7 @@ namespace Essai
 
                     // Check if subject.DateAdded is not equal to DateTime.MinValue
                     dateTimePicker.Value = subject.DateAdded != DateTime.MinValue ? subject.DateAdded : DateTime.Now;
-
+                    
                     isActiveCheckBox.Checked = subject.IsActive;
 
                     contentList = subject.Content;

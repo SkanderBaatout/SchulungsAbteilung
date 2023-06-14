@@ -451,6 +451,13 @@ namespace Essai.DataAccess
                 {
                     try
                     {
+                        // Delete records in EmployeeProgression table that reference the subject
+                        string deleteEmployeeProgressionQuery = "DELETE FROM EmployeeProgression WHERE SubjectId = @Id";
+                        SqlCommand deleteEmployeeProgressionCommand = new SqlCommand(deleteEmployeeProgressionQuery, connection, transaction);
+                        deleteEmployeeProgressionCommand.Parameters.AddWithValue("@Id", id);
+                        deleteEmployeeProgressionCommand.ExecuteNonQuery();
+
+                        // Get the content IDs to delete
                         string selectContentIdsQuery = "SELECT ContentId FROM ContentTbl WHERE SubjectId = @SubjectId";
                         SqlCommand selectContentIdsCommand = new SqlCommand(selectContentIdsQuery, connection, transaction);
                         selectContentIdsCommand.Parameters.AddWithValue("@SubjectId", id);
@@ -464,6 +471,7 @@ namespace Essai.DataAccess
                             }
                         }
 
+                        // Delete the content
                         string deleteContentQuery = "DELETE FROM ContentTbl WHERE ContentId = @ContentId";
                         SqlCommand deleteContentCommand = new SqlCommand(deleteContentQuery, connection, transaction);
 
@@ -474,10 +482,10 @@ namespace Essai.DataAccess
                             deleteContentCommand.ExecuteNonQuery();
                         }
 
+                        // Delete the subject
                         string deleteSubjectQuery = "DELETE FROM SubjectTbl WHERE SId = @Id";
                         SqlCommand deleteSubjectCommand = new SqlCommand(deleteSubjectQuery, connection, transaction);
                         deleteSubjectCommand.Parameters.AddWithValue("@Id", id);
-
                         deleteSubjectCommand.ExecuteNonQuery();
 
                         transaction.Commit();
