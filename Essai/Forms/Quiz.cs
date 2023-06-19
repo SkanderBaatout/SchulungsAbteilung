@@ -46,27 +46,14 @@ namespace Essai
         {
             InitializeComponent();
         }
-
         private void Quiz_Load(object sender, EventArgs e)
         {
-
             label_nameEmp.Text = LoginForm.username;
             label_cinEmp.Text = LoginForm.cin;
             string testName = GetRandomTestName();
             label_set.Text = testName;
-
-            // Set up the quiz
             SetUpQuiz(testName);
         }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            EmployeeBord form = new EmployeeBord();
-            form.Show();
-            this.Hide();
-        }
-
-
         private void btn_next_Click(object sender, EventArgs e)
         {
             if (_quizEnded)
@@ -85,7 +72,6 @@ namespace Essai
                         {
                             _score++;
                         }
-
                         _currentIndex++;
                         DisplayQuestion(_currentIndex);
                         UpdateQuestionNumber(_currentIndex + 1, _totalQuestions);
@@ -105,20 +91,27 @@ namespace Essai
             }
         }
         private const int TimerInterval = 1000;
+        bool _quizCompleted = false;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            // Update the remaining time
+            // Check if quiz has already completed
+            if (_quizCompleted)
+            {
+                return;
+            }
+
             _remainingTime--;
             label_remainingTime.Text = $"{_remainingTime} seconds";
 
-            // Check if the time has run out
-            if (_remainingTime == 0)
+            if (_remainingTime <= 0)
             {
-                // End the quiz
-                EndQuiz(label_set.Text);
-                InsertTest(label_set.Text);
-
-                // Redirect to login form
+                // Stop the timer
+                _quizCompleted = true; // set the flag to true
+                timer1.Stop();
+                MessageBox.Show("You scored " + _score.ToString() + " Of " + _totalQuestions.ToString() + ".", "Result");
+                // Insert the test into the database and return to the login form
+                // InsertTest(label_set.Text);
+                InsertOrUpdateExamResult(label_set.Text);
                 this.Hide();
                 LoginForm loginForm = new LoginForm();
                 loginForm.Show();
@@ -126,7 +119,6 @@ namespace Essai
         }
         private void SetUpQuiz(string testName)
         {
-            // Get the questions for the test
             _query = "SELECT question, optionA, optionB, optionC, optionD, ans, PhotoData FROM questions q INNER JOIN TestsType tt ON q.qset COLLATE Arabic_CI_AS = tt.name COLLATE Arabic_CI_AS WHERE tt.name = @testName COLLATE Arabic_CI_AS";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -141,24 +133,22 @@ namespace Essai
                 }
             }
 
-            // Shuffle the questions
-            _questionIndexes = Enumerable.Range(0, _dataSet.Tables[0].Rows.Count).ToList();
-            Shuffle(_questionIndexes);
+            // Select 10 random questions
+            List<int> allQuestionIndexes = Enumerable.Range(0, _dataSet.Tables[0].Rows.Count).ToList();
+            Shuffle(allQuestionIndexes);
+            _questionIndexes = allQuestionIndexes.Take(10).ToList();
+            _totalQuestions = 10;
 
-            // Initialize the quiz
-            _totalQuestions = _dataSet.Tables[0].Rows.Count;
             _currentIndex = 0;
             _score = 0;
-            int totalQuizTime = _totalQuestions * 30; // Total quiz time in seconds
+            int totalQuizTime = _totalQuestions * 30;
             _remainingTime = totalQuizTime;
 
-            // Start the timer
             _timer = new System.Windows.Forms.Timer();
             _timer.Interval = 1000;
             _timer.Tick += timer1_Tick;
             _timer.Start();
 
-            // Display the first question
             DisplayQuestion(_currentIndex);
             UpdateQuestionNumber(1, _totalQuestions);
             label_total_Time.Text = $"{totalQuizTime} seconds";
@@ -192,13 +182,61 @@ namespace Essai
                 }
                 catch (Exception ex)
                 {
-                    // Log the error or display an error message
                     Console.WriteLine("Error loading image: " + ex.Message);
                 }
             }
             else
             {
                 pictureBox_question.Image = null;
+            }
+        }
+        
+
+       
+        private void EndQuiz(string testName)
+        {
+            _timer.Stop();
+
+            radioButton1.Enabled = false;
+            radioButton2.Enabled = false;
+            radioButton3.Enabled = false;
+            radioButton4.Enabled = false;
+            btn_next.Text = "Submit";
+
+            MessageBox.Show("You scored " + _score.ToString() + " Of " + _totalQuestions.ToString() + ".", "Result");
+
+            _quizEnded = true;
+            InsertOrUpdateExamResult(testName);
+
+            var logoPath = "C:\\Users\\ASUS\\Desktop\\icons\\logo.png";
+            var name = label_nameEmp.Text;
+            var cin = label_cinEmp.Text;
+            var fileName = "badge_" + name + ".pdf";
+
+            BadgeGenerator.Instance.GenerateBadge(logoPath, testName, name, cin, _score, _totalQuestions, fileName);
+        }
+
+        private string GetRandomTestName()
+        {
+            _query = "SELECT TOP 1 tt.name FROM questions q INNER JOIN TestsType tt ON q.qset COLLATE Arabic_CI_AS = tt.name COLLATE Arabic_CI_AS GROUP BY tt.name ORDER BY NEWID()";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(_query, connection))
+                {
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        string testName = Convert.ToString(result);
+                        connection.Close();
+                        return testName;
+                    }
+                    else
+                    {
+                        connection.Close();
+                        throw new Exception("No test name found");
+                    }
+                }
             }
         }
         private int GetSelectedOption()
@@ -242,10 +280,8 @@ namespace Essai
             radioButton3.Checked = false;
             radioButton4.Checked = false;
         }
-      
         private void InsertOrUpdateExamResult(string testName)
         {
-            // Retrieve the number of times the user has taken the exam
             int examCount;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -305,53 +341,6 @@ namespace Essai
                 MessageBox.Show("You've passed this exam twice.", "Error");
             }
         }
-        private void EndQuiz(string testName)
-        {
-            _timer.Stop();
-
-            radioButton1.Enabled = false;
-            radioButton2.Enabled = false;
-            radioButton3.Enabled = false;
-            radioButton4.Enabled = false;
-            btn_next.Text = "Submit";
-
-            MessageBox.Show("You scored " + _score.ToString() + " Of " + _totalQuestions.ToString() + ".", "Result");
-
-            _quizEnded = true;
-            InsertOrUpdateExamResult(testName);
-
-            var logoPath = "C:\\Users\\ASUS\\Desktop\\icons\\logo.png";
-            var name = label_nameEmp.Text;
-            var cin = label_cinEmp.Text;
-            var fileName = "badge_" + name + ".pdf";
-
-            BadgeGenerator.Instance.GenerateBadge(logoPath, testName, name, cin, _score, _totalQuestions, fileName);
-        }
-
-        private string GetRandomTestName()
-        {
-            _query = "SELECT TOP 1 tt.name FROM questions q INNER JOIN TestsType tt ON q.qset COLLATE Arabic_CI_AS = tt.name COLLATE Arabic_CI_AS GROUP BY tt.name ORDER BY NEWID()";
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                using (SqlCommand command = new SqlCommand(_query, connection))
-                {
-                    connection.Open();
-                    object result = command.ExecuteScalar();
-                    if (result != null)
-                    {
-                        string testName = Convert.ToString(result);
-                        connection.Close();
-                        return testName;
-                    }
-                    else
-                    {
-                        connection.Close();
-                        throw new Exception("No test name found");
-                    }
-                }
-            }
-        }
-
         private void Shuffle<T>(IList<T> list)
         {
             if (list == null)
@@ -428,6 +417,12 @@ namespace Essai
                     return command.ExecuteNonQuery();
                 }
             }
+        }
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            EmployeeBord form = new EmployeeBord();
+            form.Show();
+            this.Hide();
         }
         private System.Drawing.Color GetBadgeColor(int score)
         {

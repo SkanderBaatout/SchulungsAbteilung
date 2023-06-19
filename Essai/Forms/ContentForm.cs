@@ -136,14 +136,30 @@ namespace Essai
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand updateCommand = new SqlCommand("IF EXISTS(SELECT 1 FROM EmployeeProgression WHERE EmployeeId = @employeeId AND SubjectId = @subjectId) " +
+
+                    // Check if the EmployeeId exists in the employees table
+                    using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM employees WHERE id = @employeeId", connection))
+                    {
+                        command.Parameters.AddWithValue("@employeeId", _employeeId);
+                        int employeeCount = (int)command.ExecuteScalar();
+
+                        if (employeeCount == 0)
+                        {
+                            throw new Exception($"Employee with ID {_employeeId} does not exist.");
+                        }
+                    }
+
+                    // Insert or update the EmployeeProgression record
+                    using (SqlCommand command = new SqlCommand("IF EXISTS(SELECT 1 FROM EmployeeProgression WHERE EmployeeId = @employeeId AND SubjectId = @subjectId) " +
                                                                 "UPDATE EmployeeProgression SET ViewedContents = @viewedContents WHERE EmployeeId = @employeeId AND SubjectId = @subjectId " +
                                                                 "ELSE " +
-                                                                "INSERT INTO EmployeeProgression (EmployeeId, SubjectId, ViewedContents) VALUES (@employeeId, @subjectId, @viewedContents)", connection);
-                    updateCommand.Parameters.AddWithValue("@employeeId", _employeeId);
-                    updateCommand.Parameters.AddWithValue("@subjectId", _subjectId);
-                    updateCommand.Parameters.AddWithValue("@viewedContents", viewedContentsStr);
-                    updateCommand.ExecuteNonQuery();
+                                                                "INSERT INTO EmployeeProgression (EmployeeId, SubjectId, ViewedContents) VALUES (@employeeId, @subjectId, @viewedContents)", connection))
+                    {
+                        command.Parameters.AddWithValue("@employeeId", _employeeId);
+                        command.Parameters.AddWithValue("@subjectId", _subjectId);
+                        command.Parameters.AddWithValue("@viewedContents", viewedContentsStr);
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
             Control contentControl = null;

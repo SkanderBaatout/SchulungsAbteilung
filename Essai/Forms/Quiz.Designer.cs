@@ -176,7 +176,7 @@
             // 
             radioButton1.AutoSize = true;
             radioButton1.Checked = true;
-            radioButton1.Location = new Point(187, 299);
+            radioButton1.Location = new Point(125, 301);
             radioButton1.Name = "radioButton1";
             radioButton1.Size = new Size(95, 25);
             radioButton1.TabIndex = 54;
@@ -187,7 +187,7 @@
             // radioButton2
             // 
             radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(187, 353);
+            radioButton2.Location = new Point(125, 355);
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(95, 25);
             radioButton2.TabIndex = 55;
@@ -197,7 +197,7 @@
             // radioButton3
             // 
             radioButton3.AutoSize = true;
-            radioButton3.Location = new Point(187, 403);
+            radioButton3.Location = new Point(125, 405);
             radioButton3.Name = "radioButton3";
             radioButton3.Size = new Size(95, 25);
             radioButton3.TabIndex = 56;
@@ -207,7 +207,7 @@
             // radioButton4
             // 
             radioButton4.AutoSize = true;
-            radioButton4.Location = new Point(187, 454);
+            radioButton4.Location = new Point(125, 456);
             radioButton4.Name = "radioButton4";
             radioButton4.Size = new Size(95, 25);
             radioButton4.TabIndex = 57;
@@ -224,7 +224,7 @@
             // label_question
             // 
             label_question.AutoSize = true;
-            label_question.Location = new Point(118, 240);
+            label_question.Location = new Point(56, 242);
             label_question.Name = "label_question";
             label_question.Size = new Size(80, 21);
             label_question.TabIndex = 59;
